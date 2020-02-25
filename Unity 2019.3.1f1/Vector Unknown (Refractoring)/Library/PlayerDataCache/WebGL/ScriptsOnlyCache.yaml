@@ -3,9 +3,11 @@ ScriptsOnlyBuild:
     Assembly-CSharp-firstpass.dll:
     - UnityStandardAssets.Characters.ThirdPerson.ThirdPersonCharacter
     - UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl
+    - UnityStandardAssets.Water.Water
     Assembly-CSharp.dll:
     - AudioService
     - CameraController
+    - CloudRotation
     - DynamicWindow
     - GameControllerPuzzle01
     - GameControllerPuzzle02
@@ -84,51 +86,55 @@ ScriptsOnlyBuild:
     - Class: 111
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11140}
-    - Class: 114
       Script: {instanceID: 11154}
     - Class: 114
-      Script: {instanceID: 11270}
+      Script: {instanceID: 11168}
     - Class: 114
-      Script: {instanceID: 11344}
+      Script: {instanceID: 11284}
     - Class: 114
-      Script: {instanceID: 11388}
+      Script: {instanceID: 11358}
     - Class: 114
-      Script: {instanceID: 11812}
+      Script: {instanceID: 11402}
     - Class: 114
-      Script: {instanceID: 11948}
+      Script: {instanceID: 11404}
     - Class: 114
-      Script: {instanceID: 12070}
+      Script: {instanceID: 11828}
     - Class: 114
-      Script: {instanceID: 12074}
+      Script: {instanceID: 11964}
     - Class: 114
-      Script: {instanceID: 12262}
+      Script: {instanceID: 12086}
     - Class: 114
-      Script: {instanceID: 12272}
+      Script: {instanceID: 12090}
     - Class: 114
-      Script: {instanceID: 12324}
+      Script: {instanceID: 12278}
     - Class: 114
-      Script: {instanceID: 12386}
+      Script: {instanceID: 12288}
     - Class: 114
-      Script: {instanceID: 12482}
+      Script: {instanceID: 12340}
     - Class: 114
-      Script: {instanceID: 12484}
+      Script: {instanceID: 12402}
     - Class: 114
-      Script: {instanceID: 12548}
+      Script: {instanceID: 12498}
     - Class: 114
-      Script: {instanceID: 12628}
+      Script: {instanceID: 12500}
     - Class: 114
-      Script: {instanceID: 12780}
+      Script: {instanceID: 12516}
     - Class: 114
-      Script: {instanceID: 12802}
+      Script: {instanceID: 12564}
     - Class: 114
-      Script: {instanceID: 12820}
+      Script: {instanceID: 12644}
     - Class: 114
-      Script: {instanceID: 12832}
+      Script: {instanceID: 12796}
     - Class: 114
-      Script: {instanceID: 13224}
+      Script: {instanceID: 12818}
     - Class: 114
-      Script: {instanceID: 13256}
+      Script: {instanceID: 12836}
+    - Class: 114
+      Script: {instanceID: 12848}
+    - Class: 114
+      Script: {instanceID: 13240}
+    - Class: 114
+      Script: {instanceID: 13272}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 128
@@ -156,15 +162,47 @@ ScriptsOnlyBuild:
       Script: {instanceID: 0}
     - Class: 20
       Script: {instanceID: 0}
+    - Class: 21
+      Script: {instanceID: 0}
+    - Class: 23
+      Script: {instanceID: 0}
     - Class: 28
+      Script: {instanceID: 0}
+    - Class: 33
+      Script: {instanceID: 0}
+    - Class: 43
+      Script: {instanceID: 0}
+    - Class: 48
+      Script: {instanceID: 0}
+    - Class: 74
       Script: {instanceID: 0}
     - Class: 81
       Script: {instanceID: 0}
+    - Class: 90
+      Script: {instanceID: 0}
+    - Class: 91
+      Script: {instanceID: 0}
+    - Class: 95
+      Script: {instanceID: 0}
     - Class: 104
+      Script: {instanceID: 0}
+    - Class: 108
+      Script: {instanceID: 0}
+    - Class: 111
+      Script: {instanceID: 0}
+    - Class: 114
+      Script: {instanceID: 11404}
+    - Class: 114
+      Script: {instanceID: 12516}
+    - Class: 115
+      Script: {instanceID: 0}
+    - Class: 137
       Script: {instanceID: 0}
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 258
       Script: {instanceID: 0}
     Assets/Resources/Scenes/02Main.unity:
     - Class: 1
@@ -204,11 +242,11 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11948}
+      Script: {instanceID: 11964}
     - Class: 114
-      Script: {instanceID: 12074}
+      Script: {instanceID: 12090}
     - Class: 114
-      Script: {instanceID: 13050}
+      Script: {instanceID: 13066}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -259,15 +297,15 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11456}
+      Script: {instanceID: 11472}
     - Class: 114
-      Script: {instanceID: 11948}
+      Script: {instanceID: 11964}
     - Class: 114
-      Script: {instanceID: 12074}
+      Script: {instanceID: 12090}
     - Class: 114
-      Script: {instanceID: 13050}
+      Script: {instanceID: 13066}
     - Class: 114
-      Script: {instanceID: 13118}
+      Script: {instanceID: 13134}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -316,13 +354,13 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11948}
+      Script: {instanceID: 11964}
     - Class: 114
-      Script: {instanceID: 12074}
+      Script: {instanceID: 12090}
     - Class: 114
-      Script: {instanceID: 12556}
+      Script: {instanceID: 12572}
     - Class: 114
-      Script: {instanceID: 13050}
+      Script: {instanceID: 13066}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -371,13 +409,13 @@ ScriptsOnlyBuild:
     - Class: 108
       Script: {instanceID: 0}
     - Class: 114
-      Script: {instanceID: 11282}
+      Script: {instanceID: 11296}
     - Class: 114
-      Script: {instanceID: 11948}
+      Script: {instanceID: 11964}
     - Class: 114
-      Script: {instanceID: 12074}
+      Script: {instanceID: 12090}
     - Class: 114
-      Script: {instanceID: 13050}
+      Script: {instanceID: 13066}
     - Class: 115
       Script: {instanceID: 0}
     - Class: 136
@@ -545,6 +583,12 @@ ScriptsOnlyBuild:
     assemblyName: UnityEngine.UI.dll
     namespaceName: UnityEngine.UI
     className: Image
+  - hash:
+      serializedVersion: 2
+      Hash: 6f5fa8f7736231bc11887c009bf542d7
+    assemblyName: Assembly-CSharp.dll
+    namespaceName: 
+    className: CloudRotation
   - hash:
       serializedVersion: 2
       Hash: 718ef0ded913ba15da8a97ccf24793ce
@@ -1435,4 +1479,4 @@ ScriptsOnlyBuild:
   - Assets/Resources/Scenes/03Puzzle01.unity
   - Assets/Resources/Scenes/04Puzzle02.unity
   - Assets/Resources/Scenes/05Puzzle03.unity
-  playerPath: C:/Users/82579/Desktop/TR
+  playerPath: C:/Users/82579/Desktop/T

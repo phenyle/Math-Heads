@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{B7C5387D-00F0-6A4E-DD41-E6F3771AB8B7}</ProjectGuid>
+    <ProjectGuid>{BE78A938-06D2-712B-03FA-E4CCC949B5A6}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
@@ -70,40 +70,40 @@
     <Compile Include="Assets\Standard Assets\Editor\Water\Water4\WaterBaseEditor.cs" />
     <Compile Include="Assets\Standard Assets\Editor\Water\Water4\WaterEditorUtility.cs" />
     <Reference Include="UnityEditor.TestRunner">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/UnityEditor.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.TestRunner">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/UnityEngine.TestRunner.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
@@ -307,7 +307,7 @@
       <HintPath>C:/Program Files (x86)/Microsoft Visual Studio Tools for Unity/16.0/Editor/SyntaxTree.VisualStudio.Unity.Bridge.dll</HintPath>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.iOS.Extensions.Xcode">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.1f1/Editor/Data/PlaybackEngines/iOSSupport/UnityEditor.iOS.Extensions.Xcode.dll</HintPath>
@@ -672,7 +672,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{0F9E84FD-6A38-98B8-9FDE-8ABD89B67346}</Project>
+      <Project>{9F2BF435-49BE-08EC-3DF6-A0856A05970A}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
   </ItemGroup>

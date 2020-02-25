@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &9137363
 RectTransform:
   m_ObjectHideFlags: 0
@@ -653,7 +653,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &399027148
 RectTransform:
   m_ObjectHideFlags: 0
@@ -794,7 +794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &587107725
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1099,7 +1099,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioBg: {fileID: 380027439}
   audioUI: {fileID: 230294097}
-  audioPlayer: {fileID: 1286275163}
+  audioPlayerMove: {fileID: 0}
 --- !u!114 &857619121
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2348,6 +2348,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 623766456}
     m_Modifications:
+    - target: {fileID: 2403740784490171493, guid: 9b79cba37899cd544a12fab2d52c1fdd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 311
+      objectReference: {fileID: 0}
+    - target: {fileID: 3782766618489528547, guid: 9b79cba37899cd544a12fab2d52c1fdd,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5853412725191448647, guid: 9b79cba37899cd544a12fab2d52c1fdd,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6201341227524761673, guid: 9b79cba37899cd544a12fab2d52c1fdd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2461,6 +2476,21 @@ PrefabInstance:
     - target: {fileID: 6201341227524761678, guid: 9b79cba37899cd544a12fab2d52c1fdd,
         type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7619005264894245024, guid: 9b79cba37899cd544a12fab2d52c1fdd,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8290535996496151546, guid: 9b79cba37899cd544a12fab2d52c1fdd,
+        type: 3}
+      propertyPath: m_Color.a
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 8850556134347380229, guid: 9b79cba37899cd544a12fab2d52c1fdd,
+        type: 3}
+      propertyPath: m_Color.a
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{0F9E84FD-6A38-98B8-9FDE-8ABD89B67346}</ProjectGuid>
+    <ProjectGuid>{9F2BF435-49BE-08EC-3DF6-A0856A05970A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
@@ -158,35 +158,42 @@
     <Compile Include="Assets\Standard Assets\Vehicles\Car\Scripts\SkidTrail.cs" />
     <Compile Include="Assets\Standard Assets\Vehicles\Car\Scripts\Suspension.cs" />
     <Compile Include="Assets\Standard Assets\Vehicles\Car\Scripts\WheelEffects.cs" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water (Basic)\DO_NOT_WORK_IN_VR.txt" />
+    <None Include="Assets\Standard Assets\Environment\Water\DO_NOT_WORK_IN_VR.txt" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water\Water\Shaders\FXWaterPro.shader" />
+    <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
     <Reference Include="Unity.Timeline.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.VSCode.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.UI">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Timeline">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
     </Reference>
     <Reference Include="Unity.CollabProxy.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Rider.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.2D.Sprite.Editor">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.2D.Sprite.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.TextMeshPro">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
     </Reference>
     <Reference Include="UnityEditor.UI">
-      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+      <HintPath>C:/Users/82579/Desktop/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.AIModule">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.3.1f1/Editor/Data/Managed/UnityEngine/UnityEngine.AIModule.dll</HintPath>
