@@ -64,16 +64,22 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Resources\Scripts\Commons\CameraController.cs" />
+    <Compile Include="Assets\Resources\Scripts\Commons\CloudRotation.cs" />
     <Compile Include="Assets\Resources\Scripts\Commons\Constants.cs" />
-    <Compile Include="Assets\Resources\Scripts\Commons\GameControllerRoot.cs" />
-    <Compile Include="Assets\Resources\Scripts\Commons\PlayerController.cs" />
-    <Compile Include="Assets\Resources\Scripts\Commons\SystemRoot.cs" />
-    <Compile Include="Assets\Resources\Scripts\Commons\WindowRoot.cs" />
-    <Compile Include="Assets\Resources\Scripts\GameControllers\GameControllerPuzzle01.cs" />
-    <Compile Include="Assets\Resources\Scripts\GameControllers\GameControllerPuzzle02.cs" />
-    <Compile Include="Assets\Resources\Scripts\GameControllers\GameControllerPuzzle03.cs" />
+    <Compile Include="Assets\Resources\Scripts\Commons\Exit.cs" />
+    <Compile Include="Assets\Resources\Scripts\Commons\Roots\GameControllerRoot.cs" />
+    <Compile Include="Assets\Resources\Scripts\Commons\Roots\SystemRoot.cs" />
+    <Compile Include="Assets\Resources\Scripts\Commons\Roots\WindowRoot.cs" />
     <Compile Include="Assets\Resources\Scripts\GameRoot.cs" />
-    <Compile Include="Assets\Resources\Scripts\Menu\CloudRotation.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle01\DatabasePuzzle01.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle01\GameControllerPuzzle01.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle01\Puzzle01Complete.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle01\TopCameraPlayer.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle01\VectorPoint.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle02\DatabasePuzzle02.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle02\GameControllerPuzzle02.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle03\DatabasePuzzle03.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle03\GameControllerPuzzle03.cs" />
     <Compile Include="Assets\Resources\Scripts\Services\AudioService.cs" />
     <Compile Include="Assets\Resources\Scripts\Services\ResourceService.cs" />
     <Compile Include="Assets\Resources\Scripts\Systems\MenuSystem.cs" />

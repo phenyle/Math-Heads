@@ -8,12 +8,17 @@ public class CameraController : MonoBehaviour
     public float dstFromTarget = 3f;
     public Vector2 verticalMinMax = new Vector2(-30, 60);
 
+    [HideInInspector]
+    public bool isLock = false;
     private Vector3 rotationSmoothVelocity, currentRotation;
     private float horizontal, vertical;
 
     private void LateUpdate()
     {
-        CameraMovement();
+        if(!isLock)
+        {
+            CameraMovement();
+        }
     }
 
     private void CameraMovement()

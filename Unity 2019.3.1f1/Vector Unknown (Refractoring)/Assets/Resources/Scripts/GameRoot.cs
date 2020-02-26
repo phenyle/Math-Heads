@@ -27,13 +27,19 @@ public class GameRoot : MonoBehaviour
     {
         DontDestroyOnLoad(this);
         instance = this;
+        
+        if(SceneManager.GetActiveScene().name == Constants.gameRootSceneName)
+        {
+            InitUI();
+        }
+        InitGameRoot();
     }
 
     private void Start()
     {
         Debug.Log("Game Start...");
-        InitUI();
-        InitGameRoot();
+        //InitUI();
+        //InitGameRoot();
     }
 
     private void Update()
@@ -53,7 +59,7 @@ public class GameRoot : MonoBehaviour
         }
     }
 
-    private void InitUI()
+    public void InitUI()
     {
         Transform canvas = transform.Find("Canvas");
 
@@ -86,7 +92,10 @@ public class GameRoot : MonoBehaviour
         puzzleSystem.InitSystem();
 
         //3.Enter Menu Scene
-        menuSystem.EnterMenu();
+        if (SceneManager.GetActiveScene().name == Constants.gameRootSceneName)
+        {
+            menuSystem.EnterMenu();
+        }
     }
 
     public static void AddTips(string tips)
@@ -94,7 +103,7 @@ public class GameRoot : MonoBehaviour
         instance.dynamicWindow.AddTips(tips);
     }
 
-    private void Pause()
+    public void Pause()
     {
         Time.timeScale = 0;
         pauseWindow.SetWindowState(true);
@@ -102,7 +111,7 @@ public class GameRoot : MonoBehaviour
         audioService.PauseAllAudios();
     }
 
-    private void Resume()
+    public void Resume()
     {
         Time.timeScale = 1;
         pauseWindow.SetWindowState(false);
