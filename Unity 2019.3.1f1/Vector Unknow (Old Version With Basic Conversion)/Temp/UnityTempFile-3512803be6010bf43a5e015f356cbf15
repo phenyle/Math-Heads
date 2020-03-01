@@ -1,0 +1,352 @@
+/target:library
+/nowarn:0169
+/out:Temp/Assembly-CSharp-firstpass.dll
+/debug:portable
+/optimize+
+/nostdlib+
+/preferreduilang:en-US
+/langversion:latest
+/reference:Library/PlayerScriptAssemblies/UnityEngine.UI.dll
+/reference:Library/PlayerScriptAssemblies/Unity.Timeline.dll
+/reference:Library/PlayerScriptAssemblies/Unity.TextMeshPro.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.AIModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.AccessibilityModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.AndroidJNIModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.AnimationModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.AssetBundleModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.AudioModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.ClothModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.CoreModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.CrashReportingModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.DSPGraphModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.DirectorModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.GameCenterModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.GridModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.HotReloadModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.IMGUIModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.ImageConversionModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.InputModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.InputLegacyModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.JSONSerializeModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.LocalizationModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.ParticleSystemModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.PerformanceReportingModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.PhysicsModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.Physics2DModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.ProfilerModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.ScreenCaptureModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.SharedInternalsModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.SpriteMaskModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.SpriteShapeModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.StreamingModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.SubstanceModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.SubsystemsModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.TLSModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.TerrainModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.TerrainPhysicsModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.TextCoreModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.TextRenderingModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.TilemapModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UIModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UIElementsModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UNETModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UmbraModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UnityAnalyticsModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UnityConnectModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UnityTestProtocolModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UnityWebRequestModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UnityWebRequestAssetBundleModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UnityWebRequestAudioModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UnityWebRequestTextureModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.UnityWebRequestWWWModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.VFXModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.VRModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.VehiclesModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.VideoModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.WebGLModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.WindModule.dll
+/reference:D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/Managed/UnityEngine.XRModule.dll
+/reference:Assets/Plugins/MathNet.Numerics.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/ref/2.0.0/netstandard.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/Microsoft.Win32.Primitives.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.AppContext.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Concurrent.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.NonGeneric.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Collections.Specialized.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.EventBasedAsync.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.Primitives.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ComponentModel.TypeConverter.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Console.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Data.Common.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Contracts.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Debug.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.FileVersionInfo.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Process.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.StackTrace.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.TextWriterTraceListener.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Tools.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.TraceSource.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Diagnostics.Tracing.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Drawing.Primitives.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Dynamic.Runtime.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.Calendars.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Globalization.Extensions.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Compression.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Compression.ZipFile.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.DriveInfo.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.Primitives.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.FileSystem.Watcher.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.IsolatedStorage.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.MemoryMappedFiles.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.Pipes.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.IO.UnmanagedMemoryStream.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Expressions.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Parallel.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Linq.Queryable.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Http.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.NameResolution.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.NetworkInformation.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Ping.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Primitives.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Requests.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Security.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.Sockets.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebHeaderCollection.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebSockets.Client.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Net.WebSockets.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ObjectModel.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.Extensions.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Reflection.Primitives.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.Reader.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.ResourceManager.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Resources.Writer.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.CompilerServices.VisualC.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Extensions.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Handles.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.InteropServices.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.InteropServices.RuntimeInformation.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Numerics.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Formatters.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Json.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Primitives.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Runtime.Serialization.Xml.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Claims.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Algorithms.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Csp.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Encoding.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.Primitives.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Cryptography.X509Certificates.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.Principal.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Security.SecureString.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Text.Encoding.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Text.Encoding.Extensions.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Text.RegularExpressions.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Overlapped.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Tasks.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Tasks.Parallel.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Thread.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.ThreadPool.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Threading.Timer.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.ValueTuple.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.ReaderWriter.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XDocument.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XmlDocument.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XmlSerializer.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XPath.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netstandard/System.Xml.XPath.XDocument.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/Extensions/2.0.0/System.Numerics.Vectors.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/Extensions/2.0.0/System.Runtime.InteropServices.WindowsRuntime.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/mscorlib.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.ComponentModel.Composition.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Core.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Data.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Drawing.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.IO.Compression.FileSystem.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Net.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Numerics.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Runtime.Serialization.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.ServiceModel.Web.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Transactions.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Web.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Windows.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Linq.dll
+/reference:D:/TM/Documents/Editor/Data/NetStandard/compat/2.0.0/shims/netfx/System.Xml.Serialization.dll
+/define:UNITY_2019_3_1
+/define:UNITY_2019_3
+/define:UNITY_2019
+/define:UNITY_5_3_OR_NEWER
+/define:UNITY_5_4_OR_NEWER
+/define:UNITY_5_5_OR_NEWER
+/define:UNITY_5_6_OR_NEWER
+/define:UNITY_2017_1_OR_NEWER
+/define:UNITY_2017_2_OR_NEWER
+/define:UNITY_2017_3_OR_NEWER
+/define:UNITY_2017_4_OR_NEWER
+/define:UNITY_2018_1_OR_NEWER
+/define:UNITY_2018_2_OR_NEWER
+/define:UNITY_2018_3_OR_NEWER
+/define:UNITY_2018_4_OR_NEWER
+/define:UNITY_2019_1_OR_NEWER
+/define:UNITY_2019_2_OR_NEWER
+/define:UNITY_2019_3_OR_NEWER
+/define:ENABLE_AUDIO
+/define:ENABLE_CACHING
+/define:ENABLE_CLOTH
+/define:ENABLE_MULTIPLE_DISPLAYS
+/define:ENABLE_PHYSICS
+/define:ENABLE_TEXTURE_STREAMING
+/define:ENABLE_UNET
+/define:ENABLE_UNITYEVENTS
+/define:ENABLE_VR
+/define:ENABLE_WEBCAM
+/define:ENABLE_UNITYWEBREQUEST
+/define:ENABLE_WWW
+/define:ENABLE_CLOUD_SERVICES
+/define:ENABLE_CLOUD_SERVICES_COLLAB
+/define:ENABLE_CLOUD_SERVICES_COLLAB_SOFTLOCKS
+/define:ENABLE_CLOUD_SERVICES_ADS
+/define:ENABLE_CLOUD_SERVICES_USE_WEBREQUEST
+/define:ENABLE_CLOUD_SERVICES_CRASH_REPORTING
+/define:ENABLE_CLOUD_SERVICES_PURCHASING
+/define:ENABLE_CLOUD_SERVICES_ANALYTICS
+/define:ENABLE_CLOUD_SERVICES_UNET
+/define:ENABLE_CLOUD_SERVICES_BUILD
+/define:ENABLE_CLOUD_LICENSE
+/define:ENABLE_EDITOR_HUB_LICENSE
+/define:ENABLE_WEBSOCKET_CLIENT
+/define:ENABLE_DIRECTOR_AUDIO
+/define:ENABLE_DIRECTOR_TEXTURE
+/define:ENABLE_MANAGED_JOBS
+/define:ENABLE_MANAGED_TRANSFORM_JOBS
+/define:ENABLE_MANAGED_ANIMATION_JOBS
+/define:ENABLE_MANAGED_AUDIO_JOBS
+/define:ENABLE_ENGINE_CODE_STRIPPING
+/define:ENABLE_MONO_BDWGC
+/define:RENDER_SOFTWARE_CURSOR
+/define:ENABLE_VIDEO
+/define:PLATFORM_WEBGL
+/define:UNITY_WEBGL
+/define:UNITY_WEBGL_API
+/define:UNITY_DISABLE_WEB_VERIFICATION
+/define:UNITY_GFX_USE_PLATFORM_VSYNC
+/define:ENABLE_CRUNCH_TEXTURE_COMPRESSION
+/define:ENABLE_SPATIALTRACKING
+/define:ENABLE_IL2CPP
+/define:NET_STANDARD_2_0
+/define:ENABLE_CUSTOM_RENDER_TEXTURE
+/define:ENABLE_DIRECTOR
+/define:ENABLE_LOCALIZATION
+/define:ENABLE_SPRITES
+/define:ENABLE_TERRAIN
+/define:ENABLE_TILEMAP
+/define:ENABLE_TIMELINE
+/define:ENABLE_LEGACY_INPUT_MANAGER
+/define:CSHARP_7_OR_LATER
+/define:CSHARP_7_3_OR_NEWER
+"Assets\Plugins\Standard Assets\2D\Scripts\Camera2DFollow.cs"
+"Assets\Plugins\Standard Assets\2D\Scripts\CameraFollow.cs"
+"Assets\Plugins\Standard Assets\2D\Scripts\Platformer2DUserControl.cs"
+"Assets\Plugins\Standard Assets\2D\Scripts\PlatformerCharacter2D.cs"
+"Assets\Plugins\Standard Assets\2D\Scripts\Restarter.cs"
+"Assets\Plugins\Standard Assets\Cameras\Scripts\AbstractTargetFollower.cs"
+"Assets\Plugins\Standard Assets\Cameras\Scripts\AutoCam.cs"
+"Assets\Plugins\Standard Assets\Cameras\Scripts\FreeLookCam.cs"
+"Assets\Plugins\Standard Assets\Cameras\Scripts\HandHeldCam.cs"
+"Assets\Plugins\Standard Assets\Cameras\Scripts\LookatTarget.cs"
+"Assets\Plugins\Standard Assets\Cameras\Scripts\PivotBasedCameraRig.cs"
+"Assets\Plugins\Standard Assets\Cameras\Scripts\ProtectCameraFromWallClip.cs"
+"Assets\Plugins\Standard Assets\Cameras\Scripts\TargetFieldOfView.cs"
+"Assets\Plugins\Standard Assets\Characters\FirstPersonCharacter\Scripts\FirstPersonController.cs"
+"Assets\Plugins\Standard Assets\Characters\FirstPersonCharacter\Scripts\HeadBob.cs"
+"Assets\Plugins\Standard Assets\Characters\FirstPersonCharacter\Scripts\MouseLook.cs"
+"Assets\Plugins\Standard Assets\Characters\FirstPersonCharacter\Scripts\RigidbodyFirstPersonController.cs"
+"Assets\Plugins\Standard Assets\Characters\RollerBall\Scripts\Ball.cs"
+"Assets\Plugins\Standard Assets\Characters\RollerBall\Scripts\BallUserControl.cs"
+"Assets\Plugins\Standard Assets\Characters\ThirdPersonCharacter\Scripts\AICharacterControl.cs"
+"Assets\Plugins\Standard Assets\Characters\ThirdPersonCharacter\Scripts\ThirdPersonCharacter.cs"
+"Assets\Plugins\Standard Assets\Characters\ThirdPersonCharacter\Scripts\ThirdPersonUserControl.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\AxisTouchButton.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\ButtonHandler.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\CrossPlatformInputManager.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\InputAxisScrollbar.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\Joystick.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\MobileControlRig.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\MobileInput.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\PlatformSpecific\StandaloneInput.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\TiltInput.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\TouchPad.cs"
+"Assets\Plugins\Standard Assets\CrossPlatformInput\Scripts\VirtualInput.cs"
+"Assets\Plugins\Standard Assets\Environment\Water (Basic)\Scripts\WaterBasic.cs"
+"Assets\Plugins\Standard Assets\Environment\Water\Water\Scripts\Displace.cs"
+"Assets\Plugins\Standard Assets\Environment\Water\Water\Scripts\GerstnerDisplace.cs"
+"Assets\Plugins\Standard Assets\Environment\Water\Water\Scripts\MeshContainer.cs"
+"Assets\Plugins\Standard Assets\Environment\Water\Water\Scripts\PlanarReflection.cs"
+"Assets\Plugins\Standard Assets\Environment\Water\Water\Scripts\SpecularLighting.cs"
+"Assets\Plugins\Standard Assets\Environment\Water\Water\Scripts\Water.cs"
+"Assets\Plugins\Standard Assets\Environment\Water\Water\Scripts\WaterBase.cs"
+"Assets\Plugins\Standard Assets\Environment\Water\Water\Scripts\WaterTile.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\AfterburnerPhysicsForce.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\ExplosionFireAndDebris.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\ExplosionPhysicsForce.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\Explosive.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\ExtinguishableParticleSystem.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\FireLight.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\Hose.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\ParticleSystemMultiplier.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\SmokeParticles.cs"
+"Assets\Plugins\Standard Assets\ParticleSystems\Scripts\WaterHoseParticles.cs"
+"Assets\Plugins\Standard Assets\Utility\ActivateTrigger.cs"
+"Assets\Plugins\Standard Assets\Utility\AlphaButtonClickMask.cs"
+"Assets\Plugins\Standard Assets\Utility\AutoMobileShaderSwitch.cs"
+"Assets\Plugins\Standard Assets\Utility\AutoMoveAndRotate.cs"
+"Assets\Plugins\Standard Assets\Utility\CameraRefocus.cs"
+"Assets\Plugins\Standard Assets\Utility\CurveControlledBob.cs"
+"Assets\Plugins\Standard Assets\Utility\DragRigidbody.cs"
+"Assets\Plugins\Standard Assets\Utility\DynamicShadowSettings.cs"
+"Assets\Plugins\Standard Assets\Utility\EventSystemChecker.cs"
+"Assets\Plugins\Standard Assets\Utility\FOVKick.cs"
+"Assets\Plugins\Standard Assets\Utility\FPSCounter.cs"
+"Assets\Plugins\Standard Assets\Utility\FollowTarget.cs"
+"Assets\Plugins\Standard Assets\Utility\ForcedReset.cs"
+"Assets\Plugins\Standard Assets\Utility\LerpControlledBob.cs"
+"Assets\Plugins\Standard Assets\Utility\ObjectResetter.cs"
+"Assets\Plugins\Standard Assets\Utility\ParticleSystemDestroyer.cs"
+"Assets\Plugins\Standard Assets\Utility\PlatformSpecificContent.cs"
+"Assets\Plugins\Standard Assets\Utility\SimpleActivatorMenu.cs"
+"Assets\Plugins\Standard Assets\Utility\SimpleMouseRotator.cs"
+"Assets\Plugins\Standard Assets\Utility\SmoothFollow.cs"
+"Assets\Plugins\Standard Assets\Utility\TimedObjectActivator.cs"
+"Assets\Plugins\Standard Assets\Utility\TimedObjectDestructor.cs"
+"Assets\Plugins\Standard Assets\Utility\WaypointCircuit.cs"
+"Assets\Plugins\Standard Assets\Utility\WaypointProgressTracker.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Aircraft\Scripts\AeroplaneAiControl.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Aircraft\Scripts\AeroplaneAudio.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Aircraft\Scripts\AeroplaneControlSurfaceAnimator.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Aircraft\Scripts\AeroplaneController.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Aircraft\Scripts\AeroplanePropellerAnimator.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Aircraft\Scripts\AeroplaneUserControl2Axis.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Aircraft\Scripts\AeroplaneUserControl4Axis.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Aircraft\Scripts\JetParticleEffect.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Aircraft\Scripts\LandingGear.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\BrakeLight.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\CarAIControl.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\CarAudio.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\CarController.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\CarSelfRighting.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\CarUserControl.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\Mudguard.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\SkidTrail.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\Suspension.cs"
+"Assets\Plugins\Standard Assets\Vehicles\Car\Scripts\WheelEffects.cs"

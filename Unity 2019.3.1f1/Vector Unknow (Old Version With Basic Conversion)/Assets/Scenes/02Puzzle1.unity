@@ -2603,7 +2603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1046429286}
-  rotatedSpeed: 5
+  rotatedSpeed: 0.5
   rotatedSmoothTime: 0.12
   dstFromTarget: 4
   verticalMinMax: {x: -20, y: 60}
