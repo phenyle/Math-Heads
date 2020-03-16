@@ -1,5 +1,9 @@
 sceneSetups:
+<<<<<<< Updated upstream
 - path: Assets/Resources/Scenes/03Puzzle01.unity
+=======
+- path: Assets/Resources/Scenes/01Menu.unity
+>>>>>>> Stashed changes
   isLoaded: 1
   isActive: 1
   isSubScene: 0
