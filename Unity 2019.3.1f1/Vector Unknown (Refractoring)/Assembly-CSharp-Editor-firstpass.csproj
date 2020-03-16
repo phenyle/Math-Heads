@@ -289,6 +289,9 @@
  <Reference Include="UnityEditor.WebGL.Extensions">
  <HintPath>D:/TM/Documents/Editor/Data/PlaybackEngines/WebGLSupport/UnityEditor.WebGL.Extensions.dll</HintPath>
  </Reference>
+ <Reference Include="UnityEditor.OSXStandalone.Extensions">
+ <HintPath>D:/TM/Documents/Editor/Data/PlaybackEngines/MacStandaloneSupport/UnityEditor.OSXStandalone.Extensions.dll</HintPath>
+ </Reference>
  <Reference Include="nunit.framework">
  <HintPath>D:/TM/Github/Math-Heads/Unity 2019.3.1f1/Vector Unknown (Refractoring)/Library/PackageCache/com.unity.ext.nunit@1.0.0/net35/unity-custom/nunit.framework.dll</HintPath>
  </Reference>

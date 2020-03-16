@@ -73,6 +73,7 @@
      <Compile Include="Assets\Resources\Scripts\Puzzle02\cannonController.cs" />
      <Compile Include="Assets\Resources\Scripts\Puzzle02\cannonballController.cs" />
      <Compile Include="Assets\Resources\Scripts\Puzzle02\mainCannonController.cs" />
+     <Compile Include="Assets\Resources\Scripts\Puzzle02\shipContoller.cs" />
      <Compile Include="Assets\Resources\Scripts\Puzzle03\DatabasePuzzle03.cs" />
      <Compile Include="Assets\Resources\Scripts\Puzzle03\GameControllerPuzzle03.cs" />
      <Compile Include="Assets\Resources\Scripts\Services\AudioService.cs" />

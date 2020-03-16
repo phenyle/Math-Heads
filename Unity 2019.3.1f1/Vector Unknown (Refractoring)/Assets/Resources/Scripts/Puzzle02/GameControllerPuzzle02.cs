@@ -27,11 +27,16 @@ public class GameControllerPuzzle02 : GameControllerRoot
     public bool isCannonballTrigger = false;
     public bool isMainCannonTrigger = false;
     public bool ballIsFlying = false;
+    public bool isCannonSelected = false;
+    public bool isBallSelected = false;
 
     //cannonball 
     public Transform cannonball;
     private Transform tempCannonball;
     public Vector3 targetPosition;
+
+    //main cannonbarrel
+    public GameObject cannonBarrel;
 
     public override void InitGameController(Puzzle02Window P02W)
     {
@@ -48,14 +53,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
         DBP02.InitDatabase();
 
         player = GameObject.FindGameObjectWithTag("Player");
+        cannonBarrel.gameObject.SetActive(false);
     }
-
-
-    void Start()
-    {
-        firingCannon.gameObject.SetActive(false);
-    }
-
+   
+    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Z))
@@ -67,17 +68,17 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         if (isCannonTrigger && Input.GetKeyDown(KeyCode.E))
         {
-            firingCannon.SetActive(true);
+            cannonBarrel.SetActive(true);
 
             selectedVector = currentVector;
-
+            isCannonSelected = true;
             Debug.Log("Selected Vector " + selectedVector[0] + ", " + selectedVector[1]);
         }
 
         if (isCannonballTrigger && Input.GetKeyDown(KeyCode.E))
         {
             selectedTransformMatrix = currentTransformMatrix;
-
+            isBallSelected = true;
             Debug.Log("Selected Matrix " + selectedTransformMatrix[0] + ", " + selectedTransformMatrix[1] + ", " +
                 selectedTransformMatrix[2] + ", " + selectedTransformMatrix[3]);
         }
@@ -88,9 +89,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
             {
                 FireCannon();
                 Debug.Log("cannon fired");
+                isBallSelected = false; isCannonSelected = false;
             }
         }
-
+        
         if (ballIsFlying)
         {
             tempCannonball.transform.position += targetPosition * Time.deltaTime;
@@ -131,7 +133,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         int[] targetVector = DBP02.calculation(selectedVector, selectedTransformMatrix);
         targetPosition.x = targetVector[0];
         targetPosition.z = targetVector[1];
-
+        cannonBarrel.SetActive(false);
         tempCannonball = Instantiate(cannonball, firingCannon.transform.position + new Vector3(0, 1.1f, 1.6f), firingCannon.transform.rotation);
         ballIsFlying = true;        
     }

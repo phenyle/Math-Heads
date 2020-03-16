@@ -14,11 +14,11 @@ public class DatabasePuzzle02 : MonoBehaviour
         GCP02 = GetComponent<GameControllerPuzzle02>();
 
         t1.values = new int[] { 15, 0, 0, 15 };
-        t2.values = new int[] { 2, 3, 4, 1 };
-        t3.values = new int[] { 2, 3, 4, 1 };
-        t4.values = new int[] { 2, 3, 4, 1 };
-        t5.values = new int[] { 2, 3, 4, 1 };
-        t6.values = new int[] { 2, 3, 4, 1 };
+        t2.values = new int[] { -21, 24, -30, 51 };
+        t3.values = new int[] { -30, -21, 51, 24 };
+        t4.values = new int[] { -3, 4, -60, 12 };
+        t5.values = new int[] { 3, 6, 23, 24 };
+        t6.values = new int[] { 15, -18, 16, -19 };
 
         transforms = new transformMatrix[] { t1, t2, t3, t4, t5, t6 };
     }
