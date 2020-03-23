@@ -14,7 +14,6 @@ public class PlayerController : MonoBehaviour
             if(Input.GetKeyDown(KeyCode.E))
             {
                 GameRoot.ShowTips("", false, false);
-
                 GameRoot.instance.puzzleSystem.EnterPuzzle(sceneName);
             }
         }

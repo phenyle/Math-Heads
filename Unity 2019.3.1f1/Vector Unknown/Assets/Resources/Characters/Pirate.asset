@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: Pirate
   m_EditorClassIdentifier: 
   name: Pirates
-  protrait: {fileID: 21300000, guid: eb2322df65e4fd14bab634263f15a343, type: 3}
+  protrait: {fileID: 21300000, guid: 30ecf378e98d75443a74a337e6ac1401, type: 3}

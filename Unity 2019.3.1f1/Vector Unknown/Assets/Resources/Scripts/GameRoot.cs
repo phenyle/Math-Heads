@@ -65,7 +65,7 @@ public class GameRoot : MonoBehaviour
         Transform canvas = transform.Find("Canvas");
         Transform uiWindows = canvas.Find("UIWindows");
 
-        for (int i = 0; i < canvas.childCount; i++)
+        for (int i = 0; i < uiWindows.childCount; i++)
         {
             uiWindows.GetChild(i).gameObject.SetActive(false);
         }
