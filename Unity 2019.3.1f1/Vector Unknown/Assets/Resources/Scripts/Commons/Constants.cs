@@ -21,4 +21,6 @@ public class Constants
     //UI Sound FX Names
     public const string audioUIStartBtn = "BUTTON_Bright_Click_mono";
     public const string audioUIClickBtn = "BUTTON_Bright_Click_mono";
+    public const string audioUIBackBtn = "BUTTON_Bright_Click_mono";
+    public const string audioUINextBtn = "BUTTON_Bright_Click_mono";
 }

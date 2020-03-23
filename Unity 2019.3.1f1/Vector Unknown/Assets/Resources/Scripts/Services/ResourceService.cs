@@ -69,4 +69,9 @@ public class ResourceService : MonoBehaviour
         }
         return audioClip;
     }
+
+    public Conversation LoadConversation(string name)
+    {
+        return Resources.Load<Conversation>("Conversations/" + name);
+    }
 }

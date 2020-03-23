@@ -1,14 +1,17 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MainWindow : WindowRoot
 {
+    public bool isInit;
+
     private GameControllerMain GCM;
 
     private void Start()
     {
-        InitWindow();
+        if(isInit)
+        {
+            InitWindow();
+        }
     }
 
     protected override void InitWindow()

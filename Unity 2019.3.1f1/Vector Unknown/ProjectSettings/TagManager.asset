@@ -8,6 +8,7 @@ TagManager:
   - Cannon
   - CannonBall
   - firedCannonBall
+  - DialogueManager
   layers:
   - Default
   - TransparentFX

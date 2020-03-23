@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public class Puzzle01Window : WindowRoot
 {
+    public bool isInit;
     public Transform panelStart;
     public Transform iptPanel;
     public InputField iptScalar;
@@ -17,7 +18,10 @@ public class Puzzle01Window : WindowRoot
 
     private void Start()
     {
-        InitWindow();
+        if(isInit)
+        {
+            InitWindow();
+        }
     }
 
     protected override void InitWindow()

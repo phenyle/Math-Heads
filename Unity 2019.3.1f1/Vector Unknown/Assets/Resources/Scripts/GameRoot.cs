@@ -63,10 +63,11 @@ public class GameRoot : MonoBehaviour
     public void InitUI()
     {
         Transform canvas = transform.Find("Canvas");
+        Transform uiWindows = canvas.Find("UIWindows");
 
         for (int i = 0; i < canvas.childCount; i++)
         {
-            canvas.GetChild(i).gameObject.SetActive(false);
+            uiWindows.GetChild(i).gameObject.SetActive(false);
         }
 
         dynamicWindow.SetWindowState(true);

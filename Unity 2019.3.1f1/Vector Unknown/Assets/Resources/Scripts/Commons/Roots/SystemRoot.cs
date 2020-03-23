@@ -14,12 +14,13 @@ public class SystemRoot : MonoBehaviour
     protected void CloseAllWindow()
     {
         Transform canvas = transform.Find("Canvas");
+        Transform uiWindows = canvas.Find("UIWindows");
 
         for (int i = 0; i < canvas.childCount; i++)
         {
-            canvas.GetChild(i).gameObject.SetActive(false);
+            uiWindows.GetChild(i).gameObject.SetActive(false);
         }
 
-        canvas.Find("DynamicWindow").GetComponent<DynamicWindow>().SetWindowState(true);
+        uiWindows.Find("DynamicWindow").GetComponent<DynamicWindow>().SetWindowState(true);
     }
 }

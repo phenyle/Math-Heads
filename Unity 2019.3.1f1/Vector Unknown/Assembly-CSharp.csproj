@@ -72,6 +72,10 @@
     <Compile Include="Assets\Resources\Scripts\Commons\Roots\GameControllerRoot.cs" />
     <Compile Include="Assets\Resources\Scripts\Commons\Roots\SystemRoot.cs" />
     <Compile Include="Assets\Resources\Scripts\Commons\Roots\WindowRoot.cs" />
+    <Compile Include="Assets\Resources\Scripts\DialogueSystem\Character.cs" />
+    <Compile Include="Assets\Resources\Scripts\DialogueSystem\Conversation.cs" />
+    <Compile Include="Assets\Resources\Scripts\DialogueSystem\DialogueManager.cs" />
+    <Compile Include="Assets\Resources\Scripts\DialogueSystem\DialogueTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\GameRoot.cs" />
     <Compile Include="Assets\Resources\Scripts\Main\GameControllerMain.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\DatabasePuzzle01.cs" />

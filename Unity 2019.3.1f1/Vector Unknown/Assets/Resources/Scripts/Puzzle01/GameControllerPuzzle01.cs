@@ -30,6 +30,8 @@ public class GameControllerPuzzle01 : GameControllerRoot
         DBP01.InitDatabase();
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_00"));
     }
 
     private void Update()

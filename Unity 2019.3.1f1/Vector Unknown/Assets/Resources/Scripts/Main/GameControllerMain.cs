@@ -12,5 +12,7 @@ public class GameControllerMain : GameControllerRoot
 
         Debug.Log("Connect Main Window");
         this.MW = MW;
+
+        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Main_00"));
     }
 }
