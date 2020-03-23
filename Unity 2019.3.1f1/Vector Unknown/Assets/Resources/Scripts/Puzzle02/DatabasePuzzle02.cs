@@ -13,6 +13,8 @@ public class DatabasePuzzle02 : MonoBehaviour
 
     transformMatrix t1, t2, t3, t4, t5, t6;
 
+    public int[,] tragetMatracies = new int[,] { {15, 15}, {-21, 24}, {-30 ,51}, {-7, 72}, {9, 47}, {33, 35} }; 
+
     public void InitDatabase()
     {
         Debug.Log("Connect GameController of Puzzle02");

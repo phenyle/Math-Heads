@@ -38,6 +38,16 @@ public class GameControllerPuzzle02 : GameControllerRoot
     //main cannonbarrel
     public GameObject cannonBarrel;
 
+    //art stuff
+    public Material trailMaterial;
+    public Material trailMaterialCorrect;
+    public Material trailMaterialWrong;
+
+    //UI
+    public GameObject[] TopViewText;
+    public GameObject[] normalText;
+    private bool topViewOn = false;
+
     public override void InitGameController(Puzzle02Window P02W)
     {
         Debug.Log("Init GameController Puzzle02");
@@ -54,6 +64,11 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         player = GameObject.FindGameObjectWithTag("Player");
         cannonBarrel.gameObject.SetActive(false);
+
+        trailMaterial = trailMaterialWrong;
+
+        foreach (GameObject text in TopViewText) { text.gameObject.SetActive(false); }
+        foreach (GameObject text in normalText) { text.gameObject.SetActive(true); }
     }
    
     
@@ -62,6 +77,18 @@ public class GameControllerPuzzle02 : GameControllerRoot
         if (Input.GetKeyDown(KeyCode.Z))
         {
             SwitchCamera();
+            topViewOn = !topViewOn;
+
+            if (topViewOn)
+            {
+                foreach (GameObject text in TopViewText) { text.gameObject.SetActive(true); }
+                foreach (GameObject text in normalText) { text.gameObject.SetActive(false); }
+            }
+            else
+            {
+                foreach (GameObject text in TopViewText) { text.gameObject.SetActive(false); }
+                foreach (GameObject text in normalText) { text.gameObject.SetActive(true); }
+            }
 
             Debug.Log("Z was pressed");
         }
@@ -142,12 +169,26 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
     private void FireCannon()
     {
-        targetPosition = new Vector3 (0, -3, 0);
+        targetPosition = new Vector3 (0, -5, 0);
         int[] targetVector = DBP02.calculation(selectedVector, selectedTransformMatrix);
         targetPosition.x = targetVector[0];
         targetPosition.z = targetVector[1];
+        Debug.Log("Cannon is aiming at :(" + targetPosition.x + ", " + targetPosition.z + ")");
         cannonBarrel.SetActive(false);
         tempCannonball = Instantiate(cannonball, firingCannon.transform.position + new Vector3(0, 2.1f, 1.6f), firingCannon.transform.rotation);
+
+        tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialWrong;
+
+        for (int i = 0; i < 6; i++)
+        {
+           // Debug.Log("target is compared to :(" + DBP02.tragetMatracies[i, 0] + ", " + DBP02.tragetMatracies[i, 1] + ")");
+            if (DBP02.tragetMatracies[i, 0] == targetPosition.x && DBP02.tragetMatracies[i, 1] == targetPosition.z)
+            {
+                tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialCorrect;
+                Debug.Log("Will Hit!");
+            }
+        }
+
         ballIsFlying = true;        
     }
 }
