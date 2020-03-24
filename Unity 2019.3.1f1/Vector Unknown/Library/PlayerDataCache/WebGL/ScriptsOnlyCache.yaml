@@ -14,7 +14,6 @@ ScriptsOnlyBuild:
     - DatabasePuzzle02
     - DatabasePuzzle03
     - DialogueManager
-    - DialogueTrigger
     - DynamicWindow
     - EnterExit
     - GameControllerMain
@@ -125,8 +124,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11296}
     - Class: 114
       Script: {instanceID: 11368}
-    - Class: 114
-      Script: {instanceID: 11378}
     - Class: 114
       Script: {instanceID: 11414}
     - Class: 114
@@ -320,8 +317,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11368}
     - Class: 114
-      Script: {instanceID: 11378}
-    - Class: 114
       Script: {instanceID: 11414}
     - Class: 114
       Script: {instanceID: 11416}
@@ -339,8 +334,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12112}
     - Class: 114
       Script: {instanceID: 12302}
-    - Class: 114
-      Script: {instanceID: 12308}
     - Class: 114
       Script: {instanceID: 12314}
     - Class: 114
@@ -367,8 +360,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12870}
     - Class: 114
       Script: {instanceID: 12882}
-    - Class: 114
-      Script: {instanceID: 13072}
     - Class: 114
       Script: {instanceID: 13106}
     - Class: 114
@@ -457,8 +448,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11368}
     - Class: 114
-      Script: {instanceID: 11378}
-    - Class: 114
       Script: {instanceID: 11414}
     - Class: 114
       Script: {instanceID: 11416}
@@ -476,8 +465,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12214}
     - Class: 114
       Script: {instanceID: 12302}
-    - Class: 114
-      Script: {instanceID: 12308}
     - Class: 114
       Script: {instanceID: 12314}
     - Class: 114
@@ -502,8 +489,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12870}
     - Class: 114
       Script: {instanceID: 12882}
-    - Class: 114
-      Script: {instanceID: 13072}
     - Class: 114
       Script: {instanceID: 13106}
     - Class: 114
@@ -600,9 +585,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11368}
     - Class: 114
-      Script: {instanceID: 11378}
-    - Class: 114
       Script: {instanceID: 11414}
+    - Class: 114
+      Script: {instanceID: 11416}
     - Class: 114
       Script: {instanceID: 11682}
     - Class: 114
@@ -618,8 +603,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12302}
     - Class: 114
-      Script: {instanceID: 12308}
-    - Class: 114
       Script: {instanceID: 12314}
     - Class: 114
       Script: {instanceID: 12368}
@@ -633,6 +616,8 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12530}
     - Class: 114
       Script: {instanceID: 12532}
+    - Class: 114
+      Script: {instanceID: 12548}
     - Class: 114
       Script: {instanceID: 12596}
     - Class: 114
@@ -651,8 +636,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12882}
     - Class: 114
       Script: {instanceID: 12962}
-    - Class: 114
-      Script: {instanceID: 13072}
     - Class: 114
       Script: {instanceID: 13106}
     - Class: 114
@@ -674,6 +657,10 @@ ScriptsOnlyBuild:
     - Class: 157
       Script: {instanceID: 0}
     - Class: 196
+      Script: {instanceID: 0}
+    - Class: 198
+      Script: {instanceID: 0}
+    - Class: 199
       Script: {instanceID: 0}
     - Class: 213
       Script: {instanceID: 0}
@@ -743,8 +730,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11368}
     - Class: 114
-      Script: {instanceID: 11378}
-    - Class: 114
       Script: {instanceID: 11414}
     - Class: 114
       Script: {instanceID: 11838}
@@ -762,8 +747,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12112}
     - Class: 114
       Script: {instanceID: 12302}
-    - Class: 114
-      Script: {instanceID: 12308}
     - Class: 114
       Script: {instanceID: 12314}
     - Class: 114
@@ -792,8 +775,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12882}
     - Class: 114
       Script: {instanceID: 12976}
-    - Class: 114
-      Script: {instanceID: 13072}
     - Class: 114
       Script: {instanceID: 13106}
     - Class: 114
@@ -1698,7 +1679,7 @@ ScriptsOnlyBuild:
     className: HandHeldCam
   - hash:
       serializedVersion: 2
-      Hash: 4e688cef762b7bc6e4a216f64f3e82c1
+      Hash: 6d82689d821fc482643bfdbb924fe458
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: GameControllerPuzzle02
@@ -1992,7 +1973,7 @@ ScriptsOnlyBuild:
     className: Dropdown
   - hash:
       serializedVersion: 2
-      Hash: 4abd01874ca85b9b9ee0f7a0d2ccea11
+      Hash: 98e14d03056132e40657dcf6f9e0654e
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: shipContoller
@@ -2059,4 +2040,4 @@ ScriptsOnlyBuild:
   - Assets/Resources/Scenes/04Puzzle02.unity
   - Assets/Resources/Scenes/05Puzzle03.unity
   - Assets/Resources/Scenes/06Credit.unity
-  playerPath: C:/Users/82579/Desktop/T
+  playerPath: C:/Users/82579/Desktop/Vector Unknown v0.8
