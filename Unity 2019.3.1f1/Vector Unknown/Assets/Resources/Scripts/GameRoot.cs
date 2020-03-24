@@ -125,4 +125,14 @@ public class GameRoot : MonoBehaviour
         isPause = false;
         audioService.ResumeAllAudios();
     }
+
+    public void IsLock(bool state)
+    {
+        try
+        {
+            Camera.main.GetComponent<CameraController>().isLock = state;
+            GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = state;
+        }
+        catch { }
+    }
 }

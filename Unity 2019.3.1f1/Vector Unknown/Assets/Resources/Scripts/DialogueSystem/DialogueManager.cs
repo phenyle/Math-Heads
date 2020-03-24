@@ -26,6 +26,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Conversation conversation)
     {
+        GameRoot.instance.IsLock(true);
         uiWindows.gameObject.SetActive(false);
 
         //************* Reset the Conversation ****************
@@ -104,5 +105,6 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", false);
 
         uiWindows.gameObject.SetActive(true);
+        GameRoot.instance.IsLock(false);
     }
 }

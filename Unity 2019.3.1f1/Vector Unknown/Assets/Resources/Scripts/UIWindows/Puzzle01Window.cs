@@ -62,7 +62,8 @@ public class Puzzle01Window : WindowRoot
 
             ClearInputField();
             SetActive(iptPanel, false);
-            GCP01.IsLock(false);
+            GameRoot.instance.IsLock(false);
+            //GCP01.IsLock(false);
         }
 
         audioService.PlayUIAudio(Constants.audioUIClickBtn);

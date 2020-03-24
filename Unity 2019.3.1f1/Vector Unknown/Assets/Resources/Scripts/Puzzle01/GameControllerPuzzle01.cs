@@ -45,7 +45,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
         {
             if(!isInQues)
             {
-                IsLock(true);
+                GameRoot.instance.IsLock(true);
                 P01W.ShowInputPanel(true);
                 isInQues = true;
                 SetText("- Press 'E' to exit the question.\n" +
@@ -53,7 +53,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
             }
             else
             {
-                IsLock(false);
+                GameRoot.instance.IsLock(false);
                 P01W.ShowInputPanel(false);
                 isInQues = false;
                 SetText("- Press 'E' to input your answer.\n" +
@@ -69,7 +69,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
             case 1:
                 Camera.main.depth = -1;
                 topCamPlayer.GetComponent<TopCameraPlayer>().isTopCamera = true;
-                IsLock(true);
+                GameRoot.instance.IsLock(true);
                 break;
 
             case -1:
@@ -77,7 +77,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
                 topCamPlayer.GetComponent<TopCameraPlayer>().isTopCamera = false;
                 if (!isInQues)
                 {
-                    IsLock(false);
+                    GameRoot.instance.IsLock(false);
                 }
                 break;
         }
@@ -99,11 +99,5 @@ public class GameControllerPuzzle01 : GameControllerRoot
     public void SetText(string content)
     {
         SetText(P01W.txtInstruction, content);
-    }
-
-    public void IsLock(bool value)
-    {
-        Camera.main.GetComponent<CameraController>().isLock = value;
-        player.GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = value;
     }
 }
