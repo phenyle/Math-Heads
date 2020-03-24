@@ -20,6 +20,26 @@ public class TitleWindow : WindowRoot
         GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle01SceneName);
     }
 
+    #region Testing
+    public void ClickMainBtn()
+    {
+        audioService.PlayUIAudio(Constants.audioUIStartBtn);
+        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.mainSceneName);
+    }
+
+    public void ClickPuzzle2Btn()
+    {
+        audioService.PlayUIAudio(Constants.audioUIStartBtn);
+        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle02SceneName);
+    }
+
+    public void ClickPuzzle3Btn()
+    {
+        audioService.PlayUIAudio(Constants.audioUIStartBtn);
+        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle03SceneName);
+    }
+    #endregion
+
     public void ClickTutorialBtn()
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);

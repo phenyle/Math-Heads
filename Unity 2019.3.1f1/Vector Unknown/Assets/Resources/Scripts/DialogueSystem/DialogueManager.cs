@@ -76,6 +76,7 @@ public class DialogueManager : MonoBehaviour
         
         if(sentenceIndex + 1 >= sentencesSize[dialogueIndex])
         {
+            Debug.Log("1");
             //Move into Next Dialogue
             dialogueIndex++;
             sentenceIndex = 0;

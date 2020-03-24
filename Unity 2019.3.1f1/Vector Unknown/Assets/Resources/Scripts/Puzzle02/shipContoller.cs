@@ -6,6 +6,8 @@ public class shipContoller : MonoBehaviour
 {
     private GameControllerPuzzle02 GCP02;
     public bool isHit = false;
+    public GameObject text1;
+    public GameObject text2;
 
     void Start()
     {
@@ -35,6 +37,8 @@ public class shipContoller : MonoBehaviour
         Destroy(other.gameObject);
         Debug.Log("Boat was hit");
         GCP02.ballIsFlying = false;
+        text1.gameObject.SetActive(false);
+        text2.gameObject.SetActive(false);
     }
 }
 
