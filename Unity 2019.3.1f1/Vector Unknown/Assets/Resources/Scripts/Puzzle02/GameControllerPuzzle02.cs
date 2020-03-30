@@ -197,6 +197,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         }
 
         ballIsFlying = true;
+        cannonBlast.SetActive(true);
         cannonBlast.GetComponent<ParticleSystem>().Play(true);  
     }
 }

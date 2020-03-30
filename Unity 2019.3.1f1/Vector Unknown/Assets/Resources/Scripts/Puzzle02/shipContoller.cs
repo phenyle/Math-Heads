@@ -25,6 +25,7 @@ public class shipContoller : MonoBehaviour
             if (isplayed == false) {
                 tempEffect = Instantiate(effect, this.gameObject.transform.position, this.gameObject.transform.rotation);
                 tempEffect.GetComponent<ParticleSystem>().Play(true);
+                isplayed = !isplayed;
             }
             transform.position += Vector3.down * 1.0f * Time.deltaTime;
 
