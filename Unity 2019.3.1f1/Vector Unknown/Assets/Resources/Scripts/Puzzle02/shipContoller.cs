@@ -6,8 +6,11 @@ public class shipContoller : MonoBehaviour
 {
     private GameControllerPuzzle02 GCP02;
     public bool isHit = false;
+    public bool isplayed = false;
     public GameObject text1;
     public GameObject text2;
+    public GameObject effect;
+    private GameObject tempEffect;
 
     void Start()
     {
@@ -19,6 +22,10 @@ public class shipContoller : MonoBehaviour
     {
         if (isHit)
         {
+            if (isplayed == false) {
+                tempEffect = Instantiate(effect, this.gameObject.transform.position, this.gameObject.transform.rotation);
+                tempEffect.GetComponent<ParticleSystem>().Play(true);
+            }
             transform.position += Vector3.down * 1.0f * Time.deltaTime;
 
             if (transform.position.y < -30)

@@ -37,6 +37,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
     //main cannonbarrel
     public GameObject cannonBarrel;
+    public GameObject maincannonText;
 
     //art stuff
     public Material trailMaterial;
@@ -47,6 +48,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
     public GameObject[] TopViewText;
     public GameObject[] normalText;
     private bool topViewOn = false;
+
+    //particle systems
+    public GameObject cannonBlast;
 
     public override void InitGameController(Puzzle02Window P02W)
     {
@@ -69,6 +73,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         foreach (GameObject text in TopViewText) { text.gameObject.SetActive(false); }
         foreach (GameObject text in normalText) { text.gameObject.SetActive(true); }
+
+        //stop particle effects from playing at start
+        cannonBlast.GetComponent<ParticleSystem>().playOnAwake = false;
     }
    
     
@@ -100,10 +107,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
             selectedVector = currentVector;
             isCannonSelected = true;
             Debug.Log("Selected Vector " + selectedVector[0] + ", " + selectedVector[1]);
-
+            maincannonText.gameObject.GetComponent<TextMesh>().text = selectedVector[0] + "\n" + selectedVector[1];
             //---------------------------------New Tips Function--------------------------------------
             if (isCannonSelected && isBallSelected)
-                GameRoot.ShowTips("You can installed the Main Cannon Right now ", true, true);
+                GameRoot.ShowTips("The main gun is ready to fire", true, true);
             else
                 GameRoot.ShowTips("Go pick the Cannon Ball or pick another Cannon", true, true);
             //--------------------------------------------------------------------------------------------
@@ -115,10 +122,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
             isBallSelected = true;
             Debug.Log("Selected Matrix " + selectedTransformMatrix[0] + ", " + selectedTransformMatrix[1] + ", " +
                 selectedTransformMatrix[2] + ", " + selectedTransformMatrix[3]);
-
             //---------------------------------New Tips Function--------------------------------------
             if (isCannonSelected && isBallSelected)
-                GameRoot.ShowTips("You can installed the Main Cannon Right now ", true, true);
+                GameRoot.ShowTips("The main gun is ready to fire", true, true);
             else
                 GameRoot.ShowTips("Go pick the Cannon or pick another Cannon Ball", true, true);
             //--------------------------------------------------------------------------------------------
@@ -173,6 +179,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         int[] targetVector = DBP02.calculation(selectedVector, selectedTransformMatrix);
         targetPosition.x = targetVector[0];
         targetPosition.z = targetVector[1];
+        maincannonText.gameObject.GetComponent<TextMesh>().text = targetPosition.x + "\n" + targetPosition.z;
         Debug.Log("Cannon is aiming at :(" + targetPosition.x + ", " + targetPosition.z + ")");
         cannonBarrel.SetActive(false);
         tempCannonball = Instantiate(cannonball, firingCannon.transform.position + new Vector3(0, 2.1f, 1.6f), firingCannon.transform.rotation);
@@ -189,6 +196,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
             }
         }
 
-        ballIsFlying = true;        
+        ballIsFlying = true;
+        cannonBlast.GetComponent<ParticleSystem>().Play(true);  
     }
 }
