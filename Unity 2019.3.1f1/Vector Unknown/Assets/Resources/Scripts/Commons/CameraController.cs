@@ -13,6 +13,14 @@ public class CameraController : MonoBehaviour
     private Vector3 rotationSmoothVelocity, currentRotation;
     private float horizontal, vertical;
 
+    private void Start()
+    {
+        currentRotation = transform.rotation.eulerAngles;
+
+        horizontal = transform.rotation.eulerAngles.y;
+        vertical = transform.rotation.eulerAngles.x;
+    }
+
     private void LateUpdate()
     {
         if(!isLock)

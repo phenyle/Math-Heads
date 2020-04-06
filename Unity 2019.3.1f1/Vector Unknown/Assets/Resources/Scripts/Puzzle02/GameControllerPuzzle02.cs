@@ -52,6 +52,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
     //particle systems
     public GameObject cannonBlast;
 
+    //Dialogue systems
+    private static bool showP02_00 = true;
+
     public override void InitGameController(Puzzle02Window P02W)
     {
         Debug.Log("Init GameController Puzzle02");
@@ -67,6 +70,14 @@ public class GameControllerPuzzle02 : GameControllerRoot
         DBP02.InitDatabase();
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        //Show Dialogue once
+        if(showP02_00)
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle02_00"));
+            showP02_00 = false;
+        }
+
         cannonBarrel.gameObject.SetActive(false);
 
         trailMaterial = trailMaterialWrong;
@@ -78,7 +89,6 @@ public class GameControllerPuzzle02 : GameControllerRoot
         cannonBlast.GetComponent<ParticleSystem>().playOnAwake = false;
     }
    
-    
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Z))

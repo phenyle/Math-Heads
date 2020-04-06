@@ -32,17 +32,19 @@ MonoBehaviour:
     - "It was me, scurvy dog!\r"
   - character: {fileID: 11400000, guid: 78c3c02647d397f47a17505a0ec457b6, type: 2}
     sentences:
-    - "Shiver me timbers, wha' be this sorcery? A natterin' bird? \r"
-    - "Blimey, I don't feel too good. Let me jus'... let me jus' loot a seat here
-      fer a second.\r"
+    - Shiver me timbers, wha' be this sorcery? A natterin' bird?
+    - Blimey, I don't feel too good. Let me jus'... let me jus' loot a seat here
+      fer a second.
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
-    - "Great. Now that you're awake and he is dealt with, let's try getting out of
-      here.\r"
-    - "I overheard him talking about his key at the top of the tower over there.
-      \r"
-    - "He isn't too intelligent.\r"
-    - "I can't fly up there to get the key because he locked me to this plank here.\r"
-    - "You will need to build some bridges to access that tall tower there. \r"
-    - "Use the mathematical skills you've learned traveling the seas! I'm here to
-      help.\r"
+    - Great. Now that you're awake and he is dealt with, let's try getting out of
+      here.
+    - I overheard him talking about his key at the top of the tower over there.
+    - You will need to build some bridges to access that tall tower.
+    - If you need me to get a better view of structures, press Z and I will fly up
+      to get a top down view.
+    - I will also give you tips at the top left of your screen, to further assist
+      you on your mission.
+    - Input numbers into the vectors.
+    - "Now go and use the mathematical skills you've learned traveling the seas!
+      I'm here to help.\r"

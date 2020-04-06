@@ -6,6 +6,7 @@ public class TitleWindow : WindowRoot
     public Transform panelMain;
     public Transform panelOptions;
     public Slider sliderVolume;
+    public Slider sliderSoundFX;
 
     protected override void InitWindow()
     {
@@ -42,6 +43,11 @@ public class TitleWindow : WindowRoot
     public void SetBgVolume()
     {
         audioService.SetBgVolume(sliderVolume.value);
+    }
+
+    public void SetSoundFXVolume()
+    {
+        audioService.SetSoundFXVolume(sliderVolume.value);
     }
 
     public void ClickBackBtn()

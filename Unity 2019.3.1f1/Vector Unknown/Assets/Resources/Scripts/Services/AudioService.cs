@@ -47,4 +47,9 @@ public class AudioService : MonoBehaviour
     {
         audioBg.volume = volume;
     }
+
+    public void SetSoundFXVolume(float volume)
+    {
+        audioUI.volume = volume;
+    }
 }

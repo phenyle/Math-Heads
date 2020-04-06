@@ -3,6 +3,10 @@
 public class GameControllerPuzzle01 : GameControllerRoot
 {
     public GameObject topCamPlayer;
+    public Transform sunLight;
+    public Transform moonLight;
+    public LPWAsset.LowPolyWaterScript ocean;
+    public Material night;
 
     [HideInInspector]
     public Puzzle01Window P01W;
@@ -14,6 +18,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
     public bool isTriggerQuestion = false;
     private GameObject player;
     private bool isInQues = false;
+    private static bool showP01_00 = true;
 
     public override void InitGameController(Puzzle01Window P01W)
     {
@@ -31,8 +36,20 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
         player = GameObject.FindGameObjectWithTag("Player");
 
-        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_00"));
-    }
+        if(showP01_00)
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_00"));
+            showP01_00 = false;
+        }
+
+        if (GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true)
+        {
+            SetActive(sunLight, false);
+            SetActive(moonLight, true);
+            ocean.sun = moonLight.GetChild(0).GetComponent<Light>();
+            RenderSettings.skybox = night;
+        }
+     }
 
     private void Update()
     {

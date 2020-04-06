@@ -10,6 +10,9 @@ public class PuzzleSystem : SystemRoot
     public Puzzle02Window puzzle02Window;
     public Puzzle03Window puzzle03Window;
 
+    [Header("Credits Windows")]
+    public CreditsWindow creditsWindow;
+
     public override void InitSystem()
     {
         Debug.Log("Init Puzzle System");
@@ -41,6 +44,11 @@ public class PuzzleSystem : SystemRoot
                 case Constants.puzzle03SceneName:
                     puzzle03Window.SetWindowState(true);
                     audioService.PlayBgMusic(Constants.audioBgPuzzle3, true);
+                    break;
+
+                case Constants.creditSceneName:
+                    creditsWindow.SetWindowState(true);
+                    audioService.PlayBgMusic(Constants.audioBgCredit, true);
                     break;
             }            
         });

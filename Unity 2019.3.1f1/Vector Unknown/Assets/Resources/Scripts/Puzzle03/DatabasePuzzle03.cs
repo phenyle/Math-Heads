@@ -2,7 +2,7 @@
 
 public class DatabasePuzzle03 : MonoBehaviour
 {
-    public Transform[] SwitchGroups;
+    public SpanValue[] spanValues;
 
     private GameControllerPuzzle03 GCP03;
 

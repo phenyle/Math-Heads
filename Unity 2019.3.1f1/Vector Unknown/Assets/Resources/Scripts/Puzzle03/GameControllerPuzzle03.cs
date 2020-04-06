@@ -4,22 +4,34 @@ using UnityEngine;
 public class GameControllerPuzzle03 : GameControllerRoot
 {
     public Transform plane;
-
     public float rotatedSpeed = 1f;
+    public Transform tipsPoint2, tipsPoint3;
+    public float tipsAnimationSpeed = 0.01f;
 
     [HideInInspector]
     public Puzzle03Window P03W;
     [HideInInspector]
     public DatabasePuzzle03 DBP03;
+
     [HideInInspector]
-    public bool isChoosing = false;
+    public bool isSelecting = false;
     [HideInInspector]
-    public float rx, ry, rz;
+    public Vector3 spanValue = new Vector3();
+    [HideInInspector]
+    public int choiceID = 0;
+
     [HideInInspector]
     public Vector3 finalRotation;
     private Vector3 currentRotation;
     private Vector3 diffRotation;
     private bool isRotate = false;
+    private bool isFinded = false;
+
+    private Vector3 tipsPoint2FinalPos;
+    private Vector3 tipsPoint3FinalPos;
+    private bool isTipsAnimate = false;
+
+    private static bool showP03_00 = true;
 
     public override void InitGameController(Puzzle03Window P03W)
     {
@@ -35,18 +47,15 @@ public class GameControllerPuzzle03 : GameControllerRoot
         Debug.Log("Call Database of Puzzle03 to connect");
         DBP03.InitDatabase();
 
-        //Below is the custom functions
+        if(showP03_00)
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle03_00"));
+            showP03_00 = false;
+        }
     }
 
     private void Update()
     {
-        if(isChoosing && Input.GetKeyDown(KeyCode.E))
-        {
-            GameRoot.ShowTips("The island is rotating according to the span... Wow....", true, true);
-
-            TriggerRotation();
-        }
-
         if(isRotate)
         {
             if (Mathf.Abs(diffRotation.x) <= 0.5f && Mathf.Abs(diffRotation.y) <= 0.5f && Mathf.Abs(diffRotation.z) <= 0.5f)
@@ -63,6 +72,46 @@ public class GameControllerPuzzle03 : GameControllerRoot
                 plane.transform.eulerAngles = currentRotation;
             }
         }
+
+        //*********************** Interaction with the trigger and submission *************************
+        if(isSelecting && Input.GetKeyDown(KeyCode.E))
+        {
+            SetSpanValue();
+        }
+
+        if(P03W.choiceID1 != 0 && P03W.choiceID2 != 0 && Input.GetKeyDown(KeyCode.Return))
+        {
+            P03W.ClickSubmitBtn();
+        }
+
+        if(P03W.choiceID1 != 0 && Input.GetKeyDown(KeyCode.Alpha1))
+        {
+            P03W.ClickClearChoice1Btn();
+        }
+
+        if(P03W.choiceID2 != 0 && Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            P03W.ClickClearChoice2Btn();
+        }
+        // ***********************************************************************************************
+
+        if(isTipsAnimate)
+        {
+            tipsPoint2.localPosition = Vector3.Lerp(tipsPoint2.localPosition, tipsPoint2FinalPos, tipsAnimationSpeed);
+            tipsPoint3.localPosition = Vector3.Lerp(tipsPoint3.localPosition, tipsPoint3FinalPos, tipsAnimationSpeed);
+
+            Vector3 diffTP2 = tipsPoint2FinalPos - tipsPoint2.localPosition;
+            Vector3 diffTP3 = tipsPoint3FinalPos - tipsPoint3.localPosition;
+
+            if((Mathf.Abs(diffTP2.x) <= 0.05f && Mathf.Abs(diffTP2.y) <= 0.05f && Mathf.Abs(diffTP2.z) <= 0.05f) &&
+               (Mathf.Abs(diffTP3.x) <= 0.05f && Mathf.Abs(diffTP3.y) <= 0.05f && Mathf.Abs(diffTP3.z) <= 0.05f))
+            {
+                tipsPoint2.localPosition = tipsPoint2FinalPos;
+                tipsPoint3.localPosition = tipsPoint3FinalPos;
+
+                isTipsAnimate = false;
+            }
+        }
     }
 
     private void CalDiffRotation()
@@ -76,12 +125,43 @@ public class GameControllerPuzzle03 : GameControllerRoot
         diffRotation = finalRotation - currentRotation;
     }
 
-    private void TriggerRotation()
+    public void TriggerRotation(int ID1, int ID2, Vector3 tipsPoint2Pos, Vector3 tipsPoint3Pos)
     {
-        finalRotation = new Vector3(rx, ry, rz);
-        
-        CalDiffRotation();
+        foreach(SpanValue spanValue in DBP03.spanValues)
+        {
+            if((ID1 == spanValue.choiceID1 || ID1 == spanValue.choiceID2) && (ID2 == spanValue.choiceID1 || ID2 == spanValue.choiceID2))
+            {
+                finalRotation = new Vector3(spanValue.x, spanValue.y, spanValue.z);
+                isFinded = true;
+                break;
+            }
+        }
 
-        isRotate = true;
+        if(isFinded)
+        {
+            SetTipsPointsValue(tipsPoint2Pos, tipsPoint3Pos);
+
+            CalDiffRotation();
+
+            isRotate = true;
+        }
+        else
+        {
+            Debug.Log("Please Try again");
+        }
+
+        isFinded = false;
+    }
+
+    public void SetSpanValue()
+    {
+        P03W.SetSpanValue(spanValue, choiceID);
+    }
+
+    public void SetTipsPointsValue(Vector3 tipsPoint2Pos, Vector3 tipsPoint3Pos)
+    {
+        tipsPoint2FinalPos = new Vector3(tipsPoint2Pos.x, tipsPoint2Pos.z, tipsPoint2Pos.y);
+        tipsPoint3FinalPos = new Vector3(tipsPoint3Pos.x, tipsPoint3Pos.z, tipsPoint3Pos.y);
+        isTipsAnimate = true;
     }
 }

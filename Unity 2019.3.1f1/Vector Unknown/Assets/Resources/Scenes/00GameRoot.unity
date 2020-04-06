@@ -121,12 +121,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!224 &1521984216 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 1515523054307209215, guid: eee79c634ca777149b1a3a7cba30dd5e,
-    type: 3}
-  m_PrefabInstance: {fileID: 7024020350406897161}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1722845723
 GameObject:
   m_ObjectHideFlags: 0
@@ -217,29 +211,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1303919870, guid: eee79c634ca777149b1a3a7cba30dd5e, type: 3}
-      propertyPath: dialogueWindow
+    - target: {fileID: 6471649597101880742, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 1521984216}
-    - target: {fileID: 926643037215908154, guid: eee79c634ca777149b1a3a7cba30dd5e,
+      objectReference: {fileID: 21300000, guid: 76720d3a2dc831249b0e2b43dadc8c6c,
         type: 3}
-      propertyPath: m_IsActive
+    - target: {fileID: 6471649597101880742, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6471649597101880742, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_Color.a
       value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3637649982073334508, guid: eee79c634ca777149b1a3a7cba30dd5e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3973791067281741158, guid: eee79c634ca777149b1a3a7cba30dd5e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7024020349568988930, guid: eee79c634ca777149b1a3a7cba30dd5e,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7024020349616395428, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
@@ -301,10 +287,20 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7024020349921772990, guid: eee79c634ca777149b1a3a7cba30dd5e,
+    - target: {fileID: 7433486646985350750, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      propertyPath: m_Color.r
+      value: 0.8867924
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433486646985350750, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.8867924
+      objectReference: {fileID: 0}
+    - target: {fileID: 7433486646985350750, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.8867924
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eee79c634ca777149b1a3a7cba30dd5e, type: 3}

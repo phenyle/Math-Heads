@@ -11,16 +11,16 @@ public class Constants
     public const string creditSceneName = "06Credit";
 
     //Music Names
-    public const string audioBgMenu = "Upbeat City LOOP";
-    public const string audioBgMain = "Upbeat City LOOP";
-    public const string audioBgPuzzle1 = "Grand Fantasy City";
-    public const string audioBgPuzzle2 = "Grand Fantasy City";
-    public const string audioBgPuzzle3 = "Grand Fantasy City";
-    public const string audioBgCredit = "Grand Fantasy City";
+    public const string audioBgMenu = "00MenuBg";
+    public const string audioBgMain = "01MainBg";
+    public const string audioBgPuzzle1 = "02Puzzle01Bg";
+    public const string audioBgPuzzle2 = "03Puzzle02Bg";
+    public const string audioBgPuzzle3 = "04Puzzle03Bg";
+    public const string audioBgCredit = "05CreditsBg";
 
     //UI Sound FX Names
-    public const string audioUIStartBtn = "BUTTON_Bright_Click_mono";
-    public const string audioUIClickBtn = "BUTTON_Bright_Click_mono";
-    public const string audioUIBackBtn = "BUTTON_Bright_Click_mono";
-    public const string audioUINextBtn = "BUTTON_Bright_Click_mono";
+    public const string audioUIStartBtn = "UI_button_click";
+    public const string audioUIClickBtn = "UI_button_click";
+    public const string audioUIBackBtn = "UI_button_click";
+    public const string audioUINextBtn = "UI_button_click";
 }

@@ -25,10 +25,10 @@ public class Switch : MonoBehaviour
         {
             GameRoot.ShowTips("Press \"E\" to trigger the switch", true, false);
 
-            GCP03.isChoosing = true;
-            GCP03.rx = spanValue.x;
-            GCP03.ry = spanValue.y;
-            GCP03.rz = spanValue.z;
+            //GCP03.isChoosing = true;
+            //GCP03.rx = spanValue.x;
+            //GCP03.ry = spanValue.y;
+            //GCP03.rz = spanValue.z;
         }
     }
 
@@ -38,7 +38,7 @@ public class Switch : MonoBehaviour
         {
             GameRoot.ShowTips("Press \"E\" to trigger the switch", false, false);
 
-            GCP03.isChoosing = false;
+            //GCP03.isChoosing = false;
         }
     }
 }

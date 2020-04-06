@@ -5,7 +5,7 @@ public class GameRoot : MonoBehaviour
 {
     public static GameRoot instance = null;
     public static bool isPause = false;
-
+    
     [Header("Common API")]
     public LoadingWindow loadingWindow;
     public DynamicWindow dynamicWindow;
@@ -22,6 +22,13 @@ public class GameRoot : MonoBehaviour
     public MenuSystem menuSystem;
     [HideInInspector]
     public PuzzleSystem puzzleSystem;
+
+    [HideInInspector]
+    public int score = 0;
+    //[HideInInspector]
+    public bool[] puzzleCompleted = { false, false, false };
+
+    public int exitPuzzle = 0;
 
     private void Awake()
     {
@@ -134,5 +141,10 @@ public class GameRoot : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = state;
         }
         catch { }
+    }
+
+    public static void AddScore(int score)
+    {
+        instance.score += score;
     }
 }
