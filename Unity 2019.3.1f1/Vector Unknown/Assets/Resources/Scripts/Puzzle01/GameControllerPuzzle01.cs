@@ -118,16 +118,16 @@ public class GameControllerPuzzle01 : GameControllerRoot
     {
         bool check = DBP01.Calculation(questionNum, scalar, x, y, z);
 
-        if(check)
-        {
-            questionNum = 0;
-        }
-
         if (questionNum == 1 && check && DialogueManager.showP01_02)
         {
             FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_02"));
             DialogueManager.showP01_02 = false;
 
+        }
+
+        if (check)
+        {
+            questionNum = 0;
         }
     }
 
