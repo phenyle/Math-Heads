@@ -17,6 +17,8 @@ public class MenuSystem : SystemRoot
         {
             titleWindow.SetWindowState(true);
             audioService.PlayBgMusic(Constants.audioBgMenu, true);
+
+            DialogueManager.instance.ResetAllDialogue();
         });
     }
 }

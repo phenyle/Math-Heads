@@ -17,8 +17,8 @@ public class GameControllerPuzzle01 : GameControllerRoot
     [HideInInspector]
     public bool isTriggerQuestion = false;
     private GameObject player;
-    private bool isInQues = false;
-    private static bool showP01_00 = true;
+    [HideInInspector]
+    public bool isInQues = false;
 
     public override void InitGameController(Puzzle01Window P01W)
     {
@@ -36,10 +36,10 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
         player = GameObject.FindGameObjectWithTag("Player");
 
-        if(showP01_00)
+        if(DialogueManager.showP01_00)
         {
             FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_00"));
-            showP01_00 = false;
+            DialogueManager.showP01_00 = false;
         }
 
         if (GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true)
@@ -58,8 +58,14 @@ public class GameControllerPuzzle01 : GameControllerRoot
             SwitchCamera();
         }
 
-        if (isTriggerQuestion && Input.GetKeyDown(KeyCode.E))
+        if (isTriggerQuestion && questionNum !=0 && Input.GetKeyDown(KeyCode.E))
         {
+            if(questionNum == 1 && DialogueManager.showP01_01)
+            {
+                FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_01"));
+                DialogueManager.showP01_01 = false;
+            }
+
             if(!isInQues)
             {
                 GameRoot.instance.IsLock(true);
@@ -110,7 +116,19 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
     public void CheckAnswer(float scalar, float x, float y, float z)
     {
-        DBP01.Calculation(questionNum, scalar, x, y, z);
+        bool check = DBP01.Calculation(questionNum, scalar, x, y, z);
+
+        if(check)
+        {
+            questionNum = 0;
+        }
+
+        if (questionNum == 1 && check && DialogueManager.showP01_02)
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_02"));
+            DialogueManager.showP01_02 = false;
+
+        }
     }
 
     public void SetText(string content)

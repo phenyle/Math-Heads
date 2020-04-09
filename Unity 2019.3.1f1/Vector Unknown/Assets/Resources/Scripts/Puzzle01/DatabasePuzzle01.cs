@@ -6,6 +6,7 @@ public class DatabasePuzzle01 : MonoBehaviour
 {
     public List<Transform> points;
     public List<Transform> Bridges;
+    public List<Transform> glowZones;
     public List<Vector3> pointVectors;
     public LineRenderer[] lineTips = new LineRenderer[2];
     public Transform wrongAnswerPoint;
@@ -27,7 +28,7 @@ public class DatabasePuzzle01 : MonoBehaviour
         InitLineTips(lineTips[0], points[0].position, points[1].position, Color.yellow, Color.yellow);
     }
 
-    public void Calculation(int questionNum, float scalar, float x, float y, float z)
+    public bool Calculation(int questionNum, float scalar, float x, float y, float z)
     {
         Vector3 answer = pointVectors[questionNum] - pointVectors[questionNum - 1];
         Vector3 playerAnswer = new Vector3(x, y, z) * scalar;
@@ -40,9 +41,23 @@ public class DatabasePuzzle01 : MonoBehaviour
             GCP01.SetText("Correct");
 
             //Open the bridge for current question
+
             Bridges[questionNum - 1].gameObject.SetActive(true);
 
+            //Active the zone of next question
+            foreach(Transform t in glowZones)
+            {
+                t.gameObject.SetActive(false);
+            }
+            try
+            {
+                glowZones[questionNum].gameObject.SetActive(true);
+            }
+            catch { }
+
+
             //If there are more question, move line tip to next question
+            lineTips[0].gameObject.SetActive(false);
             if (questionNum + 1 < points.Count)
             {
                 InitLineTips(lineTips[0], points[questionNum].position, points[questionNum + 1].position, Color.yellow, Color.yellow);
@@ -51,6 +66,8 @@ public class DatabasePuzzle01 : MonoBehaviour
                 lineTips[1].gameObject.SetActive(false);
                 wrongAnswerPoint.gameObject.SetActive(false);
             }
+
+            return true;
         }
         else
         {
@@ -61,6 +78,8 @@ public class DatabasePuzzle01 : MonoBehaviour
 
             wrongAnswerPoint.position = targetPosition;
             wrongAnswerPoint.gameObject.SetActive(true);
+
+            return false;
         }
     }
 

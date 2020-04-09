@@ -2,6 +2,9 @@
 
 public class PauseWindow : WindowRoot
 {
+    public Transform panelPause;
+    public Transform panelOption;
+
     protected override void InitWindow()
     {
         base.InitWindow();
@@ -12,6 +15,18 @@ public class PauseWindow : WindowRoot
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
         GameRoot.instance.Resume();
+    }
+
+    public void ClickSettingBtn()
+    {
+        SetActive(panelPause, false);
+        SetActive(panelOption, true);
+    }
+
+    public void ClickBackBtn()
+    {
+        SetActive(panelOption, false);
+        SetActive(panelPause, true);
     }
 
     public void ClickMenuBtn()

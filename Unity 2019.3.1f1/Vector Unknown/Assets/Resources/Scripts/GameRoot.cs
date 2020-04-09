@@ -119,6 +119,7 @@ public class GameRoot : MonoBehaviour
 
     public void Pause()
     {
+        IsLock(true);
         Time.timeScale = 0;
         pauseWindow.SetWindowState(true);
         isPause = true;
@@ -127,6 +128,7 @@ public class GameRoot : MonoBehaviour
 
     public void Resume()
     {
+        IsLock(false);
         Time.timeScale = 1;
         pauseWindow.SetWindowState(false);
         isPause = false;

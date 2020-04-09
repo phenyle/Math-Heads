@@ -62,7 +62,14 @@ public class Puzzle01Window : WindowRoot
 
             ClearInputField();
             SetActive(iptPanel, false);
-            GameRoot.instance.IsLock(false);
+
+            GCP01.isInQues = false;
+
+            if(!DialogueManager.isDialogue)
+            {
+                Debug.Log("Unlock");
+                GameRoot.instance.IsLock(false);
+            }
             //GCP01.IsLock(false);
         }
 
@@ -89,19 +96,19 @@ public class Puzzle01Window : WindowRoot
             iptScalar.interactable = false;
         }
 
-        if(defaultX != 0)
+        if(defaultX != -999)
         {
             iptX.text = defaultX.ToString();
             iptX.interactable = false;
         }
 
-        if (defaultY != 0)
+        if (defaultY != -999)
         {
             iptY.text = defaultY.ToString();
             iptY.interactable = false;
         }
 
-        if (defaultX != 0)
+        if (defaultZ != -999)
         {
             iptZ.text = defaultZ.ToString();
             iptZ.interactable = false;

@@ -1,16 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class DialogueManager : MonoBehaviour
 {
+    public static DialogueManager instance = null;
+    public static bool isDialogue = false;
+
     public Text nameText;
     public Text dialogueText;
     public Image characterImage;
     public Animator animator;
     public Transform uiWindows;
 
+    private GameControllerPuzzle01 GCP01;
     private Conversation conversation;
     private int dialoguesSize;
     private List<int> sentencesSize = new List<int>();
@@ -21,11 +26,13 @@ public class DialogueManager : MonoBehaviour
 
     private void Start()
     {
+        instance = this;
         audioService = GameRoot.instance.audioService;
     }
 
     public void StartDialogue(Conversation conversation)
     {
+        isDialogue = true;
         GameRoot.instance.IsLock(true);
         uiWindows.gameObject.SetActive(false);
 
@@ -105,6 +112,46 @@ public class DialogueManager : MonoBehaviour
         animator.SetBool("IsOpen", false);
 
         uiWindows.gameObject.SetActive(true);
-        GameRoot.instance.IsLock(false);
+
+        //If in Puzzle01
+        if(SceneManager.GetActiveScene().name == Constants.puzzle01SceneName)
+        {
+            if (GCP01 == null)
+            {
+                GCP01 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>();
+            }
+            if (!GCP01.isInQues)
+            {
+                GameRoot.instance.IsLock(false);
+            }
+        }
+
+        if(SceneManager.GetActiveScene().name == Constants.mainSceneName)
+        {
+            GameRoot.instance.IsLock(false);
+        }
+
+        if (SceneManager.GetActiveScene().name == Constants.puzzle02SceneName)
+        {
+            GameRoot.instance.IsLock(false);
+        }
+
+        if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
+        {
+            GameRoot.instance.IsLock(false);
+        }
+
+        isDialogue = false;
+    }
+
+    public static bool showP01_00 = true;
+    public static bool showP01_01 = true;
+    public static bool showP01_02 = true;
+
+    public void ResetAllDialogue()
+    {
+        showP01_00 = true;
+        showP01_01 = true;
+        showP01_02 = true;
     }
 }
