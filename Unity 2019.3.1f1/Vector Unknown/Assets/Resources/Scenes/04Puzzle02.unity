@@ -10257,7 +10257,7 @@ PrefabInstance:
     - target: {fileID: 1439374829675351301, guid: 5cecb9c6edea56a489474a172c168f11,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4424619083961723404, guid: 5cecb9c6edea56a489474a172c168f11,
         type: 3}
@@ -10663,6 +10663,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7405294032401786421, guid: 8ccd56a2566e52b49bb1a7a978f9128f,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ccd56a2566e52b49bb1a7a978f9128f, type: 3}
 --- !u!1001 &8081624471433617828
@@ -10736,6 +10741,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081624469764225155, guid: 0284de1dc6fee2e41b88e9debc371232,
+        type: 3}
+      propertyPath: EmissionModule.rateOverTime.scalar
+      value: 92
+      objectReference: {fileID: 0}
+    - target: {fileID: 8081624469764225155, guid: 0284de1dc6fee2e41b88e9debc371232,
+        type: 3}
+      propertyPath: lengthInSec
+      value: 0.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0284de1dc6fee2e41b88e9debc371232, type: 3}

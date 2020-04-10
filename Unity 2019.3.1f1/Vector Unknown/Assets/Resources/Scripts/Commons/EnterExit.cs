@@ -2,6 +2,7 @@
 
 public enum SceneName
 {
+    MenuSceneName,
     MainSceneName,
     Puzzle01SceneName,
     Puzzle02SceneName,
@@ -29,6 +30,11 @@ public class EnterExit : MonoBehaviour
 
             switch(sceneName)
             {
+                case SceneName.MenuSceneName:
+                    playerController.sceneName = Constants.menuSceneName;
+                    GameRoot.EnterMenuScene();
+                    break;
+
                 case SceneName.MainSceneName:
                     playerController.sceneName = Constants.mainSceneName;
                     break;

@@ -105,6 +105,11 @@ public class GameRoot : MonoBehaviour
         instance.dynamicWindow.AddTips(tips);
     }
 
+    public static void EnterMenuScene()
+    {
+        instance.menuSystem.EnterMenu();
+    }
+
     public static void ShowTips(string tips, bool state, bool isReactive)
     {
         instance.dynamicWindow.ShowTips(tips, state, isReactive);

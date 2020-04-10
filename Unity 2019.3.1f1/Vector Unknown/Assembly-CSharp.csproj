@@ -91,6 +91,8 @@
      <Compile Include="Assets\Resources\Scripts\Services\ResourceService.cs" />
      <Compile Include="Assets\Resources\Scripts\Systems\MenuSystem.cs" />
      <Compile Include="Assets\Resources\Scripts\Systems\PuzzleSystem.cs" />
+     <Compile Include="Assets\Resources\Scripts\Tutorial\SelectionTutorial.cs" />
+     <Compile Include="Assets\Resources\Scripts\Tutorial\TutorialContorller.cs" />
      <Compile Include="Assets\Resources\Scripts\UIWindows\DynamicWindow.cs" />
      <Compile Include="Assets\Resources\Scripts\UIWindows\LoadingWindow.cs" />
      <Compile Include="Assets\Resources\Scripts\UIWindows\MainWindow.cs" />
