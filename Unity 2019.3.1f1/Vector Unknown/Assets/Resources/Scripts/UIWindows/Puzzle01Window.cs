@@ -9,12 +9,16 @@ public class Puzzle01Window : WindowRoot
     public InputField iptScalar;
     public InputField iptX, iptY, iptZ;
     public Text txtInstruction;
+    public Image[] PlatformTips;
+    public Image[] PlatformTipsChecked;
 
     private GameControllerPuzzle01 GCP01;
     [HideInInspector]
     public float defaultScalar;
     [HideInInspector]
     public float defaultX, defaultY, defaultZ;
+    [HideInInspector]
+    public int questionNum;
 
     private void Start()
     {
@@ -57,7 +61,12 @@ public class Puzzle01Window : WindowRoot
         }
         else
         {
-            GCP01.CheckAnswer(scalarValue, xValue, yValue, zValue);
+            if(GCP01.CheckAnswer(scalarValue, xValue, yValue, zValue))
+            {
+                SetActive(PlatformTips[questionNum - 1], false);
+                SetActive(PlatformTipsChecked[questionNum - 1], true);
+            }
+
             Debug.Log("Your answer is Scalar: " + iptScalar.text + ", X: " + iptX.text + ", Y: " + iptY.text + ", Z: " + iptZ.text);
 
             ClearInputField();

@@ -99,6 +99,8 @@
     <Compile Include="Assets\Resources\Scripts\Services\ResourceService.cs" />
     <Compile Include="Assets\Resources\Scripts\Systems\MenuSystem.cs" />
     <Compile Include="Assets\Resources\Scripts\Systems\PuzzleSystem.cs" />
+    <Compile Include="Assets\Resources\Scripts\Tutorial\SelectionTutorial.cs" />
+    <Compile Include="Assets\Resources\Scripts\Tutorial\TutorialContorller.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\CreditsWindow.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\DynamicWindow.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\LoadingWindow.cs" />
@@ -108,6 +110,7 @@
     <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle02Window.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle03Window.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\TitleWindow.cs" />
+    <Compile Include="Assets\Resources\Scripts\UIWindows\TutorialWindow.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>D:/Spring 2020/CPI441/Math-Heads/Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
     </Reference>

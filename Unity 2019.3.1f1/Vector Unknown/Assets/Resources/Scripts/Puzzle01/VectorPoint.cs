@@ -32,8 +32,8 @@ public class VectorPoint : MonoBehaviour
                 GCP01.SetText("- Press 'E' to input your answer.\n" +
                                          "- Press 'Z' to switch into the top-down camera.\n");
                 GCP01.isTriggerQuestion = true;
-                GCP01.questionNum = questionNum;
-                GCP01.SendConstrains(defaultScalar, defaultX, defaultY, defaultZ);
+                //GCP01.questionNum = questionNum;
+                GCP01.SendConstrains(defaultScalar, defaultX, defaultY, defaultZ, questionNum);
             }
         }
     }

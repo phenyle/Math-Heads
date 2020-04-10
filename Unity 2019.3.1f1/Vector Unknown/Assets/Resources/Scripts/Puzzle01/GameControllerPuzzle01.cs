@@ -106,15 +106,18 @@ public class GameControllerPuzzle01 : GameControllerRoot
         }
     }
 
-    public void SendConstrains(float defaultScalar, float defaultX, float defaultY, float defaultZ)
+    public void SendConstrains(float defaultScalar, float defaultX, float defaultY, float defaultZ, int questionNum)
     {
         P01W.defaultScalar = defaultScalar;
         P01W.defaultX = defaultX;
         P01W.defaultY = defaultY;
         P01W.defaultZ = defaultZ;
+        P01W.questionNum = questionNum;
+
+        this.questionNum = questionNum;
     }
 
-    public void CheckAnswer(float scalar, float x, float y, float z)
+    public bool CheckAnswer(float scalar, float x, float y, float z)
     {
         bool check = DBP01.Calculation(questionNum, scalar, x, y, z);
 
@@ -129,6 +132,8 @@ public class GameControllerPuzzle01 : GameControllerRoot
         {
             questionNum = 0;
         }
+
+        return check;
     }
 
     public void SetText(string content)

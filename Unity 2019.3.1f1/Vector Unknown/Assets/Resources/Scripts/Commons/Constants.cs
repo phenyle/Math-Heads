@@ -9,6 +9,7 @@ public class Constants
     public const string puzzle02SceneName = "04Puzzle02";
     public const string puzzle03SceneName = "05Puzzle03";
     public const string creditSceneName = "06Credit";
+    public const string tutorialSceneName = "07Tutorial";
 
     //Music Names
     public const string audioBgMenu = "00MenuBg";

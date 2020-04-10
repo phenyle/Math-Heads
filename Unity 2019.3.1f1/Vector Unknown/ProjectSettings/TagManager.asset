@@ -9,6 +9,8 @@ TagManager:
   - CannonBall
   - firedCannonBall
   - DialogueManager
+  - PressE
+  - TutorialWindow
   layers:
   - Default
   - TransparentFX

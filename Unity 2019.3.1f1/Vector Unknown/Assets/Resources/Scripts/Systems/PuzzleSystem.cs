@@ -2,6 +2,9 @@
 
 public class PuzzleSystem : SystemRoot
 {
+    [Header("Title Window")]
+    public TitleWindow titleWindow;
+
     [Header("Main Window")]
     public MainWindow mainWindow;
 
@@ -12,6 +15,9 @@ public class PuzzleSystem : SystemRoot
 
     [Header("Credits Windows")]
     public CreditsWindow creditsWindow;
+
+    [Header("Tutorial Windows")]
+    public TutorialWindow tutorialWindow;
 
     public override void InitSystem()
     {
@@ -26,6 +32,11 @@ public class PuzzleSystem : SystemRoot
             CloseAllWindow();
             switch (puzzleName)
             {
+                case Constants.menuSceneName:
+                    titleWindow.SetWindowState(true);
+                    audioService.PlayBgMusic(Constants.audioBgMenu, true);
+                    break;
+
                 case Constants.mainSceneName:
                     mainWindow.SetWindowState(true);
                     audioService.PlayBgMusic(Constants.audioBgMain, true);
@@ -49,6 +60,11 @@ public class PuzzleSystem : SystemRoot
                 case Constants.creditSceneName:
                     creditsWindow.SetWindowState(true);
                     audioService.PlayBgMusic(Constants.audioBgCredit, true);
+                    break;
+
+                case Constants.tutorialSceneName:
+                    tutorialWindow.SetWindowState(true);
+                    audioService.PlayBgMusic(Constants.audioBgMain, true);
                     break;
             }            
         });

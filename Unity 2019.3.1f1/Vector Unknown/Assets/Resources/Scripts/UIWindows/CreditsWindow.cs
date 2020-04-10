@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class CreditsWindow : WindowRoot
 {
@@ -10,7 +9,7 @@ public class CreditsWindow : WindowRoot
 
     protected override void InitWindow()
     {
-        Debug.Log("Init Puzzle01 window");
+        Debug.Log("Init Credits window");
         base.InitWindow();
     }
 }

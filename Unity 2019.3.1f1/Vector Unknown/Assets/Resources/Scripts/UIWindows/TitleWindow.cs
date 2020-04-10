@@ -55,7 +55,7 @@ public class TitleWindow : WindowRoot
     public void ClickTutorialBtn()
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
-        //TODO
+        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.tutorialSceneName);
     }
 
     public void ClickOptionsBtn()

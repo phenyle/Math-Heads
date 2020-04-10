@@ -7,7 +7,8 @@ public enum SceneName
     Puzzle01SceneName,
     Puzzle02SceneName,
     Puzzle03SceneName,
-    CreditSceneName
+    CreditSceneName,
+    MenuScene
 }
 
 public enum PuzzleComplete
@@ -40,6 +41,11 @@ public class EnterExit : MonoBehaviour
 
             switch(sceneName)
             {
+                case SceneName.MenuScene:
+                    playerController.sceneName = Constants.menuSceneName;
+
+                    break;
+
                 case SceneName.MainSceneName:
                     playerController.sceneName = Constants.mainSceneName;
 
