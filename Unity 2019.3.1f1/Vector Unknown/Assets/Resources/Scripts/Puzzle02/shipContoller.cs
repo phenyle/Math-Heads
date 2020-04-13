@@ -26,12 +26,25 @@ public class shipContoller : MonoBehaviour
                 tempEffect = Instantiate(effect, this.gameObject.transform.position, this.gameObject.transform.rotation);
                 tempEffect.GetComponent<ParticleSystem>().Play(true);
                 isplayed = !isplayed;
+                GCP02.ActiveBoat += 1;
+                print("Active boat: " + GCP02.ActiveBoat); 
             }
             transform.position += Vector3.down * 1.0f * Time.deltaTime;
 
             if (transform.position.y < -30)
             {
                 Destroy(gameObject);
+            }
+
+            if (GCP02.topViewOn)
+            {
+                GCP02.TopViewText[GCP02.ActiveBoat].gameObject.SetActive(true);
+                GCP02.normalText[GCP02.ActiveBoat].gameObject.SetActive(false);
+            }
+            else
+            {
+                GCP02.TopViewText[GCP02.ActiveBoat].gameObject.SetActive(false);
+                GCP02.normalText[GCP02.ActiveBoat].gameObject.SetActive(true);
             }
         }
         
@@ -43,6 +56,7 @@ public class shipContoller : MonoBehaviour
        
         isHit = true;
         Destroy(other.gameObject);
+        GCP02.ballIsFlying = false;
         Debug.Log("Boat was hit");
         GCP02.ballIsFlying = false;
         text1.gameObject.SetActive(false);

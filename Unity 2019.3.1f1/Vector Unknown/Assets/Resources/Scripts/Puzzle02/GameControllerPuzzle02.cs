@@ -15,6 +15,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
     public Puzzle02Window P02W;
     [HideInInspector]
     public DatabasePuzzle02 DBP02;
+    [HideInInspector]
+    public GameRoot GR;
     private GameObject player;
 
     //camera stuff
@@ -38,6 +40,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
     //main cannonbarrel
     public GameObject cannonBarrel;
     public GameObject maincannonText;
+    public GameObject maincannonBrackets;
 
     //art stuff
     public Material trailMaterial;
@@ -47,13 +50,17 @@ public class GameControllerPuzzle02 : GameControllerRoot
     //UI
     public GameObject[] TopViewText;
     public GameObject[] normalText;
-    private bool topViewOn = false;
+    public bool topViewOn = false;
+    public int ActiveBoat = 0;
 
     //particle systems
     public GameObject cannonBlast;
 
     //Dialogue systems
     private static bool showP02_00 = true;
+
+    //Boat selection feature
+    
 
     public override void InitGameController(Puzzle02Window P02W)
     {
@@ -69,10 +76,12 @@ public class GameControllerPuzzle02 : GameControllerRoot
         Debug.Log("Call Database of Puzzle02 to connect");
         DBP02.InitDatabase();
 
+        //GR = GameObject.FindGameObjectWithTag("").GetComponent<GameRoot>();
+
         player = GameObject.FindGameObjectWithTag("Player");
 
         //Show Dialogue once
-        if(showP02_00)
+        if (showP02_00)
         {
             FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle02_00"));
             showP02_00 = false;
@@ -83,14 +92,21 @@ public class GameControllerPuzzle02 : GameControllerRoot
         trailMaterial = trailMaterialWrong;
 
         foreach (GameObject text in TopViewText) { text.gameObject.SetActive(false); }
-        foreach (GameObject text in normalText) { text.gameObject.SetActive(true); }
+        foreach (GameObject text in normalText) { text.gameObject.SetActive(false); }
+        normalText[0].gameObject.SetActive(true);
 
         //stop particle effects from playing at start
         cannonBlast.GetComponent<ParticleSystem>().playOnAwake = false;
+
+        maincannonText.gameObject.GetComponent<TextMesh>().text = "0\n0";
     }
    
     void Update()
     {
+        if (ActiveBoat == 5)
+        {
+            GameRoot.ShowTips("You Completed the level!", true, false);
+        }
         if (Input.GetKeyDown(KeyCode.Z))
         {
             SwitchCamera();
@@ -98,13 +114,15 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
             if (topViewOn)
             {
-                foreach (GameObject text in TopViewText) { text.gameObject.SetActive(true); }
-                foreach (GameObject text in normalText) { text.gameObject.SetActive(false); }
+                TopViewText[ActiveBoat].gameObject.SetActive(true);
+                TopViewText[6].gameObject.SetActive(true);
+                normalText[ActiveBoat].gameObject.SetActive(false); 
             }
             else
             {
-                foreach (GameObject text in TopViewText) { text.gameObject.SetActive(false); }
-                foreach (GameObject text in normalText) { text.gameObject.SetActive(true); }
+                TopViewText[ActiveBoat].gameObject.SetActive(false);
+                TopViewText[6].gameObject.SetActive(false);
+                normalText[ActiveBoat].gameObject.SetActive(true);
             }
 
             Debug.Log("Z was pressed");
@@ -155,7 +173,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         {
             tempCannonball.transform.position += targetPosition * Time.deltaTime;
 
-            if (tempCannonball.transform.position == targetPosition)
+            if (tempCannonball.transform.position.y <= -10)
             {
                 ballIsFlying = false;
             }
@@ -182,6 +200,14 @@ public class GameControllerPuzzle02 : GameControllerRoot
         }
     }
 
+    //public void updateCannonBalls()
+    //{
+    //    cannonballs[0].GetComponent<cannonballController>().UpdateValues(ActiveBoat);
+    //    cannonballs[1].GetComponent<cannonballController>().UpdateValues(ActiveBoat);
+    //    cannonballs[2].GetComponent<cannonballController>().UpdateValues(ActiveBoat);
+    //    cannonballs[3].GetComponent<cannonballController>().UpdateValues(ActiveBoat);
+    //}
+
 
     private void FireCannon()
     {
@@ -195,6 +221,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
         tempCannonball = Instantiate(cannonball, firingCannon.transform.position + new Vector3(0, 2.1f, 1.6f), firingCannon.transform.rotation);
 
         tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialWrong;
+        maincannonBrackets.GetComponent<TextMesh>().color = Color.red;
+        maincannonText.GetComponent<TextMesh>().color = Color.red;
 
         for (int i = 0; i < 6; i++)
         {
@@ -202,6 +230,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
             if (DBP02.tragetMatracies[i, 0] == targetPosition.x && DBP02.tragetMatracies[i, 1] == targetPosition.z)
             {
                 tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialCorrect;
+                maincannonBrackets.GetComponent<TextMesh>().color = Color.green;
+                maincannonText.GetComponent<TextMesh>().color = Color.green;
                 Debug.Log("Will Hit!");
             }
         }

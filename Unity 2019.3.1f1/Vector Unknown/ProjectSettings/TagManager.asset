@@ -11,6 +11,7 @@ TagManager:
   - DialogueManager
   - PressE
   - TutorialWindow
+  - CannonballStack
   layers:
   - Default
   - TransparentFX
