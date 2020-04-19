@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class GameControllerPuzzle02 : GameControllerRoot
 {
@@ -52,6 +53,11 @@ public class GameControllerPuzzle02 : GameControllerRoot
     public GameObject[] normalText;
     public bool topViewOn = false;
     public int ActiveBoat = 0;
+    public Text Matrix;
+    public Text Vector;
+    public Image[] shipImages;
+    //public Image activeBoat;
+    public Sprite inactiveBoat;
 
     //particle systems
     public GameObject cannonBlast;
@@ -103,7 +109,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
    
     void Update()
     {
-        if (ActiveBoat == 5)
+        if (ActiveBoat == 6)
         {
             GameRoot.ShowTips("You Completed the level!", true, false);
         }
@@ -136,6 +142,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
             isCannonSelected = true;
             Debug.Log("Selected Vector " + selectedVector[0] + ", " + selectedVector[1]);
             maincannonText.gameObject.GetComponent<TextMesh>().text = selectedVector[0] + "\n" + selectedVector[1];
+            Vector.text = selectedVector[0] + "\n" + selectedVector[1];
             //---------------------------------New Tips Function--------------------------------------
             if (isCannonSelected && isBallSelected)
                 GameRoot.ShowTips("The main gun is ready to fire", true, true);
@@ -150,6 +157,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
             isBallSelected = true;
             Debug.Log("Selected Matrix " + selectedTransformMatrix[0] + ", " + selectedTransformMatrix[1] + ", " +
                 selectedTransformMatrix[2] + ", " + selectedTransformMatrix[3]);
+            Matrix.text = selectedTransformMatrix[0] + " " + selectedTransformMatrix[1] + "\n" +
+                selectedTransformMatrix[2] + " " + selectedTransformMatrix[3];
             //---------------------------------New Tips Function--------------------------------------
             if (isCannonSelected && isBallSelected)
                 GameRoot.ShowTips("The main gun is ready to fire", true, true);
@@ -208,6 +217,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
     //    cannonballs[3].GetComponent<cannonballController>().UpdateValues(ActiveBoat);
     //}
 
+    public void UpdateUI()
+    {
+        shipImages[ActiveBoat].sprite = inactiveBoat;
+    }
 
     private void FireCannon()
     {

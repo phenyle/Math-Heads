@@ -26,6 +26,7 @@ public class shipContoller : MonoBehaviour
                 tempEffect = Instantiate(effect, this.gameObject.transform.position, this.gameObject.transform.rotation);
                 tempEffect.GetComponent<ParticleSystem>().Play(true);
                 isplayed = !isplayed;
+                GCP02.UpdateUI();
                 GCP02.ActiveBoat += 1;
                 print("Active boat: " + GCP02.ActiveBoat); 
             }
@@ -41,7 +42,7 @@ public class shipContoller : MonoBehaviour
                 GCP02.TopViewText[GCP02.ActiveBoat].gameObject.SetActive(true);
                 GCP02.normalText[GCP02.ActiveBoat].gameObject.SetActive(false);
             }
-            else
+            else if (GCP02.ActiveBoat < 6)
             {
                 GCP02.TopViewText[GCP02.ActiveBoat].gameObject.SetActive(false);
                 GCP02.normalText[GCP02.ActiveBoat].gameObject.SetActive(true);
