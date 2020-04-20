@@ -16,6 +16,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
     public bool[] subPuzzleComplete = { false, false, false };
     public Transform playerPosition;
     public Transform[] playerPositionList;
+    public Transform endWall;       //When Player Finish all sub-level, the endWall will inactive
 
     [HideInInspector]
     public Puzzle03Window P03W;
@@ -62,7 +63,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
         }
 
         //Get all the buttons of first sub-buttons from window
-        BtnChoices = P03W.BtnChoices1;
+        BtnChoices = P03W.BtnChoices[0];
 
         //Initilize Work
         plane = DBP03.subLevelPlanes[0];
@@ -165,6 +166,16 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
             if(Mathf.Abs(diffPP.z) <= 0.05f)
             {
+                if(subPuzzleID >= DBP03.subLevelPlanes.Length)
+                {
+                    playerPosition.position = playerPositionList[subPuzzleID].position;
+                    SetActive(endWall, false);
+                    P03W.ShowChoicePanel(false);
+
+                    GameRoot.instance.IsLock(false);
+                    GameRoot.ShowTips("", false, false);
+                }
+
                 isShiftPlane = false;
             }
         }
@@ -243,36 +254,25 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
         topCamera.depth = 0;
         
-        switch (subPuzzleID)
+        if(subPuzzleID < DBP03.subLevelPlanes.Length)
         {
-            case 1:
-                topCamera = topCameraList[subPuzzleID];
-                BtnChoices = P03W.BtnChoices2;
-                P03W.SetPanelChoice(subPuzzleID);
+            topCamera = topCameraList[subPuzzleID];
+            BtnChoices = P03W.BtnChoices[subPuzzleID];
+            P03W.SetPanelChoice(subPuzzleID);
 
-                DBP03.SetPuzzleActive(subPuzzleID);
-                break;
-
-            case 2:
-                topCamera = topCameraList[subPuzzleID];
-                BtnChoices = P03W.BtnChoices3;
-                P03W.SetPanelChoice(subPuzzleID);
-
-                DBP03.SetPuzzleActive(subPuzzleID);
-                break;
-
-            case 3:
-                break;
+            DBP03.SetPuzzleActive(subPuzzleID);
+            plane = DBP03.GetSubLevelPlanes(subPuzzleID);
         }
-
+    
         finalRotation = Vector3.zero;
         isRotate = false;
 
         GameRoot.instance.IsLock(false);
         P03W.ShowChoicePanel(false);
+        P03W.ClearSpanValues();
+        P03W.ClearFeedbackPanel();
         isTriggerQuestion = false;
 
-        plane = DBP03.GetSubLevelPlanes(subPuzzleID);
         isShiftPlane = true;
     }
 }

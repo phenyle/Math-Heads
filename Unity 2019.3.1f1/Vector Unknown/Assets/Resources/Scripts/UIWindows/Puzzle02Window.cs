@@ -1,12 +1,20 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class Puzzle02Window : WindowRoot
 {
+    public bool isInit = false;
+    public Image[] shipImages;
+    public Text Matrix, Vector;
+
     private GameControllerPuzzle02 GCP02;
 
     private void Start()
     {
-        InitWindow();
+        if(isInit)
+        {
+            InitWindow();
+        }
     }
 
     protected override void InitWindow()
@@ -19,6 +27,4 @@ public class Puzzle02Window : WindowRoot
         Debug.Log("Call GameController of Puzzle02 to connect");
         GCP02.InitGameController(this);
     }
-
-
 }

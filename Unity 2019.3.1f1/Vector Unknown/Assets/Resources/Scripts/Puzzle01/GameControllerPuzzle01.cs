@@ -96,8 +96,6 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
             if (isInQues && questionNum != 0)
             {
-                GameRoot.ShowTips("Press \"E\" to trigger the question", true, false);
-
                 // E key for the question tigger and exit
                 if (!isTriggerQuestion && Input.GetKeyDown(KeyCode.E))
                 {
@@ -133,7 +131,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
                     //Resume cannot unlock the lock
                     GameRoot.isPuzzleLock = true;
-
+ 
                     //Dialogue manager cannot unlock the lock;
                     DialogueManager.isPuzzleLock = true;
 
@@ -157,19 +155,13 @@ public class GameControllerPuzzle01 : GameControllerRoot
                     GameRoot.isPuzzleLock = false;
 
                     //Dialogue manager can unlock the lock;
-                    //DialogueManager.isPuzzleLock = false;
+                    DialogueManager.isPuzzleLock = false;
                 }
-            }
-            else
-            {
-                GameRoot.ShowTips("", true, false);
             }
 
             //Trigger Mast prop to end the puzzle01
             if(isInMast && !isTriggerMast)
             {
-                GameRoot.ShowTips("Press \"E\" to grab the mast", true, false);
-
                 if(Input.GetKeyDown(KeyCode.E))
                 {
                     isTriggerMast = true;
@@ -186,10 +178,6 @@ public class GameControllerPuzzle01 : GameControllerRoot
                         DialogueManager.showP01_09 = false;
                     }
                 }
-            }
-            else
-            {
-                GameRoot.ShowTips("", false, false);
             }
         }
     }
@@ -240,10 +228,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
             P01W.SetFeedback(formula, "Correct", Color.black);
 
             //Prepare next question to show the question tips in feedback panel
-            isFirstTimeTriggerQuestion = true;
-
-            //Dialogue manager can unlock the lock;
-            DialogueManager.isPuzzleLock = false;
+            isFirstTimeTriggerQuestion = true;   
 
             DBP01.ClearGreenLineTips();
 
@@ -287,6 +272,12 @@ public class GameControllerPuzzle01 : GameControllerRoot
         {
             questionNum = 0;
         }
+
+        //Resume can unlock the lock
+        GameRoot.isPuzzleLock = false;
+
+        //Dialogue manager can unlock the lock;
+        DialogueManager.isPuzzleLock = false;
 
         return check;
     }

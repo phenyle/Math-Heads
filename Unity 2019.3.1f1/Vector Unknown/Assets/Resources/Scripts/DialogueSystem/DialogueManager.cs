@@ -117,6 +117,7 @@ public class DialogueManager : MonoBehaviour
         if(!isPuzzleLock)
         {
             GameRoot.instance.IsLock(false);
+            Debug.Log("Unlock From Dialogue");
         }
 
         isInDialogue = false;
@@ -141,6 +142,15 @@ public class DialogueManager : MonoBehaviour
         showP01_00 = true;
         showP01_01 = true;
         showP01_02 = true;
+        showP01_03 = true;
+        showP01_04 = true;
+        showP01_05 = true;
+        showP01_06 = true;
+        showP01_07 = true;
+        showP01_08 = true;
+        showP01_09 = true;
+
+        showP03_00 = true;
         //TODO
     }
 }

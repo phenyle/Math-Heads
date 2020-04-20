@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class Puzzle01Complete : MonoBehaviour
 {
@@ -15,6 +14,8 @@ public class Puzzle01Complete : MonoBehaviour
         if (other.tag == "Player")
         {
             GCP01.isInMast = true;
+
+            GameRoot.ShowTips("Press \"E\" to grab the mast", true, false);
         }
     }
 
@@ -23,6 +24,23 @@ public class Puzzle01Complete : MonoBehaviour
         if (other.tag == "Player")
         {
             GCP01.isInMast = false;
+
+            GameRoot.ShowTips("", false, false);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            if (!GCP01.isTriggerMast)
+            {
+                GameRoot.ShowTips("Press \"E\" to grab the mast", true, false);
+            }
+            else
+            {
+                GameRoot.ShowTips("", false, false);
+            }
         }
     }
 }

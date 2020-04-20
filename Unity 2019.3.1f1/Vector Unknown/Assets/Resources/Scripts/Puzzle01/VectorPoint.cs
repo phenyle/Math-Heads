@@ -29,6 +29,8 @@ public class VectorPoint : MonoBehaviour
         {
             if(questionNum != 0)
             {
+                GameRoot.ShowTips("Press \"E\" to trigger the question", true, false);
+
                 GCP01.isInQues = true;
                 GCP01.SendConstrains(defaultScalar, defaultX, defaultY, defaultZ, questionNum);
             }
@@ -39,8 +41,25 @@ public class VectorPoint : MonoBehaviour
     {
         if (other.tag == "Player")
         {
+            GameRoot.ShowTips("", false, false);
+
             GCP01.isInQues = false;
             GCP01.questionNum = 0;
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            if (!GCP01.isTriggerQuestion)
+            {
+                GameRoot.ShowTips("Press \"E\" to trigger the question", true, false);
+            }
+            else
+            {
+                GameRoot.ShowTips("", false, false);
+            }
         }
     }
 }

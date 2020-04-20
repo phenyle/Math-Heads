@@ -114,8 +114,6 @@ public class DatabasePuzzle01 : MonoBehaviour
 
     public void SetGreenLineTips()
     {
-        Debug.Log("Test");
-        Debug.Log(GCP01.isAnswerCorrect);
         if (GCP01.isAnswerCorrect)
         {
             return;   

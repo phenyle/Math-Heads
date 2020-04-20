@@ -2687,6 +2687,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 3381424608611702602}
     m_Modifications:
+    - target: {fileID: 1623053600, guid: b7b6c072ee176804c9c071150a3c275a, type: 3}
+      propertyPath: m_Color.r
+      value: 0.1764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623053600, guid: b7b6c072ee176804c9c071150a3c275a, type: 3}
+      propertyPath: m_Color.g
+      value: 0.8784314
+      objectReference: {fileID: 0}
+    - target: {fileID: 1623053600, guid: b7b6c072ee176804c9c071150a3c275a, type: 3}
+      propertyPath: m_Color.b
+      value: 0.27414736
+      objectReference: {fileID: 0}
+    - target: {fileID: 1819258202, guid: b7b6c072ee176804c9c071150a3c275a, type: 3}
+      propertyPath: m_SortingOrder
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 8591612297060119046, guid: b7b6c072ee176804c9c071150a3c275a,
         type: 3}
       propertyPath: m_Name
@@ -2746,6 +2762,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8591612298017528833, guid: b7b6c072ee176804c9c071150a3c275a,
+        type: 3}
+      propertyPath: m_SortingOrder
+      value: -2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7b6c072ee176804c9c071150a3c275a, type: 3}

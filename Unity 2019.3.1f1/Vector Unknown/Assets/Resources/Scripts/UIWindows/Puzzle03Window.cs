@@ -8,6 +8,8 @@ public class Puzzle03Window : WindowRoot
     public bool isInit;
     public Text txtChoice1;
     public Text txtChoice2;
+    public Text txtFBChoice1;
+    public Text txtFBChoice2;
     public int choiceID1 = 0;
     public int choiceID2 = 0;
     public Vector3 choice1Pos;
@@ -15,6 +17,7 @@ public class Puzzle03Window : WindowRoot
     public Transform panelChoice;
     public Transform[] panelChoiceList;
 
+    public List<List<ChoiceClickButton>> BtnChoices = new List<List<ChoiceClickButton>>();
     public List<ChoiceClickButton> BtnChoices1;
     public List<ChoiceClickButton> BtnChoices2;
     public List<ChoiceClickButton> BtnChoices3;
@@ -34,10 +37,15 @@ public class Puzzle03Window : WindowRoot
         Debug.Log("Init Puzzle01 window");
         base.InitWindow();
 
+        BtnChoices.Add(BtnChoices1);
+        BtnChoices.Add(BtnChoices2);
+        BtnChoices.Add(BtnChoices3);
+
         GCP03 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle03>();
         GCP03.InitGameController(this);
 
         ClearSpanValues();
+        ClearFeedbackPanel();
     }
 
     public void SetSpanValue(Vector3 spanValue, int choiceID)
@@ -68,6 +76,14 @@ public class Puzzle03Window : WindowRoot
     public void ClickSubmitBtn()
     {
         GCP03.TriggerRotation(choiceID1, choiceID2, choice1Pos, choice2Pos);
+
+        //Show the span value in input panel
+        if(choiceID1 != 0 && choiceID2 != 0)
+        {
+            txtFBChoice1.text = choice1Pos.x + "\n" + choice1Pos.y + "\n" + choice1Pos.z;
+            txtFBChoice2.text = choice2Pos.x + "\n" + choice2Pos.y + "\n" + choice2Pos.z;
+        }
+
         ClearSpanValues();
     }
 
@@ -85,6 +101,12 @@ public class Puzzle03Window : WindowRoot
         txtChoice2.text = "";
         choiceID2 = 0;
         choice2Pos = Vector3.zero;
+    }
+
+    public void ClearFeedbackPanel()
+    {
+        txtFBChoice1.text = "";
+        txtFBChoice2.text = "";
     }
 
     public void ClearSpanValues()

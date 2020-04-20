@@ -35,7 +35,6 @@ public class EnterExit : MonoBehaviour
 
         if(other.tag == "Player")
         {
-            Debug.Log("Test");
             playerController.isEnterExit = true;
             GameRoot.ShowTips("Press \"E\" to enter", true, false);
 
