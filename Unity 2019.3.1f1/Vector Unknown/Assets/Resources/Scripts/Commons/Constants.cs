@@ -24,4 +24,9 @@ public class Constants
     public const string audioUIClickBtn = "UI_button_click";
     public const string audioUIBackBtn = "UI_button_click";
     public const string audioUINextBtn = "UI_button_click";
+
+    //FX Puzzle01
+    public const string audioP01CorrectAnswer = "MUSIC_EFFECT_Solo_Harp_Positive_01_stereo";
+    public const string audioP01WrongAnswer = "MUSIC_EFFECT_Solo_Harp_Negative_01_stereo";
+    public const string audioP01Congratulation = "MUSIC_EFFECT_Platform_Positive_03a_Fast_stereo";
 }

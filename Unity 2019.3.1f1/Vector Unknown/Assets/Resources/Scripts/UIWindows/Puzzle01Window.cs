@@ -4,11 +4,14 @@ using UnityEngine.UI;
 public class Puzzle01Window : WindowRoot
 {
     public bool isInit;
-    public Transform panelStart;
     public Transform iptPanel;
+    public Transform feedbackPanel;
     public InputField iptScalar;
     public InputField iptX, iptY, iptZ;
     public Text txtInstruction;
+    public Text txtFBFormula;
+    public Text txtFBTF;
+    public Text txtFBTips;
     public Image[] PlatformTips;
     public Image[] PlatformTipsChecked;
 
@@ -33,13 +36,20 @@ public class Puzzle01Window : WindowRoot
         Debug.Log("Init Puzzle01 window");
         base.InitWindow();
 
-        SetActive(panelStart, true);
-        SetActive(iptPanel, false);
-
         GCP01 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>();
 
         Debug.Log("Call GameController of Puzzle01 to connect");
         GCP01.InitGameController(this);
+
+        //Init Components
+        txtInstruction.text = "";
+
+        txtFBFormula.text = "";
+        txtFBTF.text = "";
+        txtFBTips.text = "";
+
+        SetActive(iptPanel, false);
+        SetActive(feedbackPanel, false);
     }
 
     public void ClickAnswerSubmitBtn()
@@ -72,29 +82,26 @@ public class Puzzle01Window : WindowRoot
             ClearInputField();
             SetActive(iptPanel, false);
 
-            GCP01.isInQues = false;
+            GCP01.isTriggerQuestion = false;
 
-            if(!DialogueManager.isDialogue)
+            if(!DialogueManager.isInDialogue)
             {
-                Debug.Log("Unlock");
                 GameRoot.instance.IsLock(false);
             }
-            //GCP01.IsLock(false);
         }
 
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
     }
 
-    public void ClickInstructionSubmitBtn()
-    {
-        audioService.PlayUIAudio(Constants.audioUIClickBtn);
-        SetActive(panelStart, false);
-    }
-
-    public void ShowInputPanel(bool value)
+    public void ShowInputPanel(bool status)
     {
         InitDefaultValue();
-        SetActive(iptPanel, value);
+        SetActive(iptPanel, status);
+    }
+
+    public void ShowFeedbackPanel(bool status)
+    {
+        SetActive(feedbackPanel, status);
     }
 
     private void InitDefaultValue()
@@ -124,7 +131,7 @@ public class Puzzle01Window : WindowRoot
         }
     }
 
-    private void ClearInputField()
+    public void ClearInputField()
     {
         iptScalar.text = "";
         iptX.text = "";
@@ -134,5 +141,72 @@ public class Puzzle01Window : WindowRoot
         iptX.interactable = true;
         iptY.interactable = true;
         iptZ.interactable = true;
+    }
+
+<<<<<<< HEAD
+    //methods for dynamic input field calls
+    public void scalarUpdate()
+    {
+        float scalarValue;
+        if (float.TryParse(iptScalar.text, out scalarValue))
+        {
+            GCP01.updateLine(0, scalarValue);
+        }
+    }
+
+    public void xUpdate()
+    {
+        float x;
+        if (float.TryParse(iptX.text, out x))
+        {
+            GCP01.updateLine(1, x);
+        }
+    }
+
+    public void yUpdate()
+    {
+        float y;
+        if (float.TryParse(iptY.text, out y))
+        {
+            GCP01.updateLine(2, y);
+        }
+    }
+
+    public void zUpdate()
+    {
+        float z;
+        if (float.TryParse(iptZ.text, out z))
+        {
+            GCP01.updateLine(3, z);
+        }
+=======
+    public void SetFeedback(string formula, string TF, Color color)
+    {
+        txtFBTips.text = "";
+
+        txtFBFormula.text = formula;
+        txtFBFormula.color = color;
+
+        txtFBTF.text = TF;
+        txtFBTF.color = color;
+    }
+
+    public void SetFeedbackQuestionTips(string tips)
+    {
+        txtFBFormula.text = "";
+        txtFBTF.text = "";
+
+        txtFBTips.text = tips;
+    }
+
+    public string GetCurrentInput()
+    {
+        return iptX.text + "|" + iptY.text + "|" + iptZ.text;
+    }
+
+    public void SetGreenLineTips()
+    {
+        GCP01.DBP01.SetGreenLineTips();
+>>>>>>> 062a9786eda1ec29618709f6dcb4064c9e483143
     }
 }

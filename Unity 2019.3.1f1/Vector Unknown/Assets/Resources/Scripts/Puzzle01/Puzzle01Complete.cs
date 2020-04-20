@@ -1,35 +1,46 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 public class Puzzle01Complete : MonoBehaviour
 {
-    public ParticleSystem congrats;
-    public Transform endportal;
-    public bool isPlayer = false;
+    private GameControllerPuzzle01 GCP01;
 
     private void Start()
     {
-        endportal.gameObject.SetActive(false);
-    }
-
-    private void Update()
-    {
-        if(isPlayer && Input.GetKeyDown(KeyCode.E))
-        {
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>().SetText("You found the mast!");
-            congrats.Play();
-            endportal.gameObject.SetActive(true);
-            isPlayer = false;
-
-            Destroy(this.gameObject, 5f);
-        }
+        GCP01 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
         {
-            isPlayer = true;
+            GCP01.isInMast = true;
+
+            GameRoot.ShowTips("Press \"E\" to grab the mast", true, false);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            GCP01.isInMast = false;
+
+            GameRoot.ShowTips("", false, false);
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.tag == "Player")
+        {
+            if (!GCP01.isTriggerMast)
+            {
+                GameRoot.ShowTips("Press \"E\" to grab the mast", true, false);
+            }
+            else
+            {
+                GameRoot.ShowTips("", false, false);
+            }
         }
     }
 }

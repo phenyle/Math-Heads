@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance = null;
-    public static bool isDialogue = false;
+    public static bool isInDialogue = false;
+    public static bool isPuzzleLock = false;
 
     public Text nameText;
     public Text dialogueText;
@@ -32,7 +33,7 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Conversation conversation)
     {
-        isDialogue = true;
+        isInDialogue = true;
         GameRoot.instance.IsLock(true);
         uiWindows.gameObject.SetActive(false);
 
@@ -113,45 +114,43 @@ public class DialogueManager : MonoBehaviour
 
         uiWindows.gameObject.SetActive(true);
 
-        //If in Puzzle01
-        if(SceneManager.GetActiveScene().name == Constants.puzzle01SceneName)
-        {
-            if (GCP01 == null)
-            {
-                GCP01 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>();
-            }
-            if (!GCP01.isInQues)
-            {
-                GameRoot.instance.IsLock(false);
-            }
-        }
-
-        if(SceneManager.GetActiveScene().name == Constants.mainSceneName)
+        if(!isPuzzleLock)
         {
             GameRoot.instance.IsLock(false);
+            Debug.Log("Unlock From Dialogue");
         }
 
-        if (SceneManager.GetActiveScene().name == Constants.puzzle02SceneName)
-        {
-            GameRoot.instance.IsLock(false);
-        }
-
-        if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
-        {
-            GameRoot.instance.IsLock(false);
-        }
-
-        isDialogue = false;
+        isInDialogue = false;
     }
 
+    //Flags for puzzle01 dialogue
     public static bool showP01_00 = true;
     public static bool showP01_01 = true;
     public static bool showP01_02 = true;
+    public static bool showP01_03 = true;
+    public static bool showP01_04 = true;
+    public static bool showP01_05 = true;
+    public static bool showP01_06 = true;
+    public static bool showP01_07 = true;
+    public static bool showP01_08 = true;
+    public static bool showP01_09 = true;
+
+    public static bool showP03_00 = true;
 
     public void ResetAllDialogue()
     {
         showP01_00 = true;
         showP01_01 = true;
         showP01_02 = true;
+        showP01_03 = true;
+        showP01_04 = true;
+        showP01_05 = true;
+        showP01_06 = true;
+        showP01_07 = true;
+        showP01_08 = true;
+        showP01_09 = true;
+
+        showP03_00 = true;
+        //TODO
     }
 }

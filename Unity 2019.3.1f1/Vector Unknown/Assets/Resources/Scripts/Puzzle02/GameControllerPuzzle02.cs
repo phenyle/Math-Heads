@@ -105,6 +105,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
         cannonBlast.GetComponent<ParticleSystem>().playOnAwake = false;
 
         maincannonText.gameObject.GetComponent<TextMesh>().text = "0\n0";
+
+        Matrix = P02W.Matrix;
+        Vector = P02W.Vector;
+        shipImages = P02W.shipImages;
     }
    
     void Update()

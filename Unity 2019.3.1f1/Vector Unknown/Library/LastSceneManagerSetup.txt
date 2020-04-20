@@ -1,5 +1,9 @@
 sceneSetups:
-- path: Assets/Resources/Scenes/04Puzzle02.unity
+<<<<<<< HEAD
+- path: Assets/Resources/Scenes/03Puzzle01.unity
+=======
+- path: Assets/Resources/Scenes/00GameRoot.unity
+>>>>>>> 062a9786eda1ec29618709f6dcb4064c9e483143
   isLoaded: 1
   isActive: 1
   isSubScene: 0
