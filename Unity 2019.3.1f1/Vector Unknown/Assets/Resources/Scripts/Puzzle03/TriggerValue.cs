@@ -16,9 +16,9 @@ public class TriggerValue : MonoBehaviour
     {
         if(other.tag == "Player")
         {
-            GCP03.isSelecting = true;
-            GCP03.spanValue = spanValue;
-            GCP03.choiceID = choiceID;
+            //GCP03.isSelecting = true;
+            //GCP03.spanValue = spanValue;
+            //GCP03.choiceID = choiceID;
         }
     }
 
@@ -26,7 +26,7 @@ public class TriggerValue : MonoBehaviour
     {
         if (other.tag == "Player")
         {
-            GCP03.isSelecting = false;
+            //GCP03.isSelecting = false;
         }
     }
 }

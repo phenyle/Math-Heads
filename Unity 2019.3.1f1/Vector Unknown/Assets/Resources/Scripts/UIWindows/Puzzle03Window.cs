@@ -1,20 +1,32 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class Puzzle03Window : WindowRoot
 {
+    public bool isInit;
     public Text txtChoice1;
     public Text txtChoice2;
     public int choiceID1 = 0;
     public int choiceID2 = 0;
     public Vector3 choice1Pos;
     public Vector3 choice2Pos;
+    public Transform panelChoice;
+    public Transform[] panelChoiceList;
 
-    private GameControllerPuzzle03 GCP03;
+    public List<ChoiceClickButton> BtnChoices1;
+    public List<ChoiceClickButton> BtnChoices2;
+    public List<ChoiceClickButton> BtnChoices3;
+
+    public GameControllerPuzzle03 GCP03;
 
     private void Start()
     {
-        InitWindow();
+        if(isInit)
+        {
+            InitWindow();
+        }
     }
 
     protected override void InitWindow()
@@ -61,6 +73,7 @@ public class Puzzle03Window : WindowRoot
 
     public void ClickClearChoice1Btn()
     {
+        GCP03.ReactivateChoiceBtn(choiceID1);
         txtChoice1.text = "";
         choiceID1 = 0;
         choice1Pos = Vector3.zero;
@@ -68,6 +81,7 @@ public class Puzzle03Window : WindowRoot
 
     public void ClickClearChoice2Btn()
     {
+        GCP03.ReactivateChoiceBtn(choiceID2);
         txtChoice2.text = "";
         choiceID2 = 0;
         choice2Pos = Vector3.zero;
@@ -75,11 +89,49 @@ public class Puzzle03Window : WindowRoot
 
     public void ClearSpanValues()
     {
+        GCP03.ReactivateChoiceBtn(choiceID1);
+        GCP03.ReactivateChoiceBtn(choiceID2);
         txtChoice1.text = "";
         txtChoice2.text = "";
         choiceID1 = 0;
         choiceID2 = 0;
         choice1Pos = Vector3.zero;
         choice2Pos = Vector3.zero;
+
+        Debug.Log("Test");
+    }
+
+    public void ShowChoicePanel(bool status)
+    {
+        Animation panelChoiceAni = panelChoice.GetComponent<Animation>();
+
+        if (status)
+        {
+            panelChoiceAni.Play("ChoiceShow");
+        }
+        else
+        {
+            panelChoiceAni.Play("ChoiceHide");
+        }
+    }
+
+    public void ClickChoiceBtn(string value)
+    {
+        string[] valueArray = value.Split(',');
+
+        SetSpanValue(new Vector3(
+                                        (float)Convert.ToDouble(valueArray[0]),
+                                        (float)Convert.ToDouble(valueArray[1]),
+                                        (float)Convert.ToDouble(valueArray[2])),
+                                        Convert.ToInt32(valueArray[3]));
+    }
+
+    public void SetPanelChoice(int puzzleID)
+    {
+        panelChoice.gameObject.SetActive(false);
+
+        panelChoice = panelChoiceList[puzzleID];
+
+        panelChoice.gameObject.SetActive(true);
     }
 }

@@ -1,27 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameControllerPuzzle03 : GameControllerRoot
 {
-    public Transform plane;
+    public Camera[] topCameraList;
     public float rotatedSpeed = 1f;
+    public Transform plane;
     public Transform tipsPoint2, tipsPoint3;
     public float tipsAnimationSpeed = 0.01f;
+    public float planeShiftSpeed = 0.01f;
+    public List<ChoiceClickButton> BtnChoices;
+    public int choicesAmount = 0;
+    public bool[] subPuzzleComplete = { false, false, false };
+    public Transform playerPosition;
+    public Transform[] playerPositionList;
 
     [HideInInspector]
     public Puzzle03Window P03W;
     [HideInInspector]
     public DatabasePuzzle03 DBP03;
 
-    [HideInInspector]
-    public bool isSelecting = false;
-    [HideInInspector]
-    public Vector3 spanValue = new Vector3();
-    [HideInInspector]
-    public int choiceID = 0;
+    public bool isInQuestion = false;
+    public bool isTriggerQuestion = false;
 
     [HideInInspector]
     public Vector3 finalRotation;
+
+    private Camera topCamera;
     private Vector3 currentRotation;
     private Vector3 diffRotation;
     private bool isRotate = false;
@@ -31,7 +38,8 @@ public class GameControllerPuzzle03 : GameControllerRoot
     private Vector3 tipsPoint3FinalPos;
     private bool isTipsAnimate = false;
 
-    private static bool showP03_00 = true;
+    private int subPuzzleID = 1;
+    private bool isShiftPlane = false;
 
     public override void InitGameController(Puzzle03Window P03W)
     {
@@ -47,11 +55,18 @@ public class GameControllerPuzzle03 : GameControllerRoot
         Debug.Log("Call Database of Puzzle03 to connect");
         DBP03.InitDatabase();
 
-        if(showP03_00)
+        if(DialogueManager.showP03_00)
         {
             FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle03_00"));
-            showP03_00 = false;
+            DialogueManager.showP03_00 = false;
         }
+
+        //Get all the buttons of first sub-buttons from window
+        BtnChoices = P03W.BtnChoices1;
+
+        //Initilize Work
+        plane = DBP03.subLevelPlanes[0];
+        topCamera = topCameraList[0];
     }
 
     private void Update()
@@ -73,11 +88,39 @@ public class GameControllerPuzzle03 : GameControllerRoot
             }
         }
 
-        //*********************** Interaction with the trigger and submission *************************
-        if(isSelecting && Input.GetKeyDown(KeyCode.E))
+        if(Input.GetKeyDown(KeyCode.Z))
         {
-            SetSpanValue();
+            topCamera.depth = topCamera.depth == 0 ? 1 : 0;
         }
+
+        //*********************** Interaction with the trigger and submission *************************
+
+        if(isInQuestion && Input.GetKeyDown(KeyCode.E))
+        {
+            if(isTriggerQuestion)
+            {
+                GameRoot.instance.IsLock(false);
+                P03W.ShowChoicePanel(false);
+                isTriggerQuestion = false;
+            }
+            else
+            {
+                isTriggerQuestion = true;
+                GameRoot.instance.IsLock(true);
+                P03W.ShowChoicePanel(true);
+            }
+        }
+
+        //Show the tips information based on the player status
+        if(!isTriggerQuestion && isInQuestion)
+        {
+            GameRoot.ShowTips("Please press \"E\" to answer the question", true, false);
+        }
+        else
+        {
+            GameRoot.ShowTips("", false, false);
+        }
+        //***********************************************************************************************
 
         if(P03W.choiceID1 != 0 && P03W.choiceID2 != 0 && Input.GetKeyDown(KeyCode.Return))
         {
@@ -110,6 +153,19 @@ public class GameControllerPuzzle03 : GameControllerRoot
                 tipsPoint3.localPosition = tipsPoint3FinalPos;
 
                 isTipsAnimate = false;
+            }
+        }
+
+        //When player finish sub-level, the puzzle environment shift into next sub-level
+        if(isShiftPlane)
+        {
+            playerPosition.position = Vector3.Lerp(playerPosition.position, playerPositionList[subPuzzleID].position, planeShiftSpeed);
+
+            Vector3 diffPP = playerPositionList[subPuzzleID].position - playerPosition.position;
+
+            if(Mathf.Abs(diffPP.z) <= 0.05f)
+            {
+                isShiftPlane = false;
             }
         }
     }
@@ -152,10 +208,13 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
         isFinded = false;
     }
-
-    public void SetSpanValue()
+    
+    
+    public void SetSpanValue(Vector3 spanValue, int choiceID)
     {
         P03W.SetSpanValue(spanValue, choiceID);
+
+        choicesAmount += 1;
     }
 
     public void SetTipsPointsValue(Vector3 tipsPoint2Pos, Vector3 tipsPoint3Pos)
@@ -163,5 +222,57 @@ public class GameControllerPuzzle03 : GameControllerRoot
         tipsPoint2FinalPos = new Vector3(tipsPoint2Pos.x, tipsPoint2Pos.z, tipsPoint2Pos.y);
         tipsPoint3FinalPos = new Vector3(tipsPoint3Pos.x, tipsPoint3Pos.z, tipsPoint3Pos.y);
         isTipsAnimate = true;
+    }
+
+    public void ReactivateChoiceBtn(int choiceID)
+    {
+        foreach(ChoiceClickButton T in BtnChoices)
+        {
+            if(choiceID == T.choiceID)
+            {
+                T.GetComponent<Button>().interactable = true;
+
+                choicesAmount -= 1;
+            }
+        }
+    }
+
+    public void FinishSubLevel(int subPuzzleID)
+    {
+        this.subPuzzleID = subPuzzleID;
+
+        topCamera.depth = 0;
+        
+        switch (subPuzzleID)
+        {
+            case 1:
+                topCamera = topCameraList[subPuzzleID];
+                BtnChoices = P03W.BtnChoices2;
+                P03W.SetPanelChoice(subPuzzleID);
+
+                DBP03.SetPuzzleActive(subPuzzleID);
+                break;
+
+            case 2:
+                topCamera = topCameraList[subPuzzleID];
+                BtnChoices = P03W.BtnChoices3;
+                P03W.SetPanelChoice(subPuzzleID);
+
+                DBP03.SetPuzzleActive(subPuzzleID);
+                break;
+
+            case 3:
+                break;
+        }
+
+        finalRotation = Vector3.zero;
+        isRotate = false;
+
+        GameRoot.instance.IsLock(false);
+        P03W.ShowChoicePanel(false);
+        isTriggerQuestion = false;
+
+        plane = DBP03.GetSubLevelPlanes(subPuzzleID);
+        isShiftPlane = true;
     }
 }

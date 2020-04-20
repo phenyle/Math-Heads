@@ -3,22 +3,33 @@
 public class GameControllerPuzzle01 : GameControllerRoot
 {
     public GameObject topCamPlayer;
+
+    [Header("Environment Components")]
     public Transform sunLight;
     public Transform moonLight;
     public LPWAsset.LowPolyWaterScript ocean;
     public Material night;
 
+    [Header("Question Trigger Components")]
+    public int questionNum;
+    public bool isInQues = false;
+    public bool isTriggerQuestion = false;
+    public bool isAnswerCorrect = true;
+
+    [Header("Mast Trigger Components")]
+    public bool isInMast = false;
+    public bool isTriggerMast = false;
+    public ParticleSystem congrats;
+    public Transform endportal;
+
+    //MVC Components
     [HideInInspector]
     public Puzzle01Window P01W;
     [HideInInspector]
     public DatabasePuzzle01 DBP01;
-    [HideInInspector]
-    public int questionNum;
-    [HideInInspector]
-    public bool isTriggerQuestion = false;
+
     private GameObject player;
-    [HideInInspector]
-    public bool isInQues = false;
+    private bool isFirstTimeTriggerQuestion = true;
 
     public override void InitGameController(Puzzle01Window P01W)
     {
@@ -49,38 +60,136 @@ public class GameControllerPuzzle01 : GameControllerRoot
             ocean.sun = moonLight.GetChild(0).GetComponent<Light>();
             RenderSettings.skybox = night;
         }
+
+        //Init Components
+        SetActive(endportal, false);
      }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        //Update the instruction text based on the player status
+        if (isInQues == true)
         {
-            SwitchCamera();
-        }
-
-        if (isTriggerQuestion && questionNum !=0 && Input.GetKeyDown(KeyCode.E))
-        {
-            if(questionNum == 1 && DialogueManager.showP01_01)
+            if (isTriggerQuestion)
             {
-                FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_01"));
-                DialogueManager.showP01_01 = false;
-            }
-
-            if(!isInQues)
-            {
-                GameRoot.instance.IsLock(true);
-                P01W.ShowInputPanel(true);
-                isInQues = true;
-                SetText("- Press 'E' to exit the question.\n" +
-                             "- Press 'Z' to switch into the top-down camera.\n");
+                SetText("- Press 'E': Exit the question.\n" +
+                             "- Press 'Z': Top-down camera.");
             }
             else
             {
-                GameRoot.instance.IsLock(false);
-                P01W.ShowInputPanel(false);
-                isInQues = false;
-                SetText("- Press 'E' to input your answer.\n" +
-                             "- Press 'Z' to switch into the top-down camera.\n");
+                SetText("- Press 'E': Trigger the question.");
+            }
+        }
+        else
+        {
+            SetText("Please stand on the question platform.");
+        }
+        //************************************************************
+
+        if (!DialogueManager.isInDialogue)
+        {
+            // Z key to switch camera
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                SwitchCamera();
+            }
+
+            if (isInQues && questionNum != 0)
+            {
+                GameRoot.ShowTips("Press \"E\" to trigger the question", true, false);
+
+                // E key for the question tigger and exit
+                if (!isTriggerQuestion && Input.GetKeyDown(KeyCode.E))
+                {
+                    //Show the dialogue when player trigger the question
+                    if (questionNum == 1 && DialogueManager.showP01_01)
+                    {
+                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_01"));
+                        DialogueManager.showP01_01 = false;
+                    }
+                    else if (questionNum == 2 && DialogueManager.showP01_03)
+                    {
+                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_03"));
+                        DialogueManager.showP01_03 = false;
+                    }
+                    else if (questionNum == 3 && DialogueManager.showP01_05)
+                    {
+                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_05"));
+                        DialogueManager.showP01_05 = false;
+                    }
+                    else if (questionNum == 4 && DialogueManager.showP01_07)
+                    {
+                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_07"));
+                        DialogueManager.showP01_05 = false;
+                    }
+                    //********************************************************
+
+                    isTriggerQuestion = true;
+
+                    P01W.ShowInputPanel(true);
+                    P01W.ShowFeedbackPanel(true);
+
+                    GameRoot.instance.IsLock(true);
+
+                    //Resume cannot unlock the lock
+                    GameRoot.isPuzzleLock = true;
+
+                    //Dialogue manager cannot unlock the lock;
+                    DialogueManager.isPuzzleLock = true;
+
+                    //Set current question tips in feedback panel
+                    if (isFirstTimeTriggerQuestion)
+                    {
+                        P01W.SetFeedbackQuestionTips("Find the displacement\n" + DBP01.GetCurrentVector(questionNum) + " ->" + DBP01.GetCurrentVector(questionNum + 1));
+                        isFirstTimeTriggerQuestion = false;
+                    }
+                }
+                else if (isTriggerQuestion && Input.GetKeyDown(KeyCode.E))
+                {
+                    isTriggerQuestion = false;
+
+                    P01W.ShowInputPanel(false);
+                    P01W.ShowFeedbackPanel(false);
+
+                    GameRoot.instance.IsLock(false);
+
+                    //Resume can unlock the lock
+                    GameRoot.isPuzzleLock = false;
+
+                    //Dialogue manager can unlock the lock;
+                    //DialogueManager.isPuzzleLock = false;
+                }
+            }
+            else
+            {
+                GameRoot.ShowTips("", true, false);
+            }
+
+            //Trigger Mast prop to end the puzzle01
+            if(isInMast && !isTriggerMast)
+            {
+                GameRoot.ShowTips("Press \"E\" to grab the mast", true, false);
+
+                if(Input.GetKeyDown(KeyCode.E))
+                {
+                    isTriggerMast = true;
+
+                    congrats.Play();
+                    endportal.gameObject.SetActive(true);
+
+                    //Congratulation FX
+                    audioService.PlayFXAudio(Constants.audioP01Congratulation);
+
+                    if (DialogueManager.showP01_09)
+                    {
+                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_09"));
+                        DialogueManager.showP01_09 = false;
+                    }
+                }
+            }
+            else
+            {
+                GameRoot.ShowTips("", false, false);
             }
         }
     }
@@ -108,6 +217,8 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
     public void SendConstrains(float defaultScalar, float defaultX, float defaultY, float defaultZ, int questionNum)
     {
+        P01W.ClearInputField();
+
         P01W.defaultScalar = defaultScalar;
         P01W.defaultX = defaultX;
         P01W.defaultY = defaultY;
@@ -121,12 +232,56 @@ public class GameControllerPuzzle01 : GameControllerRoot
     {
         bool check = DBP01.Calculation(questionNum, scalar, x, y, z);
 
+        string formula = DBP01.GetCurrentVector(questionNum) + " + " + scalar + " * (" + x + ", " + y + ", " + z + ") = " + DBP01.GetResultVector();
+        if(check)
+        {
+            isAnswerCorrect = true;
+
+            P01W.SetFeedback(formula, "Correct", Color.black);
+
+            //Prepare next question to show the question tips in feedback panel
+            isFirstTimeTriggerQuestion = true;
+
+            //Dialogue manager can unlock the lock;
+            DialogueManager.isPuzzleLock = false;
+
+            DBP01.ClearGreenLineTips();
+
+            //Correct answer audio FX;
+            audioService.PlayFXAudio(Constants.audioP01CorrectAnswer);
+        }
+        else
+        {
+            isAnswerCorrect = false;
+
+            P01W.SetFeedback(formula, "Not quite, please try again...", Color.red);
+
+            //Wrong answer audio FX
+            audioService.PlayFXAudio(Constants.audioP01WrongAnswer);
+        }
+
+        //Show the dialogue after player input the correct answer
         if (questionNum == 1 && check && DialogueManager.showP01_02)
         {
             FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_02"));
             DialogueManager.showP01_02 = false;
-
         }
+        else if (questionNum == 2 && check && DialogueManager.showP01_04)
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_04"));
+            DialogueManager.showP01_04 = false;
+        }
+        else if (questionNum == 3 && check && DialogueManager.showP01_06)
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_06"));
+            DialogueManager.showP01_06 = false;
+        }
+        else if (questionNum == 4 && check && DialogueManager.showP01_08)
+        {
+            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_08"));
+            DialogueManager.showP01_08 = false;
+        }
+        //********************************************************
 
         if (check)
         {

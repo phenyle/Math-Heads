@@ -4,6 +4,7 @@ public class AudioService : MonoBehaviour
 {
     public AudioSource audioBg;
     public AudioSource audioUI;
+    public AudioSource audioFX;
     public AudioSource audioPlayerMove;
 
     public void InitService()
@@ -33,6 +34,14 @@ public class AudioService : MonoBehaviour
         audioUI.Play();
     }
 
+    public void PlayFXAudio(string audioName)
+    {
+        //Get the audio clip by the resource service
+        AudioClip audioClip = GameRoot.instance.resourceService.LoadAudio("Audios/Sound FX/" + audioName, true);
+        audioFX.clip = audioClip;
+        audioFX.Play();
+    }
+
     public void PauseAllAudios()
     {
         audioBg.volume *= 0.2f;
@@ -45,11 +54,19 @@ public class AudioService : MonoBehaviour
 
     public void SetBgVolume(float volume)
     {
-        audioBg.volume = volume;
+        if(GameRoot.isPause)
+        {
+            audioBg.volume = volume * 0.5f * 0.2f;
+        }
+        else
+        {
+            audioBg.volume = volume * 0.5f;
+        }
     }
 
     public void SetSoundFXVolume(float volume)
     {
         audioUI.volume = volume;
+        audioFX.volume = volume;
     }
 }

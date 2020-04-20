@@ -211,9 +211,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5812673984614543166, guid: eee79c634ca777149b1a3a7cba30dd5e,
+    - target: {fileID: 1264065504238148670, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
-      propertyPath: isInit
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224685914837882977, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7024020349616395428, guid: eee79c634ca777149b1a3a7cba30dd5e,
@@ -274,11 +279,6 @@ PrefabInstance:
     - target: {fileID: 7024020349616395430, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8635763102511809352, guid: eee79c634ca777149b1a3a7cba30dd5e,
-        type: 3}
-      propertyPath: isInit
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

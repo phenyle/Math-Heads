@@ -5,6 +5,7 @@ public class GameRoot : MonoBehaviour
 {
     public static GameRoot instance = null;
     public static bool isPause = false;
+    public static bool isPuzzleLock = false;
     
     [Header("Common API")]
     public LoadingWindow loadingWindow;
@@ -124,11 +125,21 @@ public class GameRoot : MonoBehaviour
         pauseWindow.SetWindowState(true);
         isPause = true;
         audioService.PauseAllAudios();
+
+        Debug.Log("Lock");
     }
 
     public void Resume()
     {
-        IsLock(false);
+        Debug.Log(DialogueManager.isInDialogue);
+        Debug.Log(isPuzzleLock);
+        if (!DialogueManager.isInDialogue && !isPuzzleLock)
+        {
+            IsLock(false);
+
+            Debug.Log("Unlock");
+        }
+
         Time.timeScale = 1;
         pauseWindow.SetWindowState(false);
         isPause = false;

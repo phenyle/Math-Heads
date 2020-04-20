@@ -18,6 +18,7 @@ public class TitleWindow : WindowRoot
 
         SetBgVolume();
 
+        SetSoundFXVolume();
         //Initialize Resolution Dropdown
         /*
         resolutions = Screen.resolutions;
@@ -78,7 +79,7 @@ public class TitleWindow : WindowRoot
 
     public void SetSoundFXVolume()
     {
-        audioService.SetSoundFXVolume(sliderVolume.value);
+        audioService.SetSoundFXVolume(sliderSoundFX.value);
     }
 
     public void ClickBackBtn()
