@@ -13,12 +13,17 @@ public class MenuSystem : SystemRoot
 
     public void EnterMenu()
     {
+        try
+        {
+            DialogueManager.instance.ResetAll();
+        }
+        catch { }
+
         resourceService.AsynLoadScene(Constants.menuSceneName, () =>
         {
+            GameRoot.ShowTips("", false, false);
             titleWindow.SetWindowState(true);
             audioService.PlayBgMusic(Constants.audioBgMenu, true);
-
-            DialogueManager.instance.ResetAllDialogue();
         });
     }
 }

@@ -132,8 +132,13 @@ PrefabInstance:
     - target: {fileID: 114000011839815986, guid: d721ae929b3206f40b636aca3f2117a4,
         type: 3}
       propertyPath: displayProgress
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000011839815986, guid: d721ae929b3206f40b636aca3f2117a4,
+        type: 3}
+      propertyPath: material
+      value: 
+      objectReference: {fileID: 2100000, guid: 9a077abe0b9866e48b65eb39428825ce, type: 2}
     - target: {fileID: 8364163582020119548, guid: d721ae929b3206f40b636aca3f2117a4,
         type: 3}
       propertyPath: m_Name

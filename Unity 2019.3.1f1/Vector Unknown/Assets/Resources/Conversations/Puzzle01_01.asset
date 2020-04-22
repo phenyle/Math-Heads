@@ -16,12 +16,10 @@ MonoBehaviour:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
     - Let me help you out for the first question.
-    - "Hmmm... Enter the displacement of the targeted platform\u2019s values and
-      this platform's values."
+    - "Enter the displacement of the targeted platform\u2019s X,Y, and Z values and
+      the current platform\u2019s X,Y, and Z values."
     - In this case, the fixed X value is the displacement of 15 and 15, which is
       0.
-    - The fixed Z value is the displacement of 6 and 0, which is 6.
-    - And... you need to solve the y value for me.
   - character: {fileID: 11400000, guid: 78c3c02647d397f47a17505a0ec457b6, type: 2}
     sentences:
     - Well, that parrot is smart...

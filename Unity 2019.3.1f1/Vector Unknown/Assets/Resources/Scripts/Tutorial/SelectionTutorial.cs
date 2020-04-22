@@ -30,7 +30,7 @@ public class SelectionTutorial : MonoBehaviour
                 pressedE = tutorialWindow.pressE;
             }
 
-            pressedE.SetActive(true);
+            GameRoot.ShowTips("Press \"E\" to select", true, false);
             Text.SetActive(true);
         }
     }
@@ -44,7 +44,7 @@ public class SelectionTutorial : MonoBehaviour
                 pressedE = tutorialWindow.pressE;
             }
 
-            pressedE.SetActive(false);
+            GameRoot.ShowTips("", false, false);
             Text.SetActive(false);
         }
     }

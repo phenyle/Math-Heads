@@ -4,6 +4,7 @@ public class SystemRoot : MonoBehaviour
 {
     protected ResourceService resourceService;
     protected AudioService audioService;
+    //public Transform uiWindows;
 
     public virtual void InitSystem()
     {

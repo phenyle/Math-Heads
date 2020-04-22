@@ -230,7 +230,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
             //Prepare next question to show the question tips in feedback panel
             isFirstTimeTriggerQuestion = true;   
 
-            DBP01.ClearGreenLineTips();
+            //DBP01.ClearGreenLineTips();
 
             //Correct answer audio FX;
             audioService.PlayFXAudio(Constants.audioP01CorrectAnswer);

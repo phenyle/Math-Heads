@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     public static bool isInDialogue = false;
     public static bool isPuzzleLock = false;
 
+    public Transform dialogueWindow;
     public Text nameText;
     public Text dialogueText;
     public Image characterImage;
@@ -33,6 +34,8 @@ public class DialogueManager : MonoBehaviour
 
     public void StartDialogue(Conversation conversation)
     {
+        dialogueWindow.gameObject.SetActive(true);
+
         isInDialogue = true;
         GameRoot.instance.IsLock(true);
         uiWindows.gameObject.SetActive(false);
@@ -137,7 +140,10 @@ public class DialogueManager : MonoBehaviour
 
     public static bool showP03_00 = true;
 
-    public void ResetAllDialogue()
+    public static bool showM_00 = true;
+    public static bool showM_01 = true;
+
+    public void ResetAll()
     {
         showP01_00 = true;
         showP01_01 = true;
@@ -151,6 +157,12 @@ public class DialogueManager : MonoBehaviour
         showP01_09 = true;
 
         showP03_00 = true;
+
+        showM_00 = true;
+        showM_01 = true;
         //TODO
+
+        uiWindows.gameObject.SetActive(true);
+        dialogueWindow.gameObject.SetActive(false);
     }
 }

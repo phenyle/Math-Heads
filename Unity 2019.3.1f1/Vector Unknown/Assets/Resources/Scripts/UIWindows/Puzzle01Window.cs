@@ -167,8 +167,9 @@ public class Puzzle01Window : WindowRoot
         return iptX.text + "|" + iptY.text + "|" + iptZ.text;
     }
 
+    /*
     public void SetGreenLineTips()
     {
         GCP01.DBP01.SetGreenLineTips();
-    }
+    }*/
 }

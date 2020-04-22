@@ -10098,7 +10098,6 @@ GameObject:
   - component: {fileID: 249832982}
   - component: {fileID: 249832981}
   - component: {fileID: 249832980}
-  - component: {fileID: 249832979}
   m_Layer: 0
   m_Name: Sphere2
   m_TagString: Puzzle03Player
@@ -10120,43 +10119,6 @@ Transform:
   m_Father: {fileID: 688439266}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &249832979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 249832977}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6a49d405310944fb9cd55bef9e018f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridType: 3
-  LOD: 0.2
-  LODPower: 3
-  customMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  material: {fileID: 2100000, guid: 9a077abe0b9866e48b65eb39428825ce, type: 2}
-  sun: {fileID: 1300047801}
-  sizeX: 30
-  sizeZ: 30
-  noise: 0.5
-  enableReflection: 0
-  enableRefraction: 0
-  reflection:
-    disablePixelLights: 1
-    textureSize: 256
-    clipPlaneOffset: 0.07
-    reflectLayers:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    refractLayers:
-      serializedVersion: 2
-      m_Bits: 4294967295
-  receiveShadows: 0
-  waveScale: -1337
-  gridTypeLite: 0
-  displayProgress: 0
 --- !u!54 &249832980
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10193,7 +10155,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 249832977}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -10204,7 +10166,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 790eba75215e3a04baab114787e71972, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10339,6 +10301,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 191982571015847163, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2224685914837882977, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3961575708443930470, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: isInit
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7024020349616395428, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_Name
@@ -15357,7 +15334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1404249870}
-  rotatedSpeed: 1
+  rotatedSpeed: 2
   rotatedSmoothTime: 0.12
   dstFromTarget: 3
   verticalMinMax: {x: -30, y: 90}
@@ -63759,7 +63736,6 @@ GameObject:
   - component: {fileID: 1567697753}
   - component: {fileID: 1567697752}
   - component: {fileID: 1567697751}
-  - component: {fileID: 1567697750}
   m_Layer: 0
   m_Name: Sphere1
   m_TagString: Puzzle03Player
@@ -63781,43 +63757,6 @@ Transform:
   m_Father: {fileID: 1787378847}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1567697750
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1567697748}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6a49d405310944fb9cd55bef9e018f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridType: 3
-  LOD: 0.2
-  LODPower: 3
-  customMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  material: {fileID: 2100000, guid: 9a077abe0b9866e48b65eb39428825ce, type: 2}
-  sun: {fileID: 1300047801}
-  sizeX: 30
-  sizeZ: 30
-  noise: 0.5
-  enableReflection: 0
-  enableRefraction: 0
-  reflection:
-    disablePixelLights: 1
-    textureSize: 256
-    clipPlaneOffset: 0.07
-    reflectLayers:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    refractLayers:
-      serializedVersion: 2
-      m_Bits: 4294967295
-  receiveShadows: 0
-  waveScale: -1337
-  gridTypeLite: 0
-  displayProgress: 0
 --- !u!54 &1567697751
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -63854,7 +63793,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1567697748}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -63865,7 +63804,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 790eba75215e3a04baab114787e71972, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -64536,7 +64475,6 @@ GameObject:
   - component: {fileID: 1721270166}
   - component: {fileID: 1721270165}
   - component: {fileID: 1721270164}
-  - component: {fileID: 1721270163}
   m_Layer: 0
   m_Name: Sphere3
   m_TagString: Puzzle03Player
@@ -64558,43 +64496,6 @@ Transform:
   m_Father: {fileID: 476936086}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1721270163
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1721270161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2f6a49d405310944fb9cd55bef9e018f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gridType: 3
-  LOD: 0.2
-  LODPower: 3
-  customMesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
-  material: {fileID: 2100000, guid: 9a077abe0b9866e48b65eb39428825ce, type: 2}
-  sun: {fileID: 1300047801}
-  sizeX: 30
-  sizeZ: 30
-  noise: 0.5
-  enableReflection: 0
-  enableRefraction: 0
-  reflection:
-    disablePixelLights: 1
-    textureSize: 256
-    clipPlaneOffset: 0.07
-    reflectLayers:
-      serializedVersion: 2
-      m_Bits: 4294967295
-    refractLayers:
-      serializedVersion: 2
-      m_Bits: 4294967295
-  receiveShadows: 0
-  waveScale: -1337
-  gridTypeLite: 0
-  displayProgress: 0
 --- !u!54 &1721270164
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -64631,7 +64532,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721270161}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -64642,7 +64543,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 790eba75215e3a04baab114787e71972, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

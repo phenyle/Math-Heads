@@ -112,6 +112,7 @@ public class DatabasePuzzle01 : MonoBehaviour
             + targetPositionDisplay.z + ")";
     }
 
+    /*
     public void SetGreenLineTips()
     {
         if (GCP01.isAnswerCorrect)
@@ -148,5 +149,5 @@ public class DatabasePuzzle01 : MonoBehaviour
     {
         lineTips[2].gameObject.SetActive(false);
         wrongAnswerPointGreen.gameObject.SetActive(false);
-    }
+    }*/
 }

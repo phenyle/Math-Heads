@@ -8,7 +8,6 @@ ScriptsOnlyBuild:
     - PolyverseSkies
     - UnityStandardAssets.Characters.ThirdPerson.ThirdPersonCharacter
     - UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl
-    - UnityStandardAssets.Water.Water
     Assembly-CSharp.dll:
     - AudioService
     - CameraController
@@ -195,8 +194,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12650}
     - Class: 114
-      Script: {instanceID: 12668}
-    - Class: 114
       Script: {instanceID: 12718}
     - Class: 114
       Script: {instanceID: 12806}
@@ -293,8 +290,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 11800}
     - Class: 114
       Script: {instanceID: 11904}
-    - Class: 114
-      Script: {instanceID: 12668}
     - Class: 114
       Script: {instanceID: 13062}
     - Class: 114
@@ -412,8 +407,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12648}
     - Class: 114
       Script: {instanceID: 12650}
-    - Class: 114
-      Script: {instanceID: 12668}
     - Class: 114
       Script: {instanceID: 12718}
     - Class: 114
@@ -739,8 +732,6 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 12650}
     - Class: 114
-      Script: {instanceID: 12668}
-    - Class: 114
       Script: {instanceID: 12718}
     - Class: 114
       Script: {instanceID: 12728}
@@ -876,13 +867,9 @@ ScriptsOnlyBuild:
     - Class: 114
       Script: {instanceID: 11776}
     - Class: 114
-      Script: {instanceID: 11800}
-    - Class: 114
       Script: {instanceID: 11804}
     - Class: 114
       Script: {instanceID: 11902}
-    - Class: 114
-      Script: {instanceID: 11904}
     - Class: 114
       Script: {instanceID: 11914}
     - Class: 114
@@ -933,8 +920,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 13012}
     - Class: 114
       Script: {instanceID: 13024}
-    - Class: 114
-      Script: {instanceID: 13062}
     - Class: 114
       Script: {instanceID: 13124}
     - Class: 114
@@ -1135,8 +1120,6 @@ ScriptsOnlyBuild:
       Script: {instanceID: 12648}
     - Class: 114
       Script: {instanceID: 12650}
-    - Class: 114
-      Script: {instanceID: 12668}
     - Class: 114
       Script: {instanceID: 12718}
     - Class: 114
@@ -2164,7 +2147,7 @@ ScriptsOnlyBuild:
     className: Mudguard
   - hash:
       serializedVersion: 2
-      Hash: 8c5e744fa7baeb241bd0cc3d1de16a3f
+      Hash: 3f070b7dd610ba5d3ca584b053fea2fe
     assemblyName: Assembly-CSharp.dll
     namespaceName: 
     className: DialogueManager
@@ -2538,4 +2521,4 @@ ScriptsOnlyBuild:
   - Assets/Resources/Scenes/05Puzzle03.unity
   - Assets/Resources/Scenes/06Credit.unity
   - Assets/Resources/Scenes/07Tutorial.unity
-  playerPath: C:/Users/FVJack/Desktop/Vector Unknown(Beta)
+  playerPath: C:/Users/FVJack/Desktop/t

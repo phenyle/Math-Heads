@@ -17,8 +17,6 @@ public class GameControllerMain : GameControllerRoot
     public MainWindow MW;
 
     private Transform player;
-    private static bool showM_00 = true;
-    private static bool showM_01 = true;
 
     public override void InitGameController(MainWindow MW)
     {
@@ -54,10 +52,10 @@ public class GameControllerMain : GameControllerRoot
 
         if(GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] != true)
         {
-            if(showM_00)
+            if(DialogueManager.showM_00)
             {
                 FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Main_00"));
-                showM_00 = false;
+                DialogueManager.showM_00 = false;
             }
         }
         else if(GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true)
@@ -69,10 +67,10 @@ public class GameControllerMain : GameControllerRoot
             RenderSettings.skybox = night;
             SetActive(portalPuzzle03, true);
 
-            if(showM_01)
+            if(DialogueManager.showM_01)
             {
                 FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Main_01"));
-                showM_01 = false;
+                DialogueManager.showM_01 = false;
             }
         }
      }
