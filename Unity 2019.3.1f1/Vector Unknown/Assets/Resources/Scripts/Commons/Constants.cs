@@ -18,6 +18,7 @@ public class Constants
     public const string audioBgPuzzle2 = "03Puzzle02Bg";
     public const string audioBgPuzzle3 = "04Puzzle03Bg";
     public const string audioBgCredit = "05CreditsBg";
+    public const string audioBgTutorial = "06TutorialBg";
 
     //UI Sound FX Names
     public const string audioUIStartBtn = "UI_button_click";

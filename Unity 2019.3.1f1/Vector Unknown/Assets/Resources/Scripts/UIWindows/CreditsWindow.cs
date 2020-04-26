@@ -2,9 +2,14 @@
 
 public class CreditsWindow : WindowRoot
 {
+    public bool isInit;
+
     private void Start()
     {
-        InitWindow();
+        if(isInit)
+        {
+            InitWindow();
+        }
     }
 
     protected override void InitWindow()

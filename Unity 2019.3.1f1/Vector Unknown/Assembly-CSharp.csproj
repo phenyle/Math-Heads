@@ -71,6 +71,7 @@
     <Compile Include="Assets\Resources\Scripts\Commons\Roots\GameControllerRoot.cs" />
     <Compile Include="Assets\Resources\Scripts\Commons\Roots\SystemRoot.cs" />
     <Compile Include="Assets\Resources\Scripts\Commons\Roots\WindowRoot.cs" />
+    <Compile Include="Assets\Resources\Scripts\Credit\GameControllerCredit.cs" />
     <Compile Include="Assets\Resources\Scripts\DialogueSystem\Character.cs" />
     <Compile Include="Assets\Resources\Scripts\DialogueSystem\Conversation.cs" />
     <Compile Include="Assets\Resources\Scripts\DialogueSystem\DialogueManager.cs" />

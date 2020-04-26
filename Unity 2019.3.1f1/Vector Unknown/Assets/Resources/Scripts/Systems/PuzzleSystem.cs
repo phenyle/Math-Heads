@@ -30,9 +30,16 @@ public class PuzzleSystem : SystemRoot
         resourceService.AsynLoadScene(puzzleName, () =>
         {
             CloseAllWindow();
+            GameRoot.ShowTips("", false, false);
             switch (puzzleName)
             {
                 case Constants.menuSceneName:
+                    try
+                    {
+                        DialogueManager.instance.ResetAll();
+                    }
+                    catch { }
+
                     titleWindow.SetWindowState(true);
                     audioService.PlayBgMusic(Constants.audioBgMenu, true);
                     break;
@@ -64,7 +71,7 @@ public class PuzzleSystem : SystemRoot
 
                 case Constants.tutorialSceneName:
                     tutorialWindow.SetWindowState(true);
-                    audioService.PlayBgMusic(Constants.audioBgMain, true);
+                    audioService.PlayBgMusic(Constants.audioBgTutorial, true);
                     break;
             }            
         });
