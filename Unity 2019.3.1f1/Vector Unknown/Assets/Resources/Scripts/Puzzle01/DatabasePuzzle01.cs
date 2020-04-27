@@ -14,6 +14,7 @@ public class DatabasePuzzle01 : MonoBehaviour
     public Transform wrongAnswerPointGreen;
     public Vector3 targetPositionDisplay;
 
+    private float iptScalar, iptX, iptY, iptZ;
     private GameControllerPuzzle01 GCP01;
     private int questionNum;
     private float scalar;
@@ -32,6 +33,11 @@ public class DatabasePuzzle01 : MonoBehaviour
 
         //Init first line tip from point 1 to point 2
         InitLineTips(lineTips[0], points[0].position, points[1].position, Color.yellow, Color.yellow);
+        iptX = 1;
+        iptY = 1;
+        iptZ = 1;
+        iptScalar = 1;
+        InitLineTips(lineTips[1], points[0].position, points[0].position + new Vector3(iptX, iptY, iptZ), Color.red, Color.red);
     }
 
     public bool Calculation(int questionNum, float scalar, float x, float y, float z)
@@ -70,8 +76,10 @@ public class DatabasePuzzle01 : MonoBehaviour
             if (questionNum + 1 < points.Count)
             {
                 InitLineTips(lineTips[0], points[questionNum].position, points[questionNum + 1].position, Color.yellow, Color.yellow);
+                InitLineTips(lineTips[1], points[questionNum].position, points[questionNum].position + new Vector3(1, 1, 1), Color.red, Color.red);
 
                 //Make sure wrong answer tips line is inactive
+                //wrongAnswerPoint.gameObject.SetActive(false);
                 lineTips[1].gameObject.SetActive(false);
                 wrongAnswerPointRed.gameObject.SetActive(false);
             }
@@ -96,6 +104,42 @@ public class DatabasePuzzle01 : MonoBehaviour
         lineTips.SetPosition(1, endPoint);
         lineTips.startColor = startColor;
         lineTips.endColor = endColor;
+    }
+
+    public void updateLineScalar(float scalar, int questionNum)
+    {
+        iptScalar = scalar;
+        Vector3 targetPositionDisplay = pointVectors[questionNum - 1] + new Vector3(iptX, iptY, iptZ) * iptScalar;
+        Vector3 targetPosition = new Vector3(targetPositionDisplay.x, targetPositionDisplay.z, targetPositionDisplay.y);
+        lineTips[1].SetPosition(1, targetPosition);
+        Debug.Log("scalar");
+    }
+
+    public void updateLineX(float x, int questionNum)
+    {
+        iptX = x;
+        Vector3 targetPositionDisplay = pointVectors[questionNum - 1] + new Vector3(iptX, iptY, iptZ) * iptScalar;
+        Vector3 targetPosition = new Vector3(targetPositionDisplay.x, targetPositionDisplay.z, targetPositionDisplay.y);
+        lineTips[1].SetPosition(1, targetPosition);
+        Debug.Log("x" + iptX);
+    }
+
+    public void updateLineY(float y, int questionNum)
+    {
+        iptY = y;
+        Vector3 targetPositionDisplay = pointVectors[questionNum - 1] + new Vector3(iptX, iptY, iptZ) * iptScalar;
+        Vector3 targetPosition = new Vector3(targetPositionDisplay.x, targetPositionDisplay.z, targetPositionDisplay.y);
+        lineTips[1].SetPosition(1, targetPosition);
+        Debug.Log("y" + iptY);
+    }
+
+    public void updateLineZ(float z, int questionNum)
+    {
+        iptZ = z;
+        Vector3 targetPositionDisplay = pointVectors[questionNum - 1] + new Vector3(iptX, iptY, iptZ) * iptScalar;
+        Vector3 targetPosition = new Vector3(targetPositionDisplay.x, targetPositionDisplay.z, targetPositionDisplay.y);
+        lineTips[1].SetPosition(1, targetPosition);
+        Debug.Log("z" + iptZ);
     }
 
     public string GetCurrentVector(int questionNum)

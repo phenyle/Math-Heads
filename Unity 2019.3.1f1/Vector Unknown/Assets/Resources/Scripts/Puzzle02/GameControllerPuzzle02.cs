@@ -116,6 +116,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         if (ActiveBoat == 6)
         {
             GameRoot.ShowTips("You Completed the level!", true, false);
+            GameRoot.instance.puzzleCompleted[1] = true;
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {

@@ -286,4 +286,14 @@ public class GameControllerPuzzle01 : GameControllerRoot
     {
         SetText(P01W.txtInstruction, content);
     }
+
+    //methods for dynamic input field calls
+    public void updateLine(int index, float value)
+    {
+        if (index == 0) { DBP01.updateLineScalar(value, questionNum); }
+        else if (index == 1) { DBP01.updateLineX(value, questionNum); }
+        else if (index == 2) { DBP01.updateLineY(value, questionNum); }
+        else { DBP01.updateLineZ(value, questionNum); }
+    }
+
 }

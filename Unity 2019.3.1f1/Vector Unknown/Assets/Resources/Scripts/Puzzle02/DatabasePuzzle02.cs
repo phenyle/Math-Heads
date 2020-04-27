@@ -30,35 +30,35 @@ public class DatabasePuzzle02 : MonoBehaviour
   
     public void refreshDatabase()
     {
-        t1.values = new int[]  { 15, 0, 0, 15 };
+        t1.values = new int[]  { 15, 0, 0, 15 };    //correct
         t2.values = new int[]  { -15, 0, 0, -15 };
         t3.values = new int[]  { 0, 0, 15, 15 };
         t4.values = new int[]  { 15, 15, 15, 15 };
-        //question 2
-        t5.values = new int[]  { 0, 0, 0, 0 };
-        t6.values = new int[]  { -21, 0, 0, 24 };
-        t7.values = new int[] { 0, 0, 0, 0 };
-        t8.values = new int[] { 0, 0, 0, 0 };
-        //question 3
-        t9.values = new int[] { -30, 0, 0, 51 };
-        t10.values = new int[] { 0, 0, 0, 0 };
-        t11.values = new int[] { 0, 0, 0, 0 };
-        t12.values = new int[] { 0, 0, 0, 0 };
-        //question 4
-        t13.values = new int[] { -7, 0, 0, 72 };
-        t14.values = new int[] { 0, 0, 0, 0 };
-        t15.values = new int[] { 0, 0, 0, 0 };
-        t16.values = new int[] { 0, 0, 0, 0 };
-        //question 5
-        t17.values = new int[] { 9, 0, 0, 47 };
-        t18.values = new int[] { 0, 0, 0, 0 };
-        t19.values = new int[] { 0, 0, 0, 0 };
-        t20.values = new int[] { 0, 0, 0, 0 };
+        //question 2 uses (1,-1)
+        t5.values = new int[] { 0, 21, 24, 0 };
+        t6.values = new int[] { -20, 1, 1, -23 };
+        t7.values = new int[] { -21, 0, 0, -24 };   //correct
+        t8.values = new int[] { -20, -1, -1, -23 };
+        //question 3 uses (1, 0)
+        t9.values = new int[] { -30, -30, 51, 51 };     //correct
+        t10.values = new int[] { 51, 51, 30, 30 };
+        t11.values = new int[] { 51, 51, -30, -30 };
+        t12.values = new int[] { 15, 15, 25, 26 };
+        //question 4 uses (0, 1)
+        t13.values = new int[] { -7, 7, 72, 72 };
+        t14.values = new int[] { -7, -7, 72, 72 };     //correct 
+        t15.values = new int[] { 7, 7, -72, 72 };
+        t16.values = new int[] { 7, 7, 72, -72 };
+        //question 5 uses (1, 1)
+        t17.values = new int[] { 6, 3, 40, 7 };     //correct
+        t18.values = new int[] { 9, 9, 20, 27 };
+        t19.values = new int[] { 9, 1, -47, -1 };
+        t20.values = new int[] { 3, 6, 7, 40 };
         //question 6
-        t21.values = new int[] { 33, 0, 0, 35 };
-        t22.values = new int[] { 0, 0, 0, 0 };
-        t23.values = new int[] { 0, 0, 0, 0 };
-        t24.values = new int[] { 0, 0, 0, 0 };
+        t21.values = new int[] { -30, 3, -30, 5 };      //correct
+        t22.values = new int[] { 15, 15, 30, 5 };
+        t23.values = new int[] { -33, 0, 0, 35 };
+        t24.values = new int[] { 30, -3, 30, -5 };      //correct
 
         transforms0 = new transformMatrix[] { t1, t2, t3, t4 };
         transforms1 = new transformMatrix[] { t5, t6, t7, t8 };

@@ -167,9 +167,44 @@ public class Puzzle01Window : WindowRoot
         return iptX.text + "|" + iptY.text + "|" + iptZ.text;
     }
 
-    /*
-    public void SetGreenLineTips()
+    public void scalarUpdate()
     {
-        GCP01.DBP01.SetGreenLineTips();
-    }*/
-}
+        float scalarValue;
+        if (float.TryParse(iptScalar.text, out scalarValue))
+        {
+            GCP01.updateLine(0, scalarValue);
+        }
+    }
+
+    public void xUpdate()
+    {
+        float x;
+        if (float.TryParse(iptX.text, out x))
+        {
+            GCP01.updateLine(1, x);
+        }
+    }
+
+    public void yUpdate()
+    {
+        float y;
+        if (float.TryParse(iptY.text, out y))
+        {
+            GCP01.updateLine(2, y);
+        }
+    }
+
+    public void zUpdate()
+    {
+        float z;
+        if (float.TryParse(iptZ.text, out z))
+        {
+            GCP01.updateLine(3, z);
+        }
+    }
+        /*
+        public void SetGreenLineTips()
+        {
+            GCP01.DBP01.SetGreenLineTips();
+        }*/
+    }
