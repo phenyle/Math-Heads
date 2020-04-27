@@ -3347,6 +3347,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   inactiveBoat: {fileID: 21300000, guid: 5372eab09468f1d42be8e15051238638, type: 3}
+  timer: 0
   cannonBlast: {fileID: 2046186020}
 --- !u!114 &570682963
 MonoBehaviour:

@@ -42,6 +42,11 @@ public class GameControllerPuzzle03 : GameControllerRoot
     private int subPuzzleID = 1;
     private bool isShiftPlane = false;
 
+    private GameObject player;
+    private Vector3 startPosition;
+    private Vector3 previousPosition;
+    private int timer = 0;
+
     public override void InitGameController(Puzzle03Window P03W)
     {
         Debug.Log("Init GameController Puzzle03");
@@ -62,6 +67,9 @@ public class GameControllerPuzzle03 : GameControllerRoot
             DialogueManager.showP03_00 = false;
         }
 
+        player = GameObject.FindGameObjectWithTag("Player");
+        startPosition = player.transform.position;
+
         //Get all the buttons of first sub-buttons from window
         BtnChoices = P03W.BtnChoices[0];
 
@@ -72,6 +80,25 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     private void Update()
     {
+        //if (player.transform.position == previousPosition)
+        //{
+        //    timer += (int)Time.deltaTime + 1;
+        //    if (timer == 1200)
+        //    {
+        //        GameRoot.ShowTips("Press 'R' to reset position.", true, false);
+        //    }
+        //}
+        //else
+        //{
+        //    timer = 0;
+        //}
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.transform.position = startPosition;
+            GameRoot.ShowTips("", true, false);
+        }
+
         if(isRotate)
         {
             if (Mathf.Abs(diffRotation.x) <= 0.5f && Mathf.Abs(diffRotation.y) <= 0.5f && Mathf.Abs(diffRotation.z) <= 0.5f)
@@ -179,6 +206,8 @@ public class GameControllerPuzzle03 : GameControllerRoot
                 isShiftPlane = false;
             }
         }
+
+        previousPosition = player.transform.position;
     }
 
     private void CalDiffRotation()

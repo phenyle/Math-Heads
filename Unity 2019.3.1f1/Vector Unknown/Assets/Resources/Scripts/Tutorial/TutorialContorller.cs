@@ -48,9 +48,17 @@ public class TutorialContorller : MonoBehaviour
 
     public string inputedText = "1";
 
+    public GameObject player;
+    private Vector3 startPosition;
+    private Vector3 previousPosition;
+    public int timer = 0;
+
     public void InitGameController()
     {
         Debug.Log("Init TutorialController");
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        startPosition = player.transform.position;
 
         MovementTutorial.SetActive(true);
         TopViewTutorial.SetActive(false);
@@ -61,8 +69,9 @@ public class TutorialContorller : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
+
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (!topCameraActive)
@@ -156,6 +165,33 @@ public class TutorialContorller : MonoBehaviour
                 Congrats.SetActive(true);
             }
         }
+
+
+        
+       // player = GameObject.FindGameObjectWithTag("Player");
+        if (player.transform.position == previousPosition)
+        {
+            Debug.Log("Not Moving");
+            timer += (int)Time.deltaTime;
+            if (timer == 30)
+            {
+                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
+            }
+        }
+        else
+        {
+            Debug.Log("Moving");
+            timer = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.transform.position = startPosition;
+            Debug.Log("R pressed");
+        }
+
+
+        previousPosition = player.transform.position;
     }
 
     public void ButtonPressed()

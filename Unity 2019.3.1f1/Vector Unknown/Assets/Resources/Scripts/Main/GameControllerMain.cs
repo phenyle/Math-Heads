@@ -17,6 +17,9 @@ public class GameControllerMain : GameControllerRoot
     public MainWindow MW;
 
     private Transform player;
+    private Vector3 startPosition;
+    private Vector3 previousPosition;
+    private int timer = 0;
 
     public override void InitGameController(MainWindow MW)
     {
@@ -28,8 +31,9 @@ public class GameControllerMain : GameControllerRoot
 
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
+        startPosition = player.transform.position;
 
-        switch(GameRoot.instance.exitPuzzle)
+        switch (GameRoot.instance.exitPuzzle)
         { 
             case 1:
                 SetActive(PCFromPuzzle01, true);
@@ -74,4 +78,29 @@ public class GameControllerMain : GameControllerRoot
             }
         }
      }
+
+    void Update()
+    {
+
+        if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
+        {
+            timer += (int)Time.deltaTime + 1;
+            if (timer == 1200)
+            {
+                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
+            }
+        }
+        else
+        {
+            timer = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.transform.position = startPosition;
+            GameRoot.ShowTips("", true, false);
+        }
+
+        previousPosition = player.transform.position;
+    }
 }

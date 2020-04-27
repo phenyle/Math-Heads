@@ -20,6 +20,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
     public GameRoot GR;
     private GameObject player;
 
+    private Vector3 startPosition;
+
     //camera stuff
     public GameObject topCamera;
     public GameObject MainCamera;
@@ -58,6 +60,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
     public Image[] shipImages;
     //public Image activeBoat;
     public Sprite inactiveBoat;
+    public int timer = 0;
 
     //particle systems
     public GameObject cannonBlast;
@@ -66,7 +69,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
     private static bool showP02_00 = true;
 
     //Boat selection feature
-    
+
+    private Vector3 previousPosition;
 
     public override void InitGameController(Puzzle02Window P02W)
     {
@@ -85,6 +89,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         //GR = GameObject.FindGameObjectWithTag("").GetComponent<GameRoot>();
 
         player = GameObject.FindGameObjectWithTag("Player");
+        startPosition = player.transform.position;
 
         //Show Dialogue once
         if (showP02_00)
@@ -113,6 +118,31 @@ public class GameControllerPuzzle02 : GameControllerRoot
    
     void Update()
     {
+
+        if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
+        {
+            timer += (int)Time.deltaTime + 1;
+            if (timer == 1200)
+            {
+                GameRoot.ShowTips("Press 'R' to reset position, 'T' to dismiss", true, false);
+            }
+        }
+        else
+        {
+            timer = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.transform.position = startPosition;
+            GameRoot.ShowTips("", true, false);
+        }
+
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            GameRoot.ShowTips("", true, false);
+        }
+
         if (ActiveBoat == 6)
         {
             GameRoot.ShowTips("You Completed the level!", true, false);
@@ -192,6 +222,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
                 ballIsFlying = false;
             }
         }
+
+        previousPosition = player.transform.position;
     }
 
     private void SwitchCamera()

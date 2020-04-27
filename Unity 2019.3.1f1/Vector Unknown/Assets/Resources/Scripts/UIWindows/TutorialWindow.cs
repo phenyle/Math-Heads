@@ -50,6 +50,11 @@ public class TutorialWindow : WindowRoot
     public bool selectionComplete = false;
 
     public string inputedText = "1";
+    public GameObject player;
+    private Vector3 startPosition;
+    private Vector3 previousPosition;
+    public int timer = 0;
+
 
     private void Start()
     {
@@ -67,6 +72,9 @@ public class TutorialWindow : WindowRoot
         //TC = GameObject.FindGameObjectWithTag("GameController").GetComponent<TutorialContorller>();
 
         //TC.InitGameController();
+
+        player = GameObject.FindGameObjectWithTag("Player");
+        startPosition = player.transform.position;
 
         mainCamera = Camera.main.gameObject;
         topCamera = GameObject.FindGameObjectWithTag("TopCamera").gameObject;
@@ -167,7 +175,7 @@ public class TutorialWindow : WindowRoot
             }
         }
 
-        if (MovementComplete && zComplete && rotateComplete)
+        if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
         {
             if (selectionComplete)
             {
@@ -175,6 +183,33 @@ public class TutorialWindow : WindowRoot
                 Congrats.SetActive(true);
             }
         }
+
+        // player = GameObject.FindGameObjectWithTag("Player");
+        if (player.transform.position == previousPosition)
+        {
+           // Debug.Log("Not Moving");
+            timer += (int)Time.deltaTime + 1;
+            if (timer == 1200)
+            {
+               // Debug.Log("Show Tip");
+                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
+            }
+        }
+        else
+        {
+           // Debug.Log("Moving");
+            timer = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.transform.position = startPosition;
+            //Debug.Log("R pressed");
+            GameRoot.ShowTips("", true, false);
+        }
+
+
+        previousPosition = player.transform.position;
     }
 
     public void ButtonPressed()

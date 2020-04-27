@@ -29,7 +29,10 @@ public class GameControllerPuzzle01 : GameControllerRoot
     public DatabasePuzzle01 DBP01;
 
     private GameObject player;
+    private Vector3 startPosition;
     private bool isFirstTimeTriggerQuestion = true;
+    private Vector3 previousPosition;
+    public int timer = 0;
 
     public override void InitGameController(Puzzle01Window P01W)
     {
@@ -46,8 +49,9 @@ public class GameControllerPuzzle01 : GameControllerRoot
         DBP01.InitDatabase();
 
         player = GameObject.FindGameObjectWithTag("Player");
+        startPosition = player.transform.position;
 
-        if(DialogueManager.showP01_00)
+        if (DialogueManager.showP01_00)
         {
             FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_00"));
             DialogueManager.showP01_00 = false;
@@ -67,6 +71,26 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
     private void Update()
     {
+
+        if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
+        {
+            timer += (int)Time.deltaTime + 1;
+            if (timer == 1200)
+            {
+                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
+            }
+        }
+        else
+        {
+            timer = 0;
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.transform.position = startPosition;
+            GameRoot.ShowTips("", true, false);
+        }
+
         //Update the instruction text based on the player status
         if (isInQues == true)
         {
@@ -180,6 +204,8 @@ public class GameControllerPuzzle01 : GameControllerRoot
                 }
             }
         }
+
+        previousPosition = player.transform.position;
     }
 
     private void SwitchCamera()
