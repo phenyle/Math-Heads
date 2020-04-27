@@ -1,22 +1,2 @@
 Base path: 'D:/TM/Documents/Editor/Data', plugins path 'D:/TM/Documents/Editor/Data/PlaybackEngines'
 Cmd: initializeCompiler
-Cmd: preprocess
-  insize=6606 outsize=4381 ok=1
-Cmd: preprocess
-  insize=1978 outsize=767 ok=1
-Cmd: preprocess
-  insize=2397 outsize=630 ok=1
-Cmd: preprocess
-  insize=1124 outsize=1654 ok=1
-Cmd: preprocess
-  insize=1081 outsize=1668 ok=1
-Cmd: preprocess
-  insize=38802 outsize=31169 ok=1
-Cmd: preprocess
-  insize=1069 outsize=1656 ok=1
-Cmd: preprocess
-  insize=2950 outsize=3332 ok=1
-Cmd: preprocess
-  insize=76151 outsize=60286 ok=1
-Cmd: preprocess
-  insize=3776 outsize=2699 ok=1

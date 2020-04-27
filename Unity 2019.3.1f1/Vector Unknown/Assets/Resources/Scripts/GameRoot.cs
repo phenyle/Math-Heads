@@ -31,6 +31,7 @@ public class GameRoot : MonoBehaviour
 
     public int exitPuzzle = 0;
 
+
     private void Awake()
     {
         DontDestroyOnLoad(this);
@@ -49,6 +50,7 @@ public class GameRoot : MonoBehaviour
         Debug.Log("Game Start...");
         //InitUI();
         //InitGameRoot();
+
     }
 
     private void Update()
@@ -65,6 +67,11 @@ public class GameRoot : MonoBehaviour
             {
                 Resume();
             }
+        }
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+
         }
     }
 
