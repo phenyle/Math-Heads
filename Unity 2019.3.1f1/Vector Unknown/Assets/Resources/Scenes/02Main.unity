@@ -1500,6 +1500,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9145488240919422364, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: isInit
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eee79c634ca777149b1a3a7cba30dd5e, type: 3}
 --- !u!1 &942342126 stripped
@@ -2064,6 +2069,10 @@ MonoBehaviour:
   ocean: {fileID: 1801288203}
   night: {fileID: 2100000, guid: b4d1e1180d6b45d4eaa6f6b684d18e2b, type: 2}
   portalPuzzle03: {fileID: 786989116}
+  spriteChecks:
+  - {fileID: 21300000, guid: 199944f24bdf6844e95b468cb1c412b3, type: 3}
+  - {fileID: 21300000, guid: 4a4d541b0fea54b4cabece8daba6495e, type: 3}
+  - {fileID: 21300000, guid: c6a732d488830b04bbe55b1d8bd5dad6, type: 3}
   MW: {fileID: 0}
 --- !u!114 &1801288203 stripped
 MonoBehaviour:

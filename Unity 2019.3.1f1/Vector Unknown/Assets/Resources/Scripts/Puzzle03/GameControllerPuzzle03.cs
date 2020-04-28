@@ -73,26 +73,14 @@ public class GameControllerPuzzle03 : GameControllerRoot
         //Get all the buttons of first sub-buttons from window
         BtnChoices = P03W.BtnChoices[0];
 
-        //Initilize Work
+        //Initilize Components
         plane = DBP03.subLevelPlanes[0];
         topCamera = topCameraList[0];
+        P03W.SetInstructionalText("Choose from these vector options to create a span. The floor will imitate this span which will roll the ball.");
     }
 
     private void Update()
     {
-        //if (player.transform.position == previousPosition)
-        //{
-        //    timer += (int)Time.deltaTime + 1;
-        //    if (timer == 1200)
-        //    {
-        //        GameRoot.ShowTips("Press 'R' to reset position.", true, false);
-        //    }
-        //}
-        //else
-        //{
-        //    timer = 0;
-        //}
-
         if (Input.GetKeyDown(KeyCode.R))
         {
             player.transform.position = startPosition;
@@ -128,6 +116,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
             if(isTriggerQuestion)
             {
                 GameRoot.instance.IsLock(false);
+                GameRoot.isPuzzleLock = false;
                 P03W.ShowChoicePanel(false);
                 isTriggerQuestion = false;
             }
@@ -135,34 +124,9 @@ public class GameControllerPuzzle03 : GameControllerRoot
             {
                 isTriggerQuestion = true;
                 GameRoot.instance.IsLock(true);
+                GameRoot.isPuzzleLock = true;
                 P03W.ShowChoicePanel(true);
             }
-        }
-
-        //Show the tips information based on the player status
-        if(!isTriggerQuestion && isInQuestion)
-        {
-            GameRoot.ShowTips("Please press \"E\" to answer the question", true, false);
-        }
-        else
-        {
-            GameRoot.ShowTips("", false, false);
-        }
-        //***********************************************************************************************
-
-        if(P03W.choiceID1 != 0 && P03W.choiceID2 != 0 && Input.GetKeyDown(KeyCode.Return))
-        {
-            P03W.ClickSubmitBtn();
-        }
-
-        if(P03W.choiceID1 != 0 && Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            P03W.ClickClearChoice1Btn();
-        }
-
-        if(P03W.choiceID2 != 0 && Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            P03W.ClickClearChoice2Btn();
         }
         // ***********************************************************************************************
 

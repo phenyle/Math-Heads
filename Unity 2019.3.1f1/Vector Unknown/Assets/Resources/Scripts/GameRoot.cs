@@ -137,8 +137,8 @@ public class GameRoot : MonoBehaviour
 
     public void Resume()
     {
-        Debug.Log(DialogueManager.isInDialogue);
-        Debug.Log(isPuzzleLock);
+        //Debug.Log(DialogueManager.isInDialogue);
+        //Debug.Log(isPuzzleLock);
         if (!DialogueManager.isInDialogue && !isPuzzleLock)
         {
             IsLock(false);

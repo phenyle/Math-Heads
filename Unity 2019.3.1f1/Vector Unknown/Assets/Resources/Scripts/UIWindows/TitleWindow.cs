@@ -49,6 +49,14 @@ public class TitleWindow : WindowRoot
 
     public void ClickPlayBtn()
     {
+        //Reset puzzle complete status
+        for (int i = 0; i < GameRoot.instance.puzzleCompleted.Length; i++)
+        {
+            GameRoot.instance.puzzleCompleted[i] = false;
+        }
+
+        DialogueManager.instance.ResetAll();
+
         audioService.PlayUIAudio(Constants.audioUIStartBtn);
         GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle01SceneName);
     }
@@ -104,6 +112,6 @@ public class TitleWindow : WindowRoot
     {
         //Resolution resolution = resolutions[index];
         //Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        Screen.SetResolution(1920, 1080, false);
+        //Screen.SetResolution(1920, 1080, false);
     }
 }

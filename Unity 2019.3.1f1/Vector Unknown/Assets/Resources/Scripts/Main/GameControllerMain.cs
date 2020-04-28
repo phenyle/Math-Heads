@@ -12,6 +12,7 @@ public class GameControllerMain : GameControllerRoot
     public LPWAsset.LowPolyWaterScript ocean;
     public Material night;
     public Transform portalPuzzle03;
+    public Sprite[] spriteChecks;
 
     [HideInInspector]
     public MainWindow MW;
@@ -28,7 +29,6 @@ public class GameControllerMain : GameControllerRoot
 
         Debug.Log("Connect Main Window");
         this.MW = MW;
-
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
         startPosition = player.transform.position;
@@ -54,6 +54,7 @@ public class GameControllerMain : GameControllerRoot
                 break;
         }
 
+        //If player only finish puzzle 01
         if(GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] != true)
         {
             if(DialogueManager.showM_00)
@@ -61,7 +62,12 @@ public class GameControllerMain : GameControllerRoot
                 FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Main_00"));
                 DialogueManager.showM_00 = false;
             }
+
+            //Set the instructional text and check image
+            MW.SetInstructionText("Find & enter the cave to beat the pirates.");
+            MW.SetCheckImage(0, spriteChecks[0]);
         }
+        //If player finish puzzle 01 & puzzle 02
         else if(GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true)
         {
             SetActive(sunLight, false);
@@ -76,6 +82,10 @@ public class GameControllerMain : GameControllerRoot
                 FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Main_01"));
                 DialogueManager.showM_01 = false;
             }
+
+            MW.SetInstructionText("Find & enter the house to save villagers.");
+            MW.SetCheckImage(0, spriteChecks[0]);
+            MW.SetCheckImage(1, spriteChecks[1]);
         }
      }
 

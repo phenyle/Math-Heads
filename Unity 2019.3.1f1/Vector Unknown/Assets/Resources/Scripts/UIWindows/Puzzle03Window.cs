@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class Puzzle03Window : WindowRoot
 {
     public bool isInit;
+    public Text txtInstruction;
     public Text txtChoice1;
     public Text txtChoice2;
     public Text txtFBChoice1;
@@ -155,5 +156,10 @@ public class Puzzle03Window : WindowRoot
         panelChoice = panelChoiceList[puzzleID];
 
         panelChoice.gameObject.SetActive(true);
+    }
+
+    public void SetInstructionalText(string content)
+    {
+        txtInstruction.text = content;
     }
 }

@@ -1084,6 +1084,7 @@ MonoBehaviour:
   endportal: {fileID: 1032113742}
   P01W: {fileID: 0}
   DBP01: {fileID: 0}
+  timer: 0
 --- !u!114 &1586333681
 MonoBehaviour:
   m_ObjectHideFlags: 0
