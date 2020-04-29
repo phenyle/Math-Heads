@@ -8,7 +8,12 @@ public class firedCannonballController : MonoBehaviour
     private GameObject tempEffect;
     private float timer = 0;
     private bool isEffectPlayed = false;
+    private GameControllerPuzzle02 GCP02;
 
+    void Start()
+    {
+        GCP02 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle02>();
+    }
     // Update is called once per frame
     void Update()
     {
@@ -26,6 +31,7 @@ public class firedCannonballController : MonoBehaviour
 
             if (timer > 450)
             {
+                GCP02.playMiss();
                 Destroy(tempEffect);
                 Destroy(this.gameObject);
             }

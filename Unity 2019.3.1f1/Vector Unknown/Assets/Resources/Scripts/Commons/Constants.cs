@@ -30,4 +30,10 @@ public class Constants
     public const string audioP01CorrectAnswer = "MUSIC_EFFECT_Solo_Harp_Positive_01_stereo";
     public const string audioP01WrongAnswer = "MUSIC_EFFECT_Solo_Harp_Negative_01_stereo";
     public const string audioP01Congratulation = "MUSIC_EFFECT_Platform_Positive_03a_Fast_stereo";
+
+    //FX Puzzle02
+    public const string audioP02Selection = "IMPACT_Metal_Barrel_Subtle_mono";
+    public const string audioP02CannonFire = "FIREWORKS_Rocket_Explode_Large_RR4_mono";
+    public const string audioP02BallHit = "DEMOLISH_Wood_Fall_stereo";
+    public const string audioP02BallMiss = "SPLASH_Big_Noise_mono";
 }

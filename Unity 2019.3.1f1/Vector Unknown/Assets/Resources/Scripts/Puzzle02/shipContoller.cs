@@ -59,6 +59,7 @@ public class shipContoller : MonoBehaviour
         Destroy(other.gameObject);
         GCP02.ballIsFlying = false;
         Debug.Log("Boat was hit");
+        GCP02.playhit();
         GCP02.ballIsFlying = false;
         text1.gameObject.SetActive(false);
         text2.gameObject.SetActive(false);

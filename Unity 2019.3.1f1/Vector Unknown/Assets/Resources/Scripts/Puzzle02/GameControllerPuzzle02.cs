@@ -71,6 +71,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
     //Boat selection feature
 
     private Vector3 previousPosition;
+    public Transform endportal;
 
     public override void InitGameController(Puzzle02Window P02W)
     {
@@ -114,6 +115,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         Matrix = P02W.Matrix;
         Vector = P02W.Vector;
         shipImages = P02W.shipImages;
+        SetActive(endportal, false);
     }
    
     void Update()
@@ -147,6 +149,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         {
             GameRoot.ShowTips("You Completed the level!", true, false);
             GameRoot.instance.puzzleCompleted[1] = true;
+            SetActive(endportal, true);
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -184,6 +187,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
             else
                 GameRoot.ShowTips("Go pick the Cannon Ball or pick another Cannon", true, true);
             //--------------------------------------------------------------------------------------------
+            audioService.PlayFXAudio(Constants.audioP02Selection);
+            Debug.Log("Audio played");
         }
 
         if (isCannonballTrigger && Input.GetKeyDown(KeyCode.E))
@@ -200,6 +205,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
             else
                 GameRoot.ShowTips("Go pick the Cannon or pick another Cannon Ball", true, true);
             //--------------------------------------------------------------------------------------------
+            audioService.PlayFXAudio(Constants.audioP02Selection);
+            Debug.Log("Audio played");
         }
 
         if (isMainCannonTrigger && Input.GetKeyDown(KeyCode.E))
@@ -211,6 +218,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
                 isBallSelected = false; 
                 isCannonSelected = false;
             }
+            audioService.PlayFXAudio(Constants.audioP02CannonFire);
         }
 
         if (ballIsFlying)
@@ -259,6 +267,18 @@ public class GameControllerPuzzle02 : GameControllerRoot
         shipImages[ActiveBoat].sprite = inactiveBoat;
     }
 
+    public void playhit()
+    {
+        audioService.PlayFXAudio(Constants.audioP02BallHit);
+        Debug.Log("Audio played");
+    }
+
+    public void playMiss()
+    {
+        audioService.PlayFXAudio(Constants.audioP02BallMiss);
+        Debug.Log("Audio played");
+    }
+
     private void FireCannon()
     {
         targetPosition = new Vector3 (0, -5, 0);
@@ -283,6 +303,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
                 maincannonBrackets.GetComponent<TextMesh>().color = Color.green;
                 maincannonText.GetComponent<TextMesh>().color = Color.green;
                 Debug.Log("Will Hit!");
+                
             }
         }
 
