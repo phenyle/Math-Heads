@@ -25,5 +25,7 @@ public class ChoiceClickButton : MonoBehaviour
             btnChoice.interactable = false;
             GCP03.SetSpanValue(spanValue, choiceID);
         }
+
+        GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03Click);
     }
 }

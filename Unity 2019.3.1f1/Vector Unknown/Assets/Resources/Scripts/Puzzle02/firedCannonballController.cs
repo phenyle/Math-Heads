@@ -7,14 +7,17 @@ public class firedCannonballController : MonoBehaviour
     public GameObject waterEffect;
     private GameObject tempEffect;
     private float timer = 0;
-    private bool isEffectPlayed = false;
+
     private GameControllerPuzzle02 GCP02;
+    private bool isEffectPlayed = false;
+    private AudioSource audioSource;
 
     void Start()
     {
         GCP02 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle02>();
+        audioSource = GetComponent<AudioSource>();
     }
-    // Update is called once per frame
+
     void Update()
     {
         if (this.gameObject.transform.position.y < -7.0f)
@@ -31,7 +34,10 @@ public class firedCannonballController : MonoBehaviour
 
             if (timer > 450)
             {
-                GCP02.playMiss();
+                //GCP02.playMiss();
+                audioSource.clip = GameRoot.instance.audioService.GetFXAudioClip(Constants.audioP02BallMiss);
+                audioSource.Play();
+
                 Destroy(tempEffect);
                 Destroy(this.gameObject);
             }

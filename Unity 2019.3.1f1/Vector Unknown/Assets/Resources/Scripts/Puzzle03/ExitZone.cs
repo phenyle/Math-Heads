@@ -23,6 +23,8 @@ public class ExitZone : MonoBehaviour
             Destroy(puzzle03Player.gameObject);
 
             GCP03.FinishSubLevel(puzzleID);
+
+            GameRoot.instance.audioService.PlayFXAudio(Constants.audioP03FinishSubPuzzle);
         }
     }
 }

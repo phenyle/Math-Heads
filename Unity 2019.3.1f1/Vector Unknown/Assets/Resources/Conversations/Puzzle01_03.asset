@@ -15,5 +15,5 @@ MonoBehaviour:
   dialogues:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
-    - Let me see... The y value of displacement is fixed.
-    - You need to solve the x and z value.
+    - Enter the displacement of X, Y, and Z values between the targeted and current
+      platform.

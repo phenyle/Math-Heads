@@ -74,4 +74,5 @@ public class ResourceService : MonoBehaviour
     {
         return Resources.Load<Conversation>("Conversations/" + name);
     }
+
 }

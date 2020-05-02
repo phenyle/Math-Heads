@@ -142,7 +142,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
                     else if (questionNum == 4 && DialogueManager.showP01_07)
                     {
                         FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_07"));
-                        DialogueManager.showP01_05 = false;
+                        DialogueManager.showP01_07 = false;
                     }
                     //********************************************************
 

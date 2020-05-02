@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class shipContoller : MonoBehaviour
 {
-    private GameControllerPuzzle02 GCP02;
     public bool isHit = false;
     public bool isplayed = false;
     public GameObject text1;
     public GameObject text2;
     public GameObject effect;
+
+    private GameControllerPuzzle02 GCP02;
     private GameObject tempEffect;
+    private AudioSource audioSource;
 
     void Start()
     {
         GCP02 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle02>();
+        audioSource = GetComponent<AudioSource>();
+
          bool isHit = false;
     }
     
@@ -59,10 +63,14 @@ public class shipContoller : MonoBehaviour
         Destroy(other.gameObject);
         GCP02.ballIsFlying = false;
         Debug.Log("Boat was hit");
-        GCP02.playhit();
+
         GCP02.ballIsFlying = false;
         text1.gameObject.SetActive(false);
         text2.gameObject.SetActive(false);
+
+        //GCP02.playhit();
+        audioSource.clip = GameRoot.instance.audioService.GetFXAudioClip(Constants.audioP02BallHit);
+        audioSource.Play();
     }
 }
 

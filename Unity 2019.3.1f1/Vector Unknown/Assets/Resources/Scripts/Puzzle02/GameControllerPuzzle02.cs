@@ -181,12 +181,16 @@ public class GameControllerPuzzle02 : GameControllerRoot
             Debug.Log("Selected Vector " + selectedVector[0] + ", " + selectedVector[1]);
             maincannonText.gameObject.GetComponent<TextMesh>().text = selectedVector[0] + "\n" + selectedVector[1];
             Vector.text = selectedVector[0] + "\n" + selectedVector[1];
+
+            /*
             //---------------------------------New Tips Function--------------------------------------
             if (isCannonSelected && isBallSelected)
                 GameRoot.ShowTips("The main gun is ready to fire", true, true);
             else
                 GameRoot.ShowTips("Go pick the Cannon Ball or pick another Cannon", true, true);
             //--------------------------------------------------------------------------------------------
+            */
+
             audioService.PlayFXAudio(Constants.audioP02Selection);
             Debug.Log("Audio played");
         }
@@ -199,12 +203,16 @@ public class GameControllerPuzzle02 : GameControllerRoot
                 selectedTransformMatrix[2] + ", " + selectedTransformMatrix[3]);
             Matrix.text = selectedTransformMatrix[0] + " " + selectedTransformMatrix[1] + "\n" +
                 selectedTransformMatrix[2] + " " + selectedTransformMatrix[3];
+
+            /*
             //---------------------------------New Tips Function--------------------------------------
             if (isCannonSelected && isBallSelected)
                 GameRoot.ShowTips("The main gun is ready to fire", true, true);
             else
                 GameRoot.ShowTips("Go pick the Cannon or pick another Cannon Ball", true, true);
             //--------------------------------------------------------------------------------------------
+            */
+
             audioService.PlayFXAudio(Constants.audioP02Selection);
             Debug.Log("Audio played");
         }
@@ -267,17 +275,19 @@ public class GameControllerPuzzle02 : GameControllerRoot
         shipImages[ActiveBoat].sprite = inactiveBoat;
     }
 
+    /*
     public void playhit()
     {
         audioService.PlayFXAudio(Constants.audioP02BallHit);
         Debug.Log("Audio played");
     }
-
+    
     public void playMiss()
     {
         audioService.PlayFXAudio(Constants.audioP02BallMiss);
         Debug.Log("Audio played");
     }
+    */
 
     private void FireCannon()
     {

@@ -42,6 +42,11 @@ public class AudioService : MonoBehaviour
         audioFX.Play();
     }
 
+    public AudioClip GetFXAudioClip(string audioName)
+    {
+        return GameRoot.instance.resourceService.LoadAudio("Audios/Sound FX/" + audioName, false);
+    }
+
     public void PauseAllAudios()
     {
         audioBg.volume *= 0.2f;

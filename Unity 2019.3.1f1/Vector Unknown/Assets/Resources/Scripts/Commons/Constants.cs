@@ -32,8 +32,16 @@ public class Constants
     public const string audioP01Congratulation = "MUSIC_EFFECT_Platform_Positive_03a_Fast_stereo";
 
     //FX Puzzle02
-    public const string audioP02Selection = "IMPACT_Metal_Barrel_Subtle_mono";
-    public const string audioP02CannonFire = "FIREWORKS_Rocket_Explode_Large_RR4_mono";
-    public const string audioP02BallHit = "DEMOLISH_Wood_Fall_stereo";
-    public const string audioP02BallMiss = "SPLASH_Big_Noise_mono";
+    public const string audioP02Selection = "Puzzle02/IMPACT_Metal_Barrel_Subtle_mono";
+    public const string audioP02CannonFire = "Puzzle02/FIREWORKS_Rocket_Explode_Large_RR4_mono";
+    public const string audioP02BallHit = "Puzzle02/DEMOLISH_Wood_Fall_stereo";
+    public const string audioP02BallMiss = "Puzzle02/SPLASH_Big_Noise_mono";
+
+    //FX Puzzle03
+    public const string audioP03Click = "UI_button_click";
+    public const string audioP03ClickClear = "UI_Click_Cut_mono";
+    public const string audioP03TriggerQuestion = "UI_Toggle_Voice_Tripe_Note_Enable_stereo";
+    public const string audioP03ExitQuestion = "UI_Toggle_Voice_Triple_Note_Disable_stereo";
+    public const string audioP03FinishSubPuzzle = "MUSIC_EFFECT_Solo_Harp_Positive_01_stereo";
+    public const string audioP03RotatedPuzzleEnvironment = "CONSTRUCTION_Digger_Loading_01_loop_stereo";
 }

@@ -86,6 +86,8 @@ public class Puzzle03Window : WindowRoot
         }
 
         ClearSpanValues();
+
+        GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03Click);
     }
 
     public void ClickClearChoice1Btn()
@@ -94,6 +96,9 @@ public class Puzzle03Window : WindowRoot
         txtChoice1.text = "";
         choiceID1 = 0;
         choice1Pos = Vector3.zero;
+
+
+        GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03ClickClear);
     }
 
     public void ClickClearChoice2Btn()
@@ -102,6 +107,8 @@ public class Puzzle03Window : WindowRoot
         txtChoice2.text = "";
         choiceID2 = 0;
         choice2Pos = Vector3.zero;
+
+        GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03ClickClear);
     }
 
     public void ClearFeedbackPanel()

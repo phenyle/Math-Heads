@@ -15,7 +15,5 @@ MonoBehaviour:
   dialogues:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
-    - It seems like the question becomes harder. But don't worry, I will help you.
-    - For this problem, the scalar is fixed at 2. The displacement vector is being
-      multiplied by 2.
-    - Be care!!! The displacement of the X values is -10, and not -20.
+    - A vector can be multiplied by a number (scalar) to produce another vector
+    - "Your displacement vector is being multiplied by the scalar.\r"

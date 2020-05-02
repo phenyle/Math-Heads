@@ -68,7 +68,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
-        startPosition = player.transform.position;
+        startPosition = player.transform.localPosition;
 
         //Get all the buttons of first sub-buttons from window
         BtnChoices = P03W.BtnChoices[0];
@@ -81,18 +81,27 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     private void Update()
     {
+        
         if (Input.GetKeyDown(KeyCode.R))
         {
-            player.transform.position = startPosition;
+            player.transform.localPosition= startPosition;
+
+            GameRoot.instance.IsLock(false);
+            P03W.ShowChoicePanel(false);
+            isTriggerQuestion = false;
+
             GameRoot.ShowTips("", true, false);
         }
 
         if(isRotate)
         {
-            if (Mathf.Abs(diffRotation.x) <= 0.5f && Mathf.Abs(diffRotation.y) <= 0.5f && Mathf.Abs(diffRotation.z) <= 0.5f)
+            if (Mathf.Abs(diffRotation.x) <= 2f && Mathf.Abs(diffRotation.y) <= 2f && Mathf.Abs(diffRotation.z) <= 2f)
             {
                 plane.transform.eulerAngles = finalRotation;
                 isRotate = false;
+
+                //Stop audio FX rotated puzzle environment
+                plane.GetComponent<PuzzleEnvironmentController>().PlayRotatedSoundFX(false);
             }
             else
             {
@@ -119,6 +128,8 @@ public class GameControllerPuzzle03 : GameControllerRoot
                 GameRoot.isPuzzleLock = false;
                 P03W.ShowChoicePanel(false);
                 isTriggerQuestion = false;
+
+                GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03ExitQuestion);
             }
             else
             {
@@ -126,6 +137,8 @@ public class GameControllerPuzzle03 : GameControllerRoot
                 GameRoot.instance.IsLock(true);
                 GameRoot.isPuzzleLock = true;
                 P03W.ShowChoicePanel(true);
+
+                GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03TriggerQuestion);
             }
         }
         // ***********************************************************************************************
@@ -204,6 +217,9 @@ public class GameControllerPuzzle03 : GameControllerRoot
             CalDiffRotation();
 
             isRotate = true;
+
+            //Activate audio FX rotated puzzle environment
+            plane.GetComponent<PuzzleEnvironmentController>().PlayRotatedSoundFX(true);
         }
         else
         {
@@ -246,8 +262,13 @@ public class GameControllerPuzzle03 : GameControllerRoot
         this.subPuzzleID = subPuzzleID;
 
         topCamera.depth = 0;
-        
-        if(subPuzzleID < DBP03.subLevelPlanes.Length)
+
+        //Stop audio FX rotated puzzle environment
+        plane.GetComponent<PuzzleEnvironmentController>().PlayRotatedSoundFX(false);
+
+        isRotate = false;
+
+        if (subPuzzleID < DBP03.subLevelPlanes.Length)
         {
             topCamera = topCameraList[subPuzzleID];
             BtnChoices = P03W.BtnChoices[subPuzzleID];
@@ -256,9 +277,8 @@ public class GameControllerPuzzle03 : GameControllerRoot
             DBP03.SetPuzzleActive(subPuzzleID);
             plane = DBP03.GetSubLevelPlanes(subPuzzleID);
         }
-    
+
         finalRotation = Vector3.zero;
-        isRotate = false;
 
         GameRoot.instance.IsLock(false);
         P03W.ShowChoicePanel(false);

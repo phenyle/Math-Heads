@@ -15,6 +15,5 @@ MonoBehaviour:
   dialogues:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
-    - Last question...
-    - The only fixed value is the z value of the displacement...
-    - Well, you need to think about the proper scalar, x, and y value of the displacement.
+    - "A vector can be multiplied by a number (scalar) to produce another vector.\r"
+    - "Your displacement vector is being multiplied by the scalar\r."
