@@ -221,7 +221,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
             case -1:
                 Camera.main.depth = 1;
                 topCamPlayer.GetComponent<TopCameraPlayer>().isTopCamera = false;
-                if (!isInQues)
+                if (!isTriggerQuestion)
                 {
                     GameRoot.instance.IsLock(false);
                 }

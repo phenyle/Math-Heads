@@ -178,6 +178,8 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
                     GameRoot.instance.IsLock(false);
                     GameRoot.ShowTips("", false, false);
+                    isInQuestion = false;
+                    P03W.SetInstructionalText("Go to the exit.");
                 }
 
                 isShiftPlane = false;

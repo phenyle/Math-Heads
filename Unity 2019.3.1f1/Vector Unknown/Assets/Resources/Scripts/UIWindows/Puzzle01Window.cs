@@ -50,6 +50,16 @@ public class Puzzle01Window : WindowRoot
 
         SetActive(iptPanel, false);
         SetActive(feedbackPanel, false);
+
+        foreach (Image image in PlatformTips)
+        {
+            SetActive(image, true);
+        }
+
+        foreach (Image image in PlatformTipsChecked)
+        {
+            SetActive(image, false);
+        }
     }
 
     public void ClickAnswerSubmitBtn()

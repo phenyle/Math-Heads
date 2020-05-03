@@ -83,7 +83,7 @@ public class GameControllerMain : GameControllerRoot
                 DialogueManager.showM_01 = false;
             }
 
-            MW.SetInstructionText("Find & enter the house to save villagers.");
+            MW.SetInstructionText("Find & enter the pirates' hideout to save villagers.");
             MW.SetCheckImage(0, spriteChecks[0]);
             MW.SetCheckImage(1, spriteChecks[1]);
         }
