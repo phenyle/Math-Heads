@@ -58,7 +58,10 @@ public class TitleWindow : WindowRoot
         DialogueManager.instance.ResetAll();
 
         audioService.PlayUIAudio(Constants.audioUIStartBtn);
-        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle01SceneName);
+        //GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle01SceneName);// original 
+        
+        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.mainSceneName);//added by LaQuez Brown 1-26-21
+
     }
 
     public void ClickTutorialBtn()
