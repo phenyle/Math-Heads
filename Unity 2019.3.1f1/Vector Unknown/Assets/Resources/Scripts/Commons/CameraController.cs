@@ -13,12 +13,15 @@ public class CameraController : MonoBehaviour
     private Vector3 rotationSmoothVelocity, currentRotation;
     private float horizontal, vertical;
 
+
     private void Start()
     {
         currentRotation = transform.rotation.eulerAngles;
 
         horizontal = transform.rotation.eulerAngles.y;
         vertical = transform.rotation.eulerAngles.x;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void LateUpdate()
@@ -27,6 +30,8 @@ public class CameraController : MonoBehaviour
         {
             CameraMovement();
         }
+
+        toggleMouse();
     }
 
     private void CameraMovement()
@@ -39,5 +44,20 @@ public class CameraController : MonoBehaviour
         this.transform.eulerAngles = currentRotation;
 
         this.transform.position = target.position - this.transform.forward * dstFromTarget;
+    }
+
+    private void toggleMouse()
+    {
+        // press left alt to toggle the mouse to interact with games
+        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        {
+            Debug.Log("toggleMouse");
+            isLock = !isLock;
+            Cursor.visible = !Cursor.visible;
+            if (Cursor.lockState == CursorLockMode.Locked)
+                Cursor.lockState = CursorLockMode.Confined;
+            else
+                Cursor.lockState = CursorLockMode.Locked;
+        }        
     }
 }
