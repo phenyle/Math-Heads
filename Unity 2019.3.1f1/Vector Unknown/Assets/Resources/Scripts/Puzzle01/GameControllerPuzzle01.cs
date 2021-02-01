@@ -91,6 +91,12 @@ public class GameControllerPuzzle01 : GameControllerRoot
             GameRoot.ShowTips("", true, false);
         }
 
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            endportal.gameObject.SetActive(true);
+            endportal.transform.position = player.transform.position;
+        }
+
         //Update the instruction text based on the player status
         if (isInQues == true)
         {
