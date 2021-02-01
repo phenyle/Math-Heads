@@ -26,12 +26,13 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(!Cursor.visible)
-        {
-            CameraMovement();
-        }
+        //if(!Cursor.visible)
+        //{
+        //    CameraMovement();
+        //}
+        CameraMovement();
 
-        if(Cursor.visible == false)
+        if (Cursor.visible == false)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }
@@ -49,8 +50,12 @@ public class CameraController : MonoBehaviour
         vertical -= Input.GetAxis("Mouse Y") * rotatedSpeed;
         vertical = Mathf.Clamp(vertical, verticalMinMax.x, verticalMinMax.y);
 
-        currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(vertical, horizontal), ref rotationSmoothVelocity, rotatedSmoothTime);
-        this.transform.eulerAngles = currentRotation;
+        // only rotate when mouse is not visible
+        if (!Cursor.visible)
+        {
+            currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(vertical, horizontal), ref rotationSmoothVelocity, rotatedSmoothTime);
+            this.transform.eulerAngles = currentRotation;
+        }
 
         this.transform.position = target.position - this.transform.forward * dstFromTarget;
     }
