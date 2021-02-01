@@ -26,9 +26,18 @@ public class CameraController : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(!isLock)
+        if(!Cursor.visible)
         {
             CameraMovement();
+        }
+
+        if(Cursor.visible == false)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Confined;
         }
 
         toggleMouse();
@@ -54,10 +63,10 @@ public class CameraController : MonoBehaviour
             Debug.Log("toggleMouse");
             isLock = !isLock;
             Cursor.visible = !Cursor.visible;
-            if (Cursor.lockState == CursorLockMode.Locked)
-                Cursor.lockState = CursorLockMode.Confined;
-            else
-                Cursor.lockState = CursorLockMode.Locked;
+            //if (Cursor.lockState == CursorLockMode.Locked)
+            //    Cursor.lockState = CursorLockMode.Confined;
+            //else
+            //    Cursor.lockState = CursorLockMode.Locked;
         }        
     }
 }
