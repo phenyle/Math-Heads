@@ -9,9 +9,12 @@ public class CameraController : MonoBehaviour
     public Vector2 verticalMinMax = new Vector2(-30, 60);
 
     [HideInInspector]
-    public bool isLock = false;
+    //public bool isLock = false;
+    public bool isLock = true;
     private Vector3 rotationSmoothVelocity, currentRotation;
     private float horizontal, vertical;
+
+    public bool postPuzzleLock = false;
 
 
     private void Start()
@@ -20,26 +23,18 @@ public class CameraController : MonoBehaviour
 
         horizontal = transform.rotation.eulerAngles.y;
         vertical = transform.rotation.eulerAngles.x;
-        Cursor.visible = false;
-        Cursor.lockState = CursorLockMode.Locked;
+
+        isLock = true;
+        postPuzzleLock = false;
     }
 
     private void LateUpdate()
     {
-        //if(!Cursor.visible)
-        //{
-        //    CameraMovement();
-        //}
-        CameraMovement();
-
-        if (Cursor.visible == false)
+        if (isLock)
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            CameraMovement();
         }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Confined;
-        }
+        //CameraMovement();
 
         toggleMouse();
     }
@@ -50,28 +45,44 @@ public class CameraController : MonoBehaviour
         vertical -= Input.GetAxis("Mouse Y") * rotatedSpeed;
         vertical = Mathf.Clamp(vertical, verticalMinMax.x, verticalMinMax.y);
 
-        // only rotate when mouse is not visible
-        if (!Cursor.visible)
-        {
-            currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(vertical, horizontal), ref rotationSmoothVelocity, rotatedSmoothTime);
-            this.transform.eulerAngles = currentRotation;
-        }
+
+        currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(vertical, horizontal), ref rotationSmoothVelocity, rotatedSmoothTime);
+        this.transform.eulerAngles = currentRotation;
+
 
         this.transform.position = target.position - this.transform.forward * dstFromTarget;
     }
 
     private void toggleMouse()
     {
-        // press left alt to toggle the mouse to interact with games
-        if(Input.GetKeyDown(KeyCode.LeftAlt))
+        // press tab to toggle the mouse to interact with games
+        if(Input.GetKeyDown(KeyCode.Tab))
         {
-            Debug.Log("toggleMouse");
+            Debug.Log("mouse hidden:" + isLock);
             isLock = !isLock;
-            Cursor.visible = !Cursor.visible;
-            //if (Cursor.lockState == CursorLockMode.Locked)
-            //    Cursor.lockState = CursorLockMode.Confined;
-            //else
-            //    Cursor.lockState = CursorLockMode.Locked;
-        }        
+        }
+
+        //if (DialogueManager.isPuzzleLock && newScene == true)
+        //{
+        //    isLock = false;
+        //    newScene = false;
+        //}
+
+        if ((DialogueManager.isInDialogue || DialogueManager.isPuzzleLock) && postPuzzleLock == false)
+        {
+            //Debug.Log("free mouse");
+            isLock = false;
+        }
+
+        if (isLock)
+        {
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
     }
 }

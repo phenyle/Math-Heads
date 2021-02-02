@@ -18,7 +18,6 @@ public class PauseWindow : WindowRoot
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
         GameRoot.instance.Resume();
-        Cursor.visible = false;
     }
 
     public void ClickSettingBtn()
