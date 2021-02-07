@@ -7,6 +7,7 @@ public class CameraController : MonoBehaviour
     public float rotatedSmoothTime = 0.12f;
     public float dstFromTarget = 3f;
     public Vector2 verticalMinMax = new Vector2(-30, 60);
+    public float keyboardRotatedSpeed = 50.0f;
 
     [HideInInspector]
     //public bool isLock = false;
@@ -44,6 +45,23 @@ public class CameraController : MonoBehaviour
         horizontal += Input.GetAxis("Mouse X") * rotatedSpeed;
         vertical -= Input.GetAxis("Mouse Y") * rotatedSpeed;
         vertical = Mathf.Clamp(vertical, verticalMinMax.x, verticalMinMax.y);
+
+        if(Input.GetKey(KeyCode.J))
+        {
+            horizontal -= Time.deltaTime * keyboardRotatedSpeed;
+        }
+        if(Input.GetKey(KeyCode.L))
+        {
+            horizontal += Time.deltaTime * keyboardRotatedSpeed;
+        }
+        if(Input.GetKey(KeyCode.I))
+        {
+            vertical -= Time.deltaTime * keyboardRotatedSpeed;
+        }
+        if(Input.GetKey(KeyCode.K))
+        {
+            vertical += Time.deltaTime * keyboardRotatedSpeed;
+        }
 
 
         currentRotation = Vector3.SmoothDamp(currentRotation, new Vector3(vertical, horizontal), ref rotationSmoothVelocity, rotatedSmoothTime);
