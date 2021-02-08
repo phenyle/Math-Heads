@@ -26,10 +26,26 @@ public class DialogueManager : MonoBehaviour
     private AudioService audioService;
     private bool isFirstSentence;
 
+
+    public Button continueButton;
+
     private void Start()
     {
         instance = this;
         audioService = GameRoot.instance.audioService;
+    }
+
+    private void Update() 
+    {
+        try
+        {
+            if(Input.GetKeyDown(KeyCode.Space) && isInDialogue)
+            {
+                continueButton.onClick.Invoke();
+            }
+        }
+        catch{}
+        
     }
 
     public void StartDialogue(Conversation conversation)
