@@ -16,8 +16,9 @@ public enum PuzzleComplete
     NullPuzzle,
     Puzzle01Complete,
     Puzzle02Complete,
-    Puzzle03Complete
-}
+    Puzzle03Complete,
+   // Puzzle04Complete // for puzzle04
+  }
 
 public class EnterExit : MonoBehaviour
 {
@@ -55,6 +56,9 @@ public class EnterExit : MonoBehaviour
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
                         GameRoot.instance.exitPuzzle = 3;
 
+                    //else if (SceneManager.GetActiveScene().name == Constants.puzzle04SceneName) // for puzzle 04
+                    //    GameRoot.instance.exitPuzzle = 4;
+
                     break;
 
                 case SceneName.Puzzle01SceneName:
@@ -72,6 +76,10 @@ public class EnterExit : MonoBehaviour
                 case SceneName.CreditSceneName:
                     playerController.sceneName = Constants.creditSceneName;
                     break;
+
+                //case SceneName.Puzzle04SceneName: // puzzle 04
+                //    playerController.sceneName = Constants.puzzle04SceneName;
+                //    break;
             }
 
             switch(puzzleComplete)
@@ -87,6 +95,10 @@ public class EnterExit : MonoBehaviour
                 case PuzzleComplete.Puzzle03Complete:
                     GameRoot.instance.puzzleCompleted[2] = true;
                     break;
+
+                //case PuzzleComplete.Puzzle04Complete: // puzzle04
+                //    GameRoot.instance.puzzleCompleted[3] = true;
+                //    break;
 
 
                 default:

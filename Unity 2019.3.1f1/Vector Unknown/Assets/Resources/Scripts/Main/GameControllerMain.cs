@@ -6,12 +6,13 @@ public class GameControllerMain : GameControllerRoot
     public Transform PCFromPuzzle01;
     public Transform PCFromPuzzle02;
     public Transform PCFromPuzzle03;
+   // public Transform PCFromPuzzle04; // puzzle 4 area to pop out of
 
     public Transform sunLight;
     public Transform moonLight;
     public LPWAsset.LowPolyWaterScript ocean;
     public Material night;
-    public Transform portalPuzzle03;
+    public Transform portalPuzzle03; // might need to change if we want to move starting position since this is place you appear when u exit puzzle 1 
     public Sprite[] spriteChecks;
 
     [HideInInspector]
@@ -39,19 +40,31 @@ public class GameControllerMain : GameControllerRoot
                 SetActive(PCFromPuzzle01, true);
                 SetActive(PCFromPuzzle02, false);
                 SetActive(PCFromPuzzle03, false);
+                //SetActive(PCFromPuzzle04, false);
+
                 break;
 
             case 2:
                 SetActive(PCFromPuzzle01, false);
                 SetActive(PCFromPuzzle02, true);
                 SetActive(PCFromPuzzle03, false);
+              //  SetActive(PCFromPuzzle04, false);
                 break;
 
             case 3:
                 SetActive(PCFromPuzzle01, false);
                 SetActive(PCFromPuzzle02, false);
                 SetActive(PCFromPuzzle03, true);
+                //SetActive(PCFromPuzzle04, false);
                 break;
+
+
+            //case 4: // new player object is activated and others are turned off
+            //    SetActive(PCFromPuzzle01, false);
+            //    SetActive(PCFromPuzzle02, false);
+            //    SetActive(PCFromPuzzle03, false);
+            //    SetActive(PCFromPuzzle04, true);
+            //    break;
         }
 
         //If player only finish puzzle 01

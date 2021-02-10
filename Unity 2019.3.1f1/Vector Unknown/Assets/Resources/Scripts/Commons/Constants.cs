@@ -8,6 +8,7 @@ public class Constants
     public const string puzzle01SceneName = "03Puzzle01";
     public const string puzzle02SceneName = "04Puzzle02";
     public const string puzzle03SceneName = "05Puzzle03";
+    //public const string puzzle04SceneName = "Puzzle04"; // for scene 4
     public const string creditSceneName = "06Credit";
     public const string tutorialSceneName = "07Tutorial";
 
@@ -17,6 +18,7 @@ public class Constants
     public const string audioBgPuzzle1 = "02Puzzle01Bg";
     public const string audioBgPuzzle2 = "03Puzzle02Bg";
     public const string audioBgPuzzle3 = "04Puzzle03Bg";
+    //public const string audioBgPuzzle4 = "04Puzzle04Bg"; 
     public const string audioBgCredit = "05CreditsBg";
     public const string audioBgTutorial = "06TutorialBg";
 
