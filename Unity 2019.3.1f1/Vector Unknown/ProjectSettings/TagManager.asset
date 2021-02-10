@@ -12,6 +12,10 @@ TagManager:
   - PressE
   - TutorialWindow
   - CannonballStack
+  - Puzzle03ChoiceBtn
+  - GameRoot
+  - TopCamera
+  - Controls
   layers:
   - Default
   - TransparentFX

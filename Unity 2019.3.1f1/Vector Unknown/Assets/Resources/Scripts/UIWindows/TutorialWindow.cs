@@ -184,23 +184,6 @@ public class TutorialWindow : WindowRoot
             }
         }
 
-        // player = GameObject.FindGameObjectWithTag("Player");
-        if (player.transform.position == previousPosition)
-        {
-           // Debug.Log("Not Moving");
-            timer += (int)Time.deltaTime + 1;
-            if (timer == 1200)
-            {
-               // Debug.Log("Show Tip");
-                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
-            }
-        }
-        else
-        {
-           // Debug.Log("Moving");
-            timer = 0;
-        }
-
         if (Input.GetKeyDown(KeyCode.R))
         {
             player.transform.position = startPosition;

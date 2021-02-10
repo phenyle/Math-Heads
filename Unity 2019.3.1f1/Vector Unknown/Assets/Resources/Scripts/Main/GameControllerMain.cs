@@ -95,10 +95,6 @@ public class GameControllerMain : GameControllerRoot
         if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
         {
             timer += (int)Time.deltaTime + 1;
-            if (timer == 1200)
-            {
-                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
-            }
         }
         else
         {
