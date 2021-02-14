@@ -9,11 +9,14 @@ public class cannonController : MonoBehaviour
     public int[] vector;
     public GameObject vectorText;
     public int index;
+    public int cannonNumber;
+    public GameObject text;
+    public GameObject bracket;
 
     // Start is called before the first frame update
     void Start()
     {
-        vectorText.gameObject.SetActive(false);
+        // vectorText.gameObject.SetActive(false);
         GCP02 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle02>();
     }
 
@@ -23,9 +26,13 @@ public class cannonController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("vector" + vector[0] + ", " + vector[1]);
-            vectorText.gameObject.SetActive(true);
+            // vectorText.gameObject.SetActive(true);
             GCP02.currentVector = vector;
+            GCP02.currentCannonMaterial = this.GetComponent<Renderer>().material;
             GCP02.isCannonTrigger = true;
+            text.GetComponent<TextMesh>().color = Color.yellow;
+            bracket.GetComponent<TextMesh>().color = Color.yellow;
+
 
             //---------------------------------New Tips Function--------------------------------------
                 GameRoot.ShowTips("Press \"E\" to pick the Cannon", true, false);
@@ -38,9 +45,11 @@ public class cannonController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            vectorText.gameObject.SetActive(false);
+            // vectorText.gameObject.SetActive(false);
             //GCP02.currentVector = null;
             GCP02.isCannonTrigger = false;
+            text.GetComponent<TextMesh>().color = Color.white;
+            bracket.GetComponent<TextMesh>().color = Color.white;
 
             //---------------------------------New Tips Function--------------------------------------
             GameRoot.ShowTips("", false, false);

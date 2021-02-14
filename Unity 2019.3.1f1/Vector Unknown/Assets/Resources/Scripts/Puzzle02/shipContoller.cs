@@ -71,6 +71,16 @@ public class shipContoller : MonoBehaviour
         //GCP02.playhit();
         audioSource.clip = GameRoot.instance.audioService.GetFXAudioClip(Constants.audioP02BallHit);
         audioSource.Play();
+
+        StartCoroutine(resetCannonText(5));
+
+    }
+
+    // sets cannon text back to selected vector after sinking ship
+    public IEnumerator resetCannonText(float sec) 
+    {
+        yield return new WaitForSeconds(sec);
+        GCP02.maincannonText.gameObject.GetComponent<TextMesh>().text = GCP02.selectedVector[0] + "\n" + GCP02.selectedVector[1];
     }
 }
 

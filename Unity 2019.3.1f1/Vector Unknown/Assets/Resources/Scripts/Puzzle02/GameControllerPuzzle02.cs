@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using System.Collections;
 
 public class GameControllerPuzzle02 : GameControllerRoot
 {
@@ -8,7 +9,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
     public int[] currentVector = new int[] { 0, 0 };
 
     private int[] selectedTransformMatrix = new int[] { 0, 0, 0, 0 };
-    private int[] selectedVector = new int[] { 0, 0 };
+    public int[] selectedVector = new int[] { 0, 0 };
 
     public GameObject firingCannon;
 
@@ -73,6 +74,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
     private Vector3 previousPosition;
     public Transform endportal;
 
+    // Vector cannons
+    public Material currentCannonMaterial;
+
+
     public override void InitGameController(Puzzle02Window P02W)
     {
         Debug.Log("Init GameController Puzzle02");
@@ -99,7 +104,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
             showP02_00 = false;
         }
 
-        cannonBarrel.gameObject.SetActive(false);
+        // cannonBarrel.gameObject.SetActive(false);
 
         trailMaterial = trailMaterialWrong;
 
@@ -116,23 +121,24 @@ public class GameControllerPuzzle02 : GameControllerRoot
         Vector = P02W.Vector;
         shipImages = P02W.shipImages;
         SetActive(endportal, false);
+
     }
    
     void Update()
     {
-
-        if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
-        {
-            timer += (int)Time.deltaTime + 1;
-            if (timer == 1200)
-            {
-                GameRoot.ShowTips("Press 'R' to reset position, 'T' to dismiss", true, false);
-            }
-        }
-        else
-        {
-            timer = 0;
-        }
+        // reset position tip
+        // if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
+        // {
+        //     timer += (int)Time.deltaTime + 1;
+        //     if (timer == 1200)
+        //     {
+        //         GameRoot.ShowTips("Press 'R' to reset position, 'T' to dismiss", true, false);
+        //     }
+        // }
+        // else
+        // {
+        //     timer = 0;
+        // }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -174,9 +180,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         if (isCannonTrigger && Input.GetKeyDown(KeyCode.E))
         {
-            cannonBarrel.SetActive(true);
+            // cannonBarrel.SetActive(true);
 
             selectedVector = currentVector;
+            cannonBarrel.GetComponent<Renderer>().material = currentCannonMaterial;
             isCannonSelected = true;
             Debug.Log("Selected Vector " + selectedVector[0] + ", " + selectedVector[1]);
             maincannonText.gameObject.GetComponent<TextMesh>().text = selectedVector[0] + "\n" + selectedVector[1];
@@ -297,7 +304,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         targetPosition.z = targetVector[1];
         maincannonText.gameObject.GetComponent<TextMesh>().text = targetPosition.x + "\n" + targetPosition.z;
         Debug.Log("Cannon is aiming at :(" + targetPosition.x + ", " + targetPosition.z + ")");
-        cannonBarrel.SetActive(false);
+        // cannonBarrel.SetActive(false);
         tempCannonball = Instantiate(cannonball, firingCannon.transform.position + new Vector3(0, 2.1f, 1.6f), firingCannon.transform.rotation);
 
         tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialWrong;
@@ -319,6 +326,6 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         ballIsFlying = true;
         cannonBlast.SetActive(true);
-        cannonBlast.GetComponent<ParticleSystem>().Play(true);  
+        cannonBlast.GetComponent<ParticleSystem>().Play(true); 
     }
 }
