@@ -39,6 +39,7 @@ public class PauseWindow : WindowRoot
     public void ClickMenuBtn()
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
+        GameObject.Find("DialogueManager").GetComponent<DialogueManager>().EndDialogue();       
         GameRoot.instance.InitUI();
         GameRoot.instance.menuSystem.EnterMenu();
         GameRoot.instance.Resume();

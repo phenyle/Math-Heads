@@ -166,7 +166,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
             {
                 TopViewText[ActiveBoat].gameObject.SetActive(true);
                 TopViewText[6].gameObject.SetActive(true);
-                normalText[ActiveBoat].gameObject.SetActive(false); 
+                normalText[ActiveBoat].gameObject.SetActive(false);
             }
             else
             {
@@ -252,8 +252,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
     private void SwitchCamera()
     {
         if (topCameraActive)
-        {
+        {          
             MainCamera.gameObject.SetActive(true);
+            MainCamera.GetComponent<CameraController>().isLock = true;
 
             topCamera.gameObject.SetActive(false);
 
@@ -266,6 +267,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
             topCamera.gameObject.SetActive(true);
 
             topCameraActive = true;
+
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 

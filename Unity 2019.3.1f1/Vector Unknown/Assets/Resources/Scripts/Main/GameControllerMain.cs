@@ -100,23 +100,26 @@ public class GameControllerMain : GameControllerRoot
             MW.SetCheckImage(0, spriteChecks[0]);
             MW.SetCheckImage(1, spriteChecks[1]);
         }
+
+        DialogueManager.isInDialogue = false;
+        DialogueManager.isPuzzleLock = false;
      }
 
     void Update()
     {
-
-        if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
-        {
-            timer += (int)Time.deltaTime + 1;
-            if (timer == 1200)
-            {
-                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
-            }
-        }
-        else
-        {
-            timer = 0;
-        }
+        // reset position tip
+        // if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
+        // {
+        //     timer += (int)Time.deltaTime + 1;
+        //     if (timer == 1200)
+        //     {
+        //         GameRoot.ShowTips("Press 'R' to reset position.", true, false);
+        //     }
+        // }
+        // else
+        // {
+        //     timer = 0;
+        // }
 
         if (Input.GetKeyDown(KeyCode.R))
         {

@@ -71,19 +71,19 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
     private void Update()
     {
-
-        if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
-        {
-            timer += (int)Time.deltaTime + 1;
-            if (timer == 1200)
-            {
-                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
-            }
-        }
-        else
-        {
-            timer = 0;
-        }
+        // reset position tip
+        // if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
+        // {
+        //     timer += (int)Time.deltaTime + 1;
+        //     if (timer == 1200)
+        //     {
+        //         GameRoot.ShowTips("Press 'R' to reset position.", true, false);
+        //     }
+        // }
+        // else
+        // {
+        //     timer = 0;
+        // }
 
         if (Input.GetKeyDown(KeyCode.R))
         {
@@ -232,6 +232,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
                 if (!isTriggerQuestion)
                 {
                     GameRoot.instance.IsLock(false);
+                    GameObject.Find("MainCamera").GetComponent<CameraController>().isLock = true;
                 }
                 break;
         }
