@@ -4,6 +4,7 @@ public class SelectionTutorial : MonoBehaviour
 {
     public int value;
     public GameObject Text;
+	public GameObject bkObj;
     public GameObject pressedE;
     //public GameObject gameContoller;
     //private TutorialContorller tutorialContorller;
@@ -13,8 +14,9 @@ public class SelectionTutorial : MonoBehaviour
     {
         //pressedE.SetActive(false);
         Text.SetActive(false);
-        //tutorialContorller = gameContoller.GetComponent<TutorialContorller>();
-    }
+		bkObj.SetActive(false);
+		//tutorialContorller = gameContoller.GetComponent<TutorialContorller>();
+	}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -31,6 +33,7 @@ public class SelectionTutorial : MonoBehaviour
             }
 
             GameRoot.ShowTips("Press \"E\" to select", true, false);
+			bkObj.SetActive(true);
             Text.SetActive(true);
         }
     }
@@ -46,7 +49,8 @@ public class SelectionTutorial : MonoBehaviour
 
             GameRoot.ShowTips("", false, false);
             Text.SetActive(false);
-        }
+			bkObj.SetActive(false);
+		}
     }
 
     private void OnTriggerStay(Collider other)
