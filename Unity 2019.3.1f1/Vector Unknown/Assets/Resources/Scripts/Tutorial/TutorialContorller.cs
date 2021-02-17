@@ -71,7 +71,6 @@ public class TutorialContorller : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-
         if (Input.GetKeyDown(KeyCode.Z))
         {
             if (!topCameraActive)
@@ -164,24 +163,6 @@ public class TutorialContorller : MonoBehaviour
                 SelectionTutorial.SetActive(false);
                 Congrats.SetActive(true);
             }
-        }
-
-
-        
-       // player = GameObject.FindGameObjectWithTag("Player");
-        if (player.transform.position == previousPosition)
-        {
-            Debug.Log("Not Moving");
-            timer += (int)Time.deltaTime;
-            if (timer == 30)
-            {
-                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
-            }
-        }
-        else
-        {
-            Debug.Log("Moving");
-            timer = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.R))

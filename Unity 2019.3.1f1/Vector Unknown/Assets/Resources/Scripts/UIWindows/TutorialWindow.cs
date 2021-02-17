@@ -12,7 +12,13 @@ public class TutorialWindow : WindowRoot
     public GameObject S;
     public GameObject D;
 
-    public GameObject TopViewTutorial;
+	public GameObject CameraTutorial;
+	public GameObject I;
+	public GameObject J;
+	public GameObject K;
+	public GameObject L;
+
+	public GameObject TopViewTutorial;
     public GameObject Z;
     public GameObject Z2;
 
@@ -42,7 +48,13 @@ public class TutorialWindow : WindowRoot
     private bool sComplete = false;
     private bool dComplete = false;
 
-    private bool zComplete = false;
+	private bool CameraComplete = false;
+	private bool iComplete = false;
+	private bool jComplete = false;
+	private bool kComplete = false;
+	private bool lComplete = false;
+
+	private bool zComplete = false;
     private bool zpressedonce = false;
     private bool zpressedtwice = false;
 
@@ -80,6 +92,7 @@ public class TutorialWindow : WindowRoot
         topCamera = GameObject.FindGameObjectWithTag("TopCamera").gameObject;
 
         MovementTutorial.SetActive(true);
+		CameraTutorial.SetActive(false);
         TopViewTutorial.SetActive(false);
         FieldInput.SetActive(false);
         Questions.SetActive(false);
@@ -131,12 +144,42 @@ public class TutorialWindow : WindowRoot
             if (dComplete && wComplete && aComplete && sComplete)
             {
                 MovementTutorial.SetActive(false);
-                TopViewTutorial.SetActive(true);
+                CameraTutorial.SetActive(true);
                 MovementComplete = true;
             }
         }
 
-        if (MovementComplete && !zComplete)
+		if (MovementComplete && !CameraComplete)
+		{
+			if (Input.GetKeyDown(KeyCode.I))
+			{
+				I.GetComponent<Text>().color = Color.green;
+				iComplete = true;
+			}
+			if (Input.GetKeyDown(KeyCode.J))
+			{
+				J.GetComponent<Text>().color = Color.green;
+				jComplete = true;
+			}
+			if (Input.GetKeyDown(KeyCode.K))
+			{
+				K.GetComponent<Text>().color = Color.green;
+				kComplete = true;
+			}
+			if (Input.GetKeyDown(KeyCode.L))
+			{
+				L.GetComponent<Text>().color = Color.green;
+				lComplete = true;
+			}
+			if (lComplete && iComplete && jComplete && kComplete)
+			{
+				CameraTutorial.SetActive(false);
+				TopViewTutorial.SetActive(true);
+				CameraComplete = true;
+			}
+		}
+
+		if (MovementComplete && CameraComplete && !zComplete)
         {
             if (Input.GetKeyDown(KeyCode.Z) && zpressedonce == false)
             {
@@ -159,7 +202,7 @@ public class TutorialWindow : WindowRoot
             }
         }
 
-        if (MovementComplete && zComplete && !rotateComplete)
+        if (MovementComplete && CameraComplete && zComplete && !rotateComplete)
         {
             if (inputedText == "5")
             {
@@ -182,23 +225,6 @@ public class TutorialWindow : WindowRoot
                 SelectionTutorial.SetActive(false);
                 Congrats.SetActive(true);
             }
-        }
-
-        // player = GameObject.FindGameObjectWithTag("Player");
-        if (player.transform.position == previousPosition)
-        {
-           // Debug.Log("Not Moving");
-            timer += (int)Time.deltaTime + 1;
-            if (timer == 1200)
-            {
-               // Debug.Log("Show Tip");
-                GameRoot.ShowTips("Press 'R' to reset position.", true, false);
-            }
-        }
-        else
-        {
-           // Debug.Log("Moving");
-            timer = 0;
         }
 
         if (Input.GetKeyDown(KeyCode.R))
