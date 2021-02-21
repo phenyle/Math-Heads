@@ -12,6 +12,9 @@ TagManager:
   - PressE
   - TutorialWindow
   - CannonballStack
+  - GameRoot
+  - Puzzle03ChoiceBtn
+  - 1Dval
   layers:
   - Default
   - TransparentFX
