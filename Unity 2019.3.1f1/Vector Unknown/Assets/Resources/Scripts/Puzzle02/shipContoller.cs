@@ -34,12 +34,18 @@ public class shipContoller : MonoBehaviour
                 GCP02.ActiveBoat += 1;
                 print("Active boat: " + GCP02.ActiveBoat); 
             }
-            transform.position += Vector3.down * 1.0f * Time.deltaTime;
+            
 
-            if (transform.position.y < -30)
+            if (transform.position.y > -30)
             {
-                Destroy(gameObject);
+                transform.position += Vector3.down * 1.0f * Time.deltaTime;
             }
+
+            // if (transform.position.y < -30)
+            // {
+            //     Destroy(gameObject);
+            // }
+            
 
             if (GCP02.topViewOn)
             {
@@ -71,6 +77,14 @@ public class shipContoller : MonoBehaviour
         //GCP02.playhit();
         audioSource.clip = GameRoot.instance.audioService.GetFXAudioClip(Constants.audioP02BallHit);
         audioSource.Play();
+
+        GCP02.fireCannon = false;
+        if(GCP02.cameraFollow)
+        {
+            GCP02.CannonCamera.SetActive(false);
+            GCP02.MainCamera.SetActive(true); 
+            GCP02.cameraFollow = false;
+        } 
 
         StartCoroutine(resetCannonText(5));
 

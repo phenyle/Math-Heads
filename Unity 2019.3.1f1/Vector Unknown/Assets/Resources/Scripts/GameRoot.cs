@@ -145,7 +145,7 @@ public class GameRoot : MonoBehaviour
 
             Debug.Log("Unlock");
         }
-
+        IsLock(false);
         Time.timeScale = 1;
         pauseWindow.SetWindowState(false);
         isPause = false;

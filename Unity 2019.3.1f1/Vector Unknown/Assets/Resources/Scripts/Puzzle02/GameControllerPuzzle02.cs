@@ -77,6 +77,14 @@ public class GameControllerPuzzle02 : GameControllerRoot
     // Vector cannons
     public Material currentCannonMaterial;
 
+    // cannonCamera controls
+    public GameObject CannonCamera;
+    public bool fireCannon = false;
+    public bool cameraFollow = false;
+    public float cameraCannonSpeed = 0.5f;
+    private Vector3 cannonCameraOriginalPosition = new Vector3(0, 1, 0.0f);
+    private Vector3 targetPositionOffset = new Vector3(0, 4, 0);
+
 
     public override void InitGameController(Puzzle02Window P02W)
     {
@@ -236,17 +244,45 @@ public class GameControllerPuzzle02 : GameControllerRoot
             audioService.PlayFXAudio(Constants.audioP02CannonFire);
         }
 
-        if (ballIsFlying)
-        {
-            tempCannonball.transform.position += targetPosition * Time.deltaTime;
+        // if (ballIsFlying)
+        // {
+        //     tempCannonball.transform.position += targetPosition * cameraCannonSpeed;
 
-            if (tempCannonball.transform.position.y <= -10)
-            {
-                ballIsFlying = false;
-            }
-        }
+        //     if (tempCannonball.transform.position.y <= -10)
+        //     {
+        //         ballIsFlying = false;
+        //     }
+        // }
 
         previousPosition = player.transform.position;
+
+        if(fireCannon)
+        {
+            // have a camera follow cannon ball shot if answer is correct
+            if(cameraFollow)
+            {
+                MainCamera.SetActive(false);
+                CannonCamera.SetActive(true);
+
+                Vector3 target = Vector3.Lerp(cannonCameraOriginalPosition,targetPosition + targetPositionOffset, 0.5f);
+                Debug.Log("Target: " + target);
+
+                // camera
+                if(CannonCamera.transform.position != target)
+                {
+                    Vector3 pos = Vector3.MoveTowards(CannonCamera.transform.position, target, cameraCannonSpeed/2);
+                    CannonCamera.GetComponent<Rigidbody>().MovePosition(pos);
+                }
+            }
+
+            // cannonball
+            if(tempCannonball.transform.position != targetPosition)
+            {
+                Vector3 pos = Vector3.MoveTowards(tempCannonball.transform.position, targetPosition, cameraCannonSpeed);
+                tempCannonball.GetComponent<Rigidbody>().MovePosition(pos);
+            }
+            
+        }
     }
 
     private void SwitchCamera()
@@ -309,7 +345,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         maincannonText.gameObject.GetComponent<TextMesh>().text = targetPosition.x + "\n" + targetPosition.z;
         Debug.Log("Cannon is aiming at :(" + targetPosition.x + ", " + targetPosition.z + ")");
         // cannonBarrel.SetActive(false);
-        tempCannonball = Instantiate(cannonball, firingCannon.transform.position + new Vector3(0, 2.1f, 1.6f), firingCannon.transform.rotation);
+        tempCannonball = Instantiate(cannonball, new Vector3(0, 0, 0.7f), firingCannon.transform.rotation);
 
         tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialWrong;
         maincannonBrackets.GetComponent<TextMesh>().color = Color.red;
@@ -324,11 +360,14 @@ public class GameControllerPuzzle02 : GameControllerRoot
                 maincannonBrackets.GetComponent<TextMesh>().color = Color.green;
                 maincannonText.GetComponent<TextMesh>().color = Color.green;
                 Debug.Log("Will Hit!");
-                
+                cameraFollow = true;
+                CannonCamera.transform.position = cannonCameraOriginalPosition;
+                CannonCamera.transform.LookAt(targetPosition, Vector3.up);
             }
         }
 
         ballIsFlying = true;
+        fireCannon = true;
         cannonBlast.SetActive(true);
         cannonBlast.GetComponent<ParticleSystem>().Play(true); 
     }
