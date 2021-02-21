@@ -44,7 +44,11 @@ The following packages were added:
   com.unity.modules.wind@1.0.0
   com.unity.modules.xr@1.0.0
 
+<<<<<<< HEAD
 === Fri Feb  5 17:57:42 2021
+=======
+=== Mon Jan 18 21:53:26 2021
+>>>>>>> Stage1_Redesign
 
 Packages were changed.
 Update Mode: updateDependencies
