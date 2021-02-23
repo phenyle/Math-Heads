@@ -11,6 +11,7 @@ public class TutorialWindow : WindowRoot
     public GameObject A;
     public GameObject S;
     public GameObject D;
+	public GameObject LShift;
 
 	public GameObject CameraTutorial;
 	public GameObject I;
@@ -22,6 +23,7 @@ public class TutorialWindow : WindowRoot
     public GameObject Z;
     public GameObject Z2;
 
+	public GameObject Tab;
     public GameObject FieldInput;
     public GameObject rotateCamera;
 
@@ -47,6 +49,7 @@ public class TutorialWindow : WindowRoot
     private bool aComplete = false;
     private bool sComplete = false;
     private bool dComplete = false;
+	private bool LShiftComplete = false;
 
 	private bool CameraComplete = false;
 	private bool iComplete = false;
@@ -58,6 +61,7 @@ public class TutorialWindow : WindowRoot
     private bool zpressedonce = false;
     private bool zpressedtwice = false;
 
+	private bool tabComplete = false;
     private bool rotateComplete = false;
     public bool selectionComplete = false;
 
@@ -70,7 +74,7 @@ public class TutorialWindow : WindowRoot
 
     private void Start()
     {
-        if(isInit)
+		if (isInit)
         {
             InitWindow();
         }
@@ -91,7 +95,44 @@ public class TutorialWindow : WindowRoot
         mainCamera = Camera.main.gameObject;
         topCamera = GameObject.FindGameObjectWithTag("TopCamera").gameObject;
 
-        MovementTutorial.SetActive(true);
+		topCameraActive = false;
+		MovementComplete = false;
+		wComplete = false;
+		aComplete = false;
+		sComplete = false;
+		dComplete = false;
+		LShiftComplete = false;
+
+		CameraComplete = false;
+		iComplete = false;
+		jComplete = false;
+		kComplete = false;
+		lComplete = false;
+
+		zComplete = false;
+		zpressedonce = false;
+		zpressedtwice = false;
+
+		tabComplete = false;
+		rotateComplete = false;
+		selectionComplete = false;
+
+		W.GetComponent<Text>().color = Color.black;
+		A.GetComponent<Text>().color = Color.black;
+		S.GetComponent<Text>().color = Color.black;
+		D.GetComponent<Text>().color = Color.black;
+
+		I.GetComponent<Text>().color = Color.black;
+		J.GetComponent<Text>().color = Color.black;
+		K.GetComponent<Text>().color = Color.black;
+		L.GetComponent<Text>().color = Color.black;
+		LShift.GetComponent<Text>().color = Color.black;
+
+		Tab.GetComponent<Text>().color = Color.black;
+		Z.GetComponent<Text>().color = Color.black;
+		Z2.GetComponent<Text>().color = Color.black;
+
+		MovementTutorial.SetActive(true);
 		CameraTutorial.SetActive(false);
         TopViewTutorial.SetActive(false);
         FieldInput.SetActive(false);
@@ -141,7 +182,12 @@ public class TutorialWindow : WindowRoot
                 D.GetComponent<Text>().color = Color.green;
                 dComplete = true;
             }
-            if (dComplete && wComplete && aComplete && sComplete)
+			if (Input.GetKeyDown(KeyCode.LeftShift))
+			{
+				LShift.GetComponent<Text>().color = Color.green;
+				LShiftComplete = true;
+			}
+			if (dComplete && wComplete && aComplete && sComplete && LShiftComplete)
             {
                 MovementTutorial.SetActive(false);
                 CameraTutorial.SetActive(true);
@@ -204,7 +250,12 @@ public class TutorialWindow : WindowRoot
 
         if (MovementComplete && CameraComplete && zComplete && !rotateComplete)
         {
-            if (inputedText == "5")
+			if (Input.GetKeyDown(KeyCode.Tab))
+			{
+				Tab.GetComponent<Text>().color = Color.green;
+				tabComplete = true;
+			}
+			if (inputedText == "5")
             {
                 Debug.Log("Correct awnser inputted");
                 FieldInput.SetActive(false);

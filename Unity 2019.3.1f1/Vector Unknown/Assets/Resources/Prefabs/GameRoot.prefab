@@ -1204,6 +1204,7 @@ MonoBehaviour:
   characterImage: {fileID: 7075175138975448311}
   animator: {fileID: 2232883059234305320}
   uiWindows: {fileID: 3858605964434472070}
+  continueButton: {fileID: 0}
 --- !u!1 &1316962702
 GameObject:
   m_ObjectHideFlags: 0
@@ -2227,6 +2228,12 @@ MonoBehaviour:
   A: {fileID: 2023310077}
   S: {fileID: 1316962702}
   D: {fileID: 2053358291}
+  LShift: {fileID: 0}
+  CameraTutorial: {fileID: 0}
+  I: {fileID: 0}
+  J: {fileID: 0}
+  K: {fileID: 0}
+  L: {fileID: 0}
   TopViewTutorial: {fileID: 2059565122}
   Z: {fileID: 1955157303}
   Z2: {fileID: 1655527103}
