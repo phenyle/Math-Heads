@@ -19,7 +19,7 @@ public class shipContoller : MonoBehaviour
         GCP02 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle02>();
         audioSource = GetComponent<AudioSource>();
 
-         bool isHit = false;
+        isHit = false;
     }
     
     void Update()
@@ -30,6 +30,7 @@ public class shipContoller : MonoBehaviour
                 tempEffect = Instantiate(effect, this.gameObject.transform.position, this.gameObject.transform.rotation);
                 tempEffect.GetComponent<ParticleSystem>().Play(true);
                 isplayed = !isplayed;
+                GCP02.normalText[GCP02.ActiveBoat].SetActive(false);
                 GCP02.UpdateUI();
                 GCP02.ActiveBoat += 1;
                 print("Active boat: " + GCP02.ActiveBoat); 
@@ -45,17 +46,29 @@ public class shipContoller : MonoBehaviour
             // {
             //     Destroy(gameObject);
             // }
-            
+
+            int tempActiveBoat = GCP02.ActiveBoat;
+
+            if(tempActiveBoat > 5)
+            {
+                tempActiveBoat = 5;
+            }
 
             if (GCP02.topViewOn)
             {
-                GCP02.TopViewText[GCP02.ActiveBoat].gameObject.SetActive(true);
-                GCP02.normalText[GCP02.ActiveBoat].gameObject.SetActive(false);
+                for(int i = tempActiveBoat; i >=0; i--)
+                {
+                    GCP02.TopViewText[i].gameObject.SetActive(true);
+                }
+                GCP02.normalText[tempActiveBoat].gameObject.SetActive(false);
             }
-            else if (GCP02.ActiveBoat < 6)
+            else if (tempActiveBoat < 6)
             {
-                GCP02.TopViewText[GCP02.ActiveBoat].gameObject.SetActive(false);
-                GCP02.normalText[GCP02.ActiveBoat].gameObject.SetActive(true);
+                for(int i = tempActiveBoat; i >=0; i--)
+                {
+                    GCP02.TopViewText[i].gameObject.SetActive(false);
+                }
+                GCP02.normalText[tempActiveBoat].gameObject.SetActive(true);
             }
         }
         
@@ -70,7 +83,6 @@ public class shipContoller : MonoBehaviour
         GCP02.ballIsFlying = false;
         Debug.Log("Boat was hit");
 
-        GCP02.ballIsFlying = false;
         text1.gameObject.SetActive(false);
         text2.gameObject.SetActive(false);
 

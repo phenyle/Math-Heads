@@ -53,6 +53,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
     //UI
     public GameObject[] TopViewText;
+    public GameObject[] TopViewVectors;
     public GameObject[] normalText;
     public bool topViewOn = false;
     public int ActiveBoat = 0;
@@ -85,7 +86,6 @@ public class GameControllerPuzzle02 : GameControllerRoot
     private Vector3 cannonCameraOriginalPosition = new Vector3(0, 1, 0.0f);
     private Vector3 targetPositionOffset = new Vector3(0, 4, 0);
 
-
     public override void InitGameController(Puzzle02Window P02W)
     {
         Debug.Log("Init GameController Puzzle02");
@@ -117,6 +117,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         trailMaterial = trailMaterialWrong;
 
         foreach (GameObject text in TopViewText) { text.gameObject.SetActive(false); }
+        foreach (GameObject text in TopViewVectors) { text.gameObject.SetActive(false); }
         foreach (GameObject text in normalText) { text.gameObject.SetActive(false); }
         normalText[0].gameObject.SetActive(true);
 
@@ -175,12 +176,20 @@ public class GameControllerPuzzle02 : GameControllerRoot
                 TopViewText[ActiveBoat].gameObject.SetActive(true);
                 TopViewText[6].gameObject.SetActive(true);
                 normalText[ActiveBoat].gameObject.SetActive(false);
+                for(int i = ActiveBoat - 1; i >=0; i--)
+                {
+                    TopViewVectors[i].gameObject.SetActive(true);
+                }
             }
             else
             {
                 TopViewText[ActiveBoat].gameObject.SetActive(false);
                 TopViewText[6].gameObject.SetActive(false);
                 normalText[ActiveBoat].gameObject.SetActive(true);
+                for(int i = ActiveBoat - 1; i >=0; i--)
+                {
+                    TopViewVectors[i].gameObject.SetActive(false);
+                }
             }
 
             Debug.Log("Z was pressed");
@@ -261,21 +270,27 @@ public class GameControllerPuzzle02 : GameControllerRoot
             // have a camera follow cannon ball shot if answer is correct
             if(cameraFollow)
             {
+                // switch cameras
                 MainCamera.SetActive(false);
                 CannonCamera.SetActive(true);
 
+                //camera goes half way to ship
                 Vector3 target = Vector3.Lerp(cannonCameraOriginalPosition,targetPosition + targetPositionOffset, 0.5f);
-                Debug.Log("Target: " + target);
+                Debug.Log("Camera Target: " + target);
 
-                // camera
+                // move camera
                 if(CannonCamera.transform.position != target)
                 {
                     Vector3 pos = Vector3.MoveTowards(CannonCamera.transform.position, target, cameraCannonSpeed/2);
                     CannonCamera.GetComponent<Rigidbody>().MovePosition(pos);
                 }
             }
+            else
+            {
+                ballIsFlying = false;
+            }
 
-            // cannonball
+            // move cannonball
             if(tempCannonball.transform.position != targetPosition)
             {
                 Vector3 pos = Vector3.MoveTowards(tempCannonball.transform.position, targetPosition, cameraCannonSpeed);
@@ -347,24 +362,42 @@ public class GameControllerPuzzle02 : GameControllerRoot
         // cannonBarrel.SetActive(false);
         tempCannonball = Instantiate(cannonball, new Vector3(0, 0, 0.7f), firingCannon.transform.rotation);
 
-        tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialWrong;
-        maincannonBrackets.GetComponent<TextMesh>().color = Color.red;
-        maincannonText.GetComponent<TextMesh>().color = Color.red;
+        // tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialWrong;
+        // maincannonBrackets.GetComponent<TextMesh>().color = Color.red;
+        // maincannonText.GetComponent<TextMesh>().color = Color.red;
 
-        for (int i = 0; i < 6; i++)
+        if (ActiveBoat < 6 && DBP02.tragetMatracies[ActiveBoat, 0] == targetPosition.x && DBP02.tragetMatracies[ActiveBoat, 1] == targetPosition.z)
         {
-           // Debug.Log("target is compared to :(" + DBP02.tragetMatracies[i, 0] + ", " + DBP02.tragetMatracies[i, 1] + ")");
-            if (DBP02.tragetMatracies[i, 0] == targetPosition.x && DBP02.tragetMatracies[i, 1] == targetPosition.z)
-            {
-                tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialCorrect;
-                maincannonBrackets.GetComponent<TextMesh>().color = Color.green;
-                maincannonText.GetComponent<TextMesh>().color = Color.green;
-                Debug.Log("Will Hit!");
-                cameraFollow = true;
-                CannonCamera.transform.position = cannonCameraOriginalPosition;
-                CannonCamera.transform.LookAt(targetPosition, Vector3.up);
-            }
+            tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialCorrect;
+            maincannonBrackets.GetComponent<TextMesh>().color = Color.green;
+            maincannonText.GetComponent<TextMesh>().color = Color.green;
+            Debug.Log("Will Hit!");
+            cameraFollow = true;
+            CannonCamera.transform.position = cannonCameraOriginalPosition;
+            CannonCamera.transform.LookAt(targetPosition, Vector3.up);
         }
+        else
+        {
+            tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialWrong;
+            tempCannonball.GetComponent<BoxCollider>().enabled = false;
+            maincannonBrackets.GetComponent<TextMesh>().color = Color.red;
+            maincannonText.GetComponent<TextMesh>().color = Color.red;
+        }
+
+        // for (int i = 0; i < 6; i++)
+        // {
+        //    // Debug.Log("target is compared to :(" + DBP02.tragetMatracies[i, 0] + ", " + DBP02.tragetMatracies[i, 1] + ")");
+        //     if (DBP02.tragetMatracies[i, 0] == targetPosition.x && DBP02.tragetMatracies[i, 1] == targetPosition.z)
+        //     {
+        //         tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialCorrect;
+        //         maincannonBrackets.GetComponent<TextMesh>().color = Color.green;
+        //         maincannonText.GetComponent<TextMesh>().color = Color.green;
+        //         Debug.Log("Will Hit!");
+        //         cameraFollow = true;
+        //         CannonCamera.transform.position = cannonCameraOriginalPosition;
+        //         CannonCamera.transform.LookAt(targetPosition, Vector3.up);
+        //     }
+        // }
 
         ballIsFlying = true;
         fireCannon = true;

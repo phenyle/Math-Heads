@@ -30,6 +30,7 @@ public class mainCannonController : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             GCP02.isMainCannonTrigger = false;
+            GameRoot.ShowTips("Press \"E\" to fire the Cannon Ball", false, false);
             text.GetComponent<TextMesh>().color = Color.white;
             text2.GetComponent<TextMesh>().color = Color.white;
         }

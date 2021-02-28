@@ -34,19 +34,22 @@ public class CameraController : MonoBehaviour
     {
         if (isLock)
         {
-            CameraMovement();
+            MouseMovement();
         }
-        //CameraMovement();
+        CameraMovement();
 
         toggleMouse();
     }
 
-    private void CameraMovement()
+    public void MouseMovement()
     {
         horizontal += Input.GetAxis("Mouse X") * rotatedSpeed;
         vertical -= Input.GetAxis("Mouse Y") * rotatedSpeed;
         vertical = Mathf.Clamp(vertical, verticalMinMax.x, verticalMinMax.y);
+    }
 
+    private void CameraMovement()
+    {
         if(Input.GetKey(KeyCode.J))
         {
             horizontal -= Time.deltaTime * keyboardRotatedSpeed;
@@ -90,7 +93,8 @@ public class CameraController : MonoBehaviour
         if ((DialogueManager.isInDialogue || DialogueManager.isPuzzleLock) && postPuzzleLock == false)
         {
             //Debug.Log("free mouse");
-            isLock = false;
+            GameRoot.instance.IsLock(true);
+            isLock = false;          
         }
 
         if (isLock)
