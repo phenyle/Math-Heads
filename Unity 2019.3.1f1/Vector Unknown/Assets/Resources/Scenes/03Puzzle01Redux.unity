@@ -4359,6 +4359,48 @@ MonoBehaviour:
   MaxScalar: 2
   MaxMagnitudes: 2
   LimitAxis: 1
+<<<<<<< HEAD
+=======
+--- !u!1 &777571586 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1712831399489578050, guid: 7e6db8750cec1f74cbaf5d189bacadcd,
+    type: 3}
+  m_PrefabInstance: {fileID: 2144809218}
+  m_PrefabAsset: {fileID: 0}
+--- !u!218 &777571589
+Terrain:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 777571586}
+  m_Enabled: 1
+  serializedVersion: 6
+  m_TerrainData: {fileID: 15600000, guid: 3d4d450c5ccb3704b94b52734699a369, type: 2}
+  m_TreeDistance: 5000
+  m_TreeBillboardDistance: 50
+  m_TreeCrossFadeLength: 5
+  m_TreeMaximumFullLODCount: 50
+  m_DetailObjectDistance: 80
+  m_DetailObjectDensity: 1
+  m_HeightmapPixelError: 5
+  m_SplatMapDistance: 1000
+  m_HeightmapMaximumLOD: 0
+  m_ShadowCastingMode: 2
+  m_DrawHeightmap: 1
+  m_DrawInstanced: 0
+  m_DrawTreesAndFoliage: 1
+  m_ReflectionProbeUsage: 1
+  m_MaterialTemplate: {fileID: 10652, guid: 0000000000000000f000000000000000, type: 0}
+  m_BakeLightProbesForTrees: 1
+  m_PreserveTreePrototypeLayers: 0
+  m_DeringLightProbesForTrees: 1
+  m_ScaleInLightmap: 1
+  m_LightmapParameters: {fileID: 15203, guid: 0000000000000000f000000000000000, type: 0}
+  m_GroupingID: 0
+  m_RenderingLayerMask: 1
+  m_AllowAutoConnect: 0
+>>>>>>> Stage1_Redesign
 --- !u!1 &778108040
 GameObject:
   m_ObjectHideFlags: 0
@@ -7635,7 +7677,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topCamPlayer: {fileID: 38961049}
+<<<<<<< HEAD
   Difficulty: 1
+=======
+  Difficulty: 2
+>>>>>>> Stage1_Redesign
   sunLight: {fileID: 128432481}
   moonLight: {fileID: 1157784}
   ocean: {fileID: 2127689562}
@@ -9659,6 +9705,15 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1534195153}
+<<<<<<< HEAD
+=======
+    - target: {fileID: 2183702822392436095, guid: 7e6db8750cec1f74cbaf5d189bacadcd,
+        type: 3}
+      propertyPath: m_TerrainData
+      value: 
+      objectReference: {fileID: 15600000, guid: 3d4d450c5ccb3704b94b52734699a369,
+        type: 2}
+>>>>>>> Stage1_Redesign
     - target: {fileID: 3381424608407833750, guid: 7e6db8750cec1f74cbaf5d189bacadcd,
         type: 3}
       propertyPath: m_IsActive
@@ -9724,6 +9779,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: Environment_Puzzle01Redux
       objectReference: {fileID: 0}
+<<<<<<< HEAD
+=======
+    - target: {fileID: 4700080936944509668, guid: 7e6db8750cec1f74cbaf5d189bacadcd,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700080936944509668, guid: 7e6db8750cec1f74cbaf5d189bacadcd,
+        type: 3}
+      propertyPath: m_TerrainData
+      value: 
+      objectReference: {fileID: 15600000, guid: 910d571ca79ccb141b244fe14b693625,
+        type: 2}
+    - target: {fileID: 4700080936944509668, guid: 7e6db8750cec1f74cbaf5d189bacadcd,
+        type: 3}
+      propertyPath: m_ScaleInLightmap
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4700080936944509668, guid: 7e6db8750cec1f74cbaf5d189bacadcd,
+        type: 3}
+      propertyPath: m_AllowAutoConnect
+      value: 0
+      objectReference: {fileID: 0}
+>>>>>>> Stage1_Redesign
     - target: {fileID: 6204834104466939056, guid: 7e6db8750cec1f74cbaf5d189bacadcd,
         type: 3}
       propertyPath: defaultY
@@ -9774,7 +9853,12 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+<<<<<<< HEAD
     m_RemovedComponents: []
+=======
+    m_RemovedComponents:
+    - {fileID: 4700080936944509668, guid: 7e6db8750cec1f74cbaf5d189bacadcd, type: 3}
+>>>>>>> Stage1_Redesign
   m_SourcePrefab: {fileID: 100100000, guid: 7e6db8750cec1f74cbaf5d189bacadcd, type: 3}
 --- !u!1001 &2875852012292094543
 PrefabInstance:
