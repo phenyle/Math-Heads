@@ -6,6 +6,9 @@ public class GameControllerMain : GameControllerRoot
     public Transform PCFromPuzzle01;
     public Transform PCFromPuzzle02;
     public Transform PCFromPuzzle03;
+    public Transform Shipwreck;
+    public Transform Shipwreck2;
+    public Transform CompleteShip;
    // public Transform PCFromPuzzle04; // puzzle 4 area to pop out of
 
     public Transform sunLight;
@@ -87,6 +90,9 @@ public class GameControllerMain : GameControllerRoot
             SetActive(moonLight, true);
             ocean.sun = moonLight.GetChild(0).GetComponent<Light>();
 
+       
+            SetActive(Shipwreck2,true);
+
             RenderSettings.skybox = night;
             SetActive(portalPuzzle03, true);
 
@@ -99,6 +105,15 @@ public class GameControllerMain : GameControllerRoot
             MW.SetInstructionText("Find & enter the pirates' hideout to save villagers.");
             MW.SetCheckImage(0, spriteChecks[0]);
             MW.SetCheckImage(1, spriteChecks[1]);
+        }
+        else if (GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true && GameRoot.instance.puzzleCompleted[2])
+        {
+          
+
+
+            SetActive(CompleteShip, true);
+
+            
         }
 
         DialogueManager.isInDialogue = false;
