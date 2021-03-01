@@ -108,9 +108,9 @@ public class GameControllerMain : GameControllerRoot
         }
         else if (GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true && GameRoot.instance.puzzleCompleted[2])
         {
-          
 
-
+            SetActive(Shipwreck, false);
+            SetActive(Shipwreck2, false);
             SetActive(CompleteShip, true);
 
             
