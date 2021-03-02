@@ -16,10 +16,11 @@ public class Puzzle01Controller : MonoBehaviour
 {
     [Header("Object Assignment")]
     public GameObject player;    
-    public GameObject start;
+    public GameObject portal;
     public GameObject goal;
     public GameObject reset;
     public GameObject finish;
+    private VisualVector VV01;
 
     [Header("View Controls")]
     [Range(-5, 25)]
@@ -57,6 +58,7 @@ public class Puzzle01Controller : MonoBehaviour
     void Start()
     {
         GCP01 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>();
+        VV01 = this.GetComponent<VisualVector>();
 
         cardVectors = new List<Vector3>();
 
@@ -85,7 +87,7 @@ public class Puzzle01Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     { 
-        if (start.GetComponent<PortalTrigger>().inPortal)
+        if (portal.GetComponent<PortalTrigger>().inPortal)
         {
 
             scalar1 = GCP01.P01W.getScalar1Value();
@@ -312,6 +314,15 @@ public class Puzzle01Controller : MonoBehaviour
         return cardVectors;
     }
 
+    public int getScalar1()
+    {
+        return scalar1;
+    }
+    public int getScalar2()
+    {
+        return scalar2;
+    }
+
     public void setScalar1(int val)
     {
         scalar1 = val;
@@ -320,6 +331,8 @@ public class Puzzle01Controller : MonoBehaviour
     {
         scalar2 = val;
     }
+
+
 
     public void setAnsCard1(Vector3 val)
     {
@@ -331,8 +344,24 @@ public class Puzzle01Controller : MonoBehaviour
         card2 = val;
     }
 
+    public Vector3 getAnsCard1()
+    {
+        return card1;
+    }
+    public Vector3 getAnsCard2()
+    {
+        return card2;
+    }
+
+    public VisualVector getVisualVector()
+    {
+        return VV01;
+    }
+
     public bool checkFinalAnswer()
     {
+        //Need to add a check that both Answer Slots are being used
+
         if (playerAnswer == AnswerVector)
         {
             correct = true;

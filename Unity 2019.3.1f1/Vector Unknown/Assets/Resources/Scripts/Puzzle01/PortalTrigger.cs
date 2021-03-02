@@ -37,10 +37,13 @@ public class PortalTrigger : MonoBehaviour
 
             GCP01.P01W.ShowInputPanel(true);
             GCP01.P01W.ShowFeedbackPanel(true);
+            GCP01.P01W.ShowCardPanel(true);
 
             assignCards();
             GCP01.P01W.setAnswer1(null);
             GCP01.P01W.setAnswer2(null);
+
+            turnOnVisualVectors();
 
 
             Debug.Log("portal enter");
@@ -60,9 +63,12 @@ public class PortalTrigger : MonoBehaviour
 
             GCP01.P01W.ShowInputPanel(false);
             GCP01.P01W.ShowFeedbackPanel(false);
+            GCP01.P01W.ShowCardPanel(false);
 
             GCP01.P01W.setAnswer1(null);
             GCP01.P01W.setAnswer2(null);
+
+            turnOffVisualVectors();
 
             Debug.Log("portal exit");
         }
@@ -81,4 +87,27 @@ public class PortalTrigger : MonoBehaviour
         GCP01.P01W.setCardDisplay(PC01);
         GCP01.P01W.setFeedbackDisplay(PC01);
     }
+
+
+    private void turnOffVisualVectors()
+    {
+        PC01.getVisualVector().getGapVector().SetActive(false);
+        PC01.getVisualVector().getWindVector().SetActive(false);
+        PC01.getVisualVector().getAnswerVector().SetActive(false);
+        PC01.getVisualVector().getVector1().SetActive(false);
+        PC01.getVisualVector().getVector2().SetActive(false);
+        PC01.getVisualVector().getFinalVector().SetActive(false);
+    }
+
+    private void turnOnVisualVectors()
+    {
+        PC01.getVisualVector().getGapVector().SetActive(true);
+
+        PC01.getVisualVector().getWindVector().SetActive(true);
+
+   //     PC01.getVisualVector().getAnswerVector().SetActive(true);
+        PC01.getVisualVector().getVector1().SetActive(true);
+        PC01.getVisualVector().getVector2().SetActive(true);
+        PC01.getVisualVector().getFinalVector().SetActive(true);
+    }    
 }

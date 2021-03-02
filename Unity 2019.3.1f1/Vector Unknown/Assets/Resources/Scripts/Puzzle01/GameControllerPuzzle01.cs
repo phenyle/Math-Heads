@@ -161,6 +161,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
                     P01W.ShowInputPanel(true);
                     P01W.ShowFeedbackPanel(true);
+                    P01W.ShowCardPanel(true);
 
                     GameRoot.instance.IsLock(true);
 
@@ -183,6 +184,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
                     P01W.ShowInputPanel(false);
                     P01W.ShowFeedbackPanel(false);
+                    P01W.ShowCardPanel(false);
 
 
                     GameRoot.instance.IsLock(false);

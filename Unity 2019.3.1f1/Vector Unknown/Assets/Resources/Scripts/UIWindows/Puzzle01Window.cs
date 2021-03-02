@@ -17,6 +17,7 @@ public class Puzzle01Window : WindowRoot
     private GameObject ansCard2;
 
     //LEFT PIN WINDOWS------------------
+    public Transform cardPanel;
     private List<GameObject> UIcards;
 
     //UPPER RIGHT PIN WINDOWS------------
@@ -86,28 +87,7 @@ public class Puzzle01Window : WindowRoot
         UIcards.Add(GameObject.Find("Card3"));
         UIcards.Add(GameObject.Find("Card4"));
 
-        foreach (GameObject card in UIcards)
-        {
-            if (GCP01.Difficulty == 1)
-            {
-                GameObject.Find("1DBracket").SetActive(true);
-                GameObject.Find("2DBracket").SetActive(false);
-                GameObject.Find("3DBracket").SetActive(false);
 
-            }
-            else if (GCP01.Difficulty == 2)
-            {
-                GameObject.Find("1DBracket").SetActive(false);
-                GameObject.Find("2DBracket").SetActive(true);
-                GameObject.Find("3DBracket").SetActive(false);
-            }
-            else if (GCP01.Difficulty == 3)
-            {
-                GameObject.Find("1DBracket").SetActive(false);
-                GameObject.Find("2DBracket").SetActive(false);
-                GameObject.Find("3DBracket").SetActive(true);
-            }
-        }
 
         //UPPER RIGHT PIN INIT-----------------------------------
         gapDisplay = feedbackPanel.Find("Gap").gameObject;
@@ -161,6 +141,32 @@ public class Puzzle01Window : WindowRoot
             finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(true);
         }
 
+        foreach (GameObject card in UIcards)
+        {
+            if (GCP01.Difficulty == 1)
+            {
+                GameObject.Find("1DBracket").SetActive(true);
+                GameObject.Find("2DBracket").SetActive(false);
+                GameObject.Find("3DBracket").SetActive(false);
+
+            }
+            else if (GCP01.Difficulty == 2)
+            {
+                GameObject.Find("1DBracket").SetActive(false);
+                GameObject.Find("2DBracket").SetActive(true);
+                GameObject.Find("3DBracket").SetActive(false);
+            }
+            else if (GCP01.Difficulty == 3)
+            {
+                GameObject.Find("1DBracket").SetActive(false);
+                GameObject.Find("2DBracket").SetActive(false);
+                GameObject.Find("3DBracket").SetActive(true);
+            }
+        }
+
+        setAnswer1(null);
+        setAnswer2(null);
+
 
 
         //Legacy---------------------------------------------
@@ -171,6 +177,9 @@ public class Puzzle01Window : WindowRoot
         GCP01.InitGameController(this);
 
 
+
+
+
         //Init Components
         txtInstruction.text = "";
 
@@ -178,8 +187,9 @@ public class Puzzle01Window : WindowRoot
         txtFBTF.text = "";
         txtFBTips.text = "";
 
-        SetActive(iptPanel, false);
-        SetActive(feedbackPanel, false);
+        ShowInputPanel(false);
+        ShowFeedbackPanel(false);
+        ShowCardPanel(false);
 
         
         foreach (Image image in PlatformTips)
@@ -420,6 +430,7 @@ public class Puzzle01Window : WindowRoot
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
     }
 
+
     public void ShowInputPanel(bool status)
     {
         SetActive(iptPanel, status);
@@ -428,6 +439,11 @@ public class Puzzle01Window : WindowRoot
     public void ShowFeedbackPanel(bool status)
     {
         SetActive(feedbackPanel, status);
+    }
+
+    public void ShowCardPanel(bool status)
+    {
+        SetActive(cardPanel, status);
     }
 
 

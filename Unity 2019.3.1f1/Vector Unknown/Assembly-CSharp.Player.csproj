@@ -641,6 +641,7 @@
     <Compile Include="Assets\Resources\Scripts\Puzzle01\ResetTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\TopCameraPlayer.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\VectorPoint.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle01\VisualVector.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\DatabasePuzzle02.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\GameControllerPuzzle02.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\cannonController.cs" />
@@ -675,6 +676,9 @@
     <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle03Window.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\TitleWindow.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\TutorialWindow.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\README.txt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
