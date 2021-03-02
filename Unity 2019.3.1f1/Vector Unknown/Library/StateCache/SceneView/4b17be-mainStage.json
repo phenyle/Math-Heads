@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 ﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":-443.9963073730469,"y":-176.3716583251953,"z":616.2026977539063},"rotation":{"x":0.21221253275871278,"y":-0.024916399270296098,"z":0.00541940052062273,"w":0.9769339561462402},"size":287.04144287109377,"orthographic":false}
+=======
+﻿{"cameraMode":{"drawMode":0,"name":"Shaded","section":"Shading Mode"},"sceneLighting":true,"audioPlay":false,"sceneViewState":{"showFog":true,"showMaterialUpdate":false,"showSkybox":true,"showFlares":true,"showImageEffects":true,"showParticleSystems":true},"in2DMode":false,"pivot":{"x":420.2044982910156,"y":124.3602066040039,"z":97.70572662353516},"rotation":{"x":-0.19365186989307404,"y":0.5710592865943909,"z":-0.14083613455295564,"w":-0.785211980342865},"size":1.866959571838379,"orthographic":false}
+>>>>>>> Stage1_Redesign
