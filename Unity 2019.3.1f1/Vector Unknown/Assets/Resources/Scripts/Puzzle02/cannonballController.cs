@@ -7,8 +7,13 @@ public class cannonballController : MonoBehaviour
 
     private GameControllerPuzzle02 GCP02;
     private DatabasePuzzle02 DBP02;
-    public GameObject text;
+	public GameObject text;
+	public GameObject prevBrackets;
+	public GameObject prevText;
     public GameObject brackets;
+	public GameObject currBrackets;
+	public GameObject currText;
+	public bool selected;
     public transformMatrix transform;
     public int index; 
     private int gameIndex = 0;
@@ -16,6 +21,7 @@ public class cannonballController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+		selected = false;
         text.gameObject.GetComponent<TextMesh>().color = Color.black;
         brackets.gameObject.GetComponent<TextMesh>().color = Color.black;
 
@@ -40,7 +46,24 @@ public class cannonballController : MonoBehaviour
             UpdateValues(GCP02.ActiveBoat);
             gameIndex = GCP02.ActiveBoat;
         }
-    }
+
+		if (Input.GetKeyDown(KeyCode.E))
+		{
+			Debug.Log("true");
+			selected = true;
+			//prevBrackets.gameObject.GetComponent<TextMesh>().color = Color.black;
+			//prevText.gameObject.GetComponent<TextMesh>().color = Color.black;
+			//text.gameObject.GetComponent<TextMesh>().color = Color.green;
+			//brackets.gameObject.GetComponent<TextMesh>().color = Color.green;
+			currText = text;
+			currBrackets = brackets;
+		}
+		if (selected == true)
+		{
+			currText.gameObject.GetComponent<TextMesh>().color = Color.green;
+			currBrackets.gameObject.GetComponent<TextMesh>().color = Color.green;
+		}
+	}
 
     private void OnTriggerEnter(Collider other)
     {
@@ -55,10 +78,18 @@ public class cannonballController : MonoBehaviour
 
             Debug.Log("Matrix" + index + ": " + transform.values[0] + ", " + transform.values[1]
                 + ", " + transform.values[2] + ", " + transform.values[3]);
-            text.gameObject.GetComponent<TextMesh>().color = Color.yellow;
-            brackets.gameObject.GetComponent<TextMesh>().color = Color.yellow;
+
+			if (selected == false)
+			{
+				text.gameObject.GetComponent<TextMesh>().color = Color.yellow;
+				brackets.gameObject.GetComponent<TextMesh>().color = Color.yellow;
+
+			}
+
             GCP02.currentTransformMatrix = transform.values;
             GCP02.isCannonballTrigger = true;
+
+
 
             //---------------------------------New Tips Function--------------------------------------
             GameRoot.ShowTips("Press \"E\" to pick the Cannon Ball", true, false);

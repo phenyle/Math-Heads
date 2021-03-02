@@ -10,7 +10,9 @@ public class cannonController : MonoBehaviour
     public GameObject vectorText;
     public int index;
     public int cannonNumber;
-    public GameObject text;
+	public GameObject prevText;
+	public GameObject prevBracket;
+	public GameObject text;
     public GameObject bracket;
 
     // Start is called before the first frame update
@@ -32,7 +34,8 @@ public class cannonController : MonoBehaviour
             GCP02.isCannonTrigger = true;
             text.GetComponent<TextMesh>().color = Color.yellow;
             bracket.GetComponent<TextMesh>().color = Color.yellow;
-
+			prevText = text;
+			prevBracket = bracket;
 
             //---------------------------------New Tips Function--------------------------------------
                 GameRoot.ShowTips("Press \"E\" to pick the Cannon", true, false);
