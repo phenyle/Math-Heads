@@ -27,7 +27,7 @@ public class CameraController : MonoBehaviour
 
         isLock = true;
         postPuzzleLock = false;
-        rotatedSpeed = 1.5f;
+        rotatedSpeed = 0.4f;
     }
 
     private void LateUpdate()

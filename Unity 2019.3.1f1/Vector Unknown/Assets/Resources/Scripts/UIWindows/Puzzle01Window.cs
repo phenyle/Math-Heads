@@ -97,6 +97,7 @@ public class Puzzle01Window : WindowRoot
             if(!DialogueManager.isInDialogue)
             {
                 GameRoot.instance.IsLock(false);
+                GameObject.Find("MainCamera").GetComponent<CameraController>().isLock = true;
             }
         }
 
