@@ -9,6 +9,7 @@ public class VectorPoint : MonoBehaviour
     public float defaultX = 0, defaultY = 0, defaultZ = 0;
     public Text info;
     public Text infoTop;
+    public bool finishedQuestion = false;
 
     private GameControllerPuzzle01 GCP01;
 
@@ -19,13 +20,21 @@ public class VectorPoint : MonoBehaviour
 
     private void LateUpdate()
     {
-        info.text = "(" + this.transform.position.x + "," + this.transform.position.z + "," + this.transform.position.y + ")";
-        infoTop.text = info.text;
+        if(!finishedQuestion)
+        {
+            info.text = "(" + this.transform.position.x + "," + this.transform.position.z + "," + this.transform.position.y + ")";
+            infoTop.text = info.text;
+        }
+        else
+        {
+            info.text = "";
+            infoTop.text = "";
+        }      
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !finishedQuestion)
         {
             if(questionNum != 0)
             {
@@ -39,7 +48,7 @@ public class VectorPoint : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !finishedQuestion)
         {
             GameRoot.ShowTips("", false, false);
 
@@ -50,7 +59,7 @@ public class VectorPoint : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !finishedQuestion)
         {
             if (!GCP01.isTriggerQuestion)
             {

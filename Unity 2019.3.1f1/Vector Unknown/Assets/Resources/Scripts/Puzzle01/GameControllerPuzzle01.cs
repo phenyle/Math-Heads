@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class GameControllerPuzzle01 : GameControllerRoot
 {
@@ -15,6 +16,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
     public bool isInQues = false;
     public bool isTriggerQuestion = false;
     public bool isAnswerCorrect = true;
+    public GameObject[] questionVectors;
 
     [Header("Mast Trigger Components")]
     public bool isInMast = false;
@@ -85,7 +87,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
         //     timer = 0;
         // }
 
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.R) && !isTriggerQuestion)
         {
             player.transform.position = startPosition;
             GameRoot.ShowTips("", true, false);
@@ -125,7 +127,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
                 {
                     //Show the dialogue when player trigger the question
                     if (questionNum == 1 && DialogueManager.showP01_01)
-                    {
+                    {                       
                         FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_01"));
                         DialogueManager.showP01_01 = false;
                     }
@@ -146,6 +148,10 @@ public class GameControllerPuzzle01 : GameControllerRoot
                     }
                     //********************************************************
 
+                    // Debug.Log("Look at point");
+                    // GameObject.Find("MainCamera").transform.LookAt(Vector3.zero);
+                    // GameObject.Find("MainCamera").transform.LookAt(DBP01.points[questionNum + 1]);
+
                     isTriggerQuestion = true;
 
                     P01W.ShowInputPanel(true);
@@ -163,7 +169,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
                     if (isFirstTimeTriggerQuestion)
                     {
                         P01W.SetFeedbackQuestionTips("Find the displacement\n" + DBP01.GetCurrentVector(questionNum) + " ->" + DBP01.GetCurrentVector(questionNum + 1));
-                        isFirstTimeTriggerQuestion = false;
+                        // isFirstTimeTriggerQuestion = false;
                     }
                 }
                 else if (isTriggerQuestion && Input.GetKeyDown(KeyCode.E))
@@ -266,6 +272,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
             isFirstTimeTriggerQuestion = true;   
 
             //DBP01.ClearGreenLineTips();
+            questionVectors[questionNum-1].GetComponent<VectorPoint>().finishedQuestion = true;
 
             //Correct answer audio FX;
             audioService.PlayFXAudio(Constants.audioP01CorrectAnswer);
