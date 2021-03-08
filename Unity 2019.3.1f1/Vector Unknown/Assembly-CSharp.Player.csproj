@@ -634,6 +634,7 @@
     <Compile Include="Assets\Resources\Scripts\Puzzle01\FallTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\FinishTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\GameControllerPuzzle01.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle01\GameControllerPuzzle01Redux.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\GapTriggersController.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\PortalTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\Puzzle01Complete.cs" />
@@ -671,7 +672,7 @@
     <Compile Include="Assets\Resources\Scripts\UIWindows\LoadingWindow.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\MainWindow.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\PauseWindow.cs" />
-    <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle01Window.cs" />
+    <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle01WindowRedux.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle02Window.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle03Window.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\TitleWindow.cs" />

@@ -13,7 +13,7 @@ public class FinishTrigger : MonoBehaviour
         {
             GetComponentInParent<GapTriggersController>().finish = true;
             resetPos = GetComponentInParent<GapTriggersController>().GetComponentInParent<Puzzle01Controller>().finish.transform.position;
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>().setResetPos(resetPos);
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01Redux>().setResetPos(resetPos);
 
             Debug.Log("finish trigger");
         }

@@ -28,7 +28,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
     //MVC Components
     [HideInInspector]
-    public Puzzle01Window P01W;
+    public Puzzle01WindowRedux P01W;
     [HideInInspector]
  //   public DatabasePuzzle01 DBP01;
 
@@ -43,7 +43,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
         player = GameObject.FindGameObjectWithTag("Player");
     }
 
-    public override void InitGameController(Puzzle01Window P01W)
+    public override void InitGameController(Puzzle01WindowRedux P01W)
     {
         Debug.Log("Init GameController for Puzzle01");
         base.InitGameController();

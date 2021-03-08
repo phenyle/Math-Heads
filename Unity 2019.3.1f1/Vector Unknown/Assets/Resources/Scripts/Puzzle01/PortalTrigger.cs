@@ -6,7 +6,7 @@ using UnityStandardAssets._2D;
 public class PortalTrigger : MonoBehaviour
 {
     public bool inPortal = false;
-    private GameControllerPuzzle01 GCP01;
+    private GameControllerPuzzle01Redux GCP01;
     private Puzzle01Controller PC01;
     private GameObject camera;
     private float prevCamHeight;
@@ -16,7 +16,7 @@ public class PortalTrigger : MonoBehaviour
     void Start()
     {
         camera = GameObject.FindGameObjectWithTag("MainCamera");
-        GCP01 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>();
+        GCP01 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01Redux>();
         PC01 = GetComponentInParent<Puzzle01Controller>();
     }
 
@@ -102,7 +102,6 @@ public class PortalTrigger : MonoBehaviour
     private void turnOnVisualVectors()
     {
         PC01.getVisualVector().getGapVector().SetActive(true);
-
         PC01.getVisualVector().getWindVector().SetActive(true);
 
    //     PC01.getVisualVector().getAnswerVector().SetActive(true);

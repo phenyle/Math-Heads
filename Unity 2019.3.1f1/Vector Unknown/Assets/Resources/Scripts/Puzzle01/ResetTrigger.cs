@@ -12,7 +12,7 @@ public class ResetTrigger : MonoBehaviour
         {
             resetPos = GetComponentInParent<GapTriggersController>().GetComponentInParent<Puzzle01Controller>().reset.transform.position;
             GetComponentInParent<GapTriggersController>().reset = true;
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>().setResetPos(resetPos);
+            GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01Redux>().setResetPos(resetPos);
             Debug.Log("reset trigger");
         }
     }

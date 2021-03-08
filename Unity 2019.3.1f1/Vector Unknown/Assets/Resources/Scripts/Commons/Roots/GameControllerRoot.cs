@@ -15,8 +15,13 @@ public class GameControllerRoot : MonoBehaviour
     public virtual void InitGameController(MainWindow MW)
     {
     }
-
+/**
     public virtual void InitGameController(Puzzle01Window P01W)
+    {
+    }
+**/
+
+    public virtual void InitGameController(Puzzle01WindowRedux P01W)
     {
     }
 

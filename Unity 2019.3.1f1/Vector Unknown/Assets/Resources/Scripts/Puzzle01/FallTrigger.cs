@@ -31,7 +31,7 @@ public class FallTrigger : MonoBehaviour
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollow>().setCameraHeight(prevCamHeight);
         GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollow>().setCameraZoom(prevCamZoom);
         
-        GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>().getResetPos();
+        GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01Redux>().getResetPos();
 
         GetComponentInParent<GapTriggersController>().fall = false;
 

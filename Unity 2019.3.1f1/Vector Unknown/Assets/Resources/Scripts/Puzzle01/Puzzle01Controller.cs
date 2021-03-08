@@ -51,13 +51,13 @@ public class Puzzle01Controller : MonoBehaviour
     private Vector3 playerAnswer;
     private bool correct;
 
-    private GameControllerPuzzle01 GCP01;
+    private GameControllerPuzzle01Redux GCP01;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        GCP01 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01>();
+        GCP01 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle01Redux>();
         VV01 = this.GetComponent<VisualVector>();
 
         cardVectors = new List<Vector3>();

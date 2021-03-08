@@ -9,11 +9,11 @@ public class CardVectors : EventTrigger
     private Vector3 startPos;
     private bool dragging = false;
 
-    private Puzzle01Window P01W;
+    private Puzzle01WindowRedux P01W;
 
     public void Start()
     {
-        P01W = GameObject.Find("Puzzle01Window").GetComponent<Puzzle01Window>(); ;
+        P01W = GameObject.Find("Puzzle01WindowRedux").GetComponent<Puzzle01WindowRedux>(); ;
         startPos = this.transform.position;
         dragging = false;
     }

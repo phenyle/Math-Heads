@@ -10,19 +10,21 @@ public class VisualVector : MonoBehaviour
     private float overallScale;
 
     //Puzzle Vector Components
-    private GameObject gapVector;
-    private GameObject windVector;
-    private GameObject answerVector;
-    private Vector3 start;
-    private Vector3 goal;
-    private Vector3 windEnd;
+    [Header("Puzzle Vector Components")]
+    public GameObject gapVector;
+    public GameObject windVector;
+    public GameObject answerVector;
+    public GameObject start;
+    public GameObject goal;
+    public GameObject windEnd;
 
     //Player Vector Components
-    private GameObject vector1;
-    private GameObject vector2;
-    private GameObject finalVector;
-    private Vector3 vector1end;
-    private Vector3 vector2end;
+    [Header("Player Vector Components")]
+    public GameObject vector1;
+    public GameObject vector2;
+    public GameObject finalVector;
+    public GameObject vector1end;
+    public GameObject vector2end;
 
     //Misc Controls
     private bool fudgeX;
@@ -38,16 +40,8 @@ public class VisualVector : MonoBehaviour
 
         setFudge();
 
-        gapVector = GameObject.Find("gapVectorGO");
-        windVector = GameObject.Find("windVectorGO");
-        answerVector = GameObject.Find("answerVectorGO");
-
-        vector1 = GameObject.Find("Vector1GO");
-        vector2 = GameObject.Find("Vector2GO");
-        finalVector = GameObject.Find("finalVectorGO");
-
         gapVector.SetActive(false);
-        windVector.SetActive(true);
+        windVector.SetActive(false);
         answerVector.SetActive(false);
 
         vector1.SetActive(false);
@@ -56,11 +50,6 @@ public class VisualVector : MonoBehaviour
 
 
 
-        start = GameObject.Find("StartProjectionPoint").transform.position;
-        goal = GameObject.Find("GoalProjectionPoint").transform.position;
-        vector1end = GameObject.Find("Vector1end").transform.position;
-        vector2end = GameObject.Find("Vector2end").transform.position;
-        windEnd = GameObject.Find("windend").transform.position;
 
 
 
@@ -68,14 +57,10 @@ public class VisualVector : MonoBehaviour
         puzzleScale = setPuzzleScale();
 
 
+        VectorBetweenPoints(gapVector, goal.transform.position, start.transform.position, 0.25f);
 
-
-
-
-        VectorBetweenPoints(gapVector, goal, start, 0.25f);
-
-        windEnd = goal + PC01.getWindVector() * overallScale;
-        VectorBetweenPoints(windVector, goal, windEnd, 0.25f);
+        windEnd.transform.position = goal.transform.position + PC01.getWindVector() * overallScale;
+        VectorBetweenPoints(windVector, goal.transform.position, windEnd.transform.position, 0.25f);
 
 
 
@@ -85,29 +70,29 @@ public class VisualVector : MonoBehaviour
     void Update()
     {
         if (PC01.getAnsCard1() != null)
-            vector1end = start + rescaledVector(PC01.getAnsCard1() * PC01.getScalar1(), true);
+            vector1end.transform.position = start.transform.position + rescaledVector(PC01.getAnsCard1() * PC01.getScalar1(), true);
         else
             vector1end = start;
 
         if (PC01.getAnsCard2() != null)
-            vector2end = vector1end + rescaledVector(PC01.getAnsCard2() * PC01.getScalar2(), true);
+            vector2end.transform.position = vector1end.transform.position + rescaledVector(PC01.getAnsCard2() * PC01.getScalar2(), true);
         else
             vector2end = vector1end;
 
-        VectorBetweenPoints(vector1, start, vector1end, 0.25f);
-        VectorBetweenPoints(vector2, vector1end, vector2end, 0.25f);
+        VectorBetweenPoints(vector1, start.transform.position, vector1end.transform.position, 0.25f);
+        VectorBetweenPoints(vector2, vector1end.transform.position, vector2end.transform.position, 0.25f);
 
-        if (PC01.getAnsCard1() != null && PC01.getAnsCard2() != null)
+        if (PC01.getAnsCard1() != new Vector3(0f,0f,0f) && PC01.getAnsCard2() != new Vector3(0f,0f,0f))
         {
             finalVector.SetActive(true);
-            VectorBetweenPoints(finalVector, start, vector2end, 0.25f);
+            VectorBetweenPoints(finalVector, start.transform.position, vector2end.transform.position, 0.25f);
         }
         else
             finalVector.SetActive(false);
 
 
-        windEnd = goal + PC01.getWindVector() * overallScale;
-        VectorBetweenPoints(windVector, goal, windEnd, 0.25f);
+        windEnd.transform.position = goal.transform.position + PC01.getWindVector() * overallScale;
+        VectorBetweenPoints(windVector, goal.transform.position, windEnd.transform.position, 0.25f);
 
 
     }
@@ -117,7 +102,7 @@ public class VisualVector : MonoBehaviour
         Vector3 worldVector, gapVector;
         float worldMag, gapMag;
 
-        worldVector = start - goal;
+        worldVector = start.transform.position - goal.transform.position;
         gapVector = PC01.getGapVector();
 
         worldMag = worldVector.magnitude;
@@ -131,7 +116,7 @@ public class VisualVector : MonoBehaviour
     {
         Vector3 worldVector, gapVector, returnVector;  
 
-        worldVector = start - goal;
+        worldVector = start.transform.position - goal.transform.position;
         gapVector = PC01.getGapVector();
 
         //size you want, divided by the size you have
@@ -161,7 +146,7 @@ public class VisualVector : MonoBehaviour
     {
         Vector3 temp, worldVector, gapVector;
 
-        worldVector = start - goal;
+        worldVector = start.transform.position - goal.transform.position;
         gapVector = PC01.getGapVector();
 
         if (fudge)
