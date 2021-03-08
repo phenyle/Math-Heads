@@ -20,16 +20,16 @@ public class VectorPoint : MonoBehaviour
 
     private void LateUpdate()
     {
-        if(!finishedQuestion)
-        {
-            info.text = "(" + this.transform.position.x + "," + this.transform.position.z + "," + this.transform.position.y + ")";
-            infoTop.text = info.text;
-        }
-        else
-        {
-            info.text = "";
-            infoTop.text = "";
-        }      
+        // if(!finishedQuestion)
+        // {
+        //     info.text = "(" + this.transform.position.x + "," + this.transform.position.z + "," + this.transform.position.y + ")";
+        //     infoTop.text = info.text;
+        // }
+        // else
+        // {
+        //     info.text = "";
+        //     infoTop.text = "";
+        // }      
     }
 
     private void OnTriggerEnter(Collider other)
@@ -59,7 +59,7 @@ public class VectorPoint : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && !finishedQuestion)
+        if (other.tag == "Player" && !finishedQuestion && questionNum != 0)
         {
             if (!GCP01.isTriggerQuestion)
             {
