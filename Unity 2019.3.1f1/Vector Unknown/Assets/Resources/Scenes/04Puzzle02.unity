@@ -3548,8 +3548,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1747987714}
-  prevBrackets: {fileID: 0}
-  prevText: {fileID: 0}
+  newB: {fileID: 0}
+  newT: {fileID: 0}
   brackets: {fileID: 251817826}
   currBrackets: {fileID: 0}
   currText: {fileID: 0}
@@ -3767,6 +3767,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_GroundCheckDistance
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7388968376281185739, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ef1dcaca6a9bde40a90de82d2e563fc, type: 3}
@@ -4054,6 +4059,10 @@ PrefabInstance:
     - target: {fileID: 103174, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
       propertyPath: m_Name
       value: transformationMatrix0
+      objectReference: {fileID: 0}
+    - target: {fileID: 103174, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
+      propertyPath: m_TagString
+      value: Puzzle02Matrix
       objectReference: {fileID: 0}
     - target: {fileID: 483688, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
       propertyPath: m_RootOrder
@@ -4767,8 +4776,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1813935494}
-  prevBrackets: {fileID: 0}
-  prevText: {fileID: 0}
+  newB: {fileID: 0}
+  newT: {fileID: 0}
   brackets: {fileID: 1712503667}
   currBrackets: {fileID: 0}
   currText: {fileID: 0}
@@ -5789,8 +5798,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 102651680}
-  prevBrackets: {fileID: 0}
-  prevText: {fileID: 0}
+  newB: {fileID: 0}
+  newT: {fileID: 0}
   brackets: {fileID: 809079602}
   currBrackets: {fileID: 0}
   currText: {fileID: 0}
@@ -7799,6 +7808,28 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 567065891}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &569503886 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 398267358142297610, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
+    type: 3}
+  m_PrefabInstance: {fileID: 258177505}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &569503887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569503886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9f00ec993020ef4a8a294caa6726769, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m1: {fileID: 327309983}
+  m2: {fileID: 250935223}
+  m3: {fileID: 1229329192}
+  m4: {fileID: 907773576}
 --- !u!1 &570682960
 GameObject:
   m_ObjectHideFlags: 0
@@ -7948,8 +7979,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1838162000}
-  prevBrackets: {fileID: 0}
-  prevText: {fileID: 0}
+  newB: {fileID: 0}
+  newT: {fileID: 0}
   brackets: {fileID: 113307866}
   currBrackets: {fileID: 0}
   currText: {fileID: 0}
@@ -12199,8 +12230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 541650643}
-  prevBrackets: {fileID: 0}
-  prevText: {fileID: 0}
+  newB: {fileID: 0}
+  newT: {fileID: 0}
   brackets: {fileID: 422876910}
   currBrackets: {fileID: 0}
   currText: {fileID: 0}
@@ -12597,6 +12628,10 @@ PrefabInstance:
     - target: {fileID: 103174, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
       propertyPath: m_Name
       value: transformationMatrix1
+      objectReference: {fileID: 0}
+    - target: {fileID: 103174, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
+      propertyPath: m_TagString
+      value: Puzzle02Matrix
       objectReference: {fileID: 0}
     - target: {fileID: 483688, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
       propertyPath: m_RootOrder
@@ -14891,8 +14926,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1145659468}
-  prevBrackets: {fileID: 0}
-  prevText: {fileID: 0}
+  newB: {fileID: 0}
+  newT: {fileID: 0}
   brackets: {fileID: 1495960918}
   currBrackets: {fileID: 0}
   currText: {fileID: 0}
@@ -15556,8 +15591,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1681555981}
-  prevBrackets: {fileID: 0}
-  prevText: {fileID: 0}
+  newB: {fileID: 0}
+  newT: {fileID: 0}
   brackets: {fileID: 711565287}
   currBrackets: {fileID: 0}
   currText: {fileID: 0}
@@ -15587,6 +15622,7 @@ GameObject:
   - component: {fileID: 1230553271}
   - component: {fileID: 1230553273}
   - component: {fileID: 1230553272}
+  - component: {fileID: 1230553275}
   m_Layer: 0
   m_Name: CannonBalls
   m_TagString: Untagged
@@ -15673,6 +15709,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!54 &1230553275
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1230553270}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &1231616593
 GameObject:
   m_ObjectHideFlags: 0
@@ -18457,6 +18509,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: transformationMatrix3
       objectReference: {fileID: 0}
+    - target: {fileID: 103174, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
+      propertyPath: m_TagString
+      value: Puzzle02Matrix
+      objectReference: {fileID: 0}
     - target: {fileID: 483688, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -19188,8 +19244,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   text: {fileID: 1045216494}
-  prevBrackets: {fileID: 0}
-  prevText: {fileID: 0}
+  newB: {fileID: 0}
+  newT: {fileID: 0}
   brackets: {fileID: 319141074}
   currBrackets: {fileID: 0}
   currText: {fileID: 0}
@@ -24752,6 +24808,10 @@ PrefabInstance:
     - target: {fileID: 103174, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
       propertyPath: m_Name
       value: transformationMatrix2
+      objectReference: {fileID: 0}
+    - target: {fileID: 103174, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
+      propertyPath: m_TagString
+      value: Puzzle02Matrix
       objectReference: {fileID: 0}
     - target: {fileID: 483688, guid: 7e639efc7992b714c8e414e0ba022269, type: 3}
       propertyPath: m_RootOrder
