@@ -3,13 +3,18 @@
 public class GameControllerMain : GameControllerRoot
 {
     [Header("Player & Camera")]
+  
     public Transform PCFromPuzzle01;
     public Transform PCFromPuzzle02;
     public Transform PCFromPuzzle03;
     public Transform Shipwreck;
     public Transform Shipwreck2;
     public Transform CompleteShip;
-   // public Transform PCFromPuzzle04; // puzzle 4 area to pop out of
+    public Transform Chest_1;
+    public Transform Chest_2;
+    public Transform Chest_3;
+   // public Transform Loadin;
+    // public Transform PCFromPuzzle04; // puzzle 4 area to pop out of
 
     public Transform sunLight;
     public Transform moonLight;
@@ -43,6 +48,7 @@ public class GameControllerMain : GameControllerRoot
                 SetActive(PCFromPuzzle01, true);
                 SetActive(PCFromPuzzle02, false);
                 SetActive(PCFromPuzzle03, false);
+               // SetActive(Loadin, true);
                 //SetActive(PCFromPuzzle04, false);
 
                 break;
@@ -51,13 +57,15 @@ public class GameControllerMain : GameControllerRoot
                 SetActive(PCFromPuzzle01, false);
                 SetActive(PCFromPuzzle02, true);
                 SetActive(PCFromPuzzle03, false);
-              //  SetActive(PCFromPuzzle04, false);
+               // SetActive(Loadin, false);
+                //  SetActive(PCFromPuzzle04, false);
                 break;
 
             case 3:
                 SetActive(PCFromPuzzle01, false);
                 SetActive(PCFromPuzzle02, false);
                 SetActive(PCFromPuzzle03, true);
+               // SetActive(Loadin, false);
                 //SetActive(PCFromPuzzle04, false);
                 break;
 
@@ -65,13 +73,26 @@ public class GameControllerMain : GameControllerRoot
             //case 4: // new player object is activated and others are turned off
             //    SetActive(PCFromPuzzle01, false);
             //    SetActive(PCFromPuzzle02, false);
-            //    SetActive(PCFromPuzzle03, false);
-            //    SetActive(PCFromPuzzle04, true);
+            //    SetActive(PCFromPuzzle03, true);
+            //    SetActive(Loadin, false);
+            //    //  SetActive(PCFromPuzzle04, true);
             //    break;
         }
 
+        if (GameRoot.instance.puzzleCompleted[0] == false)
+        {
+            if (DialogueManager.showIntro)
+            {
+                FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Intro"));
+                DialogueManager.showIntro = false;
+                MW.SetInstructionText("Explore the Land.");
+            }
+
+          
+        }
+
         //If player only finish puzzle 01
-        if(GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] != true)
+        if (GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] != true)
         {
             if(DialogueManager.showM_00)
             {
@@ -82,6 +103,7 @@ public class GameControllerMain : GameControllerRoot
             //Set the instructional text and check image
             MW.SetInstructionText("Find & enter the cave to beat the pirates.");
             MW.SetCheckImage(0, spriteChecks[0]);
+            SetActive(Chest_1, true);
         }
         //If player finish puzzle 01 & puzzle 02
         else if(GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true)
@@ -92,6 +114,7 @@ public class GameControllerMain : GameControllerRoot
 
        
             SetActive(Shipwreck2,true);
+            SetActive(Chest_2, true);
 
             RenderSettings.skybox = night;
             SetActive(portalPuzzle03, true);
@@ -112,8 +135,8 @@ public class GameControllerMain : GameControllerRoot
             SetActive(Shipwreck, false);
             SetActive(Shipwreck2, false);
             SetActive(CompleteShip, true);
+            SetActive(Chest_3, true);
 
-            
         }
 
         DialogueManager.isInDialogue = false;

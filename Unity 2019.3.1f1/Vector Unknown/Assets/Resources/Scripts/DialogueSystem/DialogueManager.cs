@@ -175,6 +175,8 @@ public class DialogueManager : MonoBehaviour
 
     public static bool showP03_00 = true;
 
+
+    public static bool showIntro = true;
     public static bool showM_00 = true;
     public static bool showM_01 = true;
 
