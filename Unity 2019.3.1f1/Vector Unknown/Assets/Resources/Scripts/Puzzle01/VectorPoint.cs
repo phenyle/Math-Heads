@@ -22,7 +22,7 @@ public class VectorPoint : MonoBehaviour
     {
         if(!finishedQuestion)
         {
-            info.text = "(" + this.transform.position.x + "," + this.transform.position.z + "," + this.transform.position.y + ")";
+            info.text = "( " + this.transform.position.x + "," + this.transform.position.z + "," + this.transform.position.y + " )";
             infoTop.text = info.text;
         }
         else

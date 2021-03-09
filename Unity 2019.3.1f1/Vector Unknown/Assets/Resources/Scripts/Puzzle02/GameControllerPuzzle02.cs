@@ -263,7 +263,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         //     }
         // }
 
-        previousPosition = player.transform.position;
+        //previousPosition = player.transform.position;
 
         if(fireCannon)
         {

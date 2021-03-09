@@ -53,7 +53,7 @@ public class DatabasePuzzle01 : MonoBehaviour
 
         if (answer == playerAnswer)
         {
-            GCP01.SetText("Correct");
+            //GCP01.SetText("Correct");
 
             //Open the bridge for current question
 

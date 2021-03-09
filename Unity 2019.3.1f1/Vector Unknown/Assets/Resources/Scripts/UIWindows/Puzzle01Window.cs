@@ -42,7 +42,7 @@ public class Puzzle01Window : WindowRoot
         GCP01.InitGameController(this);
 
         //Init Components
-        txtInstruction.text = "";
+        //txtInstruction.text = "";
 
         txtFBFormula.text = "";
         txtFBTF.text = "";

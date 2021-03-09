@@ -92,7 +92,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
             player.transform.position = startPosition;
             GameRoot.ShowTips("", true, false);
         }
-
+		/*
         //Update the instruction text based on the player status
         if (isInQues == true)
         {
@@ -109,7 +109,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
         else
         {
             SetText("Please stand on the question platform.");
-        }
+        }*/
         //************************************************************
 
         if (!DialogueManager.isInDialogue)
@@ -323,12 +323,12 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
         return check;
     }
-
+	/*
     public void SetText(string content)
     {
         SetText(P01W.txtInstruction, content);
     }
-
+	*/
     //methods for dynamic input field calls
     public void updateLine(int index, float value)
     {
