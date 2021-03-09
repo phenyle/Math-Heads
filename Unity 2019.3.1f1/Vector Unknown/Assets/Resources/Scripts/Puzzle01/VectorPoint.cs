@@ -59,7 +59,7 @@ public class VectorPoint : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.tag == "Player" && !finishedQuestion)
+        if (other.tag == "Player" && !finishedQuestion && questionNum != 0)
         {
             if (!GCP01.isTriggerQuestion)
             {
