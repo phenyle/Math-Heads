@@ -130,10 +130,11 @@ public class Puzzle04Controller : MonoBehaviour
 
     Vector3 WindGenerator()
     {
-        int tempMagX = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
-        int tempMagY = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
-        int tempMagZ = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
+        int tempMagX;
+        int tempMagY;
+        int tempMagZ;
         int tempScal;
+        Vector3 tempVect = new Vector3(0f, 0f, 0f);
 
         //We don't want a 0 scalar, this do loop ensures we don't
         do
@@ -141,44 +142,51 @@ public class Puzzle04Controller : MonoBehaviour
             tempScal = Random.Range(-1 * MaxScalar, MaxScalar);
         } while (tempScal == 0);
 
-
         Debug.Log(LimitAxis.ToString());
 
-        if (LimitAxis.ToString().CompareTo("X") == 0)
+        do
         {
-            return new Vector3(tempMagX, 0f, 0f) * tempScal;
-        }
-        else if (LimitAxis.ToString().CompareTo("Y") == 0)
-        {
-            return new Vector3(0f, tempMagX, 0f) * tempScal;
-        }
-        else if (LimitAxis.ToString().CompareTo("XY") == 0)
-        {
-            return new Vector3(tempMagX, tempMagY, 0f) * tempScal;
-        }
-        else if (LimitAxis.ToString().CompareTo("XYZ") == 0)
-        {
-            return new Vector3(tempMagX, tempMagY, tempMagZ) * tempScal;
-        }
-        else
-            return new Vector3(0f, 0f, 0f);
+            tempMagX = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
+            tempMagY = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
+            tempMagZ = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
+
+            if (LimitAxis.ToString().CompareTo("X") == 0)
+            {
+                tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
+            }
+            else if (LimitAxis.ToString().CompareTo("Y") == 0)
+            {
+                tempVect = new Vector3(0f, tempMagX, 0f) * tempScal;
+            }
+            else if (LimitAxis.ToString().CompareTo("XY") == 0)
+            {
+                tempVect = new Vector3(tempMagX, tempMagY, 0f) * tempScal;
+            }
+            else if (LimitAxis.ToString().CompareTo("XYZ") == 0)
+            {
+                tempVect = new Vector3(tempMagX, tempMagY, tempMagZ) * tempScal;
+            }
+
+        } while (tempVect == new Vector3(0f, 0f, 0f));
+
+        return tempVect;
     }
 
     private void answerGenerators()
     {
-        Vector3 answer1;
-        Vector3 answer2;
-        Vector3 random1;
-        Vector3 random2;
+        Vector3 answer1a;
+        Vector3 answer1b;
+        Vector3 answer2a;
+        Vector3 answer2b;
 
-        answer1 = randomGenerator();
-        cardVectors.Add(answer1);
-        answer2 = secAnsCard(answer1);
-        cardVectors.Add(answer2);
-        random1 = randomGenerator();
-        cardVectors.Add(random1);
-        random2 = randomGenerator();
-        cardVectors.Add(random2);
+        answer1a = randomGenerator();
+        cardVectors.Add(answer1a);
+        answer1b = secAnsCard(answer1a);
+        cardVectors.Add(answer1b);
+        answer2a = randomGenerator();
+        cardVectors.Add(answer2a);
+        answer2b = secAnsCard(answer2a);
+        cardVectors.Add(answer2b);
 
         //Shuffle Cards
         int count = cardVectors.Count;
@@ -204,47 +212,66 @@ public class Puzzle04Controller : MonoBehaviour
 
         do
         {
-            tempMagX = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
-            tempMagY = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
-            tempMagZ = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
-            
+            unique = true;
+
             //We don't want a 0 scalar, this do loop ensures we don't
             do
             {
                 tempScal = Random.Range(-1 * MaxScalar, MaxScalar);
             } while (tempScal == 0);
 
-            if (GCP04.Difficulty == 1)
+
+            //While scalar cannot be 0, some magnitudes MAY be zero,
+            //this is acceptable as long as not ALL the magnitudes are zero
+            //this do while loop ensure we don't end with a zero vector.
+            do
             {
-                if (LimitAxis.ToString().CompareTo("X") == 0)
+                tempMagX = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
+                tempMagY = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
+                tempMagZ = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
+
+                if (GCP04.Difficulty == 1)
                 {
-                    tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
+                    if (LimitAxis.ToString().CompareTo("X") == 0)
+                    {
+                        tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
+                    }
+                    else if (LimitAxis.ToString().CompareTo("Y") == 0)
+                    {
+                        tempVect = new Vector3(0f, tempMagY, 0f) * tempScal;
+                    }
+
                 }
-                else if (LimitAxis.ToString().CompareTo("Y") == 0)
+                else if (GCP04.Difficulty == 2)
                 {
-                    tempVect = new Vector3(0f, tempMagX, 0f) * tempScal;
+                    tempVect = new Vector3(tempMagX, tempMagY, 0f) * tempScal;
+                }
+                else if (GCP04.Difficulty == 3)
+                {
+                    tempVect = new Vector3(tempMagX, tempMagY, tempMagZ) * tempScal;
+                }
+            } while (tempVect == new Vector3(0f, 0f, 0f));
+
+
+            //Test that the new Random Vector is not a Duplicate or scalar
+            //cycle through cards:
+            for (int i = 0; i < cardVectors.Count; i++)
+            {
+                //cycle through scalars:
+                for (int j = -10; j < 11; j++)
+                {                    
+                    if (tempVect * j == cardVectors[i])
+                    {
+                        unique = false;
+                        break;
+                    }
+                    else
+                        unique = true;                
+
                 }
 
-            }
-            else if (GCP04.Difficulty == 2)
-            {
-                tempVect = new Vector3(tempMagX, tempMagY, 0f) * tempScal;
-            }
-            else if (GCP04.Difficulty == 3)
-            {
-                tempVect = new Vector3(tempMagX, tempMagY, tempMagZ) * tempScal;
-            }
-
-
-            //Test that the new Random Vector is not a Duplicate
-            for(int i = 0; i < cardVectors.Count; i++)
-            {
-                if (tempVect == cardVectors[i])
-                {
-                    unique = false;
-                }
-                else
-                    unique = true;
+                if (!unique)
+                    break;
             }
 
         } while (!unique);
@@ -261,23 +288,36 @@ public class Puzzle04Controller : MonoBehaviour
 
         do
         {
+            unique = true;
+
             //We don't want a 0 scalar, this do loop ensures we don't
             do
             {
                 tempScal = Random.Range(-1 * MaxScalar, MaxScalar);
             } while (tempScal == 0);
 
-            tempVect = (AnswerVector - first) * tempScal;
+            tempVect = (AnswerVector - first);
+            tempVect = tempVect / tempScal;
 
-            //Test that the new Vector is not a Duplicate
+            //Test that the new Random Vector is not a Duplicate or scalar
+            //cycle through cards:
             for (int i = 0; i < cardVectors.Count; i++)
             {
-                if (tempVect == cardVectors[i])
+                //cycle through scalars:
+                for (int j = -10; j < 11; j++)
                 {
-                    unique = false;
+                    if (tempVect * j == cardVectors[i])
+                    {
+                        unique = false;
+                        break;
+                    }
+                    else
+                        unique = true;
+
                 }
-                else
-                    unique = true;
+
+                if (!unique)
+                    break;
             }
 
         } while (!unique);

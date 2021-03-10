@@ -21784,7 +21784,7 @@ MonoBehaviour:
   target: {fileID: 483472800}
   damping: 0.35
   lookAheadFactor: 10
-  lookAheadReturnSpeed: 0.1
+  lookAheadReturnSpeed: 0
   lookAheadMoveThreshold: 0.02
   m_OffsetY: 8
   m_OffsetZ: 0
@@ -32277,12 +32277,12 @@ PrefabInstance:
     - target: {fileID: 398267358142216292, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -202.4
+      value: -447
       objectReference: {fileID: 0}
     - target: {fileID: 398267358142216292, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 22.9
+      value: 13.9
       objectReference: {fileID: 0}
     - target: {fileID: 398267358142216292, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}
@@ -32927,7 +32927,7 @@ PrefabInstance:
     - target: {fileID: 5781247846317974534, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}
       propertyPath: m_JumpPower
-      value: 7
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5781247846317974534, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}

@@ -80,20 +80,11 @@
     <Compile Include="Assets\Resources\Scripts\DialogueSystem\DialogueTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\GameRoot.cs" />
     <Compile Include="Assets\Resources\Scripts\Main\GameControllerMain.cs" />
-    <Compile Include="Assets\Resources\Scripts\Puzzle01\CardVectors.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\DatabasePuzzle01.cs" />
-    <Compile Include="Assets\Resources\Scripts\Puzzle01\FallTrigger.cs" />
-    <Compile Include="Assets\Resources\Scripts\Puzzle01\FinishTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\GameControllerPuzzle01.cs" />
-    <Compile Include="Assets\Resources\Scripts\Puzzle01\GameControllerPuzzle01Redux.cs" />
-    <Compile Include="Assets\Resources\Scripts\Puzzle01\GapTriggersController.cs" />
-    <Compile Include="Assets\Resources\Scripts\Puzzle01\PortalTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\Puzzle01Complete.cs" />
-    <Compile Include="Assets\Resources\Scripts\Puzzle01\Puzzle01Controller.cs" />
-    <Compile Include="Assets\Resources\Scripts\Puzzle01\ResetTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\TopCameraPlayer.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\VectorPoint.cs" />
-    <Compile Include="Assets\Resources\Scripts\Puzzle01\VisualVector.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\DatabasePuzzle02.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\GameControllerPuzzle02.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\cannonController.cs" />
@@ -112,6 +103,15 @@
     <Compile Include="Assets\Resources\Scripts\Puzzle03\Switch.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle03\TipsPoint.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle03\TriggerValue.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\CardVectors.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\FallTrigger.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\FinishTrigger.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\GameControllerPuzzle04.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\GapTriggersController.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\PortalTrigger.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\Puzzle04Controller.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\ResetTrigger.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\VisualVector.cs" />
     <Compile Include="Assets\Resources\Scripts\Services\AudioService.cs" />
     <Compile Include="Assets\Resources\Scripts\Services\ResourceService.cs" />
     <Compile Include="Assets\Resources\Scripts\Systems\MenuSystem.cs" />
@@ -123,12 +123,14 @@
     <Compile Include="Assets\Resources\Scripts\UIWindows\LoadingWindow.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\MainWindow.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\PauseWindow.cs" />
-    <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle01WindowRedux.cs" />
+    <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle01Window.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle02Window.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle03Window.cs" />
+    <Compile Include="Assets\Resources\Scripts\UIWindows\Puzzle04Window.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\TitleWindow.cs" />
     <Compile Include="Assets\Resources\Scripts\UIWindows\TutorialWindow.cs" />
     <None Include="Assets\README.txt" />
+    <None Include="Assets\Resources\Materials\test.txt" />
     <Reference Include="UnityEngine">
       <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.18f1/Editor/Data/Managed/UnityEngine/UnityEngine.dll</HintPath>
     </Reference>
