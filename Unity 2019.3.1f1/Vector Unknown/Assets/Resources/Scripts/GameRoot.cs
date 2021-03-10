@@ -27,7 +27,7 @@ public class GameRoot : MonoBehaviour
     [HideInInspector]
     public int score = 0;
     //[HideInInspector]
-    public bool[] puzzleCompleted = { false, false, false };
+    public bool[] puzzleCompleted = { false, false, false, false };
     public int exitPuzzle = 0;
 
 
@@ -121,7 +121,7 @@ public class GameRoot : MonoBehaviour
 
     public static void ShowTips(string tips, bool state, bool isReactive)
     {
-        instance.dynamicWindow.ShowTips(tips, state, isReactive);
+ //       instance.dynamicWindow.ShowTips(tips, state, isReactive);
     }
 
     public void Pause()

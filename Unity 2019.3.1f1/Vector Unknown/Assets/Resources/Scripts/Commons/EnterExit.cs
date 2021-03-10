@@ -7,6 +7,7 @@ public enum SceneName
     Puzzle01SceneName,
     Puzzle02SceneName,
     Puzzle03SceneName,
+    Puzzle04SceneName,
     CreditSceneName,
     MenuScene
 }
@@ -16,7 +17,8 @@ public enum PuzzleComplete
     NullPuzzle,
     Puzzle01Complete,
     Puzzle02Complete,
-    Puzzle03Complete
+    Puzzle03Complete,
+    Puzzle04Complete
 }
 
 public class EnterExit : MonoBehaviour
@@ -69,6 +71,10 @@ public class EnterExit : MonoBehaviour
                     playerController.sceneName = Constants.puzzle03SceneName;
                     break;
 
+                case SceneName.Puzzle04SceneName:
+                    playerController.sceneName = Constants.puzzle04SceneName;
+                    break;
+
                 case SceneName.CreditSceneName:
                     playerController.sceneName = Constants.creditSceneName;
                     break;
@@ -86,6 +92,10 @@ public class EnterExit : MonoBehaviour
 
                 case PuzzleComplete.Puzzle03Complete:
                     GameRoot.instance.puzzleCompleted[2] = true;
+                    break;
+
+                case PuzzleComplete.Puzzle04Complete:
+                    GameRoot.instance.puzzleCompleted[3] = true;
                     break;
 
 
