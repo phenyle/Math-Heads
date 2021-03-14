@@ -9,9 +9,10 @@ public class CameraController : MonoBehaviour
     public Vector2 verticalMinMax = new Vector2(-30, 60);
     public float keyboardRotatedSpeed = 50.0f;
 
+
+    public bool isLock = true;
     [HideInInspector]
     //public bool isLock = false;
-    public bool isLock = true;
     private Vector3 rotationSmoothVelocity, currentRotation;
     private float horizontal, vertical;
 

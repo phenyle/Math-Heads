@@ -13,6 +13,9 @@ public class HighlightSelected : MonoBehaviour
 	//inCollision only true when in collider of matrix
 	private bool current = false, first = true, inCollision = false;
 
+	// Game Controllers
+	public GameObject GCP02;
+
 	// Start is called before the first frame update
 	void Start()
 	{
@@ -46,7 +49,7 @@ public class HighlightSelected : MonoBehaviour
 		}
 
 		//Current matrixes are colored green, all other matixes are colored black
-		if (current)
+		if (current && !GCP02.GetComponent<GameControllerPuzzle02>().firedCannonYet)
 		{
 			oT.gameObject.GetComponent<TextMesh>().color = Color.green;
 			oB.gameObject.GetComponent<TextMesh>().color = Color.green;

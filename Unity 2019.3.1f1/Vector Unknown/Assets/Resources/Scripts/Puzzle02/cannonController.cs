@@ -5,7 +5,7 @@ using UnityEngine;
 public class cannonController : MonoBehaviour
 {
 
-    private GameControllerPuzzle02 GCP02;
+    public GameControllerPuzzle02 GCP02;
     public int[] vector;
     public GameObject vectorText;
     public int index;
@@ -19,7 +19,7 @@ public class cannonController : MonoBehaviour
     void Start()
     {
         // vectorText.gameObject.SetActive(false);
-        GCP02 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle02>();
+        // GCP02 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle02>();
     }
 
     //used to trigger UI

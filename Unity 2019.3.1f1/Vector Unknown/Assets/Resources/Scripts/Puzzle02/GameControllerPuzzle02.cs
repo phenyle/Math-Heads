@@ -55,14 +55,16 @@ public class GameControllerPuzzle02 : GameControllerRoot
     public GameObject[] TopViewText;
     public GameObject[] TopViewVectors;
     public GameObject[] normalText;
+    public GameObject[] cannonBallsText;
     public bool topViewOn = false;
     public int ActiveBoat = 0;
     public Text Matrix;
     public Text Vector;
     public Image[] shipImages;
-    //public Image activeBoat;
+    public Sprite activeBoat;
     public Sprite inactiveBoat;
     public int timer = 0;
+    public bool firedCannonYet = false;
 
     //particle systems
     public GameObject cannonBlast;
@@ -86,8 +88,15 @@ public class GameControllerPuzzle02 : GameControllerRoot
     private Vector3 cannonCameraOriginalPosition = new Vector3(0, 1, 0.0f);
     private Vector3 targetPositionOffset = new Vector3(0, 4, 0);
 
+    //stage control
+    public int stageNumber;
+    public GameObject stage01;
+    public GameObject stage02;
+    public GameObject stage02GameController;
+
     public override void InitGameController(Puzzle02Window P02W)
     {
+        
         Debug.Log("Init GameController Puzzle02");
         base.InitGameController();
 
@@ -95,7 +104,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
         this.P02W = P02W;
 
         Debug.Log("Connect Database of Puzzle02");
-        DBP02 = GetComponent<DatabasePuzzle02>();
+        if(stageNumber == 1)
+            DBP02 = GetComponent<DatabasePuzzle02>();
+        else if(stageNumber == 2)
+            DBP02 = GetComponent<DatabasePuzzle02>();
 
         Debug.Log("Call Database of Puzzle02 to connect");
         DBP02.InitDatabase();
@@ -129,6 +141,18 @@ public class GameControllerPuzzle02 : GameControllerRoot
         Matrix = P02W.Matrix;
         Vector = P02W.Vector;
         shipImages = P02W.shipImages;
+
+        if(stageNumber == 2)
+        {
+            Vector.text = "0" + "\n" + "0";
+            Matrix.text = "0" + " " + "0" + "\n" +
+                "0" + " " + "0";
+            foreach(Image ship in shipImages)
+            {
+                ship.sprite = activeBoat;
+            }
+        }
+
         SetActive(endportal, false);
 
     }
@@ -162,9 +186,19 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         if (ActiveBoat == 6)
         {
-            GameRoot.ShowTips("You Completed the level!", true, false);
-            GameRoot.instance.puzzleCompleted[1] = true;
-            SetActive(endportal, true);
+            if(stageNumber == 1)
+            {
+                GameRoot.ShowTips("You Completed stage 1!", true, false);    
+                stage02.SetActive(true);                         
+                GameObject.Find("Puzzle02Window").GetComponent<Puzzle02Window>().switchStage();
+            }
+            else
+            {
+                GameRoot.ShowTips("You Completed the level!", true, false);
+                GameRoot.instance.puzzleCompleted[1] = true;
+                SetActive(endportal, true);
+            }
+            
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
@@ -221,6 +255,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         if (isCannonballTrigger && Input.GetKeyDown(KeyCode.E))
         {
+            firedCannonYet = false;
             selectedTransformMatrix = currentTransformMatrix;
             isBallSelected = true;
             Debug.Log("Selected Matrix " + selectedTransformMatrix[0] + ", " + selectedTransformMatrix[1] + ", " +
@@ -372,6 +407,12 @@ public class GameControllerPuzzle02 : GameControllerRoot
             maincannonBrackets.GetComponent<TextMesh>().color = Color.green;
             maincannonText.GetComponent<TextMesh>().color = Color.green;
             Debug.Log("Will Hit!");
+            firedCannonYet = true;
+            foreach(GameObject cannonBall in cannonBallsText)
+            {
+                cannonBall.GetComponent<TextMesh>().color = Color.black;
+                cannonBall.gameObject.transform.GetChild(0).GetComponent<TextMesh>().color = Color.black;
+            }
             cameraFollow = true;
             CannonCamera.transform.position = cannonCameraOriginalPosition;
             CannonCamera.transform.LookAt(targetPosition, Vector3.up);
@@ -404,4 +445,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
         cannonBlast.SetActive(true);
         cannonBlast.GetComponent<ParticleSystem>().Play(true); 
     }
+
+    // public void switchStage()
+    // {
+    //     stage01.SetActive(false);
+    //     this.InitGameController(P02W);
+    // }
 }
