@@ -92,7 +92,17 @@ public class GameControllerPuzzle01 : GameControllerRoot
             player.transform.position = startPosition;
             GameRoot.ShowTips("", true, false);
         }
+<<<<<<< HEAD
 		/*
+=======
+
+        if(Input.GetKeyDown(KeyCode.K))
+        {
+            endportal.gameObject.SetActive(true);
+            endportal.transform.position = player.transform.position;
+        }
+
+>>>>>>> MathChanges
         //Update the instruction text based on the player status
         if (isInQues == true)
         {
