@@ -7,6 +7,7 @@ public enum SceneName
     Puzzle01SceneName,
     Puzzle02SceneName,
     Puzzle03SceneName,
+    Puzzle04SceneName,
     CreditSceneName,
     MenuScene
 }
@@ -17,8 +18,8 @@ public enum PuzzleComplete
     Puzzle01Complete,
     Puzzle02Complete,
     Puzzle03Complete,
-   // Puzzle04Complete // for puzzle04
-  }
+    Puzzle04Complete
+}
 
 public class EnterExit : MonoBehaviour
 {
@@ -56,9 +57,6 @@ public class EnterExit : MonoBehaviour
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
                         GameRoot.instance.exitPuzzle = 3;
 
-                    //else if (SceneManager.GetActiveScene().name == Constants.puzzle04SceneName) // for puzzle 04
-                    //    GameRoot.instance.exitPuzzle = 4;
-
                     break;
 
                 case SceneName.Puzzle01SceneName:
@@ -73,13 +71,13 @@ public class EnterExit : MonoBehaviour
                     playerController.sceneName = Constants.puzzle03SceneName;
                     break;
 
+                case SceneName.Puzzle04SceneName:
+                    playerController.sceneName = Constants.puzzle04SceneName;
+                    break;
+
                 case SceneName.CreditSceneName:
                     playerController.sceneName = Constants.creditSceneName;
                     break;
-
-                //case SceneName.Puzzle04SceneName: // puzzle 04
-                //    playerController.sceneName = Constants.puzzle04SceneName;
-                //    break;
             }
 
             switch(puzzleComplete)
@@ -96,9 +94,9 @@ public class EnterExit : MonoBehaviour
                     GameRoot.instance.puzzleCompleted[2] = true;
                     break;
 
-                //case PuzzleComplete.Puzzle04Complete: // puzzle04
-                //    GameRoot.instance.puzzleCompleted[3] = true;
-                //    break;
+                case PuzzleComplete.Puzzle04Complete:
+                    GameRoot.instance.puzzleCompleted[3] = true;
+                    break;
 
 
                 default:

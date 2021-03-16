@@ -92,9 +92,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
             player.transform.position = startPosition;
             GameRoot.ShowTips("", true, false);
         }
-
 		/*
-
         //Update the instruction text based on the player status
         if (isInQues == true)
         {

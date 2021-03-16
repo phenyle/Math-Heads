@@ -12,7 +12,7 @@ public class PuzzleSystem : SystemRoot
     public Puzzle01Window puzzle01Window;
     public Puzzle02Window puzzle02Window;
     public Puzzle03Window puzzle03Window;
-   // public Puzzle04Window puzzle04Window; // for puzzle 4
+    public Puzzle04Window puzzle04Window;
 
     [Header("Credits Windows")]
     public CreditsWindow creditsWindow;
@@ -65,10 +65,10 @@ public class PuzzleSystem : SystemRoot
                     audioService.PlayBgMusic(Constants.audioBgPuzzle3, true);
                     break;
 
-                //case Constants.puzzle04SceneName: // for puzzle 4
-                //    puzzle04Window.SetWindowState(true);
-                //    audioService.PlayBgMusic(Constants.audioBgPuzzle3, true);
-                //    break;
+                case Constants.puzzle04SceneName:
+                    puzzle04Window.SetWindowState(true);
+                    audioService.PlayBgMusic(Constants.audioBgPuzzle1, true);
+                    break;
 
                 case Constants.creditSceneName:
                     creditsWindow.SetWindowState(true);

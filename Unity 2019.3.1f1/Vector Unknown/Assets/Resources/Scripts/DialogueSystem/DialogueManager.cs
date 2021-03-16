@@ -8,7 +8,6 @@ public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager instance = null;
     public static bool isInDialogue = false;
-    public bool isInDialogueInspector;
     public static bool isPuzzleLock = false;
 
     public Transform dialogueWindow;
@@ -38,7 +37,6 @@ public class DialogueManager : MonoBehaviour
 
     private void Update() 
     {
-        isInDialogueInspector = isInDialogue;
         try
         {
             if(Input.GetKeyDown(KeyCode.Space) && isInDialogue)

@@ -15,7 +15,6 @@ public class GameControllerRoot : MonoBehaviour
     public virtual void InitGameController(MainWindow MW)
     {
     }
-
     public virtual void InitGameController(Puzzle01Window P01W)
     {
     }
@@ -28,9 +27,10 @@ public class GameControllerRoot : MonoBehaviour
     {
     }
 
-    //public virtual void InitGameController(Puzzle04Window P04W)
-    //{
-    //}
+    public virtual void InitGameController(Puzzle04Window P04W)
+    {
+    }
+
     #region Common Tool Functions
 
     #region SetActive

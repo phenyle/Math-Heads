@@ -17,6 +17,7 @@ public class DynamicWindow : WindowRoot
     {
         base.InitWindow();
         SetActive(txtTips, false);
+        SetActive(txtTipsShow, false);
     }
 
     private void Update()

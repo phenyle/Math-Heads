@@ -27,7 +27,7 @@ public class GameRoot : MonoBehaviour
     [HideInInspector]
     public int score = 0;
     //[HideInInspector]
-    public bool[] puzzleCompleted = { false, false, false };
+    public bool[] puzzleCompleted = { false, false, false, false };
     public int exitPuzzle = 0;
 
 
