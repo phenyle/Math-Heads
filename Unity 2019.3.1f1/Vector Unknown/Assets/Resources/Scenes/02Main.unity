@@ -3821,6 +3821,7 @@ MonoBehaviour:
   ocean: {fileID: 1801288203}
   night: {fileID: 2100000, guid: b4d1e1180d6b45d4eaa6f6b684d18e2b, type: 2}
   portalPuzzle03: {fileID: 786989116}
+  camera: {fileID: 544412574}
   spriteChecks:
   - {fileID: 21300000, guid: 199944f24bdf6844e95b468cb1c412b3, type: 3}
   - {fileID: 21300000, guid: 4a4d541b0fea54b4cabece8daba6495e, type: 3}

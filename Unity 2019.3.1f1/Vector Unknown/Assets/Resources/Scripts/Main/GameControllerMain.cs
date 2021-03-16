@@ -21,6 +21,7 @@ public class GameControllerMain : GameControllerRoot
     public LPWAsset.LowPolyWaterScript ocean;
     public Material night;
     public Transform portalPuzzle03; // might need to change if we want to move starting position since this is place you appear when u exit puzzle 1 
+    public GameObject camera;
     public Sprite[] spriteChecks;
 
     [HideInInspector]
@@ -87,6 +88,10 @@ public class GameControllerMain : GameControllerRoot
                 DialogueManager.showIntro = false;
                 MW.SetInstructionText("Explore the Land.");
             }
+            else
+            {
+                camera.GetComponent<CameraController>().isLock = true;
+            }
 
           
         }
@@ -98,6 +103,10 @@ public class GameControllerMain : GameControllerRoot
             {
                 FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Main_00"));
                 DialogueManager.showM_00 = false;
+            }
+            else
+            {
+                camera.GetComponent<CameraController>().isLock = true;
             }
 
             //Set the instructional text and check image
@@ -124,6 +133,10 @@ public class GameControllerMain : GameControllerRoot
                 FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Main_01"));
                 DialogueManager.showM_01 = false;
             }
+            else
+            {
+                camera.GetComponent<CameraController>().isLock = true;
+            }
 
             MW.SetInstructionText("Find & enter the pirates' hideout to save villagers.");
             MW.SetCheckImage(0, spriteChecks[0]);
@@ -137,10 +150,11 @@ public class GameControllerMain : GameControllerRoot
             SetActive(CompleteShip, true);
             SetActive(Chest_3, true);
 
+            camera.GetComponent<CameraController>().isLock = true;
         }
 
-        DialogueManager.isInDialogue = true;
-		DialogueManager.isPuzzleLock = false;
+        // DialogueManager.isInDialogue = true;
+		// DialogueManager.isPuzzleLock = false;
 
 	}
 
@@ -166,10 +180,10 @@ public class GameControllerMain : GameControllerRoot
             GameRoot.ShowTips("", true, false);
         }
 
-		if (!DialogueManager.isInDialogue)
-		{
-			DialogueManager.isInDialogue = false;
-		}
+		// if (!DialogueManager.isInDialogue)
+		// {
+		// 	DialogueManager.isInDialogue = false;
+		// }
 
         previousPosition = player.transform.position;
     }
