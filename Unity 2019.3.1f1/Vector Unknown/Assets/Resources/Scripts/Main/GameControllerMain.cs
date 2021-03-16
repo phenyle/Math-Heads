@@ -139,11 +139,12 @@ public class GameControllerMain : GameControllerRoot
 
         }
 
-        DialogueManager.isInDialogue = false;
-        DialogueManager.isPuzzleLock = false;
-     }
+        DialogueManager.isInDialogue = true;
+		DialogueManager.isPuzzleLock = false;
 
-    void Update()
+	}
+
+	void Update()
     {
         // reset position tip
         // if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
@@ -164,6 +165,11 @@ public class GameControllerMain : GameControllerRoot
             player.transform.position = startPosition;
             GameRoot.ShowTips("", true, false);
         }
+
+		if (!DialogueManager.isInDialogue)
+		{
+			DialogueManager.isInDialogue = false;
+		}
 
         previousPosition = player.transform.position;
     }
