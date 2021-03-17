@@ -3613,6 +3613,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level04_Prefab
       objectReference: {fileID: 0}
+    - target: {fileID: 2918626235991042824, guid: 432184459d7023c4da9988f92718eba8,
+        type: 3}
+      propertyPath: m_RunCycleLegOffset
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918626235991042824, guid: 432184459d7023c4da9988f92718eba8,
+        type: 3}
+      propertyPath: m_AnimSpeedMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918626235991042824, guid: 432184459d7023c4da9988f92718eba8,
+        type: 3}
+      propertyPath: m_MoveSpeedMultiplier
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2918626235991042824, guid: 432184459d7023c4da9988f92718eba8,
+        type: 3}
+      propertyPath: m_StationaryTurnSpeed
+      value: 360
+      objectReference: {fileID: 0}
     - target: {fileID: 3605721949247537386, guid: 432184459d7023c4da9988f92718eba8,
         type: 3}
       propertyPath: puzzleWindow
