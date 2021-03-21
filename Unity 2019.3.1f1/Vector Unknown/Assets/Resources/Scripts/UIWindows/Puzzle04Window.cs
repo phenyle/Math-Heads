@@ -30,7 +30,8 @@ public class Puzzle04Window : WindowRoot
     public GameObject finalDisplay;
 
     //Legacy
-    public bool isInit; 
+    public bool isInit;
+    private bool doOnce = true;
 
 
     public Text txtInstruction;
@@ -74,11 +75,15 @@ public class Puzzle04Window : WindowRoot
 
 
         //LEFT PIN INIT-----------------------------------------
-        UIcards = new List<GameObject>();
-        UIcards.Add(GameObject.Find("Card1"));
-        UIcards.Add(GameObject.Find("Card2"));
-        UIcards.Add(GameObject.Find("Card3"));
-        UIcards.Add(GameObject.Find("Card4"));
+        if (doOnce)
+        {
+            UIcards = new List<GameObject>();
+            UIcards.Add(GameObject.Find("Card1"));
+            UIcards.Add(GameObject.Find("Card2"));
+            UIcards.Add(GameObject.Find("Card3"));
+            UIcards.Add(GameObject.Find("Card4"));
+            doOnce = false;
+        }
 
 
 

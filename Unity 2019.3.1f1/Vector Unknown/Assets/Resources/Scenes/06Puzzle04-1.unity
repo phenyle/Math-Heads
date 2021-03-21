@@ -7757,7 +7757,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6509434, g: 0.617168, b: 0.617168, a: 1}
+      maxColor: {r: 0.6509434, g: 0.617168, b: 0.617168, a: 0.43137255}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -12889,7 +12889,7 @@ TerrainCollider:
   m_GameObject: {fileID: 2918626235626263362}
   m_Material: {fileID: 0}
   m_Enabled: 1
-  m_TerrainData: {fileID: 15600000, guid: 16b804521bb7e3f42bc45ade78cc05bb, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: ba13b99bdc64f8d4a96c22929581b385, type: 2}
   m_EnableTreeColliders: 1
 --- !u!218 &2918626235626263361
 Terrain:
@@ -12900,7 +12900,7 @@ Terrain:
   m_GameObject: {fileID: 2918626235626263362}
   m_Enabled: 1
   serializedVersion: 6
-  m_TerrainData: {fileID: 15600000, guid: 16b804521bb7e3f42bc45ade78cc05bb, type: 2}
+  m_TerrainData: {fileID: 15600000, guid: ba13b99bdc64f8d4a96c22929581b385, type: 2}
   m_TreeDistance: 2000
   m_TreeBillboardDistance: 50
   m_TreeCrossFadeLength: 5
@@ -19998,7 +19998,7 @@ ParticleSystem:
       serializedVersion: 2
       minMaxState: 0
       minColor: {r: 1, g: 1, b: 1, a: 1}
-      maxColor: {r: 0.6509434, g: 0.617168, b: 0.617168, a: 1}
+      maxColor: {r: 0.6509434, g: 0.617168, b: 0.617168, a: 0.41960785}
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
@@ -39572,8 +39572,8 @@ MonoBehaviour:
   m_JumpPower: 10
   m_GravityMultiplier: 2
   m_RunCycleLegOffset: 1
-  m_MoveSpeedMultiplier: 2
-  m_AnimSpeedMultiplier: 2
+  m_MoveSpeedMultiplier: 1
+  m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 1
 --- !u!4 &2918626237289915404
 Transform:
@@ -43749,7 +43749,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   topCamPlayer: {fileID: 2918626236268589570}
-  Difficulty: 2
+  Difficulty: 1
   sunLight: {fileID: 2918626237422057002}
   moonLight: {fileID: 2918626235661196956}
   ocean: {fileID: 2918626237385298201}
