@@ -3826,6 +3826,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 199944f24bdf6844e95b468cb1c412b3, type: 3}
   - {fileID: 21300000, guid: 4a4d541b0fea54b4cabece8daba6495e, type: 3}
   - {fileID: 21300000, guid: c6a732d488830b04bbe55b1d8bd5dad6, type: 3}
+  players:
+  - {fileID: 756671490}
+  - {fileID: 1228972473}
+  - {fileID: 581914733}
+  - {fileID: 1448635797}
   MW: {fileID: 0}
 --- !u!114 &1801288203 stripped
 MonoBehaviour:
