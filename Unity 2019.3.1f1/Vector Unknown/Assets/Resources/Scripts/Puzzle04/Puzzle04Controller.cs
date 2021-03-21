@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityStandardAssets._2D;
 
 public enum Direction
 {
@@ -14,7 +11,7 @@ public enum Direction
 
 public class Puzzle04Controller : MonoBehaviour
 {
-    [Header("Object Assignment")]
+    [Header("---Object Assignment---")]
     public GameObject player;    
     public GameObject portal;
     public GameObject goal;
@@ -23,22 +20,29 @@ public class Puzzle04Controller : MonoBehaviour
     public GameObject finish;
     private VisualVector VV01;
 
-    [Header("View Controls")]
+    [Header("---View Controls---")]
     public GameObject CameraPosition;
     [Range(-5, 25)]
     public float cameraHeight = 7;
     [Range(-50, 0)]
     public float cameraZoom;
 
-    [Header("Puzzle Vectors")]
-    public Vector3 GapVector;
-    public bool wind;
+    [Header("---Puzzle Vectors---")]
+    public Vector3 MinVectorSize;
+    public bool isDynamic;
+    public bool isFractional;
     [Range(1,10)]
-    public int MaxScalar;
-    [Range(1, 10)]
-    public int MaxMagnitudes;
+    public int MaxDynamicScalar;
     public Direction LimitAxis = new Direction();
-    private Vector3 WindVector;
+    private Vector3 DynamicVector;
+
+    [Header("---Answer Card Vectors---")]
+    [Range(1, 10)]
+    public int MaxCardScalar;
+    [Range(1, 10)]
+    public int MaxCardMagnitudes;
+
+
 
 
     //Answer Cards
@@ -56,22 +60,22 @@ public class Puzzle04Controller : MonoBehaviour
     private GameControllerPuzzle04 GCP04;
 
 
-    // Start is called before the first frame update
-    void Start()
+    // Awake is called when the Instance is Initialized
+    void Awake()
     {
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
         VV01 = this.GetComponent<VisualVector>();
 
         cardVectors = new List<Vector3>();
 
-        if (wind)
+        if (isDynamic)
         {
-            WindVector = WindGenerator();
+            DynamicVector = DynamicGenerator();
         }
         else
-            WindVector = new Vector3(0f, 0f, 0f);
+            DynamicVector = new Vector3(0f, 0f, 0f);
 
-        AnswerVector = GapVector + WindVector;
+        AnswerVector = MinVectorSize + DynamicVector;
 
         scalar1 = 0;
         scalar2 = 0;
@@ -128,8 +132,41 @@ public class Puzzle04Controller : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Generates a modified vector based from the MinVectorSize.  If isFractional
+    /// is selected, the generated vector will be first divided by 2,3,or 4.  Then
+    /// that vector will be mutiplied by the MaxDynamicScalar input.
+    /// </summary>
+    /// <returns></returns>
+    private Vector3 DynamicGenerator()
+    {
+        Vector3 temp = new Vector3(0f, 0f, 0f);
+        int tempScal;
 
-    Vector3 WindGenerator()
+
+        if (isFractional)
+        {
+            tempScal = Random.Range(2, 4);
+
+            temp = MinVectorSize / tempScal;
+        }
+        else
+            temp = MinVectorSize;
+
+
+        tempScal = Random.Range(1, MaxDynamicScalar);
+        temp = temp * tempScal;
+
+        return temp;
+    }
+
+    /// <summary>
+    /// ------------OUTDATED--------------
+    /// Used to generate a secondary vector that offsets AnswerVector
+    /// Returns a Vector based on MaxScalar, MaxMagnitudes and LimitAxis.
+    /// </summary>
+    /// <returns></returns>
+    private Vector3 WindGenerator()
     {
         int tempMagX;
         int tempMagY;
@@ -140,16 +177,16 @@ public class Puzzle04Controller : MonoBehaviour
         //We don't want a 0 scalar, this do loop ensures we don't
         do
         {
-            tempScal = Random.Range(-1 * MaxScalar, MaxScalar);
+            tempScal = Random.Range(-1 * MaxDynamicScalar, MaxDynamicScalar);
         } while (tempScal == 0);
 
         Debug.Log(LimitAxis.ToString());
 
         do
         {
-            tempMagX = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
-            tempMagY = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
-            tempMagZ = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
+            tempMagX = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
+            tempMagY = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
+            tempMagZ = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
 
             if (LimitAxis.ToString().CompareTo("X") == 0)
             {
@@ -173,6 +210,11 @@ public class Puzzle04Controller : MonoBehaviour
         return tempVect;
     }
 
+
+    /// <summary>
+    /// Used for generating Answer Cards based on the Vector created from
+    /// the AnswerVector.
+    /// </summary>
     private void answerGenerators()
     {
         Vector3 answer1a;
@@ -202,6 +244,11 @@ public class Puzzle04Controller : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Generates random and unique vectors for use by the AnswerGenerator function
+    /// only returns vectors that are not <0,0,0> and are not already generated.
+    /// </summary>
+    /// <returns></returns>
     private Vector3 randomGenerator()
     {
         bool unique = true;
@@ -218,8 +265,7 @@ public class Puzzle04Controller : MonoBehaviour
             //We don't want a 0 scalar, this do loop ensures we don't
             do
             {
-                tempScal = Random.Range(-1 * MaxScalar, MaxScalar);
-            } while (tempScal == 0);
+                tempScal = Random.Range(-1 * MaxCardScalar, MaxCardScalar);           } while (tempScal == 0);
 
 
             //While scalar cannot be 0, some magnitudes MAY be zero,
@@ -227,9 +273,9 @@ public class Puzzle04Controller : MonoBehaviour
             //this do while loop ensure we don't end with a zero vector.
             do
             {
-                tempMagX = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
-                tempMagY = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
-                tempMagZ = Random.Range(-1 * MaxMagnitudes, MaxMagnitudes);
+                tempMagX = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
+                tempMagY = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
+                tempMagZ = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
 
                 if (GCP04.Difficulty == 1)
                 {
@@ -281,6 +327,14 @@ public class Puzzle04Controller : MonoBehaviour
 
     }
 
+    /// <summary>
+    /// Retruns a Vector based on the displacement from the input Vector to the
+    /// Answer Vector.  Used for generating a "pair" of vectors that lead to the
+    /// correct answer.  Will not return a <0,0,0> vector or a duplicate vector.
+    /// Vector MAY be fractional based on Scalar requirements.
+    /// </summary>
+    /// <param name="first"> input vector used to find displacement </param>
+    /// <returns></returns>
     private Vector3 secAnsCard(Vector3 first)
     {
         bool unique = true;
@@ -294,7 +348,7 @@ public class Puzzle04Controller : MonoBehaviour
             //We don't want a 0 scalar, this do loop ensures we don't
             do
             {
-                tempScal = Random.Range(-1 * MaxScalar, MaxScalar);
+                tempScal = Random.Range(-1 * MaxCardScalar, MaxCardScalar);
             } while (tempScal == 0);
 
             tempVect = (AnswerVector - first);
@@ -326,14 +380,14 @@ public class Puzzle04Controller : MonoBehaviour
         return tempVect;
     }
 
-    public Vector3 getGapVector()
+    public Vector3 getMinVector()
     {
-        return GapVector;
+        return MinVectorSize;
     }
 
-    public Vector3 getWindVector()
+    public Vector3 getDynamicVector()
     {
-        return WindVector;
+        return DynamicVector;
     }
 
     public Vector3 getAnswerVector()

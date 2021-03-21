@@ -10,16 +10,14 @@ public class VisualVector : MonoBehaviour
     private float overallScale;
 
     //Puzzle Vector Components
-    [Header("Puzzle Vector Components")]
-    public GameObject gapVector;
-    public GameObject windVector;
-    public GameObject answerVector;
+    [Header("---Puzzle Vector Components---")]
+    public GameObject gapVectorVV;
     public GameObject start;
     public GameObject goal;
     public GameObject windEnd;
 
     //Player Vector Components
-    [Header("Player Vector Components")]
+    [Header("---Player Vector Components---")]
     public GameObject vector1;
     public GameObject vector2;
     public GameObject finalVector;
@@ -32,7 +30,6 @@ public class VisualVector : MonoBehaviour
     private bool fudgeZ;
 
 
-
     // Start is called before the first frame update
     void Start()
     {  
@@ -40,63 +37,42 @@ public class VisualVector : MonoBehaviour
 
         setFudge();
 
-        gapVector.SetActive(false);
-        windVector.SetActive(true);
-        answerVector.SetActive(false);
+        gapVectorVV.SetActive(false);
 
         vector1.SetActive(false);
         vector2.SetActive(false);
         finalVector.SetActive(false);
 
-
-
-
-
         overallScale = setOverallScale();
         puzzleScale = setPuzzleScale();
 
-
-
-
-
-
-        VectorBetweenPoints(gapVector, goal.transform.position, start.transform.position, 0.25f);
-
-        windEnd.transform.position = goal.transform.position + PC04.getWindVector() * overallScale;
-        VectorBetweenPoints(windVector, goal.transform.position, windEnd.transform.position, 0.25f);
-
-
+        VectorBetweenPoints(gapVectorVV, goal.transform.position, start.transform.position, 0.25f);
 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PC04.getAnsCard1() != null)
-            vector1end.transform.position = start.transform.position + rescaledVector(PC04.getAnsCard1() * PC04.getScalar1(), true);
+        if (PC04.getAnsCard1() != null || PC04.getAnsCard1() != new Vector3(0f, 0f, 0f))
+            vector1end.transform.position = start.transform.position + rescaledVector(PC04.getAnsCard1() * PC04.getScalar1());
         else
             vector1end = start;
 
-        if (PC04.getAnsCard2() != null)
-            vector2end.transform.position = vector1end.transform.position + rescaledVector(PC04.getAnsCard2() * PC04.getScalar2(), true);
+        if (PC04.getAnsCard2() != null || PC04.getAnsCard2() != new Vector3(0f, 0f, 0f))
+            vector2end.transform.position = vector1end.transform.position + rescaledVector(PC04.getAnsCard2() * PC04.getScalar2());
         else
             vector2end.transform.position = vector1end.transform.position;
 
         VectorBetweenPoints(vector1, start.transform.position, vector1end.transform.position, 0.25f);
         VectorBetweenPoints(vector2, vector1end.transform.position, vector2end.transform.position, 0.25f);
 
-        if (PC04.getAnsCard1() != null && PC04.getAnsCard2() != null)
+        if ((PC04.getAnsCard1() != null || PC04.getAnsCard1() != new Vector3(0f,0f,0f)) && (PC04.getAnsCard2() != null || PC04.getAnsCard2() != new Vector3(0f, 0f, 0f)))
         {
             finalVector.SetActive(true);
             VectorBetweenPoints(finalVector, start.transform.position, vector2end.transform.position, 0.25f);
         }
         else
             finalVector.SetActive(false);
-
-
-        windEnd.transform.position = goal.transform.position + PC04.getWindVector() * overallScale;
-        VectorBetweenPoints(windVector, goal.transform.position, windEnd.transform.position, 0.25f);
-
 
     }
 
@@ -106,7 +82,7 @@ public class VisualVector : MonoBehaviour
         float worldMag, gapMag;
 
         worldVector = start.transform.position - goal.transform.position;
-        gapVector = PC04.getGapVector();
+        gapVector = PC04.getAnswerVector();
 
         worldMag = worldVector.magnitude;
         gapMag = gapVector.magnitude;
@@ -120,7 +96,7 @@ public class VisualVector : MonoBehaviour
         Vector3 worldVector, gapVector, returnVector;  
 
         worldVector = start.transform.position - goal.transform.position;
-        gapVector = PC04.getGapVector();
+        gapVector = PC04.getAnswerVector();
 
         //size you want, divided by the size you have
         //X-scale
@@ -145,53 +121,36 @@ public class VisualVector : MonoBehaviour
         return returnVector;
     }
 
-    private Vector3 rescaledVector(Vector3 original, bool fudge)
+    private Vector3 rescaledVector(Vector3 original)
     {
         Vector3 temp, worldVector, gapVector;
 
         worldVector = start.transform.position - goal.transform.position;
-        gapVector = PC04.getGapVector();
+        gapVector = PC04.getAnswerVector();
 
-        if (fudge)
-        {
-            if (gapVector.x != 0)
-                temp.x = original.x * puzzleScale.x;
-            else if (fudgeX)
-                temp.x = original.x - worldVector.x / 2;
-            else
-                temp.x = original.x - worldVector.x;
-
-            if (gapVector.y != 0)
-                temp.y = original.y * puzzleScale.y;
-            else if (fudgeY)
-                temp.y = original.y - worldVector.y / 2;
-            else
-                temp.y = original.y - worldVector.y;
-
-            if (gapVector.z != 0)
-                temp.z = original.z * puzzleScale.z;
-            else if (fudgeZ)
-                temp.z = original.z - worldVector.z / 2;
-            else
-                temp.z = original.z - worldVector.z;
-        }
+        //rescale X
+        if (gapVector.x != 0)
+            temp.x = original.x * puzzleScale.x;
+        else if (fudgeX)
+            temp.x = original.x - worldVector.x / 2;
         else
-        {
-            if (gapVector.x != 0)
-                temp.x = original.x * puzzleScale.x;
-            else
-                temp.x = original.x - worldVector.x;
+            temp.x = original.x - worldVector.x;
 
-            if (gapVector.y != 0)
-                temp.y = original.y * puzzleScale.y;
-            else
-                temp.y = original.y - worldVector.y;
+        //rescale Y
+        if (gapVector.y != 0)
+            temp.y = original.y * puzzleScale.y;
+        else if (fudgeY)
+            temp.y = original.y - worldVector.y / 2;
+        else
+            temp.y = original.y - worldVector.y;
 
-            if (gapVector.z != 0)
-                temp.z = original.z * puzzleScale.z;
-            else
-                temp.z = original.z - worldVector.z;
-        }
+        //rescale Z
+        if (gapVector.z != 0)
+            temp.z = original.z * puzzleScale.z;
+        else if (fudgeZ)
+            temp.z = original.z - worldVector.z / 2;
+        else
+            temp.z = original.z - worldVector.z;
 
 
         return temp;
@@ -234,8 +193,8 @@ public class VisualVector : MonoBehaviour
         }
         if (PC04.getDirection().ToString().CompareTo("XY") == 0)
         {
-            fudgeX = true;
-            fudgeY = true;
+            fudgeX = false;
+            fudgeY = false;
             fudgeZ = true;
         }
         if (PC04.getDirection().ToString().CompareTo("XYZ") == 0)
@@ -250,17 +209,7 @@ public class VisualVector : MonoBehaviour
 
     public GameObject getGapVector()
     {
-        return gapVector;
-    }
-
-    public GameObject getWindVector()
-    {
-        return windVector;
-    }
-
-    public GameObject getAnswerVector()
-    {
-        return answerVector;
+        return gapVectorVV;
     }
 
     public GameObject getVector1()

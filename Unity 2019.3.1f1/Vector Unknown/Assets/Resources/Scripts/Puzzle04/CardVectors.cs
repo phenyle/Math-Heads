@@ -161,5 +161,10 @@ public class CardVectors : EventTrigger
         return startPos;
     }
 
+    public void resetCard()
+    {
+        this.transform.position = startPos;
+    }
+
 
 }

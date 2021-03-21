@@ -238,34 +238,34 @@ public class Puzzle04Window : WindowRoot
         //1D Vectors------------------------------------------
         if (PC04.getDirection().ToString().CompareTo("X") == 0)
         {
-            gapDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getGapVector().x.ToString();
-            windDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getWindVector().x.ToString();
+            gapDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getMinVector().x.ToString();
+            windDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getDynamicVector().x.ToString();
             goalDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getAnswerVector().x.ToString();
         }
         if (PC04.getDirection().ToString().CompareTo("Y") == 0)
         {
 
-            gapDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getGapVector().y.ToString();
-            windDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getWindVector().y.ToString();
+            gapDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getMinVector().y.ToString();
+            windDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getDynamicVector().y.ToString();
             goalDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getAnswerVector().y.ToString();
         }
 
         //2D Vectors----------------------------------------
-        gapDisplay.transform.Find("2DBracket").transform.Find("2DvalX").GetComponentInChildren<Text>().text = PC04.getGapVector().x.ToString();
-        gapDisplay.transform.Find("2DBracket").transform.Find("2DvalY").GetComponentInChildren<Text>().text = PC04.getGapVector().y.ToString();
-        windDisplay.transform.Find("2DBracket").transform.Find("2DvalX").GetComponentInChildren<Text>().text = PC04.getWindVector().x.ToString();
-        windDisplay.transform.Find("2DBracket").transform.Find("2DvalY").GetComponentInChildren<Text>().text = PC04.getWindVector().y.ToString();
+        gapDisplay.transform.Find("2DBracket").transform.Find("2DvalX").GetComponentInChildren<Text>().text = PC04.getMinVector().x.ToString();
+        gapDisplay.transform.Find("2DBracket").transform.Find("2DvalY").GetComponentInChildren<Text>().text = PC04.getMinVector().y.ToString();
+        windDisplay.transform.Find("2DBracket").transform.Find("2DvalX").GetComponentInChildren<Text>().text = PC04.getDynamicVector().x.ToString();
+        windDisplay.transform.Find("2DBracket").transform.Find("2DvalY").GetComponentInChildren<Text>().text = PC04.getDynamicVector().y.ToString();
         goalDisplay.transform.Find("2DBracket").transform.Find("2DvalX").GetComponentInChildren<Text>().text = PC04.getAnswerVector().x.ToString();
         goalDisplay.transform.Find("2DBracket").transform.Find("2DvalY").GetComponentInChildren<Text>().text = PC04.getAnswerVector().y.ToString();
 
 
         //3D Vectors------------------------------------------
-        gapDisplay.transform.Find("3DBracket").transform.Find("3DvalX").GetComponentInChildren<Text>().text = PC04.getGapVector().x.ToString();
-        gapDisplay.transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getGapVector().y.ToString();
-        gapDisplay.transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getGapVector().z.ToString();
-        windDisplay.transform.Find("3DBracket").transform.Find("3DvalX").GetComponentInChildren<Text>().text = PC04.getWindVector().x.ToString();
-        windDisplay.transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getWindVector().y.ToString();
-        windDisplay.transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getWindVector().z.ToString();
+        gapDisplay.transform.Find("3DBracket").transform.Find("3DvalX").GetComponentInChildren<Text>().text = PC04.getMinVector().x.ToString();
+        gapDisplay.transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getMinVector().y.ToString();
+        gapDisplay.transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getMinVector().z.ToString();
+        windDisplay.transform.Find("3DBracket").transform.Find("3DvalX").GetComponentInChildren<Text>().text = PC04.getDynamicVector().x.ToString();
+        windDisplay.transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getDynamicVector().y.ToString();
+        windDisplay.transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getDynamicVector().z.ToString();
         goalDisplay.transform.Find("3DBracket").transform.Find("3DvalX").GetComponentInChildren<Text>().text = PC04.getAnswerVector().x.ToString();
         goalDisplay.transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getAnswerVector().y.ToString();
         goalDisplay.transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getAnswerVector().z.ToString();
@@ -321,6 +321,16 @@ public class Puzzle04Window : WindowRoot
         }
     }
 
+    public void resetCardPos()
+    {
+        for (int i = 0; i < UIcards.Count; i++)
+        {
+            UIcards[i].GetComponent<CardVectors>().resetCard();
+        }
+
+        ansCard1 = null;
+        ansCard2 = null;
+    }
 
     public void setPuzzleController(Puzzle04Controller PC04)
     {

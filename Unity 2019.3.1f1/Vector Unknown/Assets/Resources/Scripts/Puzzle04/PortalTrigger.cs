@@ -79,6 +79,11 @@ public class PortalTrigger : MonoBehaviour
             GCP04.P04W.setAnswer1(null);
             GCP04.P04W.setAnswer2(null);
 
+            GCP04.P04W.resetCardPos();
+
+            GCP04.P04W.scalar1.value = 1;
+            GCP04.P04W.scalar2.value = 1;
+
             turnOffVisualVectors();
 
             Debug.Log("portal exit");
@@ -107,20 +112,15 @@ public class PortalTrigger : MonoBehaviour
     private void turnOffVisualVectors()
     {
         PC04.getVisualVector().getGapVector().SetActive(false);
-        PC04.getVisualVector().getWindVector().SetActive(false);
-        PC04.getVisualVector().getAnswerVector().SetActive(false);
         PC04.getVisualVector().getVector1().SetActive(false);
         PC04.getVisualVector().getVector2().SetActive(false);
         PC04.getVisualVector().getFinalVector().SetActive(false);
+
     }
 
     private void turnOnVisualVectors()
     {
         PC04.getVisualVector().getGapVector().SetActive(true);
-
-        PC04.getVisualVector().getWindVector().SetActive(true);
-
-   //     PC01.getVisualVector().getAnswerVector().SetActive(true);
         PC04.getVisualVector().getVector1().SetActive(true);
         PC04.getVisualVector().getVector2().SetActive(true);
         PC04.getVisualVector().getFinalVector().SetActive(true);
