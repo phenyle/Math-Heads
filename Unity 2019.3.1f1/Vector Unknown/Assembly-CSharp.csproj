@@ -87,8 +87,10 @@
     <Compile Include="Assets\Resources\Scripts\Puzzle01\TopCameraPlayer.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle01\VectorPoint.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\DatabasePuzzle02.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle02\DatabasePuzzle02_02.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\GameControllerPuzzle02.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\HighlightSelected.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle02\NextLevel.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\cannonController.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\cannonballController.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle02\firedCannonballController.cs" />

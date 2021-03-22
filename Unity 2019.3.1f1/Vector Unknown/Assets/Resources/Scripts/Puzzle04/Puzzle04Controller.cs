@@ -21,6 +21,8 @@ public class Puzzle04Controller : MonoBehaviour
     private VisualVector VV01;
 
     [Header("---View Controls---")]
+    public GameObject cameraTarget;
+    public GameObject puzzleCamera;
     public GameObject CameraPosition;
     [Range(-5, 25)]
     public float cameraHeight = 7;
@@ -84,7 +86,6 @@ public class Puzzle04Controller : MonoBehaviour
         card2 = new Vector3(0f, 0f, 0f);
 
         correct = false;
-
 
         answerGenerators();        
 
@@ -228,7 +229,7 @@ public class Puzzle04Controller : MonoBehaviour
         cardVectors.Add(answer1b);
         answer2a = randomGenerator();
         cardVectors.Add(answer2a);
-        answer2b = randomGenerator();
+        answer2b = secAnsCard(answer2a);
         cardVectors.Add(answer2b);
 
         //Shuffle Cards

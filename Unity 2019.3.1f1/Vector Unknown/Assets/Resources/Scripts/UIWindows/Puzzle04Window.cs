@@ -11,7 +11,7 @@ public class Puzzle04Window : WindowRoot
     public Slider scalar2;
     public Text scalarText1;
     public Text scalarText2;
-//    private GameObject finalDisplay;
+    //    private GameObject finalDisplay;
     private GameObject ansField1;
     private GameObject ansField2;
     private GameObject ansCard1;
@@ -29,7 +29,18 @@ public class Puzzle04Window : WindowRoot
     public GameObject goalDisplay;
     public GameObject finalDisplay;
 
+    //TOP CENTER PIN WINDOW-------------
+    [Header("Axis/Grid Buttons")]
+    public Transform buttonPanel;
+    public GameObject axisButton;
+    public GameObject gridButton;
+    private bool axisOn;
+    private bool gridOn;
+
+
+
     //Legacy
+    [Header("Legacy")]
     public bool isInit;
     private bool doOnce = true;
 
@@ -43,7 +54,7 @@ public class Puzzle04Window : WindowRoot
     private void Start()
     {
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
-   
+
         if (isInit)
         {
             InitWindow();
@@ -68,7 +79,7 @@ public class Puzzle04Window : WindowRoot
         scalarText1.text = scalar1.value.ToString();
         scalarText2.text = scalar2.value.ToString();
 
-//        finalDisplay = GameObject.Find("FinalAnswer");
+        //        finalDisplay = GameObject.Find("FinalAnswer");
 
         ansField1 = GameObject.Find("AnsVector1");
         ansField2 = GameObject.Find("AnsVector2");
@@ -167,6 +178,9 @@ public class Puzzle04Window : WindowRoot
         setAnswer1(null);
         setAnswer2(null);
 
+        axisOn = false;
+        gridOn = false;
+
 
 
         //Legacy---------------------------------------------
@@ -186,7 +200,8 @@ public class Puzzle04Window : WindowRoot
 
         ShowInputPanel(false);
         ShowFeedbackPanel(false);
-        ShowCardPanel(false);              
+        ShowCardPanel(false);
+        ShowButtonPanel(false);
 
 
     }
@@ -205,20 +220,20 @@ public class Puzzle04Window : WindowRoot
     /// <param name="PC04"> Only used for 1D vectors in the X or Y direction</param>
     public void setCardDisplay(Puzzle04Controller PC04)
     {
-       //1D Vectors----------------------------------
-       if (PC04.getDirection().ToString().CompareTo("X") == 0)
-       {
-           for(int i = 0; i < UIcards.Count; i++)
-           {
-               UIcards[i].transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = UIcards[i].GetComponent<CardVectors>().getCardVector().x.ToString();
-           }
+        //1D Vectors----------------------------------
+        if (PC04.getDirection().ToString().CompareTo("X") == 0)
+        {
+            for (int i = 0; i < UIcards.Count; i++)
+            {
+                UIcards[i].transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = UIcards[i].GetComponent<CardVectors>().getCardVector().x.ToString();
+            }
         }
         if (PC04.getDirection().ToString().CompareTo("Y") == 0)
-       {
-           for (int i = 0; i < UIcards.Count; i++)
-           {
-               UIcards[i].transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = UIcards[i].GetComponent<CardVectors>().getCardVector().y.ToString();
-           }
+        {
+            for (int i = 0; i < UIcards.Count; i++)
+            {
+                UIcards[i].transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = UIcards[i].GetComponent<CardVectors>().getCardVector().y.ToString();
+            }
         }
 
         //2D Vectors----------------------------------------
@@ -320,7 +335,7 @@ public class Puzzle04Window : WindowRoot
 
     public void setCardValues(List<Vector3> cardVals)
     {
-        for(int i = 0; i < UIcards.Count; i++)
+        for (int i = 0; i < UIcards.Count; i++)
         {
             UIcards[i].GetComponent<CardVectors>().setCardVector(cardVals[i]);
         }
@@ -384,7 +399,7 @@ public class Puzzle04Window : WindowRoot
     {
         if (PC04.checkFinalAnswer())
         {
-            foreach(GameObject card in UIcards)
+            foreach (GameObject card in UIcards)
             {
                 card.transform.position = card.GetComponent<CardVectors>().getStartPos();
             }
@@ -394,7 +409,6 @@ public class Puzzle04Window : WindowRoot
 
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
     }
-
 
     public void ShowInputPanel(bool status)
     {
@@ -409,6 +423,69 @@ public class Puzzle04Window : WindowRoot
     public void ShowCardPanel(bool status)
     {
         SetActive(cardPanel, status);
+    }
+
+    public void ShowButtonPanel(bool status)
+    {
+        SetActive(buttonPanel, status);
+    }
+
+
+    public void toggleAxis()
+    {
+        axisOn = !axisOn;
+
+
+        if(axisOn)
+        {
+            if (GCP04.Difficulty < 3)
+            {
+                PC04.getVisualVector().activateSphereGrid(false);
+            }
+            else
+                PC04.getVisualVector().activateSphereGrid(true);
+
+            axisButton.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            PC04.getVisualVector().deactivateSphereGrid();
+            axisButton.GetComponent<Image>().color = Color.white;
+        }
+
+    }
+
+    public void toggleGrid()
+    {
+        gridOn = !gridOn;
+
+        if (gridOn)
+        {
+            if (GCP04.Difficulty < 3)
+            {
+                PC04.getVisualVector().activateBarGrid(false);
+            }
+            else
+                PC04.getVisualVector().activateBarGrid(true);
+
+            gridButton.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            PC04.getVisualVector().deactivateBarGrid();
+            gridButton.GetComponent<Image>().color = Color.white;
+
+        }
+
+    }
+
+    public void resetButtons()
+    {
+        gridOn = false;
+        axisOn = false;
+
+        axisButton.GetComponent<Image>().color = Color.white;
+        gridButton.GetComponent<Image>().color = Color.white;
     }
 
 }

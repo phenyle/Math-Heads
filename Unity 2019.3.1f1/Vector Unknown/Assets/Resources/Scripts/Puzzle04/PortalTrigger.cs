@@ -45,6 +45,9 @@ public class PortalTrigger : MonoBehaviour
             GCP04.P04W.ShowInputPanel(true);
             GCP04.P04W.ShowFeedbackPanel(true);
             GCP04.P04W.ShowCardPanel(true);
+            GCP04.P04W.ShowButtonPanel(true);
+
+            GCP04.P04W.resetButtons();
 
             assignCards();
             GCP04.P04W.setAnswer1(null);
@@ -75,6 +78,9 @@ public class PortalTrigger : MonoBehaviour
             GCP04.P04W.ShowInputPanel(false);
             GCP04.P04W.ShowFeedbackPanel(false);
             GCP04.P04W.ShowCardPanel(false);
+            GCP04.P04W.ShowButtonPanel(false);
+
+            GCP04.P04W.resetButtons();
 
             GCP04.P04W.setAnswer1(null);
             GCP04.P04W.setAnswer2(null);
@@ -116,6 +122,13 @@ public class PortalTrigger : MonoBehaviour
         PC04.getVisualVector().getVector2().SetActive(false);
         PC04.getVisualVector().getFinalVector().SetActive(false);
 
+        PC04.getVisualVector().getXvector().SetActive(false);
+        PC04.getVisualVector().getYvector().SetActive(false);
+        PC04.getVisualVector().getZvector().SetActive(false);
+
+        PC04.getVisualVector().deactivateSphereGrid();
+        PC04.getVisualVector().deactivateBarGrid();
+
     }
 
     private void turnOnVisualVectors()
@@ -124,5 +137,24 @@ public class PortalTrigger : MonoBehaviour
         PC04.getVisualVector().getVector1().SetActive(true);
         PC04.getVisualVector().getVector2().SetActive(true);
         PC04.getVisualVector().getFinalVector().SetActive(true);
+
+
+        //if the puzzle difficulty is 2D or less:
+        //do not draw the Z axis grids
+        if (GCP04.Difficulty < 3)
+        {
+            PC04.getVisualVector().setGridSphereNodes(false);
+            PC04.getVisualVector().setGridBarNodes(false);
+        }
+        else 
+        {
+            PC04.getVisualVector().setGridSphereNodes(true);
+            PC04.getVisualVector().setGridBarNodes(true);
+        }
+
+
+
+
+
     }    
 }

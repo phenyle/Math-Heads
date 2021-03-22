@@ -24,6 +24,27 @@ public class VisualVector : MonoBehaviour
     public GameObject vector1end;
     public GameObject vector2end;
 
+    //Grid Vector Components
+    [Header("---Player Vector Components---")]
+    public GameObject Xvector;
+    public GameObject Yvector;
+    public GameObject Zvector;
+    public GameObject Xnegative;
+    public GameObject Xpositive;
+    public GameObject Ynegative;
+    public GameObject Ypositive; 
+    public GameObject Znegative;
+    public GameObject Zpositive;
+    private List<GameObject> XSphereNodes;
+    private List<GameObject> YSphereNodes;
+    private List<GameObject> ZSphereNodes;
+    private List<GameObject> XBarNodes;
+    private List<GameObject> YBarNodes;
+    private List<GameObject> ZYBarNodes;
+    private List<GameObject> ZXBarNodes;
+    private float gridThickness = 0.05f;
+
+
     //Misc Controls
     private bool fudgeX;
     private bool fudgeY;
@@ -43,10 +64,33 @@ public class VisualVector : MonoBehaviour
         vector2.SetActive(false);
         finalVector.SetActive(false);
 
+
+        Xvector.SetActive(false);
+        Yvector.SetActive(false);
+        Zvector.SetActive(false);
+
         overallScale = setOverallScale();
         puzzleScale = setPuzzleScale();
 
         VectorBetweenPoints(gapVectorVV, goal.transform.position, start.transform.position, 0.25f);
+
+        XSphereNodes = new List<GameObject>();
+        YSphereNodes = new List<GameObject>();
+        ZSphereNodes = new List<GameObject>();
+
+        XBarNodes = new List<GameObject>();
+        YBarNodes = new List<GameObject>();
+        ZYBarNodes = new List<GameObject>();
+        ZXBarNodes = new List<GameObject>();
+
+        createSphereGrid();
+        createBarGrid();
+
+
+        VectorBetweenPoints(Xvector, Xnegative.transform.position, Xpositive.transform.position, 0.15f);
+        VectorBetweenPoints(Yvector, Ynegative.transform.position, Ypositive.transform.position, 0.15f);
+        VectorBetweenPoints(Zvector, Znegative.transform.position, Zpositive.transform.position, 0.15f);
+
 
     }
 
@@ -226,4 +270,211 @@ public class VisualVector : MonoBehaviour
     {
         return finalVector;
     }
+
+    public GameObject getXvector()
+    {
+        return Xvector;
+    }
+    public GameObject getYvector()
+    {
+        return Yvector;
+    }
+    public GameObject getZvector()
+    {
+        return Zvector;
+    }
+
+    public void createSphereGrid()
+    {
+        for(int i = -99; i < 99; i++)
+        {
+            GameObject xSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            xSphere.transform.localScale *= 0.4f;
+            xSphere.GetComponent<Collider>().enabled = false;
+            XSphereNodes.Add(xSphere);
+
+            GameObject ySphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            ySphere.transform.localScale *= 0.4f;
+            ySphere.GetComponent<Collider>().enabled = false;
+            YSphereNodes.Add(ySphere);
+
+            GameObject zSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            zSphere.transform.localScale *= 0.4f;
+            zSphere.GetComponent<Collider>().enabled = false;
+            ZSphereNodes.Add(zSphere);
+        }
+
+        deactivateSphereGrid();
+
+    }
+
+    public void createBarGrid()
+    {
+        for (int i = -99; i < 99; i++)
+        {
+            GameObject xCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            xCyln.GetComponent<Collider>().enabled = false;
+            XBarNodes.Add(xCyln);
+
+            GameObject yCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            yCyln.GetComponent<Collider>().enabled = false;
+            YBarNodes.Add(yCyln);
+
+            GameObject zyCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            zyCyln.GetComponent<Collider>().enabled = false;
+            ZYBarNodes.Add(zyCyln);
+
+            GameObject zxCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            zxCyln.GetComponent<Collider>().enabled = false;
+            ZXBarNodes.Add(zxCyln);
+        }
+
+        deactivateBarGrid();
+
+    }
+
+    public void setGridSphereNodes(bool Zaxis)
+    {
+
+        for(int i = -99; i < 99; i++)
+        {
+            //Set X sphere nodes
+            XSphereNodes[i + 99].transform.position = start.transform.position;
+            XSphereNodes[i + 99].transform.position += new Vector3(i * puzzleScale.x, 0f,0f);        
+
+            //Set Y sphere nodes
+            YSphereNodes[i + 99].transform.position = start.transform.position;
+            YSphereNodes[i + 99].transform.position += new Vector3(0f, i * puzzleScale.y, 0f);
+
+            if (Zaxis)
+            {
+                //Set Z sphere nodes
+                ZSphereNodes[i + 99].transform.position = start.transform.position;
+                ZSphereNodes[i + 99].transform.position += new Vector3(0f, 0f, i * puzzleScale.z);
+            }
+        }
+    }
+
+    public void setGridBarNodes(bool Zaxis)
+    {
+
+        for (int i = -99; i < 99; i++)
+        {
+            //Set XY plane bar nodes
+            //X bars
+            VectorBetweenPoints(XBarNodes[i + 99], Ypositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Ynegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
+            //Ybars
+            VectorBetweenPoints(YBarNodes[i + 99], Xpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Xnegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+
+
+            if (Zaxis)
+            {
+                //Set ZY plane nodes
+                VectorBetweenPoints(ZYBarNodes[i + 99], Ypositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Ynegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
+
+                VectorBetweenPoints(ZXBarNodes[i + 99], Xpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Xnegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+            }
+
+        }
+
+    }
+
+
+    public void deactivateSphereGrid()
+    {
+        Xvector.SetActive(false);
+        Yvector.SetActive(false);
+        Zvector.SetActive(false);
+
+        foreach (GameObject sphere in XSphereNodes)
+        {
+            sphere.SetActive(false);
+        }
+
+        foreach (GameObject sphere in YSphereNodes)
+        {
+            sphere.SetActive(false);
+        }
+
+        foreach (GameObject sphere in ZSphereNodes)
+        {
+            sphere.SetActive(false);
+        }
+    }
+
+    public void activateSphereGrid(bool Zaxis)
+    {
+        Xvector.SetActive(true);
+        Yvector.SetActive(true);
+
+
+        foreach (GameObject sphere in XSphereNodes)
+        {
+            sphere.SetActive(true);
+        }
+
+        foreach (GameObject sphere in YSphereNodes)
+        {
+            sphere.SetActive(true);
+        }
+
+        if (Zaxis)
+        {
+            Zvector.SetActive(true);
+            foreach (GameObject sphere in ZSphereNodes)
+            {
+                sphere.SetActive(true);
+            }
+        }
+    }
+
+    public void deactivateBarGrid()
+    {
+        foreach (GameObject bar in XBarNodes)
+        {
+            bar.SetActive(false);
+        }
+
+        foreach (GameObject bar in YBarNodes)
+        {
+            bar.SetActive(false);
+        }
+
+        foreach (GameObject bar in ZYBarNodes)
+        {
+            bar.SetActive(false);
+        }
+
+        foreach (GameObject bar in ZXBarNodes)
+        {
+            bar.SetActive(false);
+        }
+    }
+
+    public void activateBarGrid(bool Zaxis)
+    {
+        foreach (GameObject bar in XBarNodes)
+        {
+            bar.SetActive(true);
+        }
+
+        foreach (GameObject bar in YBarNodes)
+        {
+            bar.SetActive(true);
+        }
+
+        if (Zaxis)
+        { 
+            foreach (GameObject bar in ZYBarNodes)
+            {
+                bar.SetActive(true);
+            }
+
+            foreach (GameObject bar in ZXBarNodes)
+            {
+                bar.SetActive(true);
+            }
+        }
+    }
+
 }
