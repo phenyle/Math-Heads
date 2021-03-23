@@ -108,6 +108,7 @@
     <Compile Include="Assets\Resources\Scripts\Puzzle03\TipsPoint.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle03\TriggerValue.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle04\Camera2DFollowMod.cs" />
+    <Compile Include="Assets\Resources\Scripts\Puzzle04\CameraDragSurface.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle04\CardVectors.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle04\FallTrigger.cs" />
     <Compile Include="Assets\Resources\Scripts\Puzzle04\FinishTrigger.cs" />

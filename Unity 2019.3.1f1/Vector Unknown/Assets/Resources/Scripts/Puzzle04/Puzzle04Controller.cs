@@ -14,6 +14,7 @@ public class Puzzle04Controller : MonoBehaviour
     [Header("---Object Assignment---")]
     public GameObject player;    
     public GameObject portal;
+    public GameObject startPoint;
     public GameObject goal;
     public GameObject goalPoint;
     public GameObject reset;
@@ -21,13 +22,12 @@ public class Puzzle04Controller : MonoBehaviour
     private VisualVector VV01;
 
     [Header("---View Controls---")]
+    public GameObject mainCamera;
     public GameObject cameraTarget;
-    public GameObject puzzleCamera;
-    public GameObject CameraPosition;
-    [Range(-5, 25)]
-    public float cameraHeight = 7;
-    [Range(-50, 0)]
-    public float cameraZoom;
+    public GameObject CameraStartPosition;
+    private Vector3 prevCameraPosition;
+    private float rotateSpeed = 1;
+    private float prevCameraZoom;
 
     [Header("---Puzzle Vectors---")]
     public Vector3 MinVectorSize;
@@ -45,8 +45,6 @@ public class Puzzle04Controller : MonoBehaviour
     public int MaxCardMagnitudes;
 
 
-
-
     //Answer Cards
     private Vector3 AnswerVector;
     private List<Vector3> cardVectors;
@@ -57,6 +55,8 @@ public class Puzzle04Controller : MonoBehaviour
     private Vector3 card1;
     private Vector3 card2;
     private Vector3 playerAnswer;
+    private bool ans1Entered;
+    private bool ans2Entered;
     private bool correct;
 
     private GameControllerPuzzle04 GCP04;
@@ -67,6 +67,8 @@ public class Puzzle04Controller : MonoBehaviour
     {
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
         VV01 = this.GetComponent<VisualVector>();
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
+
 
         cardVectors = new List<Vector3>();
 
@@ -78,6 +80,8 @@ public class Puzzle04Controller : MonoBehaviour
             DynamicVector = new Vector3(0f, 0f, 0f);
 
         AnswerVector = MinVectorSize + DynamicVector;
+
+        cameraTarget.transform.position += (goalPoint.transform.position - startPoint.transform.position) / 2; 
 
         scalar1 = 0;
         scalar2 = 0;
@@ -103,18 +107,29 @@ public class Puzzle04Controller : MonoBehaviour
             if (GCP04.P04W.getAnswer1() != null)
             {
                 card1 = GCP04.P04W.getAnswer1().GetComponent<CardVectors>().getCardVector();
+                ans1Entered = true;
             }
             else
+            {
                 card1 = new Vector3(0f, 0f, 0f);
+                ans1Entered = false;
+            }
 
             if (GCP04.P04W.getAnswer2() != null)
             {
                 card2 = GCP04.P04W.getAnswer2().GetComponent<CardVectors>().getCardVector();
+                ans2Entered = true;
             }
             else
+            {
                 card2 = new Vector3(0f, 0f, 0f);
+                ans2Entered = false;
+            }
+
+
 
             playerAnswer = scalar1 * card1 + scalar2 * card2;
+
             GCP04.P04W.setFinalAnswerDisplay(this);
 
 
@@ -124,12 +139,32 @@ public class Puzzle04Controller : MonoBehaviour
             }
 
 
+            //Camera Movement around Puzzle
+            if(GCP04.P04W.getCameraDragController().isCameraDragging())
+            {
+                RotateCamera();
+            }
 
-            //    Debug.Log(AnswerVector);
-            //    camera.GetComponent<Camera2DFollow>().setCameraHeight(cameraHeight);
-            //    camera.GetComponent<Camera2DFollow>().setCameraZoom(cameraZoom);
+            if(Input.GetAxis("Mouse ScrollWheel") > 0f)
+            {
+                mainCamera.transform.position += Vector3.Normalize(mainCamera.transform.forward) * rotateSpeed;
+            }
+
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            {
+                mainCamera.transform.position -= Vector3.Normalize(mainCamera.transform.forward) * rotateSpeed;
+            }
 
         }
+
+    }
+
+    private void RotateCamera()
+    {
+        Debug.Log("rotating camera");
+        mainCamera.transform.LookAt(cameraTarget.transform.position);
+        mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.up, Input.GetAxis("Mouse X") * rotateSpeed);
+        mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.left, Input.GetAxis("Mouse Y") * rotateSpeed);
 
     }
 
@@ -450,9 +485,34 @@ public class Puzzle04Controller : MonoBehaviour
         return card2;
     }
 
+    public bool isAns1Entered()
+    {
+        return ans1Entered;
+    }
+    public bool isAns2Entered()
+    {
+        return ans2Entered;
+    }
+
+
     public Transform getCameraTransform()
     {
-        return CameraPosition.transform;
+        return CameraStartPosition.transform;
+    }
+
+    public GameObject getCameraTarget()
+    {
+        return cameraTarget;
+    }
+
+    public void setPrevCameraPos(Vector3 currPos)
+    {
+        prevCameraPosition = currPos;
+    }
+
+    public Vector3 getPrevCameraPos()
+    {
+        return prevCameraPosition;
     }
 
     public VisualVector getVisualVector()

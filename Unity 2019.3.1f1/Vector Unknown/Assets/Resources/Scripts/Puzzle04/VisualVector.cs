@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class VisualVector : MonoBehaviour
 {
-    private Puzzle04Controller PC04;
+    public Puzzle04Controller PC04;
 
     private Vector3 puzzleScale;
     private float overallScale;
@@ -20,6 +20,8 @@ public class VisualVector : MonoBehaviour
     [Header("---Player Vector Components---")]
     public GameObject vector1;
     public GameObject vector2;
+    public GameObject vector1ball;
+    public GameObject vector2ball;
     public GameObject finalVector;
     public GameObject vector1end;
     public GameObject vector2end;
@@ -43,6 +45,9 @@ public class VisualVector : MonoBehaviour
     private List<GameObject> ZYBarNodes;
     private List<GameObject> ZXBarNodes;
     private float gridThickness = 0.05f;
+    private float gridNodeScale = 0.6f;
+    private Color gridNodeColor = Color.black;
+    private Color gridBarColor = Color.white;
 
 
     //Misc Controls
@@ -54,7 +59,7 @@ public class VisualVector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {  
-        PC04 = GetComponent<Puzzle04Controller>();
+        PC04 = this.GetComponent<Puzzle04Controller>();
 
         setFudge();
 
@@ -62,6 +67,8 @@ public class VisualVector : MonoBehaviour
 
         vector1.SetActive(false);
         vector2.SetActive(false);
+        vector1ball.SetActive(false);
+        vector2ball.SetActive(false);
         finalVector.SetActive(false);
 
 
@@ -97,15 +104,27 @@ public class VisualVector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (PC04.getAnsCard1() != null || PC04.getAnsCard1() != new Vector3(0f, 0f, 0f))
+        if (this.PC04.getAnsCard1() != null || this.PC04.getAnsCard1() != new Vector3(0f, 0f, 0f))
+        {
             vector1end.transform.position = start.transform.position + rescaledVector(PC04.getAnsCard1() * PC04.getScalar1());
+            vector1ball.SetActive(true);
+        }
         else
+        {
             vector1end = start;
+            vector1ball.SetActive(false);
+        }
 
-        if (PC04.getAnsCard2() != null || PC04.getAnsCard2() != new Vector3(0f, 0f, 0f))
+        if (this.PC04.getAnsCard2() != null || this.PC04.getAnsCard2() != new Vector3(0f, 0f, 0f))
+        {
             vector2end.transform.position = vector1end.transform.position + rescaledVector(PC04.getAnsCard2() * PC04.getScalar2());
+            vector2ball.SetActive(true);
+        }
         else
+        {
             vector2end.transform.position = vector1end.transform.position;
+            vector2ball.SetActive(false);
+        }
 
         VectorBetweenPoints(vector1, start.transform.position, vector1end.transform.position, 0.25f);
         VectorBetweenPoints(vector2, vector1end.transform.position, vector2end.transform.position, 0.25f);
@@ -289,18 +308,24 @@ public class VisualVector : MonoBehaviour
         for(int i = -99; i < 99; i++)
         {
             GameObject xSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            xSphere.transform.localScale *= 0.4f;
+            xSphere.transform.localScale *= gridNodeScale;
+            xSphere.layer = 10;
             xSphere.GetComponent<Collider>().enabled = false;
+            xSphere.GetComponent<Renderer>().material.color = gridNodeColor;
             XSphereNodes.Add(xSphere);
 
             GameObject ySphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            ySphere.transform.localScale *= 0.4f;
+            ySphere.transform.localScale *= gridNodeScale;
+            ySphere.layer = 10;
             ySphere.GetComponent<Collider>().enabled = false;
+            ySphere.GetComponent<Renderer>().material.color = gridNodeColor;
             YSphereNodes.Add(ySphere);
 
             GameObject zSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            zSphere.transform.localScale *= 0.4f;
+            zSphere.transform.localScale *= gridNodeScale;
+            zSphere.layer = 10;
             zSphere.GetComponent<Collider>().enabled = false;
+            zSphere.GetComponent<Renderer>().material.color = gridNodeColor;
             ZSphereNodes.Add(zSphere);
         }
 
@@ -314,18 +339,22 @@ public class VisualVector : MonoBehaviour
         {
             GameObject xCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             xCyln.GetComponent<Collider>().enabled = false;
+            xCyln.GetComponent<Renderer>().material.color = gridBarColor;
             XBarNodes.Add(xCyln);
 
             GameObject yCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             yCyln.GetComponent<Collider>().enabled = false;
+            yCyln.GetComponent<Renderer>().material.color = gridBarColor;
             YBarNodes.Add(yCyln);
 
             GameObject zyCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             zyCyln.GetComponent<Collider>().enabled = false;
+            zyCyln.GetComponent<Renderer>().material.color = gridBarColor;
             ZYBarNodes.Add(zyCyln);
 
             GameObject zxCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             zxCyln.GetComponent<Collider>().enabled = false;
+            zxCyln.GetComponent<Renderer>().material.color = gridBarColor;
             ZXBarNodes.Add(zxCyln);
         }
 

@@ -7,18 +7,16 @@ public class PortalTrigger : MonoBehaviour
     public bool inPortal = false;
     private GameControllerPuzzle04 GCP04;
     private Puzzle04Controller PC04;
-    private GameObject camera;
-    private Quaternion prevCameraRotate;
-    private float prevCamHeight;
-    private float prevCamZoom;
+    private GameObject mainCamera;
+    private Vector3 prevCameraPos;
+    private Quaternion prevCameraRotation;
 
     // Start is called before the first frame update
     void Start()
     {
-        camera = GameObject.FindGameObjectWithTag("MainCamera");
+        mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
         PC04 = GetComponentInParent<Puzzle04Controller>();
-        prevCameraRotate = camera.transform.rotation;
     }
 
 
@@ -30,14 +28,10 @@ public class PortalTrigger : MonoBehaviour
 
             PC04.player.GetComponent<GrappleCode>().setGoalPoint(PC04.goalPoint);
 
-         //   prevCamHeight = camera.GetComponent<Camera2DFollow>().getCameraHeight();
-        //    prevCamZoom = camera.GetComponent<Camera2DFollow>().getCameraZoom();
-            prevCameraRotate = camera.transform.rotation;
-            camera.GetComponent<Camera2DFollowMod>().setPortalStatus(true);
-            camera.GetComponent<Camera2DFollowMod>().setTarget(PC04.getCameraTransform());
-            camera.GetComponent<Camera2DFollowMod>().setRotation(PC04.getCameraTransform().rotation);
-            //           camera.GetComponent<Camera2DFollow>().setCameraHeight(GetComponentInParent<Puzzle01Controller>().cameraHeight);
-            //           camera.GetComponent<Camera2DFollow>().setCameraZoom(GetComponentInParent<Puzzle01Controller>().cameraZoom);
+            prevCameraPos = mainCamera.transform.position;
+            prevCameraRotation = mainCamera.transform.rotation;
+
+            mainCamera.GetComponent<Camera2DFollowMod>().setPortalStatus(true);
             GCP04.isInQues = true;
 
             GCP04.P04W.setPuzzleController(PC04);
@@ -47,11 +41,19 @@ public class PortalTrigger : MonoBehaviour
             GCP04.P04W.ShowCardPanel(true);
             GCP04.P04W.ShowButtonPanel(true);
 
+            GCP04.P04W.setInstructions("-L-Click, hold and Drag Answers\n-Hold R-Click and Drag to Rotate\n-Use MouseWheel to Zoom In/Out");
+
+
             GCP04.P04W.resetButtons();
 
             assignCards();
             GCP04.P04W.setAnswer1(null);
             GCP04.P04W.setAnswer2(null);
+
+            mainCamera.GetComponent<Camera2DFollowMod>().enabled = false;
+            mainCamera.transform.position = PC04.getCameraTransform().position;
+            mainCamera.transform.LookAt(PC04.getCameraTarget().transform.position);
+
 
             turnOnVisualVectors();
 
@@ -66,13 +68,9 @@ public class PortalTrigger : MonoBehaviour
         {
             inPortal = false;
 
-        //    camera.GetComponent<Camera2DFollow>().setCameraHeight(prevCamHeight);
-         //   camera.GetComponent<Camera2DFollow>().setCameraZoom(prevCamZoom);
             GCP04.isInQues = false;
 
-            camera.GetComponent<Camera2DFollowMod>().setTarget(GameObject.FindGameObjectWithTag("Player").transform);
-            camera.GetComponent<Camera2DFollowMod>().setRotation(prevCameraRotate);
-            camera.GetComponent<Camera2DFollowMod>().setPortalStatus(false);
+            mainCamera.GetComponent<Camera2DFollowMod>().setPortalStatus(false);
             
             
             GCP04.P04W.ShowInputPanel(false);
@@ -80,10 +78,17 @@ public class PortalTrigger : MonoBehaviour
             GCP04.P04W.ShowCardPanel(false);
             GCP04.P04W.ShowButtonPanel(false);
 
+            GCP04.P04W.setInstructions("");
+
             GCP04.P04W.resetButtons();
 
             GCP04.P04W.setAnswer1(null);
             GCP04.P04W.setAnswer2(null);
+
+
+            mainCamera.GetComponent<Camera2DFollowMod>().enabled = true;
+            mainCamera.transform.position = prevCameraPos;
+            mainCamera.transform.rotation = prevCameraRotation;
 
             GCP04.P04W.resetCardPos();
 

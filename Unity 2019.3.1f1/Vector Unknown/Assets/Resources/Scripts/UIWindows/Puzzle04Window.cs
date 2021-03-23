@@ -11,9 +11,10 @@ public class Puzzle04Window : WindowRoot
     public Slider scalar2;
     public Text scalarText1;
     public Text scalarText2;
+    public CameraDragSurface cameraDragInput;
     //    private GameObject finalDisplay;
-    private GameObject ansField1;
-    private GameObject ansField2;
+    private GameObject ansField1; //background field object
+    private GameObject ansField2; //background field object
     private GameObject ansCard1;
     private GameObject ansCard2;
 
@@ -205,6 +206,8 @@ public class Puzzle04Window : WindowRoot
 
 
     }
+
+
 
     /// <summary>
     /// Gets the cards display info from "CardVectors" and sets the vector values info
@@ -430,6 +433,11 @@ public class Puzzle04Window : WindowRoot
         SetActive(buttonPanel, status);
     }
 
+    public void setInstructions(string input)
+    {
+        txtInstruction.text = input;
+    }
+
 
     public void toggleAxis()
     {
@@ -486,6 +494,11 @@ public class Puzzle04Window : WindowRoot
 
         axisButton.GetComponent<Image>().color = Color.white;
         gridButton.GetComponent<Image>().color = Color.white;
+    }
+
+    public CameraDragSurface getCameraDragController()
+    {
+        return cameraDragInput.GetComponent<CameraDragSurface>();
     }
 
 }
