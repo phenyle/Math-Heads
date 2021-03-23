@@ -44,7 +44,7 @@ public class VisualVector : MonoBehaviour
     private List<GameObject> YBarNodes;
     private List<GameObject> ZYBarNodes;
     private List<GameObject> ZXBarNodes;
-    private float gridThickness = 0.05f;
+    private float gridThickness = 0.09f;
     private float gridNodeScale = 0.6f;
     private Color gridNodeColor = Color.black;
     private Color gridBarColor = Color.white;
@@ -94,9 +94,9 @@ public class VisualVector : MonoBehaviour
         createBarGrid();
 
 
-        VectorBetweenPoints(Xvector, Xnegative.transform.position, Xpositive.transform.position, 0.15f);
-        VectorBetweenPoints(Yvector, Ynegative.transform.position, Ypositive.transform.position, 0.15f);
-        VectorBetweenPoints(Zvector, Znegative.transform.position, Zpositive.transform.position, 0.15f);
+        VectorBetweenPoints(Xvector, Xnegative.transform.position, Xpositive.transform.position, 0.18f);
+        VectorBetweenPoints(Yvector, Ynegative.transform.position, Ypositive.transform.position, 0.18f);
+        VectorBetweenPoints(Zvector, Znegative.transform.position, Zpositive.transform.position, 0.18f);
 
 
     }
@@ -399,9 +399,9 @@ public class VisualVector : MonoBehaviour
             if (Zaxis)
             {
                 //Set ZY plane nodes
-                VectorBetweenPoints(ZYBarNodes[i + 99], Ypositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Ynegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
+                VectorBetweenPoints(ZYBarNodes[i + 99], Zpositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Znegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
 
-                VectorBetweenPoints(ZXBarNodes[i + 99], Xpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Xnegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+                VectorBetweenPoints(ZXBarNodes[i + 99], Zpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Znegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
             }
 
         }
@@ -431,30 +431,28 @@ public class VisualVector : MonoBehaviour
         }
     }
 
-    public void activateSphereGrid(bool Zaxis)
+    public void activateSphereGrid(bool Xaxis, bool Yaxis, bool Zaxis)
     {
-        Xvector.SetActive(true);
-        Yvector.SetActive(true);
+        Xvector.SetActive(Xaxis);
+        Yvector.SetActive(Yaxis);
+        Zvector.SetActive(Zaxis);
 
 
         foreach (GameObject sphere in XSphereNodes)
         {
-            sphere.SetActive(true);
+            sphere.SetActive(Xaxis);
         }
 
         foreach (GameObject sphere in YSphereNodes)
         {
-            sphere.SetActive(true);
+            sphere.SetActive(Yaxis);
         }
 
-        if (Zaxis)
+        foreach (GameObject sphere in ZSphereNodes)
         {
-            Zvector.SetActive(true);
-            foreach (GameObject sphere in ZSphereNodes)
-            {
-                sphere.SetActive(true);
-            }
+            sphere.SetActive(Zaxis);
         }
+        
     }
 
     public void deactivateBarGrid()
@@ -480,30 +478,28 @@ public class VisualVector : MonoBehaviour
         }
     }
 
-    public void activateBarGrid(bool Zaxis)
+    public void activateBarGrid(bool Xaxis, bool Yaxis, bool Zaxis)
     {
         foreach (GameObject bar in XBarNodes)
         {
-            bar.SetActive(true);
+            bar.SetActive(Xaxis);
         }
 
         foreach (GameObject bar in YBarNodes)
         {
-            bar.SetActive(true);
+            bar.SetActive(Yaxis);
         }
 
-        if (Zaxis)
-        { 
-            foreach (GameObject bar in ZYBarNodes)
-            {
-                bar.SetActive(true);
-            }
-
-            foreach (GameObject bar in ZXBarNodes)
-            {
-                bar.SetActive(true);
-            }
+        foreach (GameObject bar in ZYBarNodes)
+        {
+            bar.SetActive(Zaxis);
         }
+
+        foreach (GameObject bar in ZXBarNodes)
+        {
+            bar.SetActive(Zaxis);
+        }
+
     }
 
 }

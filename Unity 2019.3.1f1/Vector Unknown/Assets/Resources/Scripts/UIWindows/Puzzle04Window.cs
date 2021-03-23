@@ -443,15 +443,23 @@ public class Puzzle04Window : WindowRoot
     {
         axisOn = !axisOn;
 
-
         if(axisOn)
         {
-            if (GCP04.Difficulty < 3)
+            switch (GCP04.Difficulty)
             {
-                PC04.getVisualVector().activateSphereGrid(false);
+                case 1:
+                    if (PC04.getDirection().ToString().CompareTo("X") == 0)
+                        PC04.getVisualVector().activateSphereGrid(true, false, false);
+                    else if (PC04.getDirection().ToString().CompareTo("Y") == 0)
+                        PC04.getVisualVector().activateSphereGrid(false, true, false);
+                    break;
+                case 2:
+                    PC04.getVisualVector().activateSphereGrid(true, true, false);
+                    break;
+                case 3:
+                    PC04.getVisualVector().activateSphereGrid(true, true, true);
+                    break;
             }
-            else
-                PC04.getVisualVector().activateSphereGrid(true);
 
             axisButton.GetComponent<Image>().color = Color.green;
         }
@@ -469,13 +477,21 @@ public class Puzzle04Window : WindowRoot
 
         if (gridOn)
         {
-            if (GCP04.Difficulty < 3)
+            switch(GCP04.Difficulty)
             {
-                PC04.getVisualVector().activateBarGrid(false);
+                case 1:
+                    if(PC04.getDirection().ToString().CompareTo("X") == 0)
+                        PC04.getVisualVector().activateBarGrid(true, false, false);
+                    else if(PC04.getDirection().ToString().CompareTo("Y") == 0)
+                        PC04.getVisualVector().activateBarGrid(false, true, false);
+                    break;
+                case 2:
+                    PC04.getVisualVector().activateBarGrid(true, true, false);
+                    break;
+                case 3:
+                    PC04.getVisualVector().activateBarGrid(true, true, true);
+                    break;
             }
-            else
-                PC04.getVisualVector().activateBarGrid(true);
-
             gridButton.GetComponent<Image>().color = Color.green;
         }
         else

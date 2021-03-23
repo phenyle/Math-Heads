@@ -27,7 +27,7 @@ public class Puzzle04Controller : MonoBehaviour
     public GameObject CameraStartPosition;
     private Vector3 prevCameraPosition;
     private float rotateSpeed = 1;
-    private float prevCameraZoom;
+    private float zoomSpeed = 2;
 
     [Header("---Puzzle Vectors---")]
     public Vector3 MinVectorSize;
@@ -126,8 +126,6 @@ public class Puzzle04Controller : MonoBehaviour
                 ans2Entered = false;
             }
 
-
-
             playerAnswer = scalar1 * card1 + scalar2 * card2;
 
             GCP04.P04W.setFinalAnswerDisplay(this);
@@ -139,7 +137,7 @@ public class Puzzle04Controller : MonoBehaviour
             }
 
 
-            //Camera Movement around Puzzle
+            //Camera Movementa and Zoom around Puzzle
             if(GCP04.P04W.getCameraDragController().isCameraDragging())
             {
                 RotateCamera();
@@ -147,12 +145,12 @@ public class Puzzle04Controller : MonoBehaviour
 
             if(Input.GetAxis("Mouse ScrollWheel") > 0f)
             {
-                mainCamera.transform.position += Vector3.Normalize(mainCamera.transform.forward) * rotateSpeed;
+                mainCamera.transform.position += Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed;
             }
 
             if (Input.GetAxis("Mouse ScrollWheel") < 0f)
             {
-                mainCamera.transform.position -= Vector3.Normalize(mainCamera.transform.forward) * rotateSpeed;
+                mainCamera.transform.position -= Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed;
             }
 
         }
@@ -182,7 +180,7 @@ public class Puzzle04Controller : MonoBehaviour
 
         if (isFractional)
         {
-            tempScal = Random.Range(2, 4);
+            tempScal = Random.Range(2, 5);
 
             temp = MinVectorSize / tempScal;
         }
@@ -213,16 +211,16 @@ public class Puzzle04Controller : MonoBehaviour
         //We don't want a 0 scalar, this do loop ensures we don't
         do
         {
-            tempScal = Random.Range(-1 * MaxDynamicScalar, MaxDynamicScalar);
+            tempScal = Random.Range(-1 * MaxDynamicScalar, MaxDynamicScalar + 1);
         } while (tempScal == 0);
 
         Debug.Log(LimitAxis.ToString());
 
         do
         {
-            tempMagX = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
-            tempMagY = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
-            tempMagZ = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
+            tempMagX = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
+            tempMagY = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
+            tempMagZ = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
 
             if (LimitAxis.ToString().CompareTo("X") == 0)
             {
@@ -301,47 +299,49 @@ public class Puzzle04Controller : MonoBehaviour
             //We don't want a 0 scalar, this do loop ensures we don't
             do
             {
-                tempScal = Random.Range(-1 * MaxCardScalar, MaxCardScalar);           } while (tempScal == 0);
+                tempScal = Random.Range(-1 * MaxCardScalar, MaxCardScalar + 1);           
+            } while (tempScal == 0);
 
 
-            //While scalar cannot be 0, some magnitudes MAY be zero,
-            //this is acceptable as long as not ALL the magnitudes are zero
-            //this do while loop ensure we don't end with a zero vector.
+             //While scalar cannot be 0, some magnitudes MAY be zero,
+             //this is acceptable as long as not ALL the magnitudes are zero
+             //this do while loop ensure we don't end with a zero vector.
             do
             {
-                tempMagX = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
-                tempMagY = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
-                tempMagZ = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes);
+                tempMagX = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
+                tempMagY = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
+                tempMagZ = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
 
-                if (GCP04.Difficulty == 1)
-                {
-                    if (LimitAxis.ToString().CompareTo("X") == 0)
-                    {
-                        tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
-                    }
-                    else if (LimitAxis.ToString().CompareTo("Y") == 0)
-                    {
-                        tempVect = new Vector3(0f, tempMagY, 0f) * tempScal;
-                    }
 
-                }
-                else if (GCP04.Difficulty == 2)
+                switch (GCP04.Difficulty)
                 {
-                    tempVect = new Vector3(tempMagX, tempMagY, 0f) * tempScal;
+                    case 1:
+                        if (LimitAxis.ToString().CompareTo("X") == 0)
+                        {
+                            tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
+                        }
+                        else if (LimitAxis.ToString().CompareTo("Y") == 0)
+                        {
+                            tempVect = new Vector3(0f, tempMagY, 0f) * tempScal;
+                        }
+                        break;
+                    case 2:
+                        tempVect = new Vector3(tempMagX, tempMagY, 0f) * tempScal;
+                        break;
+                    case 3:
+                        tempVect = new Vector3(tempMagX, tempMagY, tempMagZ) * tempScal;
+                        break;
                 }
-                else if (GCP04.Difficulty == 3)
-                {
-                    tempVect = new Vector3(tempMagX, tempMagY, tempMagZ) * tempScal;
-                }
+
             } while (tempVect == new Vector3(0f, 0f, 0f));
 
-
+           
             //Test that the new Random Vector is not a Duplicate or scalar
             //cycle through cards:
             for (int i = 0; i < cardVectors.Count; i++)
             {
                 //cycle through scalars:
-                for (int j = -10; j < 11; j++)
+                for (int j = -1 * MaxCardScalar; j < MaxCardScalar; j++)
                 {                    
                     if (tempVect * j == cardVectors[i])
                     {
@@ -356,6 +356,8 @@ public class Puzzle04Controller : MonoBehaviour
                 if (!unique)
                     break;
             }
+            
+
 
         } while (!unique);
 
@@ -384,18 +386,18 @@ public class Puzzle04Controller : MonoBehaviour
             //We don't want a 0 scalar, this do loop ensures we don't
             do
             {
-                tempScal = Random.Range(-1 * MaxCardScalar, MaxCardScalar);
+                tempScal = Random.Range(-1 * MaxCardScalar, MaxCardScalar + 1);
             } while (tempScal == 0);
 
             tempVect = (AnswerVector - first);
             tempVect = tempVect / tempScal;
-
+            
             //Test that the new Random Vector is not a Duplicate or scalar
             //cycle through cards:
             for (int i = 0; i < cardVectors.Count; i++)
             {
                 //cycle through scalars:
-                for (int j = -10; j < 11; j++)
+                for (int j = -1 * MaxCardScalar; j < MaxCardScalar; j++)
                 {
                     if (tempVect * j == cardVectors[i])
                     {
@@ -404,12 +406,12 @@ public class Puzzle04Controller : MonoBehaviour
                     }
                     else
                         unique = true;
-
                 }
 
                 if (!unique)
                     break;
             }
+            
 
         } while (!unique);
 

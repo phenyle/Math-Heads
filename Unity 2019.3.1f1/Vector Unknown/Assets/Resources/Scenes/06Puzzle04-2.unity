@@ -3035,6 +3035,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
+      propertyPath: MinVectorSize.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
       propertyPath: MaxCardMagnitudes
       value: 5
       objectReference: {fileID: 0}
