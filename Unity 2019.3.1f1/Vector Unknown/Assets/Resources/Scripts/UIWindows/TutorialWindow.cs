@@ -271,7 +271,7 @@ public class TutorialWindow : WindowRoot
 
         if (player.transform.position.x - previousPosition.x < 0.01 && player.transform.position.y - previousPosition.y < 0.01 && player.transform.position.y - previousPosition.y < 0.01)
         {
-            if (selectionComplete)
+            if (selectionComplete && MovementComplete && CameraComplete && zComplete && rotateComplete)
             {
                 SelectionTutorial.SetActive(false);
                 Congrats.SetActive(true);
