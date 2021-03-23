@@ -222,21 +222,20 @@ public class Puzzle04Controller : MonoBehaviour
             tempMagY = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
             tempMagZ = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
 
-            if (LimitAxis.ToString().CompareTo("X") == 0)
+            switch(LimitAxis)
             {
-                tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
-            }
-            else if (LimitAxis.ToString().CompareTo("Y") == 0)
-            {
-                tempVect = new Vector3(0f, tempMagX, 0f) * tempScal;
-            }
-            else if (LimitAxis.ToString().CompareTo("XY") == 0)
-            {
-                tempVect = new Vector3(tempMagX, tempMagY, 0f) * tempScal;
-            }
-            else if (LimitAxis.ToString().CompareTo("XYZ") == 0)
-            {
-                tempVect = new Vector3(tempMagX, tempMagY, tempMagZ) * tempScal;
+                case Direction.X:
+                    tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
+                    break;
+                case Direction.Y:
+                    tempVect = new Vector3(0f, tempMagX, 0f) * tempScal;
+                    break;
+                case Direction.XY:
+                    tempVect = new Vector3(tempMagX, tempMagY, 0f) * tempScal;
+                    break;
+                case Direction.XYZ:
+                    tempVect = new Vector3(tempMagX, tempMagY, tempMagZ) * tempScal;
+                    break;
             }
 
         } while (tempVect == new Vector3(0f, 0f, 0f));
@@ -316,13 +315,14 @@ public class Puzzle04Controller : MonoBehaviour
                 switch (GCP04.Difficulty)
                 {
                     case 1:
-                        if (LimitAxis.ToString().CompareTo("X") == 0)
+                        switch(LimitAxis)
                         {
-                            tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
-                        }
-                        else if (LimitAxis.ToString().CompareTo("Y") == 0)
-                        {
-                            tempVect = new Vector3(0f, tempMagY, 0f) * tempScal;
+                            case Direction.X:
+                                tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
+                                break;
+                            case Direction.Y:
+                                tempVect = new Vector3(0f, tempMagY, 0f) * tempScal;
+                                break;
                         }
                         break;
                     case 2:

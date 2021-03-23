@@ -27,7 +27,7 @@ public class VisualVector : MonoBehaviour
     public GameObject vector2end;
 
     //Grid Vector Components
-    [Header("---Player Vector Components---")]
+    [Header("---Grid Vector Components---")]
     public GameObject Xvector;
     public GameObject Yvector;
     public GameObject Zvector;
@@ -42,10 +42,14 @@ public class VisualVector : MonoBehaviour
     private List<GameObject> ZSphereNodes;
     private List<GameObject> XBarNodes;
     private List<GameObject> YBarNodes;
-    private List<GameObject> ZYBarNodes;
-    private List<GameObject> ZXBarNodes;
+    private List<GameObject> ZYHoriBarNodes;
+    private List<GameObject> ZYVertBarNodes;
+    private List<GameObject> ZXHoriBarNodes;
+    private List<GameObject> ZXVertBarNodes;
+    private float axisThickness = 0.18f;
     private float gridThickness = 0.09f;
     private float gridNodeScale = 0.6f;
+    private int gridSize = 50;
     private Color gridNodeColor = Color.black;
     private Color gridBarColor = Color.white;
 
@@ -87,16 +91,18 @@ public class VisualVector : MonoBehaviour
 
         XBarNodes = new List<GameObject>();
         YBarNodes = new List<GameObject>();
-        ZYBarNodes = new List<GameObject>();
-        ZXBarNodes = new List<GameObject>();
+        ZYHoriBarNodes = new List<GameObject>();
+        ZYVertBarNodes = new List<GameObject>();
+        ZXHoriBarNodes = new List<GameObject>();
+        ZXVertBarNodes = new List<GameObject>();
 
         createSphereGrid();
         createBarGrid();
 
 
-        VectorBetweenPoints(Xvector, Xnegative.transform.position, Xpositive.transform.position, 0.18f);
-        VectorBetweenPoints(Yvector, Ynegative.transform.position, Ypositive.transform.position, 0.18f);
-        VectorBetweenPoints(Zvector, Znegative.transform.position, Zpositive.transform.position, 0.18f);
+        VectorBetweenPoints(Xvector, Xnegative.transform.position, Xpositive.transform.position, axisThickness);
+        VectorBetweenPoints(Yvector, Ynegative.transform.position, Ypositive.transform.position, axisThickness);
+        VectorBetweenPoints(Zvector, Znegative.transform.position, Zpositive.transform.position, axisThickness);
 
 
     }
@@ -242,6 +248,31 @@ public class VisualVector : MonoBehaviour
     /// </summary>
     private void setFudge()
     {
+        switch(PC04.getDirection())
+        {
+            case Direction.X:
+                fudgeX = false;
+                fudgeY = true;
+                fudgeZ = true;
+                break;
+            case Direction.Y:
+                fudgeX = true;
+                fudgeY = false;
+                fudgeZ = true;
+                break;
+            case Direction.XY:
+                fudgeX = false;
+                fudgeY = false;
+                fudgeZ = true;
+                break;
+            case Direction.XYZ:
+                fudgeX = false;
+                fudgeY = false;
+                fudgeZ = false;
+                break;
+        }
+
+        /**
         if (PC04.getDirection().ToString().CompareTo("X") == 0)
         {
             fudgeX = false;
@@ -266,6 +297,7 @@ public class VisualVector : MonoBehaviour
             fudgeY = false;
             fudgeZ = false;
         }
+        **/
 
     }
 
@@ -305,7 +337,7 @@ public class VisualVector : MonoBehaviour
 
     public void createSphereGrid()
     {
-        for(int i = -99; i < 99; i++)
+        for(int i = -gridSize; i < gridSize; i++)
         {
             GameObject xSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             xSphere.transform.localScale *= gridNodeScale;
@@ -335,7 +367,7 @@ public class VisualVector : MonoBehaviour
 
     public void createBarGrid()
     {
-        for (int i = -99; i < 99; i++)
+        for (int i = -gridSize; i < gridSize; i++)
         {
             GameObject xCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             xCyln.GetComponent<Collider>().enabled = false;
@@ -347,61 +379,86 @@ public class VisualVector : MonoBehaviour
             yCyln.GetComponent<Renderer>().material.color = gridBarColor;
             YBarNodes.Add(yCyln);
 
-            GameObject zyCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            zyCyln.GetComponent<Collider>().enabled = false;
-            zyCyln.GetComponent<Renderer>().material.color = gridBarColor;
-            ZYBarNodes.Add(zyCyln);
+            GameObject zyHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            zyHoriCyln.GetComponent<Collider>().enabled = false;
+            zyHoriCyln.GetComponent<Renderer>().material.color = gridBarColor;
+            ZYHoriBarNodes.Add(zyHoriCyln);
+
+            GameObject zyVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            zyVertCyln.GetComponent<Collider>().enabled = false;
+            zyVertCyln.GetComponent<Renderer>().material.color = gridBarColor;
+            ZYVertBarNodes.Add(zyVertCyln);
 
             GameObject zxCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             zxCyln.GetComponent<Collider>().enabled = false;
             zxCyln.GetComponent<Renderer>().material.color = gridBarColor;
-            ZXBarNodes.Add(zxCyln);
+            ZXHoriBarNodes.Add(zxCyln);
+
+            GameObject zxVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            zxVertCyln.GetComponent<Collider>().enabled = false;
+            zxVertCyln.GetComponent<Renderer>().material.color = gridBarColor;
+            ZXVertBarNodes.Add(zxVertCyln);
         }
 
         deactivateBarGrid();
 
     }
 
-    public void setGridSphereNodes(bool Zaxis)
+    public void setGridSphereNodes(bool Xaxis, bool Yaxis, bool Zaxis)
     {
 
-        for(int i = -99; i < 99; i++)
+        for(int i = -gridSize; i < gridSize; i++)
         {
-            //Set X sphere nodes
-            XSphereNodes[i + 99].transform.position = start.transform.position;
-            XSphereNodes[i + 99].transform.position += new Vector3(i * puzzleScale.x, 0f,0f);        
+            if (Xaxis)
+            {
+                //Set X sphere nodes
+                XSphereNodes[i + gridSize].transform.position = start.transform.position;
+                XSphereNodes[i + gridSize].transform.position += new Vector3(i * puzzleScale.x, 0f, 0f);
+            }
 
-            //Set Y sphere nodes
-            YSphereNodes[i + 99].transform.position = start.transform.position;
-            YSphereNodes[i + 99].transform.position += new Vector3(0f, i * puzzleScale.y, 0f);
+            if (Yaxis)
+            {
+                //Set Y sphere nodes
+                YSphereNodes[i + gridSize].transform.position = start.transform.position;
+                YSphereNodes[i + gridSize].transform.position += new Vector3(0f, i * puzzleScale.y, 0f);
+            }
 
             if (Zaxis)
             {
                 //Set Z sphere nodes
-                ZSphereNodes[i + 99].transform.position = start.transform.position;
-                ZSphereNodes[i + 99].transform.position += new Vector3(0f, 0f, i * puzzleScale.z);
+                ZSphereNodes[i + gridSize].transform.position = start.transform.position;
+                ZSphereNodes[i + gridSize].transform.position += new Vector3(0f, 0f, i * puzzleScale.z);
             }
         }
     }
 
-    public void setGridBarNodes(bool Zaxis)
+    public void setGridBarNodes(bool Xaxis, bool Yaxis, bool Zaxis)
     {
 
-        for (int i = -99; i < 99; i++)
+        for (int i = -gridSize; i < gridSize; i++)
         {
             //Set XY plane bar nodes
-            //X bars
-            VectorBetweenPoints(XBarNodes[i + 99], Ypositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Ynegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
-            //Ybars
-            VectorBetweenPoints(YBarNodes[i + 99], Xpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Xnegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+            if (Xaxis)
+            {
+                //X bars
+                VectorBetweenPoints(XBarNodes[i + gridSize], Ypositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Ynegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
+            }
 
+            if (Yaxis)
+            {
+                //Ybars
+                VectorBetweenPoints(YBarNodes[i + gridSize], Xpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Xnegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+            }
 
             if (Zaxis)
             {
                 //Set ZY plane nodes
-                VectorBetweenPoints(ZYBarNodes[i + 99], Zpositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Znegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
+                VectorBetweenPoints(ZYHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Znegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+                VectorBetweenPoints(ZYVertBarNodes[i + gridSize], Ypositive.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), Ynegative.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), gridThickness);
 
-                VectorBetweenPoints(ZXBarNodes[i + 99], Zpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Znegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+
+                VectorBetweenPoints(ZXHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Znegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
+                VectorBetweenPoints(ZXVertBarNodes[i + gridSize], Xpositive.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), Xnegative.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), gridThickness);
             }
 
         }
@@ -467,12 +524,20 @@ public class VisualVector : MonoBehaviour
             bar.SetActive(false);
         }
 
-        foreach (GameObject bar in ZYBarNodes)
+        foreach (GameObject bar in ZYHoriBarNodes)
+        {
+            bar.SetActive(false);
+        }
+        foreach (GameObject bar in ZYVertBarNodes)
         {
             bar.SetActive(false);
         }
 
-        foreach (GameObject bar in ZXBarNodes)
+        foreach (GameObject bar in ZXHoriBarNodes)
+        {
+            bar.SetActive(false);
+        }
+        foreach (GameObject bar in ZXVertBarNodes)
         {
             bar.SetActive(false);
         }
@@ -490,12 +555,20 @@ public class VisualVector : MonoBehaviour
             bar.SetActive(Yaxis);
         }
 
-        foreach (GameObject bar in ZYBarNodes)
+        foreach (GameObject bar in ZYHoriBarNodes)
+        {
+            bar.SetActive(Zaxis);
+        }
+        foreach (GameObject bar in ZYVertBarNodes)
         {
             bar.SetActive(Zaxis);
         }
 
-        foreach (GameObject bar in ZXBarNodes)
+        foreach (GameObject bar in ZXHoriBarNodes)
+        {
+            bar.SetActive(Zaxis);
+        }
+        foreach (GameObject bar in ZXVertBarNodes)
         {
             bar.SetActive(Zaxis);
         }

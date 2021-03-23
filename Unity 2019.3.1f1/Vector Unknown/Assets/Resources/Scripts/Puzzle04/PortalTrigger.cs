@@ -143,23 +143,45 @@ public class PortalTrigger : MonoBehaviour
         PC04.getVisualVector().getVector2().SetActive(true);
         PC04.getVisualVector().getFinalVector().SetActive(true);
 
+        switch(GCP04.Difficulty)
+        {
+            case 1:
+                switch(PC04.getDirection())
+                {
+                    case Direction.X:
+                        PC04.getVisualVector().setGridSphereNodes(true, false, false);
+                        PC04.getVisualVector().setGridBarNodes(true, false, false);
+                        break;
+                    case Direction.Y:
+                        PC04.getVisualVector().setGridSphereNodes(false, true, false);
+                        PC04.getVisualVector().setGridBarNodes(false, true, false);
+                        break;
+                }
+                break;
+            case 2:
+                PC04.getVisualVector().setGridSphereNodes(true, true, false);
+                PC04.getVisualVector().setGridBarNodes(true, true, false);
+                break;
+            case 3:
+                PC04.getVisualVector().setGridSphereNodes(true, true, true);
+                PC04.getVisualVector().setGridBarNodes(true, true, true);
+                break;
+        }
 
+        /**
         //if the puzzle difficulty is 2D or less:
         //do not draw the Z axis grids
         if (GCP04.Difficulty < 3)
         {
-            PC04.getVisualVector().setGridSphereNodes(false);
-            PC04.getVisualVector().setGridBarNodes(false);
+            PC04.getVisualVector().setGridSphereNodes(true, true, false);
+            PC04.getVisualVector().setGridBarNodes(true, true, false);
         }
         else 
         {
-            PC04.getVisualVector().setGridSphereNodes(true);
-            PC04.getVisualVector().setGridBarNodes(true);
+            PC04.getVisualVector().setGridSphereNodes(true, true, true);
+            PC04.getVisualVector().setGridBarNodes(true, true, true);
         }
-
-
-
-
+        **/
 
     }    
 }

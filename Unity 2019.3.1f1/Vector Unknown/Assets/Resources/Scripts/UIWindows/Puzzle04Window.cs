@@ -107,82 +107,13 @@ public class Puzzle04Window : WindowRoot
         finalDisplay = iptPanel.Find("FinalAnswer").gameObject;
         **/
 
-        if (GCP04.Difficulty == 1)
-        {
-            gapDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
-            gapDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-            gapDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-            windDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
-            windDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-            windDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-            goalDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
-            goalDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-            goalDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-            finalDisplay.transform.Find("1DBracketFin").gameObject.SetActive(true);
-            finalDisplay.transform.Find("2DBracketFin").gameObject.SetActive(false);
-            finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(false);
-        }
-        else if (GCP04.Difficulty == 2)
-        {
-            gapDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-            gapDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
-            gapDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-            windDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-            windDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
-            windDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-            goalDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-            goalDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
-            goalDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-            finalDisplay.transform.Find("1DBracketFin").gameObject.SetActive(false);
-            finalDisplay.transform.Find("2DBracketFin").gameObject.SetActive(true);
-            finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(false);
-        }
-        else if (GCP04.Difficulty == 3)
-        {
-            gapDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-            gapDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-            gapDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
-            windDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-            windDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-            windDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
-            goalDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-            goalDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-            goalDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
-            finalDisplay.transform.Find("1DBracketFin").gameObject.SetActive(false);
-            finalDisplay.transform.Find("2DBracketFin").gameObject.SetActive(false);
-            finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(true);
-        }
-
-        foreach (GameObject card in UIcards)
-        {
-            if (GCP04.Difficulty == 1)
-            {
-                card.transform.Find("1DBracket").gameObject.SetActive(true);
-                card.transform.Find("2DBracket").gameObject.SetActive(false);
-                card.transform.Find("3DBracket").gameObject.SetActive(false);
-
-            }
-            else if (GCP04.Difficulty == 2)
-            {
-                card.transform.Find("1DBracket").gameObject.SetActive(false);
-                card.transform.Find("2DBracket").gameObject.SetActive(true);
-                card.transform.Find("3DBracket").gameObject.SetActive(false);
-            }
-            else if (GCP04.Difficulty == 3)
-            {
-                card.transform.Find("1DBracket").gameObject.SetActive(false);
-                card.transform.Find("2DBracket").gameObject.SetActive(false);
-                card.transform.Find("3DBracket").gameObject.SetActive(true);
-            }
-        }
-
+        //GENERAL INIT---------------------------------------
+        setBrackets();
         setAnswer1(null);
         setAnswer2(null);
 
         axisOn = false;
         gridOn = false;
-
-
 
         //Legacy---------------------------------------------
         Debug.Log("Init Puzzle01 window");
@@ -191,20 +122,90 @@ public class Puzzle04Window : WindowRoot
         Debug.Log("Call GameController of Puzzle01 to connect");
         GCP04.InitGameController(this);
 
-
-
-
-
         //Init Components
         txtInstruction.text = "";
-
 
         ShowInputPanel(false);
         ShowFeedbackPanel(false);
         ShowCardPanel(false);
         ShowButtonPanel(false);
 
+    }
 
+    public void setBrackets()
+    {
+        //Why did I do it this way?  why not just search for all the 1D brackets or 2D brackets
+        //Well I tried that, but Unity kept screwing things up and doing weird shit.  SO,
+        //You get this mess, it's not pretty, but it works.
+        switch (GCP04.Difficulty)
+        {
+            case 1:
+                gapDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
+                gapDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
+                gapDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
+                windDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
+                windDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
+                windDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
+                goalDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
+                finalDisplay.transform.Find("1DBracketFin").gameObject.SetActive(true);
+                finalDisplay.transform.Find("2DBracketFin").gameObject.SetActive(false);
+                finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(false);
+                break;
+            case 2:
+                gapDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
+                gapDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
+                gapDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
+                windDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
+                windDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
+                windDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
+                goalDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
+                finalDisplay.transform.Find("1DBracketFin").gameObject.SetActive(false);
+                finalDisplay.transform.Find("2DBracketFin").gameObject.SetActive(true);
+                finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(false);
+                break;
+            case 3:
+                gapDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
+                gapDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
+                gapDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
+                windDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
+                windDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
+                windDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
+                goalDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
+                finalDisplay.transform.Find("1DBracketFin").gameObject.SetActive(false);
+                finalDisplay.transform.Find("2DBracketFin").gameObject.SetActive(false);
+                finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(true);
+                break;
+
+
+        }
+
+        foreach (GameObject card in UIcards)
+        {
+            switch(GCP04.Difficulty)
+            {
+                case 1:
+                    card.transform.Find("1DBracket").gameObject.SetActive(true);
+                    card.transform.Find("2DBracket").gameObject.SetActive(false);
+                    card.transform.Find("3DBracket").gameObject.SetActive(false);
+                    break;
+                case 2:
+                    card.transform.Find("1DBracket").gameObject.SetActive(false);
+                    card.transform.Find("2DBracket").gameObject.SetActive(true);
+                    card.transform.Find("3DBracket").gameObject.SetActive(false);
+                    break;
+                case 3:
+                    card.transform.Find("1DBracket").gameObject.SetActive(false);
+                    card.transform.Find("2DBracket").gameObject.SetActive(false);
+                    card.transform.Find("3DBracket").gameObject.SetActive(true);
+                    break;
+            }
+        }
     }
 
 
