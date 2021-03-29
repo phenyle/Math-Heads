@@ -5,8 +5,14 @@ using UnityEngine;
 
 public class FallTrigger : MonoBehaviour
 {
+    private GameControllerPuzzle04 GCP04;
     private float prevCamHeight;
     private float prevCamZoom;
+
+    public void Start()
+    {
+        GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -14,24 +20,29 @@ public class FallTrigger : MonoBehaviour
         {
             Debug.Log("fall trigger");
 
-            prevCamHeight = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().getCameraHeight();
-            prevCamZoom = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().getCameraZoom();
+            if (GCP04.Difficulty < 3)
+            { 
+                prevCamHeight = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().getCameraHeight();
+                prevCamZoom = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().getCameraZoom();
 
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraHeight(0);
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraZoom(-50);
-
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraHeight(0);
+                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraZoom(-50);
+            }
             GetComponentInParent<GapTriggersController>().fall = true;
 
         }
     }
 
     private void OnTriggerExit(Collider other)
-    {        
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraHeight(prevCamHeight);
-        GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraZoom(prevCamZoom);
+    {
+        if (GCP04.Difficulty < 3)
+        {
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraHeight(prevCamHeight);
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraZoom(prevCamZoom);
+        }
         
         GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>().getResetPos();
-
+        
         GetComponentInParent<GapTriggersController>().fall = false;
 
     }

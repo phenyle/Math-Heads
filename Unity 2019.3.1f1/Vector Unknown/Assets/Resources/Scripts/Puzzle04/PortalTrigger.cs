@@ -31,7 +31,6 @@ public class PortalTrigger : MonoBehaviour
             prevCameraPos = mainCamera.transform.position;
             prevCameraRotation = mainCamera.transform.rotation;
 
-            mainCamera.GetComponent<Camera2DFollowMod>().setPortalStatus(true);
             GCP04.isInQues = true;
 
             GCP04.P04W.setPuzzleController(PC04);
@@ -43,15 +42,26 @@ public class PortalTrigger : MonoBehaviour
 
             GCP04.P04W.setInstructions("-L-Click, hold and Drag Answers\n-Hold R-Click and Drag to Rotate\n-Use MouseWheel to Zoom In/Out");
 
-
             GCP04.P04W.resetButtons();
 
             assignCards();
             GCP04.P04W.setAnswer1(null);
             GCP04.P04W.setAnswer2(null);
 
-            mainCamera.GetComponent<Camera2DFollowMod>().enabled = false;
-            mainCamera.transform.position = PC04.getCameraTransform().position;
+            if (GCP04.Difficulty < 3)
+            {
+                mainCamera.GetComponent<Camera2DFollowMod>().setPortalStatus(true);
+                mainCamera.GetComponent<Camera2DFollowMod>().enabled = false;
+            }
+            else
+            {
+                mainCamera.GetComponent<CameraController>().enabled = false;
+                Cursor.lockState = CursorLockMode.Confined;
+                Cursor.visible = true;
+                mainCamera.GetComponent<CameraController>().isLock = false;
+            }
+
+                mainCamera.transform.position = PC04.getCameraTransform().position;
             mainCamera.transform.LookAt(PC04.getCameraTarget().transform.position);
 
 
@@ -68,10 +78,7 @@ public class PortalTrigger : MonoBehaviour
         {
             inPortal = false;
 
-            GCP04.isInQues = false;
-
-            mainCamera.GetComponent<Camera2DFollowMod>().setPortalStatus(false);
-            
+            GCP04.isInQues = false;      
             
             GCP04.P04W.ShowInputPanel(false);
             GCP04.P04W.ShowFeedbackPanel(false);
@@ -85,8 +92,21 @@ public class PortalTrigger : MonoBehaviour
             GCP04.P04W.setAnswer1(null);
             GCP04.P04W.setAnswer2(null);
 
+            if (GCP04.Difficulty < 3)
+            {
+                mainCamera.GetComponent<Camera2DFollowMod>().setPortalStatus(false);
+                mainCamera.GetComponent<Camera2DFollowMod>().enabled = true;
+            }
+            else
+            {
+                mainCamera.GetComponent<CameraController>().enabled = true;
+                Cursor.visible = false;
+                Cursor.lockState = CursorLockMode.Locked;
+                mainCamera.GetComponent<CameraController>().isLock = true;
+            }
 
-            mainCamera.GetComponent<Camera2DFollowMod>().enabled = true;
+
+
             mainCamera.transform.position = prevCameraPos;
             mainCamera.transform.rotation = prevCameraRotation;
 

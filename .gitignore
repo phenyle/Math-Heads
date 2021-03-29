@@ -28,3 +28,8 @@
 
 # Gradle cache directory
 .gradle/
+Unity 2019.3.1f1/Vector Unknown/Library/ScriptAssemblies/Assembly-CSharp-Editor-firstpass.dll
+*.dll
+*.pdb
+*.dwlt
+*.log

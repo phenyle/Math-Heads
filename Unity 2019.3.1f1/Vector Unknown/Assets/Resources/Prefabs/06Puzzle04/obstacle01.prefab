@@ -472,12 +472,10 @@ MonoBehaviour:
   CameraStartPosition: {fileID: 6599879233226375686}
   MinVectorSize: {x: 0, y: 0, z: 0}
   isDynamic: 0
-  isFractional: 0
   MaxDynamicScalar: 0
   LimitAxis: 0
   MaxCardScalar: 0
   MaxCardMagnitudes: 0
-  GCP04: {fileID: 0}
 --- !u!114 &6921089389071107373
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -511,6 +509,15 @@ MonoBehaviour:
   Ypositive: {fileID: 8618693956158746324}
   Znegative: {fileID: 15095194785917340}
   Zpositive: {fileID: 436101351270794698}
+  axisThickness: 0.18
+  gridThickness: 0.09
+  gridNodeScale: 0.6
+  gridSize: 100
+  MainAxis: {fileID: 2100000, guid: 12b6f2c6b5f1c8f4981af8271eab9fec, type: 2}
+  NodeDefualt: {fileID: 2100000, guid: 9c9f18b53d55d474081768392f6f7c09, type: 2}
+  GridDefualt: {fileID: 2100000, guid: 58992bfa987cf0a4bb9351ce0dbaacdf, type: 2}
+  Grid5Incriment: {fileID: 2100000, guid: fa1711ca710391d46bb7b0b67d07d33f, type: 2}
+  Grid10Incriment: {fileID: 2100000, guid: dd7c8ea340fee2940a7daf21c477ee76, type: 2}
 --- !u!1 &2123756033573348076
 GameObject:
   m_ObjectHideFlags: 0

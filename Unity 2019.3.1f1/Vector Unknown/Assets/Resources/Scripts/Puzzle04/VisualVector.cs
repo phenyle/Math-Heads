@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class VisualVector : MonoBehaviour
@@ -46,12 +47,20 @@ public class VisualVector : MonoBehaviour
     private List<GameObject> ZYVertBarNodes;
     private List<GameObject> ZXHoriBarNodes;
     private List<GameObject> ZXVertBarNodes;
-    private float axisThickness = 0.18f;
-    private float gridThickness = 0.09f;
-    private float gridNodeScale = 0.6f;
-    private int gridSize = 50;
-    private Color gridNodeColor = Color.black;
-    private Color gridBarColor = Color.white;
+
+    [Header("---Grid Color Components---")]
+    public float axisThickness = 0.18f;
+    public float gridThickness = 0.09f;
+    public float gridNodeScale = 0.6f;
+    public int gridSize = 100;
+    public Material MainAxis;
+    public Material NodeDefualt;
+    public Material GridDefualt;
+    public Material Grid5Incriment;
+    public Material Grid10Incriment;
+    private int quadrant;
+    private int xMin, xMax, yMin, yMax, zMin, zMax;
+
 
 
     //Misc Controls
@@ -95,6 +104,20 @@ public class VisualVector : MonoBehaviour
         ZYVertBarNodes = new List<GameObject>();
         ZXHoriBarNodes = new List<GameObject>();
         ZXVertBarNodes = new List<GameObject>();
+
+        xMin = -gridSize;
+        xMax = gridSize;
+        yMin = -gridSize;
+        yMax = gridSize;
+        zMin = -gridSize;
+        zMax = gridSize;
+
+        if (PC04.getGameController().Difficulty == 3)
+        {
+            quadrant = determineQuadrant();
+            limitGraphSize();
+        }
+
 
         createSphereGrid();
         createBarGrid();
@@ -239,8 +262,8 @@ public class VisualVector : MonoBehaviour
 
     /// <summary>
     /// Turns on/off flags to "fudge" the final landing spot of the last vector.
-    /// This is becuase sometimes the game Physical start/end vectors vs the PC01 gap entered
-    /// is no exactly the same.  This is especially true if the entered gapVector
+    /// This is becuase sometimes the game Physical start/end vectors vs the PC04 gap entered
+    /// is not exactly the same.  This is especially true if the entered gapVector
     /// contains a zero, in which case making a scale factor is impossible (divide by zero).
     /// 
     /// NOTE: This fudge offset only fixes VERY MINOR discrepancies, if the difference
@@ -271,33 +294,6 @@ public class VisualVector : MonoBehaviour
                 fudgeZ = false;
                 break;
         }
-
-        /**
-        if (PC04.getDirection().ToString().CompareTo("X") == 0)
-        {
-            fudgeX = false;
-            fudgeY = true;
-            fudgeZ = true;
-        }
-        if (PC04.getDirection().ToString().CompareTo("Y") == 0)
-        {
-            fudgeX = true;
-            fudgeY = false;
-            fudgeZ = true;
-        }
-        if (PC04.getDirection().ToString().CompareTo("XY") == 0)
-        {
-            fudgeX = false;
-            fudgeY = false;
-            fudgeZ = true;
-        }
-        if (PC04.getDirection().ToString().CompareTo("XYZ") == 0)
-        {
-            fudgeX = false;
-            fudgeY = false;
-            fudgeZ = false;
-        }
-        **/
 
     }
 
@@ -335,30 +331,176 @@ public class VisualVector : MonoBehaviour
         return Zvector;
     }
 
+    public int determineQuadrant()
+    {
+        if(PC04.getAnswerVector().x > 0)
+        {
+            if(PC04.getAnswerVector().y > 0)
+            {
+                if(PC04.getAnswerVector().z > 0)
+                {
+                    return 1;
+                }
+                else
+                {
+                    return 2;
+                }
+
+            }
+            else
+            {
+                if (PC04.getAnswerVector().z > 0)
+                {
+                    return 3;
+                }
+                else
+                {
+                    return 4;
+                }
+
+            }
+
+        }
+        else
+        {
+            if (PC04.getAnswerVector().y > 0)
+            {
+                if (PC04.getAnswerVector().z > 0)
+                {
+                    return 5;
+                }
+                else
+                {
+                    return 6;
+                }
+
+            }
+            else
+            {
+                if (PC04.getAnswerVector().z > 0)
+                {
+                    return 7;
+                }
+                else
+                {
+                    return 8;
+                }
+            }
+
+        }
+
+    }
+
+    public void limitGraphSize()
+    {
+
+        switch(quadrant)
+        {
+            case 1:
+                Xnegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Ynegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Znegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                xMin = 0;
+                yMin = 0;
+                zMin = 0;
+                break;
+            case 2:
+                Xnegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Ynegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Zpositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                xMin = 0;
+                yMin = 0;
+                zMax = 0;
+                break;
+            case 3:
+                Xnegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Ypositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Znegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                xMin = 0;
+                yMax = 0;
+                zMin = 0;
+                break;
+            case 4:
+                Xnegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Ypositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Zpositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                xMin = 0;
+                yMax = 0;
+                zMax = 0;
+                break;
+            case 5:
+                Xpositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Ynegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Znegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                xMax = 0;
+                yMin = 0;
+                zMin = 0;
+                break;
+            case 6:
+                Xpositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Ynegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Zpositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                xMax = 0;
+                yMin = 0;
+                zMax = 0;
+                break;
+            case 7:
+                Xpositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Ypositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Znegative.transform.localPosition = new Vector3(0f, 0f, 0f);
+                xMax = 0;
+                yMax = 0;
+                zMin = 0;
+                break;
+            case 8:
+                Xpositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Ypositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                Zpositive.transform.localPosition = new Vector3(0f, 0f, 0f);
+                xMax = 0;
+                yMax = 0;
+                zMax = 0;
+                break;
+
+        }
+    }
+
+
     public void createSphereGrid()
     {
         for(int i = -gridSize; i < gridSize; i++)
         {
             GameObject xSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             xSphere.transform.localScale *= gridNodeScale;
-            xSphere.layer = 10;
+            xSphere.GetComponent<Renderer>().material = NodeDefualt;
+            if (i % 5 == 0)
+                xSphere.GetComponent<Renderer>().material = Grid5Incriment;
+            if(i % 10 == 0)
+                xSphere.GetComponent<Renderer>().material = Grid10Incriment;
             xSphere.GetComponent<Collider>().enabled = false;
-            xSphere.GetComponent<Renderer>().material.color = gridNodeColor;
             XSphereNodes.Add(xSphere);
 
             GameObject ySphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             ySphere.transform.localScale *= gridNodeScale;
-            ySphere.layer = 10;
+            ySphere.GetComponent<Renderer>().material = NodeDefualt;
+            if (i % 5 == 0)
+                ySphere.GetComponent<Renderer>().material = Grid5Incriment;
+            if (i % 10 == 0)
+                ySphere.GetComponent<Renderer>().material = Grid10Incriment;
             ySphere.GetComponent<Collider>().enabled = false;
-            ySphere.GetComponent<Renderer>().material.color = gridNodeColor;
             YSphereNodes.Add(ySphere);
 
-            GameObject zSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            zSphere.transform.localScale *= gridNodeScale;
-            zSphere.layer = 10;
-            zSphere.GetComponent<Collider>().enabled = false;
-            zSphere.GetComponent<Renderer>().material.color = gridNodeColor;
-            ZSphereNodes.Add(zSphere);
+            if (PC04.getGameController().Difficulty == 3)
+            {
+                GameObject zSphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                zSphere.transform.localScale *= gridNodeScale;
+                zSphere.GetComponent<Renderer>().material = NodeDefualt;
+                if (i % 5 == 0)
+                    zSphere.GetComponent<Renderer>().material = Grid5Incriment;
+                if (i % 10 == 0)
+                    zSphere.GetComponent<Renderer>().material = Grid10Incriment;
+                zSphere.GetComponent<Collider>().enabled = false;
+                ZSphereNodes.Add(zSphere);
+            }
         }
 
         deactivateSphereGrid();
@@ -370,34 +512,61 @@ public class VisualVector : MonoBehaviour
         for (int i = -gridSize; i < gridSize; i++)
         {
             GameObject xCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            xCyln.GetComponent<Renderer>().material = GridDefualt;
+            if (i % 5 == 0)
+                xCyln.GetComponent<Renderer>().material = Grid5Incriment;
+            if (i % 10 == 0)
+                xCyln.GetComponent<Renderer>().material = Grid10Incriment;
             xCyln.GetComponent<Collider>().enabled = false;
-            xCyln.GetComponent<Renderer>().material.color = gridBarColor;
             XBarNodes.Add(xCyln);
 
             GameObject yCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            yCyln.GetComponent<Renderer>().material = GridDefualt;
+            if (i % 5 == 0)
+                yCyln.GetComponent<Renderer>().material = Grid5Incriment;
+            if (i % 10 == 0)
+                yCyln.GetComponent<Renderer>().material = Grid10Incriment;
             yCyln.GetComponent<Collider>().enabled = false;
-            yCyln.GetComponent<Renderer>().material.color = gridBarColor;
             YBarNodes.Add(yCyln);
 
-            GameObject zyHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            zyHoriCyln.GetComponent<Collider>().enabled = false;
-            zyHoriCyln.GetComponent<Renderer>().material.color = gridBarColor;
-            ZYHoriBarNodes.Add(zyHoriCyln);
+            if (PC04.getGameController().Difficulty == 3)
+            {
+                GameObject zyHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                zyHoriCyln.GetComponent<Renderer>().material = GridDefualt;
+                if (i % 5 == 0)
+                    zyHoriCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                if (i % 10 == 0)
+                    zyHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                zyHoriCyln.GetComponent<Collider>().enabled = false;
+                ZYHoriBarNodes.Add(zyHoriCyln);
 
-            GameObject zyVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            zyVertCyln.GetComponent<Collider>().enabled = false;
-            zyVertCyln.GetComponent<Renderer>().material.color = gridBarColor;
-            ZYVertBarNodes.Add(zyVertCyln);
+                GameObject zyVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                zyVertCyln.GetComponent<Renderer>().material = GridDefualt;
+                if (i % 5 == 0)
+                    zyVertCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                if (i % 10 == 0)
+                    zyVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                zyVertCyln.GetComponent<Collider>().enabled = false;
+                ZYVertBarNodes.Add(zyVertCyln);
 
-            GameObject zxCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            zxCyln.GetComponent<Collider>().enabled = false;
-            zxCyln.GetComponent<Renderer>().material.color = gridBarColor;
-            ZXHoriBarNodes.Add(zxCyln);
+                GameObject zxHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                zxHoriCyln.GetComponent<Renderer>().material = GridDefualt;
+                if (i % 5 == 0)
+                    zxHoriCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                if (i % 10 == 0)
+                    zxHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                zxHoriCyln.GetComponent<Collider>().enabled = false;
+                ZXHoriBarNodes.Add(zxHoriCyln);
 
-            GameObject zxVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-            zxVertCyln.GetComponent<Collider>().enabled = false;
-            zxVertCyln.GetComponent<Renderer>().material.color = gridBarColor;
-            ZXVertBarNodes.Add(zxVertCyln);
+                GameObject zxVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                zxVertCyln.GetComponent<Renderer>().material = GridDefualt;
+                if (i % 5 == 0)
+                    zxVertCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                if (i % 10 == 0)
+                    zxVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                zxVertCyln.GetComponent<Collider>().enabled = false;
+                ZXVertBarNodes.Add(zxVertCyln);
+            }
         }
 
         deactivateBarGrid();
@@ -407,61 +576,65 @@ public class VisualVector : MonoBehaviour
     public void setGridSphereNodes(bool Xaxis, bool Yaxis, bool Zaxis)
     {
 
-        for(int i = -gridSize; i < gridSize; i++)
-        {
-            if (Xaxis)
+
+        if (Xaxis)
+            for (int i = xMin; i < xMax; i++)
             {
                 //Set X sphere nodes
                 XSphereNodes[i + gridSize].transform.position = start.transform.position;
                 XSphereNodes[i + gridSize].transform.position += new Vector3(i * puzzleScale.x, 0f, 0f);
             }
 
-            if (Yaxis)
+        if (Yaxis)
+            for (int i = yMin; i < yMax; i++)
             {
                 //Set Y sphere nodes
                 YSphereNodes[i + gridSize].transform.position = start.transform.position;
                 YSphereNodes[i + gridSize].transform.position += new Vector3(0f, i * puzzleScale.y, 0f);
             }
 
-            if (Zaxis)
+        if (Zaxis)
+            for (int i = zMin; i < zMax; i++)
             {
                 //Set Z sphere nodes
                 ZSphereNodes[i + gridSize].transform.position = start.transform.position;
                 ZSphereNodes[i + gridSize].transform.position += new Vector3(0f, 0f, i * puzzleScale.z);
             }
-        }
+        
     }
 
     public void setGridBarNodes(bool Xaxis, bool Yaxis, bool Zaxis)
     {
 
-        for (int i = -gridSize; i < gridSize; i++)
-        {
-            //Set XY plane bar nodes
-            if (Xaxis)
+        if (Xaxis)
+            for (int i = xMin; i < xMax; i++)
             {
                 //X bars
                 VectorBetweenPoints(XBarNodes[i + gridSize], Ypositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Ynegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
+                if(Zaxis)
+                    VectorBetweenPoints(ZXHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Znegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
+
             }
 
-            if (Yaxis)
+        if (Yaxis)
+            for (int i = yMin; i < yMax; i++)
             {
                 //Ybars
                 VectorBetweenPoints(YBarNodes[i + gridSize], Xpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Xnegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+                if(Zaxis)
+                    VectorBetweenPoints(ZYHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Znegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+
+
             }
 
-            if (Zaxis)
+        if (Zaxis)
+            for (int i = zMin; i < zMax; i++)
             {
                 //Set ZY plane nodes
-                VectorBetweenPoints(ZYHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Znegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
                 VectorBetweenPoints(ZYVertBarNodes[i + gridSize], Ypositive.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), Ynegative.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), gridThickness);
 
-
-                VectorBetweenPoints(ZXHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Znegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
                 VectorBetweenPoints(ZXVertBarNodes[i + gridSize], Xpositive.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), Xnegative.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), gridThickness);
-            }
-
-        }
+            }       
 
     }
 

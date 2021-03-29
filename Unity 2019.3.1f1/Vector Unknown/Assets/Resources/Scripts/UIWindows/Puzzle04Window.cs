@@ -13,17 +13,22 @@ public class Puzzle04Window : WindowRoot
     public Text scalarText2;
     public CameraDragSurface cameraDragInput;
     //    private GameObject finalDisplay;
-    private GameObject ansField1; //background field object
-    private GameObject ansField2; //background field object
+    public GameObject ansField1; //background field object
+    public GameObject ansField2; //background field object
     private GameObject ansCard1;
     private GameObject ansCard2;
 
     //LEFT PIN WINDOWS------------------
+    [Header("Answer Card Displays")]
     public Transform cardPanel;
+    public GameObject Card1;
+    public GameObject Card2;
+    public GameObject Card3;
+    public GameObject Card4;
     private List<GameObject> UIcards;
 
     //UPPER RIGHT PIN WINDOWS------------
-    [Header("Answer Displays")]
+    [Header("Feedback Displays")]
     public Transform feedbackPanel;
     public GameObject gapDisplay;
     public GameObject windDisplay;
@@ -82,18 +87,16 @@ public class Puzzle04Window : WindowRoot
 
         //        finalDisplay = GameObject.Find("FinalAnswer");
 
-        ansField1 = GameObject.Find("AnsVector1");
-        ansField2 = GameObject.Find("AnsVector2");
 
 
         //LEFT PIN INIT-----------------------------------------
         if (doOnce)
         {
             UIcards = new List<GameObject>();
-            UIcards.Add(GameObject.Find("Card1"));
-            UIcards.Add(GameObject.Find("Card2"));
-            UIcards.Add(GameObject.Find("Card3"));
-            UIcards.Add(GameObject.Find("Card4"));
+            UIcards.Add(Card1);
+            UIcards.Add(Card2);
+            UIcards.Add(Card3);
+            UIcards.Add(Card4);
             doOnce = false;
         }
 
@@ -502,6 +505,12 @@ public class Puzzle04Window : WindowRoot
 
         }
 
+    }
+
+    public void resetCamera()
+    {
+        PC04.mainCamera.transform.position = PC04.CameraStartPosition.transform.position;
+        PC04.mainCamera.transform.LookAt(PC04.cameraTarget.transform.position);
     }
 
     public void resetButtons()

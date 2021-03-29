@@ -32,7 +32,6 @@ public class Puzzle04Controller : MonoBehaviour
     [Header("---Puzzle Vectors---")]
     public Vector3 MinVectorSize;
     public bool isDynamic;
-    public bool isFractional;
     [Range(1,10)]
     public int MaxDynamicScalar;
     public Direction LimitAxis = new Direction();
@@ -48,6 +47,14 @@ public class Puzzle04Controller : MonoBehaviour
     //Answer Cards
     private Vector3 AnswerVector;
     private List<Vector3> cardVectors;
+    private List<int> possibleScal1;
+    private List<int> possibleScal2;
+    private List<Vector3> possibleVec1;
+    private List<Vector3> possibleVec2;
+    [Tooltip("Limits the number of possible vector combinations\nA larger number means more calculations which for more difficult puzzles (larger scalars/magnitudes, higher dimensions) can take VERY long time")]
+    public int MaxPossibleAnswers = 50;
+    
+    private bool filledAnswers;
 
     //Player Answers
     private int scalar1;
@@ -89,8 +96,10 @@ public class Puzzle04Controller : MonoBehaviour
         card1 = new Vector3(0f, 0f, 0f);
         card2 = new Vector3(0f, 0f, 0f);
 
+        filledAnswers = false;
         correct = false;
 
+ //       intAnswerGenerator();
         answerGenerators();        
 
     }
@@ -177,15 +186,12 @@ public class Puzzle04Controller : MonoBehaviour
         Vector3 temp = new Vector3(0f, 0f, 0f);
         int tempScal;
 
-
-        if (isFractional)
-        {
-            tempScal = Random.Range(2, 5);
-
-            temp = MinVectorSize / tempScal;
-        }
-        else
-            temp = MinVectorSize;
+        tempScal = Random.Range(1, MaxDynamicScalar + Random.Range(0,3));
+        temp.x = Mathf.RoundToInt(MinVectorSize.x / tempScal);
+        tempScal = Random.Range(1, MaxDynamicScalar + Random.Range(0, 3));
+        temp.y = Mathf.RoundToInt(MinVectorSize.y / tempScal);
+        tempScal = Random.Range(1, MaxDynamicScalar + Random.Range(0, 3));
+        temp.z = Mathf.RoundToInt(MinVectorSize.z / tempScal);
 
 
         tempScal = Random.Range(1, MaxDynamicScalar);
@@ -196,6 +202,8 @@ public class Puzzle04Controller : MonoBehaviour
 
     /// <summary>
     /// ------------OUTDATED--------------
+    /// Superceded by DynamicGenerator()
+    /// 
     /// Used to generate a secondary vector that offsets AnswerVector
     /// Returns a Vector based on MaxScalar, MaxMagnitudes and LimitAxis.
     /// </summary>
@@ -211,16 +219,16 @@ public class Puzzle04Controller : MonoBehaviour
         //We don't want a 0 scalar, this do loop ensures we don't
         do
         {
-            tempScal = Random.Range(-1 * MaxDynamicScalar, MaxDynamicScalar + 1);
+            tempScal = Random.Range(-MaxDynamicScalar, MaxDynamicScalar + 1);
         } while (tempScal == 0);
 
         Debug.Log(LimitAxis.ToString());
 
         do
         {
-            tempMagX = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
-            tempMagY = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
-            tempMagZ = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
+            tempMagX = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
+            tempMagY = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
+            tempMagZ = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
 
             switch(LimitAxis)
             {
@@ -244,7 +252,382 @@ public class Puzzle04Controller : MonoBehaviour
     }
 
 
+    public void intAnswerGenerator()
+    {
+        int chosenVec;
+        int scal1, scal2;
+        float coinFlip1, coinFlip2;
+
+        possibleScal1 = new List<int>();
+        possibleScal2 = new List<int>();
+        possibleVec1 = new List<Vector3>();
+        possibleVec2 = new List<Vector3>();
+
+
+        //Walk Through all Possible Scalars
+        coinFlip1 = Random.Range(0.0f, 1.0f);
+        coinFlip2 = Random.Range(0.0f, 1.0f);
+
+
+        if (coinFlip1 < 0.5f)
+            for(scal1 = -MaxCardScalar; scal1 <= MaxCardScalar; scal1++)
+            {
+                if (scal1 == 0)
+                    scal1++;
+                
+                if(coinFlip2 < 0.5f)
+                    for(scal2 = -MaxCardScalar; scal2 <= MaxCardScalar; scal2++)
+                    {
+                        if (scal2 == 0)
+                            scal2++;
+
+                        vectorAnswerWalks(scal1, scal2);
+
+                        if (this.filledAnswers)
+                            break;
+                    }
+                else
+                    for (scal2 = MaxCardScalar; scal2 >= -MaxCardScalar; scal2--)
+                    {
+                        if (scal2 == 0)
+                            scal2++;
+
+                        vectorAnswerWalks(scal1, scal2);
+
+                        if (this.filledAnswers)
+                            break;
+                    }
+
+                if (this.filledAnswers)
+                    break;
+
+            }
+        else
+            for (scal1 = MaxCardScalar; scal1 >= -MaxCardScalar; scal1--)
+            {
+                if (scal1 == 0)
+                    scal1++;
+
+                if (coinFlip2 < 0.5f)
+                    for (scal2 = -MaxCardScalar; scal2 <= MaxCardScalar; scal2++)
+                    {
+                        if (scal2 == 0)
+                            scal2++;
+
+                        vectorAnswerWalks(scal1, scal2);
+
+                        if (this.filledAnswers)
+                            break;
+                    }
+                else
+                    for (scal2 = MaxCardScalar; scal2 >= -MaxCardScalar; scal2--)
+                    {
+                        if (scal2 == 0)
+                            scal2++;
+
+                        vectorAnswerWalks(scal1, scal2);
+
+                        if (this.filledAnswers)
+                            break;
+                    }
+
+                if (this.filledAnswers)
+                    break;
+
+            }
+
+
+
+        if (possibleVec1.Count != 0)
+        {
+            //Higher scalar means lower Magnitudes (in theory)
+            //So this part decides if we take a pair from the highest working negative scalar
+            //or the highest working positive scalar
+            chosenVec = (int)Random.Range(0, possibleVec1.Count - 1);                
+            cardVectors.Add(possibleVec1[chosenVec]);
+            cardVectors.Add(possibleVec2[chosenVec]);
+            cardVectors.Add(randomGenerator());
+            cardVectors.Add(randomGenerator());
+            answerShuffle();
+        }
+        else
+        {
+            backUpGenerator();
+        }
+    }
+
     /// <summary>
+    /// Walks through all possible vector combinations to find possible combinations
+    /// of vectors that may equal the answer vector given the entered scalars.
+    /// </summary>
+    /// <param name="scal1">taken from the generator, determines Vector1 scalar</param>
+    /// <param name="scal2">taken from the generator, determines Vector2 scalar</param>
+    public void vectorAnswerWalks(int scal1, int scal2)
+    {
+        int x1, x2, y1, y2, z1, z2;
+        Vector3 emptyVector = new Vector3(0f, 0f, 0f);
+
+        if (AnswerVector.x != 0) //Walk Through all Possible X values
+        {
+            for (x1 = -MaxCardMagnitudes; x1 <= MaxCardMagnitudes; x1++)
+            {
+                for (x2 = -MaxCardMagnitudes; x2 <= MaxCardMagnitudes; x2++)
+                {
+                    if (AnswerVector.y != 0) //Walk Through all Possible Y Values
+                    {
+                        for (y1 = -MaxCardMagnitudes; y1 <= MaxCardMagnitudes; y1++)
+                        {
+                            for (y2 = -MaxCardMagnitudes; y2 <= MaxCardMagnitudes; y2++)
+                            {
+                                if (AnswerVector.z != 0) //Walk Through all Possible Z Values
+                                {
+                                    for (z1 = -MaxCardMagnitudes; z1 <= MaxCardMagnitudes; z1++)
+                                    {
+                                        for (z2 = -MaxCardMagnitudes; z2 <= MaxCardMagnitudes; z2++)
+                                        {
+                                            if (new Vector3(x1, y1, z1) * scal1 + new Vector3(x2, y2, z2) * scal2 == AnswerVector)
+                                            {
+                                                if (new Vector3(x1, y1, z1) != emptyVector && new Vector3(x2, y2, z2) != emptyVector)
+                                                {
+                                                    //We have a sovlable pair, add it to the lists
+                                                    possibleScal1.Add(scal1);
+                                                    possibleScal2.Add(scal2);
+                                                    possibleVec1.Add(new Vector3(x1, y1, z1));
+                                                    possibleVec2.Add(new Vector3(x2, y2, z2));
+
+                                                    if (possibleVec1.Count > MaxPossibleAnswers)
+                                                        this.filledAnswers = true;
+                                                }
+                                            }
+                                            if (this.filledAnswers) //break out of z2 loop
+                                                break;
+                                        }
+                                        if (this.filledAnswers) //break out of z1 loop
+                                            break;
+                                    }
+                                }
+                                else //Skip walking through Z | Test X and Y
+                                {
+                                    z1 = 0;
+                                    z2 = 0;
+                                    if (new Vector3(x1, y1, z1) * scal1 + new Vector3(x2, y2, z2) * scal2 == AnswerVector)
+                                    {
+                                        if (new Vector3(x1, y1, z1) != emptyVector && new Vector3(x2, y2, z2) != emptyVector)
+                                        {
+                                            //We have a sovlable pair, add it to the lists
+                                            possibleScal1.Add(scal1);
+                                            possibleScal2.Add(scal2);
+                                            possibleVec1.Add(new Vector3(x1, y1, z1));
+                                            possibleVec2.Add(new Vector3(x2, y2, z2));
+
+                                            if (possibleVec1.Count > MaxPossibleAnswers)
+                                                this.filledAnswers = true;
+                                        }
+                                    }
+                                }
+                                if (this.filledAnswers)
+                                    break;
+                            }
+                            if (this.filledAnswers)
+                                break;
+                        }
+                    }
+                    else //Skip walking through Y | Test X and Z
+                    {
+                        y1 = 0;
+                        y2 = 0;
+
+                        if (AnswerVector.z != 0) //Walk through all Possible Z values
+                        {
+                            for (z1 = -MaxCardMagnitudes; z1 <= MaxCardMagnitudes; z1++)
+                            {
+                                for (z2 = -MaxCardMagnitudes; z2 <= MaxCardMagnitudes; z2++)
+                                {
+                                    if (new Vector3(x1, y1, z1) * scal1 + new Vector3(x2, y2, z2) * scal2 == AnswerVector)
+                                    {
+                                        if (new Vector3(x1, y1, z1) != emptyVector && new Vector3(x2, y2, z2) != emptyVector)
+                                        {
+                                            //We have a sovlable pair, add it to the lists
+                                            possibleScal1.Add(scal1);
+                                            possibleScal2.Add(scal2);
+                                            possibleVec1.Add(new Vector3(x1, y1, z1));
+                                            possibleVec2.Add(new Vector3(x2, y2, z2));
+
+                                            if (possibleVec1.Count > MaxPossibleAnswers)
+                                                this.filledAnswers = true;
+                                        }
+                                    }
+                                    if (this.filledAnswers) // break out of z2 loop
+                                        break;
+                                }
+                                if (this.filledAnswers) //break out of z1 loop
+                                    break;
+                            }
+                        }
+                        else //Skip walking through Z and Y | Test X
+                        {
+                            z1 = 0;
+                            z2 = 0;
+                            if (new Vector3(x1, y1, z1) * scal1 + new Vector3(x2, y2, z2) * scal2 == AnswerVector)
+                            {
+                                if (new Vector3(x1, y1, z1) != emptyVector && new Vector3(x2, y2, z2) != emptyVector)
+                                {
+                                    //We have a sovlable pair, add it to the lists
+                                    possibleScal1.Add(scal1);
+                                    possibleScal2.Add(scal2);
+                                    possibleVec1.Add(new Vector3(x1, y1, z1));
+                                    possibleVec2.Add(new Vector3(x2, y2, z2));
+
+                                    if (possibleVec1.Count > MaxPossibleAnswers)
+                                        this.filledAnswers = true;
+                                }
+                            }
+                        }
+                    }
+                    if (this.filledAnswers) //break out of x2 loop
+                        break;
+                }
+                if (this.filledAnswers) //break out of x1 loop
+                    break;
+            }
+        }
+        else //Skip walking through X | Test Y and Z
+        {
+            x1 = 0;
+            x2 = 0;
+
+            if (AnswerVector.y != 0) //Walk through all possible Y values
+            {
+                for (y1 = -MaxCardMagnitudes; y1 <= MaxCardMagnitudes; y1++)
+                {
+                    for (y2 = -MaxCardMagnitudes; y2 <= MaxCardMagnitudes; y2++)
+                    {
+                        if (AnswerVector.z != 0) //Walk through all Possible Z values
+                        {
+                            for (z1 = -MaxCardMagnitudes; z1 <= MaxCardMagnitudes; z1++)
+                            {
+                                for (z2 = -MaxCardMagnitudes; z2 <= MaxCardMagnitudes; z2++)
+                                {
+                                    if (new Vector3(x1, y1, z1) * scal1 + new Vector3(x2, y2, z2) * scal2 == AnswerVector)
+                                    {
+                                        if (new Vector3(x1, y1, z1) != emptyVector && new Vector3(x2, y2, z2) != emptyVector)
+                                        {
+                                            //We have a sovlable pair, add it to the lists
+                                            possibleScal1.Add(scal1);
+                                            possibleScal2.Add(scal2);
+                                            possibleVec1.Add(new Vector3(x1, y1, z1));
+                                            possibleVec2.Add(new Vector3(x2, y2, z2));
+
+                                            if (possibleVec1.Count > MaxPossibleAnswers)
+                                                this.filledAnswers = true;
+                                        }
+                                        if (this.filledAnswers) //break out of z2 loop
+                                            break;
+                                    }
+                                }
+                                if (this.filledAnswers) //break out of z1 loop
+                                    break;
+                            }
+                        }
+                        else //Skip walking through Z and X | Test Y
+                        {
+                            z1 = 0;
+                            z2 = 0;
+                            if (new Vector3(x1, y1, z1) * scal1 + new Vector3(x2, y2, z2) * scal2 == AnswerVector)
+                            {
+                                if (new Vector3(x1, y1, z1) != emptyVector && new Vector3(x2, y2, z2) != emptyVector)
+                                {
+                                    //We have a sovlable pair, add it to the lists
+                                    possibleScal1.Add(scal1);
+                                    possibleScal2.Add(scal2);
+                                    possibleVec1.Add(new Vector3(x1, y1, z1));
+                                    possibleVec2.Add(new Vector3(x2, y2, z2));
+
+                                    if (possibleVec1.Count > MaxPossibleAnswers)
+                                        this.filledAnswers = true;
+                                }
+                            }
+                        }
+                        if (this.filledAnswers) //break out of y2 loop
+                            break;
+                    }
+                    if (this.filledAnswers) //break out of y1 loop
+                        break;
+                }
+            }
+            else //Skip walking through Y and X | Test Z
+            {
+                y1 = 0;
+                y2 = 0;
+
+                if (AnswerVector.z != 0) // Walk through all Possible Z values
+                {
+                    for (z1 = -MaxCardMagnitudes; z1 <= MaxCardMagnitudes; z1++)
+                    {
+                        for (z2 = -MaxCardMagnitudes; z2 <= MaxCardMagnitudes; z2++)
+                        {
+                            if (new Vector3(x1, y1, z1) * scal1 + new Vector3(x2, y2, z2) * scal2 == AnswerVector)
+                            {
+                                if (new Vector3(x1, y1, z1) != emptyVector && new Vector3(x2, y2, z2) != emptyVector)
+                                {
+                                    //We have a sovlable pair, add it to the lists
+                                    possibleScal1.Add(scal1);
+                                    possibleScal2.Add(scal2);
+                                    possibleVec1.Add(new Vector3(x1, y1, z1));
+                                    possibleVec2.Add(new Vector3(x2, y2, z2));
+
+                                    if (possibleVec1.Count > MaxPossibleAnswers)
+                                        this.filledAnswers = true;
+                                }
+                            }
+                            if (this.filledAnswers) //break out of z2 loop
+                                break;
+                        }
+                        if (this.filledAnswers) //break out of z1 loop
+                            break;
+                    }
+                }
+                else //Skip walking through Z, Y and X
+                {
+                    //If we got here, somehow the Answer Vector is <0,0,0>                          
+                }
+            }
+        }
+    }
+
+    /// <summary>
+    ///Sometimes, for reasons that elude me, even after testing ALL possible
+    ///Combinations to make a pair, we get an empty list
+    ///SO, this little code is just to randomly cut the AnswerVector into
+    ///two parts and use those.  It's not pretty, and the scalars are always 1
+    ///but it doesn't cause it to crash.
+    /// </summary>
+    public void backUpGenerator()
+    {
+        int split;
+        Vector3 ansVecPart1, ansVecPart2;
+
+        split = (int)Random.Range(2, 5);
+        ansVecPart1.x = Mathf.RoundToInt(AnswerVector.x / split);
+        split = (int)Random.Range(2, 5);
+        ansVecPart1.y = Mathf.RoundToInt(AnswerVector.y / split);
+        split = (int)Random.Range(2, 5);
+        ansVecPart1.z = Mathf.RoundToInt(AnswerVector.z / split);
+
+        ansVecPart2 = AnswerVector - ansVecPart1;
+
+        cardVectors.Add(ansVecPart1);
+        cardVectors.Add(ansVecPart2);
+        cardVectors.Add(randomGenerator());
+        cardVectors.Add(randomGenerator());
+        answerShuffle();
+    }
+
+
+    /// <summary>
+    /// ------OUTDATED------------
+    /// Superceded by intAnswerGenerator()
+    /// 
     /// Used for generating Answer Cards based on the Vector created from
     /// the AnswerVector.
     /// </summary>
@@ -264,27 +647,62 @@ public class Puzzle04Controller : MonoBehaviour
         answer2b = secAnsCard(answer2a);
         cardVectors.Add(answer2b);
 
+        answerShuffle();
+    }
+
+    public void answerShuffle()
+    {
         //Shuffle Cards
         int count = cardVectors.Count;
         int last = count - 1;
-        for(int i = 0; i < last; i++)
+        for (int i = 0; i < last; i++)
         {
             int r = Random.Range(i, count);
             Vector3 temp = cardVectors[i];
             cardVectors[i] = cardVectors[r];
             cardVectors[r] = temp;
         }
+    }
 
+    /// <summary>
+    /// Tests if the input vector is duplicate or a scalar multiple
+    /// of a card that already exists in the cardVectors list.
+    /// If it's not a duplicate, it returns "True" that it's unique
+    /// If it is a dupicate it returns "False".
+    /// </summary>
+    /// <param name="test"></param>
+    /// <returns></returns>
+    public bool testUnique(Vector3 test)
+    {
+        bool unique = true;
+
+        //Test that the new Random Vector is not a Duplicate or scalar
+        //cycle through cards:
+        for (int i = -MaxCardScalar; i <= MaxCardScalar; i++)
+        {
+            for (int j = 0; j < cardVectors.Count; j++)
+            {
+                if (test * i == cardVectors[j] || test == cardVectors[j] * i)
+                {
+                    unique = false;
+                    break;
+                }
+                else
+                    unique = true;
+            }
+        }
+
+        return unique;
     }
 
     /// <summary>
     /// Generates random and unique vectors for use by the AnswerGenerator function
-    /// only returns vectors that are not <0,0,0> and are not already generated.
+    /// only returns vectors that are not <0,0,0> and are not already generated
+    /// in the cardVectors list.
     /// </summary>
     /// <returns></returns>
     private Vector3 randomGenerator()
     {
-        bool unique = true;
         int tempMagX;
         int tempMagY;
         int tempMagZ;
@@ -293,12 +711,10 @@ public class Puzzle04Controller : MonoBehaviour
 
         do
         {
-            unique = true;
-
             //We don't want a 0 scalar, this do loop ensures we don't
             do
             {
-                tempScal = Random.Range(-1 * MaxCardScalar, MaxCardScalar + 1);           
+                tempScal = Random.Range(-MaxCardScalar, MaxCardScalar + 1);           
             } while (tempScal == 0);
 
 
@@ -307,9 +723,9 @@ public class Puzzle04Controller : MonoBehaviour
              //this do while loop ensure we don't end with a zero vector.
             do
             {
-                tempMagX = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
-                tempMagY = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
-                tempMagZ = Random.Range(-1 * MaxCardMagnitudes, MaxCardMagnitudes + 1);
+                tempMagX = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
+                tempMagY = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
+                tempMagZ = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
 
 
                 switch (GCP04.Difficulty)
@@ -333,39 +749,17 @@ public class Puzzle04Controller : MonoBehaviour
                         break;
                 }
 
-            } while (tempVect == new Vector3(0f, 0f, 0f));
-
-           
-            //Test that the new Random Vector is not a Duplicate or scalar
-            //cycle through cards:
-            for (int i = 0; i < cardVectors.Count; i++)
-            {
-                //cycle through scalars:
-                for (int j = -1 * MaxCardScalar; j < MaxCardScalar; j++)
-                {                    
-                    if (tempVect * j == cardVectors[i])
-                    {
-                        unique = false;
-                        break;
-                    }
-                    else
-                        unique = true;                
-
-                }
-
-                if (!unique)
-                    break;
-            }
-            
+            } while (tempVect == new Vector3(0f, 0f, 0f));                  
 
 
-        } while (!unique);
+        } while (!testUnique(tempVect));
 
         return tempVect;
 
     }
 
     /// <summary>
+    /// ----------OUTDATED----------------
     /// Retruns a Vector based on the displacement from the input Vector to the
     /// Answer Vector.  Used for generating a "pair" of vectors that lead to the
     /// correct answer.  Will not return a <0,0,0> vector or a duplicate vector.
@@ -375,45 +769,21 @@ public class Puzzle04Controller : MonoBehaviour
     /// <returns></returns>
     private Vector3 secAnsCard(Vector3 first)
     {
-        bool unique = true;
         int tempScal;
         Vector3 tempVect = new Vector3(0f, 0f, 0f);
 
         do
         {
-            unique = true;
-
             //We don't want a 0 scalar, this do loop ensures we don't
             do
             {
-                tempScal = Random.Range(-1 * MaxCardScalar, MaxCardScalar + 1);
+                tempScal = Random.Range(-MaxCardScalar, MaxCardScalar + 1);
             } while (tempScal == 0);
 
             tempVect = (AnswerVector - first);
-            tempVect = tempVect / tempScal;
-            
-            //Test that the new Random Vector is not a Duplicate or scalar
-            //cycle through cards:
-            for (int i = 0; i < cardVectors.Count; i++)
-            {
-                //cycle through scalars:
-                for (int j = -1 * MaxCardScalar; j < MaxCardScalar; j++)
-                {
-                    if (tempVect * j == cardVectors[i])
-                    {
-                        unique = false;
-                        break;
-                    }
-                    else
-                        unique = true;
-                }
+            tempVect = tempVect / tempScal;                       
 
-                if (!unique)
-                    break;
-            }
-            
-
-        } while (!unique);
+        } while (!testUnique(tempVect));
 
         return tempVect;
     }
@@ -520,6 +890,11 @@ public class Puzzle04Controller : MonoBehaviour
     public VisualVector getVisualVector()
     {
         return VV01;
+    }
+
+    public GameControllerPuzzle04 getGameController()
+    {
+        return GCP04;
     }
 
     public bool checkFinalAnswer()
