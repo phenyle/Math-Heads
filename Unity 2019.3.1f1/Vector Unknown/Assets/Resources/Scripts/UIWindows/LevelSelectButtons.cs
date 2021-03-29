@@ -81,7 +81,7 @@ public class LevelSelectButtons : MonoBehaviour
                         GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle02SceneName);
                         break;
                     case 2:
-                        GameRoot.ShowTips("That level doesn't exist right now\nCheck back later", true, false);
+                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle02s2SceneName);
                         break;
                     case 3:
                         GameRoot.ShowTips("That level doesn't exist right now\nCheck back later", true, false);

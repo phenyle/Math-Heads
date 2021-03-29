@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Puzzle02Window : WindowRoot
 {
@@ -26,10 +27,17 @@ public class Puzzle02Window : WindowRoot
         Debug.Log("Init Puzzle02 window");
         base.InitWindow();
 
-        GCP02_01 = GameObject.Find("GameController_Puzzle02_01").GetComponent<GameControllerPuzzle02>();
-
+        if(SceneManager.GetActiveScene().name == Constants.puzzle02SceneName)
+        {
+            GCP02_01 = GameObject.Find("GameController_Puzzle02_01").GetComponent<GameControllerPuzzle02>();
+            GCP02_01.InitGameController(this);
+        }
+        else if(SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName)
+        {
+            GCP02_02 = GameObject.Find("GameController_Puzzle02_02").GetComponent<GameControllerPuzzle02>();
+            GCP02_02.InitGameController(this);
+        }
         Debug.Log("Call GameController of Puzzle02 to connect");
-        GCP02_01.InitGameController(this);
     }
 
     public void switchStage()

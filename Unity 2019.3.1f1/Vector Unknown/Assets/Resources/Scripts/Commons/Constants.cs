@@ -6,7 +6,8 @@ public class Constants
     public const string menuSceneName = "01Menu";
     public const string mainSceneName = "02Main";
     public const string puzzle01SceneName = "03Puzzle01";
-    public const string puzzle02SceneName = "04Puzzle02";
+    public const string puzzle02SceneName = "04Puzzle02-1";
+    public const string puzzle02s2SceneName = "04Puzzle02-2";
     public const string puzzle03SceneName = "05Puzzle03";
     public const string puzzle04SceneName = "06Puzzle04-1"; // for scene 4
     public const string puzzle04s1SceneName = "06Puzzle04-1"; // for scene 4

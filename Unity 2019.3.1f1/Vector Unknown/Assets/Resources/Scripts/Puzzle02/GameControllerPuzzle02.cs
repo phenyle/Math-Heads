@@ -150,7 +150,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         Vector = P02W.Vector;
         shipImages = P02W.shipImages;
 
-        if(stageNumber == 2)
+        if(stageNumber == 2 || stageNumber == 1)
         {
             Vector.text = "0" + "\n" + "0";
             Matrix.text = "0" + " " + "0" + "\n" +
