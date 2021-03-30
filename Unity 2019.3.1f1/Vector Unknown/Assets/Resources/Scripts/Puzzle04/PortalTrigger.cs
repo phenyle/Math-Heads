@@ -6,7 +6,7 @@ public class PortalTrigger : MonoBehaviour
 {
     public bool inPortal = false;
     private GameControllerPuzzle04 GCP04;
-    private Puzzle04Controller PC04;
+    public Puzzle04Controller PC04;
     private GameObject mainCamera;
     private Vector3 prevCameraPos;
     private Quaternion prevCameraRotation;
@@ -16,7 +16,7 @@ public class PortalTrigger : MonoBehaviour
     {
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
-        PC04 = GetComponentInParent<Puzzle04Controller>();
+        PC04 = this.GetComponentInParent<Puzzle04Controller>();
     }
 
 
@@ -46,7 +46,11 @@ public class PortalTrigger : MonoBehaviour
 
             assignCards();
             GCP04.P04W.setAnswer1(null);
+            PC04.setAnsCard1(Vector3.zero);
             GCP04.P04W.setAnswer2(null);
+            PC04.setAnsCard2(Vector3.zero);
+            turnOnVisualVectors();
+
 
             if (GCP04.Difficulty < 3)
             {
@@ -61,12 +65,8 @@ public class PortalTrigger : MonoBehaviour
                 mainCamera.GetComponent<CameraController>().isLock = false;
             }
 
-                mainCamera.transform.position = PC04.getCameraTransform().position;
+            mainCamera.transform.position = PC04.getCameraTransform().position;
             mainCamera.transform.LookAt(PC04.getCameraTarget().transform.position);
-
-
-            turnOnVisualVectors();
-
 
             Debug.Log("portal enter");
             Debug.Log(PC04.getAnswerVector());
@@ -89,8 +89,18 @@ public class PortalTrigger : MonoBehaviour
 
             GCP04.P04W.resetButtons();
 
+            GCP04.P04W.resetCardPos();
+
             GCP04.P04W.setAnswer1(null);
+            PC04.setAnsCard1(Vector3.zero);
             GCP04.P04W.setAnswer2(null);
+            PC04.setAnsCard2(Vector3.zero);
+
+            GCP04.P04W.scalar1.value = 1;
+            GCP04.P04W.scalar2.value = 1;
+
+            turnOffVisualVectors();
+
 
             if (GCP04.Difficulty < 3)
             {
@@ -104,18 +114,9 @@ public class PortalTrigger : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
                 mainCamera.GetComponent<CameraController>().isLock = true;
             }
-
-
-
             mainCamera.transform.position = prevCameraPos;
             mainCamera.transform.rotation = prevCameraRotation;
 
-            GCP04.P04W.resetCardPos();
-
-            GCP04.P04W.scalar1.value = 1;
-            GCP04.P04W.scalar2.value = 1;
-
-            turnOffVisualVectors();
 
             Debug.Log("portal exit");
         }
@@ -127,14 +128,7 @@ public class PortalTrigger : MonoBehaviour
     /// </summary>
     private void assignCards()
     {
-
         GCP04.P04W.setCardValues(PC04.getAnswerCards());
-        /**
-        GCP04.P04W.cardPanel.Find("Card1").GetComponent<CardVectors>().setCardVector(PC04.getAnswerCards()[0]);
-        GCP04.P04W.cardPanel.Find("Card2").GetComponent<CardVectors>().setCardVector(PC04.getAnswerCards()[1]);
-        GCP04.P04W.cardPanel.Find("Card3").GetComponent<CardVectors>().setCardVector(PC04.getAnswerCards()[2]);
-        GCP04.P04W.cardPanel.Find("Card4").GetComponent<CardVectors>().setCardVector(PC04.getAnswerCards()[3]);
-        **/
         GCP04.P04W.setCardDisplay(PC04);
         GCP04.P04W.setFeedbackDisplay(PC04);
     }
@@ -153,7 +147,8 @@ public class PortalTrigger : MonoBehaviour
 
         PC04.getVisualVector().deactivateSphereGrid();
         PC04.getVisualVector().deactivateBarGrid();
-
+        PC04.getVisualVector().deactivateProjections();
+        PC04.getVisualVector().deactivateAnchors();
     }
 
     private void turnOnVisualVectors()

@@ -61,6 +61,42 @@ public class VisualVector : MonoBehaviour
     private int quadrant;
     private int xMin, xMax, yMin, yMax, zMin, zMax;
 
+    [Header("---3D Vector Projetion Components---")]
+    public GameObject projections;
+    public GameObject anchors;
+    private bool isProjecting;
+    private bool isAnchored;
+
+    //xy plane parts
+    [Header("XY plane")]
+    public GameObject XYvector1;
+    public GameObject XYvector2;
+    public GameObject XYfinal;
+    public GameObject XYvector1end;
+    public GameObject XYvector2end;
+    //xz plane parts
+    [Header("XZ plane")]
+    public GameObject XZvector1;
+    public GameObject XZvector2;
+    public GameObject XZfinal;
+    public GameObject XZvector1end;
+    public GameObject XZvector2end;
+    //yz plane parts
+    [Header("YZ plane")]
+    public GameObject YZvector1;
+    public GameObject YZvector2;
+    public GameObject YZfinal;
+    public GameObject YZvector1end;
+    public GameObject YZvector2end;
+    //Grid Anchor Parts
+    [Header("Anchors")]
+    public GameObject XYanchor1;
+    public GameObject XZanchor1;
+    public GameObject YZanchor1;
+    public GameObject XYanchor2;
+    public GameObject XZanchor2;
+    public GameObject YZanchor2;
+
 
 
     //Misc Controls
@@ -88,6 +124,8 @@ public class VisualVector : MonoBehaviour
         Xvector.SetActive(false);
         Yvector.SetActive(false);
         Zvector.SetActive(false);
+
+        projections.SetActive(false);
 
         overallScale = setOverallScale();
         puzzleScale = setPuzzleScale();
@@ -121,6 +159,8 @@ public class VisualVector : MonoBehaviour
 
         createSphereGrid();
         createBarGrid();
+        isProjecting = false;
+        isAnchored = false;
 
 
         VectorBetweenPoints(Xvector, Xnegative.transform.position, Xpositive.transform.position, axisThickness);
@@ -133,38 +173,107 @@ public class VisualVector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (this.PC04.getAnsCard1() != null || this.PC04.getAnsCard1() != new Vector3(0f, 0f, 0f))
-        {
-            vector1end.transform.position = start.transform.position + rescaledVector(PC04.getAnsCard1() * PC04.getScalar1());
-            vector1ball.SetActive(true);
-        }
-        else
-        {
-            vector1end = start;
-            vector1ball.SetActive(false);
-        }
+        start.transform.localPosition = Vector3.zero;
 
-        if (this.PC04.getAnsCard2() != null || this.PC04.getAnsCard2() != new Vector3(0f, 0f, 0f))
+        if (this.PC04.isActive)
         {
-            vector2end.transform.position = vector1end.transform.position + rescaledVector(PC04.getAnsCard2() * PC04.getScalar2());
-            vector2ball.SetActive(true);
-        }
-        else
-        {
-            vector2end.transform.position = vector1end.transform.position;
-            vector2ball.SetActive(false);
-        }
+            //NOTE: don't remove the "ansCard1 != null" condition here
+            //the system just likes it
+            //if you take it off all of the visual vectors stop working
+            //why do I have to have it here and not any of the other vector condtions?
+            //    ¯\_(ツ)_/¯
+            if (this.PC04.getAnsCard1() != null || this.PC04.getAnsCard1() != Vector3.zero)
+            {
+                vector1end.transform.position = start.transform.position + rescaledVector(PC04.getAnsCard1() * PC04.getScalar1());
+                vector1ball.SetActive(true);
+                vector1.SetActive(true);
+                VectorBetweenPoints(vector1, start.transform.position, vector1end.transform.position, 0.25f);
 
-        VectorBetweenPoints(vector1, start.transform.position, vector1end.transform.position, 0.25f);
-        VectorBetweenPoints(vector2, vector1end.transform.position, vector2end.transform.position, 0.25f);
+            }
+            else
+            {
+                vector1end = start;
+                vector1ball.SetActive(false);
+                vector1.SetActive(false);
+            }
 
-        if ((PC04.getAnsCard1() != null || PC04.getAnsCard1() != new Vector3(0f,0f,0f)) && (PC04.getAnsCard2() != null || PC04.getAnsCard2() != new Vector3(0f, 0f, 0f)))
-        {
-            finalVector.SetActive(true);
-            VectorBetweenPoints(finalVector, start.transform.position, vector2end.transform.position, 0.25f);
+            if (this.PC04.getAnsCard2() != Vector3.zero)
+            {
+                vector2end.transform.position = vector1end.transform.position + rescaledVector(PC04.getAnsCard2() * PC04.getScalar2());
+                vector2ball.SetActive(true);
+                vector2.SetActive(true);
+                VectorBetweenPoints(vector2, vector1end.transform.position, vector2end.transform.position, 0.25f);
+
+            }
+            else
+            {
+                vector2end.transform.position = vector1end.transform.position;
+                vector2ball.SetActive(false);
+                vector2.SetActive(false);
+            }
+
+
+            if (PC04.getAnsCard1() != Vector3.zero && PC04.getAnsCard2() != Vector3.zero)
+            {
+                finalVector.SetActive(true);
+                VectorBetweenPoints(finalVector, start.transform.position, vector2end.transform.position, 0.25f);
+            }
+            else
+                finalVector.SetActive(false);
+
+
+            //Updates for 3D vector projections
+            if (PC04.getGameController().Difficulty == 3 && isProjecting)
+            {
+                //XY plane
+                XYvector1end.transform.position = new Vector3(vector1end.transform.position.x, vector1end.transform.position.y, start.transform.position.z);
+                XYvector2end.transform.position = new Vector3(vector2end.transform.position.x, vector2end.transform.position.y, start.transform.position.z);
+                VectorBetweenPoints(XYvector1, start.transform.position, XYvector1end.transform.position, 0.25f);
+                VectorBetweenPoints(XYvector2, XYvector1end.transform.position, XYvector2end.transform.position, 0.25f);
+
+                //XZ plane
+                XZvector1end.transform.position = new Vector3(vector1end.transform.position.x, start.transform.position.y, vector1end.transform.position.z);
+                XZvector2end.transform.position = new Vector3(vector2end.transform.position.x, start.transform.position.y, vector2end.transform.position.z);
+                VectorBetweenPoints(XZvector1, start.transform.position, XZvector1end.transform.position, 0.25f);
+                VectorBetweenPoints(XZvector2, XZvector1end.transform.position, XZvector2end.transform.position, 0.25f);
+
+                //YZ plane
+                YZvector1end.transform.position = new Vector3(start.transform.position.x, vector1end.transform.position.y, vector1end.transform.position.z);
+                YZvector2end.transform.position = new Vector3(start.transform.position.x, vector2end.transform.position.y, vector2end.transform.position.z);
+                VectorBetweenPoints(YZvector1, start.transform.position, YZvector1end.transform.position, 0.25f);
+                VectorBetweenPoints(YZvector2, YZvector1end.transform.position, YZvector2end.transform.position, 0.25f);
+
+                if (PC04.getAnsCard1() != Vector3.zero && PC04.getAnsCard2() != Vector3.zero)
+                {
+                    XYfinal.SetActive(true);
+                    XZfinal.SetActive(true);
+                    YZfinal.SetActive(true);
+                    VectorBetweenPoints(XYfinal, start.transform.position, XYvector2end.transform.position, 0.25f);
+                    VectorBetweenPoints(XZfinal, start.transform.position, XZvector2end.transform.position, 0.25f);
+                    VectorBetweenPoints(YZfinal, start.transform.position, YZvector2end.transform.position, 0.25f);
+                }
+                else
+                {
+                    XYfinal.SetActive(false);
+                    XZfinal.SetActive(false);
+                    YZfinal.SetActive(false);
+                }
+
+
+                if (isAnchored)
+                {
+                    VectorBetweenPoints(XYanchor1, XYvector1end.transform.position, vector1end.transform.position, gridThickness);
+                    VectorBetweenPoints(XYanchor2, XYvector2end.transform.position, vector2end.transform.position, gridThickness);
+
+                    VectorBetweenPoints(XZanchor1, XZvector1end.transform.position, vector1end.transform.position, gridThickness);
+                    VectorBetweenPoints(XZanchor2, XZvector2end.transform.position, vector2end.transform.position, gridThickness);
+
+                    VectorBetweenPoints(YZanchor1, YZvector1end.transform.position, vector1end.transform.position, gridThickness);
+                    VectorBetweenPoints(YZanchor2, YZvector2end.transform.position, vector2end.transform.position, gridThickness);
+                }
+
+            }
         }
-        else
-            finalVector.SetActive(false);
 
     }
 
@@ -477,6 +586,8 @@ public class VisualVector : MonoBehaviour
             if(i % 10 == 0)
                 xSphere.GetComponent<Renderer>().material = Grid10Incriment;
             xSphere.GetComponent<Collider>().enabled = false;
+            xSphere.GetComponent<Renderer>().shadowCastingMode = 0;
+            xSphere.GetComponent<Renderer>().receiveShadows = false;
             XSphereNodes.Add(xSphere);
 
             GameObject ySphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -487,6 +598,8 @@ public class VisualVector : MonoBehaviour
             if (i % 10 == 0)
                 ySphere.GetComponent<Renderer>().material = Grid10Incriment;
             ySphere.GetComponent<Collider>().enabled = false;
+            ySphere.GetComponent<Renderer>().shadowCastingMode = 0;
+            ySphere.GetComponent<Renderer>().receiveShadows = false;
             YSphereNodes.Add(ySphere);
 
             if (PC04.getGameController().Difficulty == 3)
@@ -499,6 +612,8 @@ public class VisualVector : MonoBehaviour
                 if (i % 10 == 0)
                     zSphere.GetComponent<Renderer>().material = Grid10Incriment;
                 zSphere.GetComponent<Collider>().enabled = false;
+                zSphere.GetComponent<Renderer>().shadowCastingMode = 0;
+                zSphere.GetComponent<Renderer>().receiveShadows = false;
                 ZSphereNodes.Add(zSphere);
             }
         }
@@ -518,6 +633,8 @@ public class VisualVector : MonoBehaviour
             if (i % 10 == 0)
                 xCyln.GetComponent<Renderer>().material = Grid10Incriment;
             xCyln.GetComponent<Collider>().enabled = false;
+            xCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+            xCyln.GetComponent<Renderer>().receiveShadows = false;
             XBarNodes.Add(xCyln);
 
             GameObject yCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -527,6 +644,8 @@ public class VisualVector : MonoBehaviour
             if (i % 10 == 0)
                 yCyln.GetComponent<Renderer>().material = Grid10Incriment;
             yCyln.GetComponent<Collider>().enabled = false;
+            yCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+            yCyln.GetComponent<Renderer>().receiveShadows = false;
             YBarNodes.Add(yCyln);
 
             if (PC04.getGameController().Difficulty == 3)
@@ -538,6 +657,8 @@ public class VisualVector : MonoBehaviour
                 if (i % 10 == 0)
                     zyHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
                 zyHoriCyln.GetComponent<Collider>().enabled = false;
+                zyHoriCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+                zyHoriCyln.GetComponent<Renderer>().receiveShadows = false;
                 ZYHoriBarNodes.Add(zyHoriCyln);
 
                 GameObject zyVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -547,6 +668,8 @@ public class VisualVector : MonoBehaviour
                 if (i % 10 == 0)
                     zyVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
                 zyVertCyln.GetComponent<Collider>().enabled = false;
+                zyVertCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+                zyVertCyln.GetComponent<Renderer>().receiveShadows = false;
                 ZYVertBarNodes.Add(zyVertCyln);
 
                 GameObject zxHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -556,6 +679,8 @@ public class VisualVector : MonoBehaviour
                 if (i % 10 == 0)
                     zxHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
                 zxHoriCyln.GetComponent<Collider>().enabled = false;
+                zxHoriCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+                zxHoriCyln.GetComponent<Renderer>().receiveShadows = false;
                 ZXHoriBarNodes.Add(zxHoriCyln);
 
                 GameObject zxVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
@@ -565,6 +690,8 @@ public class VisualVector : MonoBehaviour
                 if (i % 10 == 0)
                     zxVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
                 zxVertCyln.GetComponent<Collider>().enabled = false;
+                zxVertCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+                zxVertCyln.GetComponent<Renderer>().receiveShadows = false;
                 ZXVertBarNodes.Add(zxVertCyln);
             }
         }
@@ -746,6 +873,34 @@ public class VisualVector : MonoBehaviour
             bar.SetActive(Zaxis);
         }
 
+    }
+
+    public void activateProjections()
+    {
+        isProjecting = true;
+
+        projections.SetActive(true);   
+    }
+
+    public void deactivateProjections()
+    {
+        isProjecting = false;
+
+        projections.SetActive(false);
+    }
+
+    public void activateAnchors()
+    {
+        isAnchored = true;
+
+        anchors.SetActive(true);
+    }
+
+    public void deactivateAnchors()
+    {
+        isAnchored = false;
+
+        anchors.SetActive(false);
     }
 
 }

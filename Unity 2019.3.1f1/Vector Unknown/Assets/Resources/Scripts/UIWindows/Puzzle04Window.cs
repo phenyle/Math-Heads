@@ -40,8 +40,13 @@ public class Puzzle04Window : WindowRoot
     public Transform buttonPanel;
     public GameObject axisButton;
     public GameObject gridButton;
+    public Transform advGridControls;
+    public GameObject projectionsButton;
+    public GameObject anchorsButton;
     private bool axisOn;
     private bool gridOn;
+    private bool projectionsOn;
+    private bool anchorsOn;
 
 
 
@@ -117,12 +122,17 @@ public class Puzzle04Window : WindowRoot
 
         axisOn = false;
         gridOn = false;
+        projectionsOn = false;
+        anchorsOn = false;
+
+        axisButton.transform.localPosition = new Vector3(0, 19, 0);
+        gridButton.SetActive(false);
 
         //Legacy---------------------------------------------
-        Debug.Log("Init Puzzle01 window");
+        Debug.Log("Init Puzzle04 window");
         base.InitWindow();
 
-        Debug.Log("Call GameController of Puzzle01 to connect");
+        Debug.Log("Call GameController of Puzzle04 to connect");
         GCP04.InitGameController(this);
 
         //Init Components
@@ -132,6 +142,7 @@ public class Puzzle04Window : WindowRoot
         ShowFeedbackPanel(false);
         ShowCardPanel(false);
         ShowButtonPanel(false);
+        SetActive(advGridControls, false);
 
     }
 
@@ -465,12 +476,55 @@ public class Puzzle04Window : WindowRoot
                     break;
             }
 
+            gridButton.SetActive(true);
+
+            if (gridOn)
+            {
+                switch (GCP04.Difficulty)
+                {
+                    case 1:
+                        if (PC04.getDirection().ToString().CompareTo("X") == 0)
+                            PC04.getVisualVector().activateBarGrid(true, false, false);
+                        else if (PC04.getDirection().ToString().CompareTo("Y") == 0)
+                            PC04.getVisualVector().activateBarGrid(false, true, false);
+                        break;
+                    case 2:
+                        PC04.getVisualVector().activateBarGrid(true, true, false);
+                        break;
+                    case 3:
+                        PC04.getVisualVector().activateBarGrid(true, true, true);
+                        SetActive(advGridControls, true);
+                        break;
+                }
+
+                if (projectionsOn)
+                {
+                    PC04.getVisualVector().activateProjections();
+                    projectionsButton.GetComponent<Image>().color = Color.green;
+
+                    if (anchorsOn)
+                    {
+                        PC04.getVisualVector().activateAnchors();
+                        anchorsButton.GetComponent<Image>().color = Color.green;
+                    }
+                }
+            }
+
             axisButton.GetComponent<Image>().color = Color.green;
         }
         else
         {
             PC04.getVisualVector().deactivateSphereGrid();
             axisButton.GetComponent<Image>().color = Color.white;
+
+            gridButton.SetActive(false);
+
+            PC04.getVisualVector().deactivateBarGrid();
+            PC04.getVisualVector().deactivateProjections();
+            PC04.getVisualVector().deactivateAnchors();
+
+            SetActive(advGridControls, false);
+
         }
 
     }
@@ -494,18 +548,85 @@ public class Puzzle04Window : WindowRoot
                     break;
                 case 3:
                     PC04.getVisualVector().activateBarGrid(true, true, true);
+                    SetActive(advGridControls, true);
                     break;
             }
             gridButton.GetComponent<Image>().color = Color.green;
+
+
+
+            if(projectionsOn)
+            {
+                PC04.getVisualVector().activateProjections();
+                projectionsButton.GetComponent<Image>().color = Color.green;
+
+                if (anchorsOn)
+                {
+                    PC04.getVisualVector().activateAnchors();
+                    anchorsButton.GetComponent<Image>().color = Color.green;
+                }
+
+            }
+
         }
         else
         {
             PC04.getVisualVector().deactivateBarGrid();
             gridButton.GetComponent<Image>().color = Color.white;
 
+            PC04.getVisualVector().deactivateProjections();
+            PC04.getVisualVector().deactivateAnchors();
+
+            SetActive(advGridControls, false);
         }
 
     }
+
+    public void toggleProjections()
+    {
+        projectionsOn = !projectionsOn;
+
+        if (projectionsOn)
+        {
+            PC04.getVisualVector().activateProjections();
+            projectionsButton.GetComponent<Image>().color = Color.green;
+
+            anchorsButton.SetActive(true);
+
+            if (anchorsOn)
+            {
+                PC04.getVisualVector().activateAnchors();
+                anchorsButton.GetComponent<Image>().color = Color.green;
+            }
+        }
+        else
+        {
+            PC04.getVisualVector().deactivateProjections();
+
+            PC04.getVisualVector().deactivateAnchors();
+
+            anchorsButton.SetActive(false);
+            projectionsButton.GetComponent<Image>().color = Color.white;
+
+        }
+    }
+
+    public void toggleAnchors()
+    {
+        anchorsOn = !anchorsOn;
+
+        if(anchorsOn)
+        {
+            PC04.getVisualVector().activateAnchors();
+            anchorsButton.GetComponent<Image>().color = Color.green;
+        }
+        else
+        {
+            PC04.getVisualVector().deactivateAnchors();
+            anchorsButton.GetComponent<Image>().color = Color.white;
+        }
+    }
+
 
     public void resetCamera()
     {
@@ -517,9 +638,16 @@ public class Puzzle04Window : WindowRoot
     {
         gridOn = false;
         axisOn = false;
+        projectionsOn = false;
+        anchorsOn = false;
+
+        gridButton.SetActive(false);
+        SetActive(advGridControls, false);
 
         axisButton.GetComponent<Image>().color = Color.white;
         gridButton.GetComponent<Image>().color = Color.white;
+        projectionsButton.GetComponent<Image>().color = Color.white;
+        anchorsButton.GetComponent<Image>().color = Color.white;
     }
 
     public CameraDragSurface getCameraDragController()
