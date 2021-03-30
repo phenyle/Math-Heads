@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class mainCannonController : MonoBehaviour
 {
@@ -19,8 +20,8 @@ public class mainCannonController : MonoBehaviour
         {
             GCP02.isMainCannonTrigger = true;
             GameRoot.ShowTips("Press \"E\" to fire the Cannon Ball", true, false);
-            text.GetComponent<TextMesh>().color = Color.yellow;
-            text2.GetComponent<TextMesh>().color = Color.yellow;
+            text.GetComponent<Text>().color = Color.yellow;
+            text2.GetComponent<Text>().color = Color.yellow;
         }
     }
 
@@ -31,8 +32,8 @@ public class mainCannonController : MonoBehaviour
         {
             GCP02.isMainCannonTrigger = false;
             GameRoot.ShowTips("Press \"E\" to fire the Cannon Ball", false, false);
-            text.GetComponent<TextMesh>().color = Color.white;
-            text2.GetComponent<TextMesh>().color = Color.white;
+            text.GetComponent<Text>().color = Color.white;
+            text2.GetComponent<Text>().color = Color.white;
         }
     }
 }

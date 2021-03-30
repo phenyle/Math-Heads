@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class shipContoller : MonoBehaviour
 {
@@ -106,7 +107,7 @@ public class shipContoller : MonoBehaviour
     public IEnumerator resetCannonText(float sec) 
     {
         yield return new WaitForSeconds(sec);
-        GCP02.maincannonText.gameObject.GetComponent<TextMesh>().text = GCP02.selectedVector[0] + "\n" + GCP02.selectedVector[1];
+        GCP02.maincannonText.gameObject.GetComponent<Text>().text = GCP02.selectedVector[0] + "\n" + GCP02.selectedVector[1];
     }
 }
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class cannonController : MonoBehaviour
 {
@@ -32,8 +33,8 @@ public class cannonController : MonoBehaviour
             GCP02.currentVector = vector;
             GCP02.currentCannonMaterial = this.GetComponent<Renderer>().material;
             GCP02.isCannonTrigger = true;
-            text.GetComponent<TextMesh>().color = Color.yellow;
-            bracket.GetComponent<TextMesh>().color = Color.yellow;
+            text.GetComponent<Text>().color = Color.yellow;
+            bracket.GetComponent<Text>().color = Color.yellow;
 			prevText = text;
 			prevBracket = bracket;
 
@@ -51,8 +52,8 @@ public class cannonController : MonoBehaviour
             // vectorText.gameObject.SetActive(false);
             //GCP02.currentVector = null;
             GCP02.isCannonTrigger = false;
-            text.GetComponent<TextMesh>().color = Color.white;
-            bracket.GetComponent<TextMesh>().color = Color.white;
+            text.GetComponent<Text>().color = Color.white;
+            bracket.GetComponent<Text>().color = Color.white;
 
             //---------------------------------New Tips Function--------------------------------------
             GameRoot.ShowTips("", false, false);

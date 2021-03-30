@@ -144,7 +144,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         //stop particle effects from playing at start
         cannonBlast.GetComponent<ParticleSystem>().playOnAwake = false;
 
-        maincannonText.gameObject.GetComponent<TextMesh>().text = "0\n0";
+        maincannonText.gameObject.GetComponent<Text>().text = "0\n0";
 
         Matrix = P02W.Matrix;
         Vector = P02W.Vector;
@@ -247,7 +247,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
             cannonBarrel.GetComponent<Renderer>().material = currentCannonMaterial;
             isCannonSelected = true;
             Debug.Log("Selected Vector " + selectedVector[0] + ", " + selectedVector[1]);
-            maincannonText.gameObject.GetComponent<TextMesh>().text = selectedVector[0] + "\n" + selectedVector[1];
+            maincannonText.gameObject.GetComponent<Text>().text = selectedVector[0] + "\n" + selectedVector[1];
             Vector.text = selectedVector[0] + "\n" + selectedVector[1];
 
             /*
@@ -408,14 +408,14 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         targetPosition.x = targetVector[0];
         targetPosition.z = targetVector[1];
-        maincannonText.gameObject.GetComponent<TextMesh>().text = targetPosition.x + "\n" + targetPosition.z;
+        maincannonText.gameObject.GetComponent<Text>().text = targetPosition.x + "\n" + targetPosition.z;
         Debug.Log("Cannon is aiming at :(" + targetPosition.x + ", " + targetPosition.z + ")");
         // cannonBarrel.SetActive(false);
         tempCannonball = Instantiate(cannonball, new Vector3(0, 0, 0.7f), firingCannon.transform.rotation);
 
         // tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialWrong;
-        // maincannonBrackets.GetComponent<TextMesh>().color = Color.red;
-        // maincannonText.GetComponent<TextMesh>().color = Color.red;
+        // maincannonBrackets.GetComponent<Text>().color = Color.red;
+        // maincannonText.GetComponent<Text>().color = Color.red;
 
         bool activeBoatCheck = false;
         if(stageNumber == 1)
@@ -426,14 +426,14 @@ public class GameControllerPuzzle02 : GameControllerRoot
         if (ActiveBoat < 6 && activeBoatCheck)
         {
             tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialCorrect;
-            maincannonBrackets.GetComponent<TextMesh>().color = Color.green;
-            maincannonText.GetComponent<TextMesh>().color = Color.green;
+            maincannonBrackets.GetComponent<Text>().color = Color.green;
+            maincannonText.GetComponent<Text>().color = Color.green;
             Debug.Log("Will Hit!");
             firedCannonYet = true;
             foreach(GameObject cannonBall in cannonBallsText)
             {
-                cannonBall.GetComponent<TextMesh>().color = Color.black;
-                cannonBall.gameObject.transform.GetChild(0).GetComponent<TextMesh>().color = Color.black;
+                cannonBall.GetComponent<Text>().color = Color.black;
+                cannonBall.gameObject.transform.GetChild(0).GetComponent<Text>().color = Color.black;
             }
             cameraFollow = true;
             CannonCamera.transform.position = cannonCameraOriginalPosition;
@@ -443,8 +443,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
         {
             tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialWrong;
             tempCannonball.GetComponent<BoxCollider>().enabled = false;
-            maincannonBrackets.GetComponent<TextMesh>().color = Color.red;
-            maincannonText.GetComponent<TextMesh>().color = Color.red;
+            maincannonBrackets.GetComponent<Text>().color = Color.red;
+            maincannonText.GetComponent<Text>().color = Color.red;
         }
 
         // for (int i = 0; i < 6; i++)
@@ -453,8 +453,8 @@ public class GameControllerPuzzle02 : GameControllerRoot
         //     if (DBP02.tragetMatracies[i, 0] == targetPosition.x && DBP02.tragetMatracies[i, 1] == targetPosition.z)
         //     {
         //         tempCannonball.GetComponent<TrailRenderer>().material = trailMaterialCorrect;
-        //         maincannonBrackets.GetComponent<TextMesh>().color = Color.green;
-        //         maincannonText.GetComponent<TextMesh>().color = Color.green;
+        //         maincannonBrackets.GetComponent<Text>().color = Color.green;
+        //         maincannonText.GetComponent<Text>().color = Color.green;
         //         Debug.Log("Will Hit!");
         //         cameraFollow = true;
         //         CannonCamera.transform.position = cannonCameraOriginalPosition;

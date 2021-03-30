@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class cannonballController : MonoBehaviour
 {
@@ -23,8 +24,8 @@ public class cannonballController : MonoBehaviour
     void Start()
     {
 		selected = false;
-        text.gameObject.GetComponent<TextMesh>().color = Color.black;
-        brackets.gameObject.GetComponent<TextMesh>().color = Color.black;
+        text.gameObject.GetComponent<Text>().color = Color.black;
+        brackets.gameObject.GetComponent<Text>().color = Color.black;
 
         GCP02 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle02>();
 
@@ -47,7 +48,7 @@ public class cannonballController : MonoBehaviour
         Debug.Log("Matrix" + index + ": " + transform.values[0] + ", " + transform.values[1]
                 + ", " + transform.values[2] + ", " + transform.values[3]);
 
-        text.GetComponent<TextMesh>().text = "" + transform.values[0] + "  " + transform.values[1] + "\n" 
+        text.GetComponent<Text>().text = "" + transform.values[0] + "  " + transform.values[1] + "\n" 
             + transform.values[2] + "  " + transform.values[3];
     }
 
@@ -85,8 +86,8 @@ public class cannonballController : MonoBehaviour
                 + ", " + transform.values[2] + ", " + transform.values[3]);
 
 
-			text.gameObject.GetComponent<TextMesh>().color = Color.yellow;
-			brackets.gameObject.GetComponent<TextMesh>().color = Color.yellow;
+			text.gameObject.GetComponent<Text>().color = Color.yellow;
+			brackets.gameObject.GetComponent<Text>().color = Color.yellow;
 
 			GCP02.currentTransformMatrix = transform.values;
             GCP02.isCannonballTrigger = true;
@@ -103,8 +104,8 @@ public class cannonballController : MonoBehaviour
     {
         if (other.gameObject.tag == "Player")
         {
-            text.gameObject.GetComponent<TextMesh>().color = Color.black;
-            brackets.gameObject.GetComponent<TextMesh>().color = Color.black;
+            text.gameObject.GetComponent<Text>().color = Color.black;
+            brackets.gameObject.GetComponent<Text>().color = Color.black;
             GCP02.isCannonballTrigger = false;
 			selected = false;
 			//---------------------------------New Tips Function--------------------------------------
@@ -137,7 +138,7 @@ public class cannonballController : MonoBehaviour
         Debug.Log("Updated Matrix" + index + ": " + transform.values[0] + ", " + transform.values[1]
                 + ", " + transform.values[2] + ", " + transform.values[3]);
 
-        text.GetComponent<TextMesh>().text = "" + transform.values[0] + "  " + transform.values[1] + "\n"
+        text.GetComponent<Text>().text = "" + transform.values[0] + "  " + transform.values[1] + "\n"
            + transform.values[2] + "  " + transform.values[3];
     }
 }

@@ -1,17 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HighlightSelected : MonoBehaviour
 {
 	//sText & sBrackets are the matrixes the player is currently colliding with
 	//oT & oB are the current selected Matrix
-	private GameObject sText, sBrackets, oT, oB;
+	private GameObject getCanvas, sText, sBrackets, oT, oB;
 
 	//current is the selected matrix
 	//First only true when no matrix is selected
 	//inCollision only true when in collider of matrix
-	private bool current = false, first = true, inCollision = false;
+	private bool current, first, inCollision;
 
 	// Game Controllers
 	public GameObject GCP02;
@@ -19,7 +20,9 @@ public class HighlightSelected : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-
+		current = false;
+		first = true;
+		inCollision = false;
 	}
 
 	// Update is called once per frame
@@ -30,8 +33,8 @@ public class HighlightSelected : MonoBehaviour
 		{
 			oT = sText;
 			oB = sBrackets;
-			oT.gameObject.GetComponent<TextMesh>().color = Color.green;
-			oB.gameObject.GetComponent<TextMesh>().color = Color.green;
+			oT.gameObject.GetComponent<Text>().color = Color.green;
+			oB.gameObject.GetComponent<Text>().color = Color.green;
 			current = true;
 			first = false;
 		}
@@ -39,20 +42,20 @@ public class HighlightSelected : MonoBehaviour
 		//If E is pressed and currently in matrix selection
 		else if (Input.GetKeyDown(KeyCode.E) && !first && inCollision)
 		{
-			oT.gameObject.GetComponent<TextMesh>().color = Color.black;
-			oB.gameObject.GetComponent<TextMesh>().color = Color.black;
+			oT.gameObject.GetComponent<Text>().color = Color.black;
+			oB.gameObject.GetComponent<Text>().color = Color.black;
 			oT = sText;
 			oB = sBrackets;
-			oT.gameObject.GetComponent<TextMesh>().color = Color.green;
-			oB.gameObject.GetComponent<TextMesh>().color = Color.green;
+			oT.gameObject.GetComponent<Text>().color = Color.green;
+			oB.gameObject.GetComponent<Text>().color = Color.green;
 			current = true;
 		}
 
 		//Current matrixes are colored green, all other matixes are colored black
 		if (current && !GCP02.GetComponent<GameControllerPuzzle02>().firedCannonYet)
 		{
-			oT.gameObject.GetComponent<TextMesh>().color = Color.green;
-			oB.gameObject.GetComponent<TextMesh>().color = Color.green;
+			oT.gameObject.GetComponent<Text>().color = Color.green;
+			oB.gameObject.GetComponent<Text>().color = Color.green;
 		}
 	}
 
@@ -62,8 +65,9 @@ public class HighlightSelected : MonoBehaviour
 		if (other.gameObject.tag == "Puzzle02Matrix")
 		{
 			inCollision = true;
-			sText = other.transform.Find("text").gameObject;
-			sBrackets = sText.transform.Find("Brackets").gameObject;
+			getCanvas = other.transform.Find("Canvas").gameObject;
+			sText = getCanvas.transform.Find("Text").gameObject;
+			sBrackets = getCanvas.transform.Find("Brackets").gameObject;
 		}
 	}
 
