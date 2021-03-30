@@ -432,8 +432,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
             firedCannonYet = true;
             foreach(GameObject cannonBall in cannonBallsText)
             {
-                cannonBall.GetComponent<Text>().color = Color.black;
+                // cannonBall.GetComponent<Text>().color = Color.black;
                 cannonBall.gameObject.transform.GetChild(0).GetComponent<Text>().color = Color.black;
+                cannonBall.gameObject.transform.GetChild(1).GetComponent<Text>().color = Color.black;
             }
             cameraFollow = true;
             CannonCamera.transform.position = cannonCameraOriginalPosition;

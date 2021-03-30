@@ -52,7 +52,7 @@ public class EnterExitSelect : WindowRoot
 
         if(other.tag == "Player")
         {
-            playerController.isEnterExit = true;
+            // playerController.isEnterExit = true;
 
             SetActive(levelSelectUI, true);
             Cursor.lockState = CursorLockMode.Confined;
@@ -150,7 +150,7 @@ public class EnterExitSelect : WindowRoot
     {
         if(other.tag == "Player")
         {
-            playerController.isEnterExit = false;
+            // playerController.isEnterExit = false;
 
             levelSelectUI.GetComponent<LevelSelectButtons>().setLevel(0);
 
