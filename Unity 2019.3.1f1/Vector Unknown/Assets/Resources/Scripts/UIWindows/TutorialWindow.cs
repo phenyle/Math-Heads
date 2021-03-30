@@ -65,7 +65,7 @@ public class TutorialWindow : WindowRoot
     private bool rotateComplete = false;
     public bool selectionComplete = false;
 
-    public string inputedText = "1";
+    public string inputedText;
     public GameObject player;
     private Vector3 startPosition;
     private Vector3 previousPosition;
@@ -95,6 +95,8 @@ public class TutorialWindow : WindowRoot
         mainCamera = Camera.main.gameObject;
         topCamera = GameObject.FindGameObjectWithTag("TopCamera").gameObject;
 
+		topCamera.SetActive(false);
+
 		topCameraActive = false;
 		MovementComplete = false;
 		wComplete = false;
@@ -116,6 +118,10 @@ public class TutorialWindow : WindowRoot
 		tabComplete = false;
 		rotateComplete = false;
 		selectionComplete = false;
+
+		textInput.text = "Number ...";
+
+		inputedText = "";
 
 		W.GetComponent<Text>().color = Color.black;
 		A.GetComponent<Text>().color = Color.black;

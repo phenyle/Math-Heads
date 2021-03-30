@@ -25,11 +25,6 @@ public class VectorPoint : MonoBehaviour
             info.text = "( " + this.transform.position.x + "," + this.transform.position.z + "," + this.transform.position.y + " )";
             infoTop.text = info.text;
         }
-        else
-        {
-            info.text = "";
-            infoTop.text = "";
-        }      
     }
 
     private void OnTriggerEnter(Collider other)

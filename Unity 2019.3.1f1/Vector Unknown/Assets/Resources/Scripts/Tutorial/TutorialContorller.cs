@@ -46,7 +46,7 @@ public class TutorialContorller : MonoBehaviour
     private bool rotateComplete = false;
     public bool selectionComplete = false;
 
-    public string inputedText = "1";
+    public string inputedText;
 
     public GameObject player;
     private Vector3 startPosition;
@@ -66,7 +66,9 @@ public class TutorialContorller : MonoBehaviour
         Questions.SetActive(false);
         SelectionTutorial.SetActive(false);
         Congrats.SetActive(false);
-    }
+
+		inputedText = "1";
+}
 
     // Update is called once per frame
     private void Update()
@@ -156,7 +158,7 @@ public class TutorialContorller : MonoBehaviour
             }
         }
 
-        if (MovementComplete && zComplete && rotateComplete)
+        if (MovementComplete && zComplete && rotateComplete && FieldInput && Questions)
         {
             if (selectionComplete)
             {

@@ -39,8 +39,13 @@ public class PauseWindow : WindowRoot
     public void ClickMenuBtn()
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
-        GameObject.Find("DialogueManager").GetComponent<DialogueManager>().EndDialogue();       
-        GameRoot.instance.InitUI();
+        GameObject.Find("DialogueManager").GetComponent<DialogueManager>().EndDialogue();
+		//Resume can unlock the lock
+		GameRoot.isPuzzleLock = false;
+
+		//Dialogue manager can unlock the lock;
+		DialogueManager.isPuzzleLock = false;
+		GameRoot.instance.InitUI();
         GameRoot.instance.menuSystem.EnterMenu();
         GameRoot.instance.Resume();
     }
