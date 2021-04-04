@@ -12,6 +12,8 @@ public class PauseWindow : WindowRoot
     {
         base.InitWindow();
         Debug.Log("Init Pause Window");
+        sliderVolume.value = audioService.bgVolume;
+        sliderSoundFX.value = audioService.UIFXVolume;
     }
 
     public void ClickResumeBtn()
@@ -40,14 +42,15 @@ public class PauseWindow : WindowRoot
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
         GameObject.Find("DialogueManager").GetComponent<DialogueManager>().EndDialogue();
-		//Resume can unlock the lock
-		GameRoot.isPuzzleLock = false;
+        //Resume can unlock the lock
+        GameRoot.isPuzzleLock = false;
 
-		//Dialogue manager can unlock the lock;
-		DialogueManager.isPuzzleLock = false;
-		GameRoot.instance.InitUI();
+        //Dialogue manager can unlock the lock;
+        DialogueManager.isPuzzleLock = false;
+        GameRoot.instance.InitUI();
         GameRoot.instance.menuSystem.EnterMenu();
         GameRoot.instance.Resume();
+        
     }
 
     public void SetBgVolume()

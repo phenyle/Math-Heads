@@ -85,6 +85,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
     public GameObject CannonCamera;
     public bool fireCannon = false;
     public bool cameraFollow = false;
+    private bool cameraSwitch = false;
     public float cameraCannonSpeed = 0.5f;
     private Vector3 cannonCameraOriginalPosition = new Vector3(0, 1, 0.0f);
     private Vector3 targetPositionOffset = new Vector3(0, 4, 0);
@@ -286,7 +287,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
             Debug.Log("Audio played");
         }
 
-        if (isMainCannonTrigger && Input.GetKeyDown(KeyCode.E))
+        if (isMainCannonTrigger && Input.GetKeyDown(KeyCode.E) && !fireCannon)
         {
             if (selectedTransformMatrix != new int[] { 0, 0, 0, 0 } && selectedVector != new int[] { 0, 0 })
             {
@@ -315,9 +316,13 @@ public class GameControllerPuzzle02 : GameControllerRoot
             // have a camera follow cannon ball shot if answer is correct
             if(cameraFollow)
             {
-                // switch cameras
-                MainCamera.SetActive(false);
-                CannonCamera.SetActive(true);
+                if(cameraSwitch)
+                {
+                    // switch cameras
+                    MainCamera.SetActive(false);
+                    CannonCamera.SetActive(true);
+                    cameraSwitch = false;
+                }
 
                 //camera goes half way to ship
                 Vector3 target = Vector3.Lerp(cannonCameraOriginalPosition,targetPosition + targetPositionOffset, 0.5f);
@@ -437,6 +442,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
                 cannonBall.gameObject.transform.GetChild(1).GetComponent<Text>().color = Color.black;
             }
             cameraFollow = true;
+            cameraSwitch = true;
             CannonCamera.transform.position = cannonCameraOriginalPosition;
             CannonCamera.transform.LookAt(targetPosition, Vector3.up);
         }

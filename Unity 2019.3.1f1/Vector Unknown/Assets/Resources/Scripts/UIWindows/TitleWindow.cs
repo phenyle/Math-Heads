@@ -16,9 +16,12 @@ public class TitleWindow : WindowRoot
     {
         base.InitWindow();
 
-        SetBgVolume();
+        // SetBgVolume();
+        sliderVolume.value = audioService.bgVolume;
+        audioService.PlayBgMusic(Constants.audioBgMenu, true);
 
-        SetSoundFXVolume();
+        // SetSoundFXVolume();
+        sliderSoundFX.value = audioService.UIFXVolume;
 
         // show mouse
         Cursor.visible = true;

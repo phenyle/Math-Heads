@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioService : MonoBehaviour
 {
@@ -6,10 +7,16 @@ public class AudioService : MonoBehaviour
     public AudioSource audioUI;
     public AudioSource audioFX;
     public AudioSource audioPlayerMove;
+    public AudioSource gulls;
+    public AudioSource ocean;
+    public float bgVolume;
+    public float UIFXVolume;
 
     public void InitService()
     {
         Debug.Log("Init Audio Service");
+        bgVolume = 0.25f;
+        UIFXVolume = 1f;
     }
 
     public void PlayBgMusic(string audioName, bool isLoop)
@@ -23,6 +30,48 @@ public class AudioService : MonoBehaviour
             audioBg.clip = audioClip;
             audioBg.loop = isLoop;
             audioBg.Play();
+            if(GameRoot.isPause)
+                audioBg.volume = bgVolume * 0.5f * 0.2f;
+            else
+                audioBg.volume = bgVolume * 0.5f;
+        }
+        if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+            SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
+        {
+            gulls.loop = isLoop;
+            gulls.Play();
+        }
+        else
+        {
+            if(GameRoot.isPause)
+                gulls.volume = bgVolume * 0.3f * 0.2f;
+            else
+                gulls.volume = bgVolume * 0.3f;
+            gulls.Stop();
+        }
+        if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle02SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+            SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
+        {
+            ocean.loop = isLoop;
+            ocean.Play();
+        }
+        else
+        {
+            if(GameRoot.isPause)
+                ocean.volume = bgVolume * 0.2f;
+            else
+                ocean.volume = bgVolume;
+            ocean.Stop();
         }
     }
 
@@ -50,28 +99,74 @@ public class AudioService : MonoBehaviour
     public void PauseAllAudios()
     {
         audioBg.volume *= 0.2f;
+        gulls.volume *= 0.2f;
+        ocean.volume *= 0.2f;
     }
 
     public void ResumeAllAudios()
     {
         audioBg.volume *= 5f;
+        gulls.volume *= 5f;
+        ocean.volume *= 5f;
     }
 
     public void SetBgVolume(float volume)
     {
+        bgVolume = volume;
         if(GameRoot.isPause)
         {
-            audioBg.volume = volume * 0.5f * 0.2f;
+            audioBg.volume = bgVolume * 0.5f * 0.2f;
+            if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+                SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
+            {
+                gulls.volume = bgVolume * 0.3f * 0.2f;
+            }
+            if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle02SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+                SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
+            {
+                ocean.volume = bgVolume * 0.2f;
+            }
         }
         else
         {
-            audioBg.volume = volume * 0.5f;
+            audioBg.volume = bgVolume * 0.5f;
+            if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+                SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
+            {
+                gulls.volume = bgVolume * 0.3f;
+            }
+            if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle02SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+                SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
+            {
+                ocean.volume = bgVolume;
+            }
         }
     }
 
     public void SetSoundFXVolume(float volume)
     {
-        audioUI.volume = volume;
-        audioFX.volume = volume;
+        UIFXVolume = volume;
+        audioUI.volume = UIFXVolume;
+        audioFX.volume = UIFXVolume;
     }
 }

@@ -20,7 +20,8 @@ public class firedCannonballController : MonoBehaviour
 
     void Update()
     {
-        if (this.gameObject.transform.position.y < -7.0f)
+
+        if (this.gameObject.transform.position.y <= -5.0f)
         {
             if (isEffectPlayed == false)
             {
@@ -32,11 +33,14 @@ public class firedCannonballController : MonoBehaviour
             timer = timer + 1;
             Debug.Log(timer);
 
+            if(timer == 100)
+                GCP02.fireCannon = false;
+
             if (timer > 450)
             {
                 //GCP02.playMiss();
-                audioSource.clip = GameRoot.instance.audioService.GetFXAudioClip(Constants.audioP02BallMiss);
-                audioSource.Play();
+                // audioSource.clip = GameRoot.instance.audioService.GetFXAudioClip(Constants.audioP02BallMiss);
+                // audioSource.Play();
 
                 Destroy(tempEffect);
                 Destroy(this.gameObject);
