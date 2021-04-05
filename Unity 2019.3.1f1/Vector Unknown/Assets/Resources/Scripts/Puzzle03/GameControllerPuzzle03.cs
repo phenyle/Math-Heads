@@ -29,12 +29,13 @@ public class GameControllerPuzzle03 : GameControllerRoot
     public bool isTriggerQuestion = false;
     public bool beatLvl1 = false;
 
-    [HideInInspector]
     public Vector3 finalRotation;
+    public Vector3 oldRotation = Vector3.zero;
+    public float timeCount = 0.0f;
 
     private Camera topCamera;
-    private Vector3 currentRotation;
-    private Vector3 diffRotation;
+    public Vector3 currentRotation;
+    public Vector3 diffRotation;
     private bool isRotate = false;
     private bool isFinded = false;
 
@@ -111,21 +112,39 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
         if(isRotate)
         {
-            if (Mathf.Abs(diffRotation.x) <= 2f && Mathf.Abs(diffRotation.y) <= 2f && Mathf.Abs(diffRotation.z) <= 2f)
+            // if (Mathf.Abs(diffRotation.x) <= 2f && Mathf.Abs(diffRotation.y) <= 2f && Mathf.Abs(diffRotation.z) <= 2f)
+            if(currentRotation == finalRotation)
             {
                 plane.transform.eulerAngles = finalRotation;
                 isRotate = false;
 
                 //Stop audio FX rotated puzzle environment
                 plane.GetComponent<PuzzleEnvironmentController>().PlayRotatedSoundFX(false);
+                plane.transform.localEulerAngles = finalRotation;
+                currentRotation = finalRotation;
+                diffRotation = Vector3.zero;
+                oldRotation = finalRotation;
+                timeCount = 0f;
             }
             else
             {
-                CalDiffRotation();
+                // CalDiffRotation();
+              
+                currentRotation = Vector3.Slerp(oldRotation, finalRotation, timeCount);
+                timeCount = timeCount + Time.deltaTime;
 
-                currentRotation = Vector3.Slerp(currentRotation, finalRotation, 0.01f * rotatedSpeed);
+                float xvalue = currentRotation.x;
+                if(oldRotation.x == finalRotation.x)
+                    xvalue = 0f;
+                float yvalue = currentRotation.y;
+                if(oldRotation.y == finalRotation.y)
+                    yvalue = 0f;
+                float zvalue = currentRotation.z;
+                if(oldRotation.z == finalRotation.z)
+                    zvalue = 0f;
+                currentRotation = (new Vector3(xvalue, yvalue, zvalue));  
 
-                plane.transform.eulerAngles = currentRotation;
+                plane.transform.localEulerAngles = currentRotation;
             }
         }
 
@@ -209,9 +228,12 @@ public class GameControllerPuzzle03 : GameControllerRoot
     {
         currentRotation = plane.transform.eulerAngles;
 
-        currentRotation.x += currentRotation.x > 180f ? -360f : 0f;
-        currentRotation.y += currentRotation.y > 180f ? -360f : 0f;
-        currentRotation.z += currentRotation.z > 180f ? -360f : 0f;
+        // if(currentRotation.x != finalRotation.x)
+        //     currentRotation.x += currentRotation.x > 180f ? -360f : 0f;
+        // if(currentRotation.y != finalRotation.y)
+        //     currentRotation.y += currentRotation.y > 180f ? -360f : 0f;
+        // if(currentRotation.z != finalRotation.z)
+        //     currentRotation.z += currentRotation.z > 180f ? -360f : 0f;
 
         diffRotation = finalRotation - currentRotation;
     }
@@ -232,7 +254,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
         {
             SetTipsPointsValue(tipsPoint2Pos, tipsPoint3Pos);
 
-            CalDiffRotation();
+            // CalDiffRotation();
 
             isRotate = true;
 

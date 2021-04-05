@@ -64962,7 +64962,10 @@ MonoBehaviour:
   DBP03: {fileID: 0}
   isInQuestion: 0
   isTriggerQuestion: 0
+  beatLvl1: 0
   finalRotation: {x: 10, y: 0, z: -30}
+  currentRotation: {x: 0, y: 0, z: 0}
+  diffRotation: {x: 0, y: 0, z: 0}
 --- !u!4 &1677935429
 Transform:
   m_ObjectHideFlags: 0
