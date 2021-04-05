@@ -335,4 +335,9 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
         isShiftPlane = true;
     }
+
+    public int getSubPuzzleID()
+    {
+        return subPuzzleID;
+    }
 }

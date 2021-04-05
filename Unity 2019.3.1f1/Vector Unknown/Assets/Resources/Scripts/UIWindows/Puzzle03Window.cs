@@ -65,7 +65,7 @@ public class Puzzle03Window : WindowRoot
         }
         else if (choiceID2 == 0)
         {
-            if (GCP03.subPuzzleID > 1)
+            if (GCP03.getSubPuzzleID() > 1)
                 txtChoice2.text = spanValue[0] + "\n" + spanValue[1] + "\n<color=red>" + spanValue[2] + "</color>";
             else
                 txtChoice2.text = spanValue[0] + "\n" + spanValue[1] + "\n" + spanValue[2] + "";
