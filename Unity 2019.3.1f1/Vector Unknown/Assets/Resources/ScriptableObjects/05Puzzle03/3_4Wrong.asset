@@ -14,6 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   choiceID1: 3
   choiceID2: 4
-  x: -90
+  x: 0
   y: 0
-  z: 0
+  z: 45

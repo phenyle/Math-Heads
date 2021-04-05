@@ -17,6 +17,7 @@ public class Puzzle03Window : WindowRoot
     public Vector3 choice2Pos;
     public Transform panelChoice;
     public Transform[] panelChoiceList;
+    public bool bVal = true;
 
     public List<List<ChoiceClickButton>> BtnChoices = new List<List<ChoiceClickButton>>();
     public List<ChoiceClickButton> BtnChoices1;
@@ -90,15 +91,22 @@ public class Puzzle03Window : WindowRoot
         GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03Click);
     }
 
+    public void ClickSwitchBtn()
+    {
+        bVal = !bVal;
+        ClickClearChoice2Btn();
+        ClickClearChoice1Btn();
+    }
+
     public void ClickClearChoice1Btn()
-    {/*
+    {
         GCP03.ReactivateChoiceBtn(choiceID1);
         txtChoice1.text = "";
         choiceID1 = 0;
         choice1Pos = Vector3.zero;
 
 
-        GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03ClickClear);*/
+        GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03ClickClear);
     }
 
     public void ClickClearChoice2Btn()

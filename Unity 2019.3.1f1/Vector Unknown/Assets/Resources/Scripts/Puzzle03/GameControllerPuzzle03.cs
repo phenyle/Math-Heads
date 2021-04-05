@@ -27,6 +27,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     public bool isInQuestion = false;
     public bool isTriggerQuestion = false;
+    public bool beatLvl1 = false;
 
     [HideInInspector]
     public Vector3 finalRotation;
@@ -83,20 +84,29 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     private void Update()
     {
-        if(choicesAmount == 0)
+        if(!beatLvl1)
         {
-            SetSpanValue(Vector3.right, 5);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            player.transform.localPosition= startPosition;
+            if (choicesAmount == 0 && P03W.bVal)
+            {
+                SetSpanValue(Vector3.right, 5);
+                choicesAmount = 1;
+            }
+            else if (choicesAmount == 0 && !P03W.bVal)
+            {
+                SetSpanValue(Vector3.up, 4);
+                choicesAmount = 1;
+            }
 
-            GameRoot.instance.IsLock(false);
-            P03W.ShowChoicePanel(false);
-            isTriggerQuestion = false;
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                player.transform.localPosition = startPosition;
 
-            GameRoot.ShowTips("", true, false);
+                GameRoot.instance.IsLock(false);
+                P03W.ShowChoicePanel(false);
+                isTriggerQuestion = false;
+
+                GameRoot.ShowTips("", true, false);
+            }
         }
 
         if(isRotate)
@@ -240,7 +250,12 @@ public class GameControllerPuzzle03 : GameControllerRoot
     
     public void SetSpanValue(Vector3 spanValue, int choiceID)
     {
-        P03W.SetSpanValue(spanValue, choiceID);
+        Vector3 swapper = spanValue;
+
+        if (!P03W.bVal && choicesAmount > 0)
+            swapper = new Vector3(spanValue.y, spanValue.x, spanValue.z);
+ 
+        P03W.SetSpanValue(swapper, choiceID);
 
         choicesAmount += 1;
     }
@@ -288,9 +303,11 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
         finalRotation = Vector3.zero;
 
+        beatLvl1 = true;
+
         GameRoot.instance.IsLock(false);
         P03W.ShowChoicePanel(false);
-        P03W.ClearSpanValues("test2", "test2");
+        P03W.ClearSpanValues("", "");
         P03W.ClearFeedbackPanel();
         isTriggerQuestion = false;
 
