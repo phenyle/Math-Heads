@@ -28,7 +28,7 @@ public class Puzzle03Window : WindowRoot
 
     private void Start()
     {
-        if(isInit)
+        if (isInit)
         {
             InitWindow();
         }
@@ -52,7 +52,7 @@ public class Puzzle03Window : WindowRoot
 
     public void SetSpanValue(Vector3 spanValue, int choiceID)
     {
-        if(choiceID1 == choiceID || choiceID2 == choiceID)
+        if (choiceID1 == choiceID || choiceID2 == choiceID)
         {
             Debug.Log("You Already Selected");
         }
@@ -65,7 +65,10 @@ public class Puzzle03Window : WindowRoot
         }
         else if (choiceID2 == 0)
         {
-            txtChoice2.text = spanValue[0] + "\n" + spanValue[1] + "\n<color=red>" + spanValue[2] + "</color>";
+            if (GCP03.subPuzzleID > 1)
+                txtChoice2.text = spanValue[0] + "\n" + spanValue[1] + "\n<color=red>" + spanValue[2] + "</color>";
+            else
+                txtChoice2.text = spanValue[0] + "\n" + spanValue[1] + "\n" + spanValue[2] + "";
             choiceID2 = choiceID;
             choice2Pos = spanValue;
         }
@@ -121,8 +124,8 @@ public class Puzzle03Window : WindowRoot
 
     public void ClearFeedbackPanel()
     {
-        txtFBChoice1.text = "1\n0\n0";
-        txtFBChoice2.text = "0\n1\n<color=red>b</color>";
+        txtFBChoice1.text = "";
+        txtFBChoice2.text = "";
     }
 
 
