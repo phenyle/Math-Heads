@@ -69,7 +69,7 @@ public class EnterExit : MonoBehaviour
                     break;
 
                 case SceneName.Puzzle02s2SceneName:
-                    playerController.sceneName = Constants.puzzle03SceneName;
+                    playerController.sceneName = Constants.puzzle02s2SceneName;
                     break;
 
                 case SceneName.Puzzle03SceneName:
