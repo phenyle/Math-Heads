@@ -85,7 +85,7 @@ public class PortalTrigger : MonoBehaviour
             GCP04.P04W.ShowCardPanel(false);
             GCP04.P04W.ShowButtonPanel(false);
 
-            GCP04.P04W.setInstructions("");
+            GCP04.P04W.setInstructions(GCP04.P04W.defaultInstructions);
 
             GCP04.P04W.resetButtons();
 
@@ -145,10 +145,10 @@ public class PortalTrigger : MonoBehaviour
         PC04.getVisualVector().getYvector().SetActive(false);
         PC04.getVisualVector().getZvector().SetActive(false);
 
-        PC04.getVisualVector().deactivateSphereGrid();
+        PC04.getVisualVector().deactivateAxis();
         PC04.getVisualVector().deactivateBarGrid();
-        PC04.getVisualVector().deactivateProjections();
-        PC04.getVisualVector().deactivateAnchors();
+        PC04.getVisualVector().toggleProjections(false);
+        PC04.getVisualVector().toggleAnchors(false);
     }
 
     private void turnOnVisualVectors()
@@ -164,21 +164,21 @@ public class PortalTrigger : MonoBehaviour
                 switch(PC04.getDirection())
                 {
                     case Direction.X:
-                        PC04.getVisualVector().setGridSphereNodes(true, false, false);
+                        PC04.getVisualVector().setAxisNodes(true, false, false);
                         PC04.getVisualVector().setGridBarNodes(true, false, false);
                         break;
                     case Direction.Y:
-                        PC04.getVisualVector().setGridSphereNodes(false, true, false);
+                        PC04.getVisualVector().setAxisNodes(false, true, false);
                         PC04.getVisualVector().setGridBarNodes(false, true, false);
                         break;
                 }
                 break;
             case 2:
-                PC04.getVisualVector().setGridSphereNodes(true, true, false);
+                PC04.getVisualVector().setAxisNodes(true, true, false);
                 PC04.getVisualVector().setGridBarNodes(true, true, false);
                 break;
             case 3:
-                PC04.getVisualVector().setGridSphereNodes(true, true, true);
+                PC04.getVisualVector().setAxisNodes(true, true, true);
                 PC04.getVisualVector().setGridBarNodes(true, true, true);
                 break;
         }

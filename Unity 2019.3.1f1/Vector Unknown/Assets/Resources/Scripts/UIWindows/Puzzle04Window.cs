@@ -41,12 +41,19 @@ public class Puzzle04Window : WindowRoot
     public GameObject axisButton;
     public GameObject gridButton;
     public Transform advGridControls;
+    public Transform advProjectionControls;
     public GameObject projectionsButton;
     public GameObject anchorsButton;
+    public GameObject XYbutton;
+    public GameObject XZbutton;
+    public GameObject YZbutton;
     private bool axisOn;
     private bool gridOn;
     private bool projectionsOn;
     private bool anchorsOn;
+    private bool XYtoggle;
+    private bool XZtoggle;
+    private bool YZtoggle;
 
 
 
@@ -57,6 +64,7 @@ public class Puzzle04Window : WindowRoot
 
 
     public Text txtInstruction;
+    public string defaultInstructions = "Enter the Portals to Solve Vector Puzzles\nHold Shift to Run";
 
     private GameControllerPuzzle04 GCP04;
     private Puzzle04Controller PC04;
@@ -124,9 +132,16 @@ public class Puzzle04Window : WindowRoot
         gridOn = false;
         projectionsOn = false;
         anchorsOn = false;
+        XYtoggle = true;
+        XZtoggle = true;
+        YZtoggle = true;
 
         axisButton.transform.localPosition = new Vector3(0, 19, 0);
         gridButton.SetActive(false);
+        XYbutton.GetComponent<Image>().color = Color.green;
+        XZbutton.GetComponent<Image>().color = Color.green;
+        YZbutton.GetComponent<Image>().color = Color.green;
+
 
         //Legacy---------------------------------------------
         Debug.Log("Init Puzzle04 window");
@@ -136,13 +151,14 @@ public class Puzzle04Window : WindowRoot
         GCP04.InitGameController(this);
 
         //Init Components
-        txtInstruction.text = "";
+        txtInstruction.text = defaultInstructions;
 
         ShowInputPanel(false);
         ShowFeedbackPanel(false);
         ShowCardPanel(false);
         ShowButtonPanel(false);
         SetActive(advGridControls, false);
+        SetActive(advProjectionControls, false);
 
     }
 
@@ -464,15 +480,15 @@ public class Puzzle04Window : WindowRoot
             {
                 case 1:
                     if (PC04.getDirection().ToString().CompareTo("X") == 0)
-                        PC04.getVisualVector().activateSphereGrid(true, false, false);
+                        PC04.getVisualVector().activateAxis(true, false, false);
                     else if (PC04.getDirection().ToString().CompareTo("Y") == 0)
-                        PC04.getVisualVector().activateSphereGrid(false, true, false);
+                        PC04.getVisualVector().activateAxis(false, true, false);
                     break;
                 case 2:
-                    PC04.getVisualVector().activateSphereGrid(true, true, false);
+                    PC04.getVisualVector().activateAxis(true, true, false);
                     break;
                 case 3:
-                    PC04.getVisualVector().activateSphereGrid(true, true, true);
+                    PC04.getVisualVector().activateAxis(true, true, true);
                     break;
             }
 
@@ -499,13 +515,14 @@ public class Puzzle04Window : WindowRoot
 
                 if (projectionsOn)
                 {
-                    PC04.getVisualVector().activateProjections();
+                    PC04.getVisualVector().toggleProjections(true);
+
                     projectionsButton.GetComponent<Image>().color = Color.green;
 
                     if (anchorsOn)
                     {
-                        PC04.getVisualVector().activateAnchors();
                         anchorsButton.GetComponent<Image>().color = Color.green;
+                        PC04.getVisualVector().toggleAnchors(true);
                     }
                 }
             }
@@ -514,19 +531,18 @@ public class Puzzle04Window : WindowRoot
         }
         else
         {
-            PC04.getVisualVector().deactivateSphereGrid();
+            PC04.getVisualVector().deactivateAxis();
             axisButton.GetComponent<Image>().color = Color.white;
 
             gridButton.SetActive(false);
 
             PC04.getVisualVector().deactivateBarGrid();
-            PC04.getVisualVector().deactivateProjections();
-            PC04.getVisualVector().deactivateAnchors();
 
             SetActive(advGridControls, false);
 
+            PC04.getVisualVector().toggleProjections(false);
+            PC04.getVisualVector().toggleAnchors(false);
         }
-
     }
 
     public void toggleGrid()
@@ -557,15 +573,15 @@ public class Puzzle04Window : WindowRoot
 
             if(projectionsOn)
             {
-                PC04.getVisualVector().activateProjections();
+                PC04.getVisualVector().toggleProjections(true);
+
                 projectionsButton.GetComponent<Image>().color = Color.green;
 
                 if (anchorsOn)
                 {
-                    PC04.getVisualVector().activateAnchors();
                     anchorsButton.GetComponent<Image>().color = Color.green;
+                    PC04.getVisualVector().toggleAnchors(true);
                 }
-
             }
 
         }
@@ -574,57 +590,117 @@ public class Puzzle04Window : WindowRoot
             PC04.getVisualVector().deactivateBarGrid();
             gridButton.GetComponent<Image>().color = Color.white;
 
-            PC04.getVisualVector().deactivateProjections();
-            PC04.getVisualVector().deactivateAnchors();
-
             SetActive(advGridControls, false);
-        }
 
+            PC04.getVisualVector().toggleProjections(false);
+            PC04.getVisualVector().toggleAnchors(false);
+        }
     }
 
-    public void toggleProjections()
+    public void toggleProjectionsButton()
     {
         projectionsOn = !projectionsOn;
 
         if (projectionsOn)
         {
-            PC04.getVisualVector().activateProjections();
+
             projectionsButton.GetComponent<Image>().color = Color.green;
+            
+            SetActive(advProjectionControls, true);
+            if (XYtoggle)
+                XYbutton.GetComponent<Image>().color = Color.green;
+            else
+                XYbutton.GetComponent<Image>().color = Color.white;
+
+            if (XZtoggle)
+                XZbutton.GetComponent<Image>().color = Color.green;
+            else
+                XZbutton.GetComponent<Image>().color = Color.white;
+
+            if (YZtoggle)
+                YZbutton.GetComponent<Image>().color = Color.green;
+            else
+                YZbutton.GetComponent<Image>().color = Color.white;
+
 
             anchorsButton.SetActive(true);
 
             if (anchorsOn)
-            {
-                PC04.getVisualVector().activateAnchors();
                 anchorsButton.GetComponent<Image>().color = Color.green;
-            }
         }
         else
         {
-            PC04.getVisualVector().deactivateProjections();
-
-            PC04.getVisualVector().deactivateAnchors();
-
+            SetActive(advProjectionControls, false);
             anchorsButton.SetActive(false);
-            projectionsButton.GetComponent<Image>().color = Color.white;
 
+            projectionsButton.GetComponent<Image>().color = Color.white;
         }
+
+        PC04.getVisualVector().toggleProjections(projectionsOn);
+        PC04.getVisualVector().toggleAnchors(anchorsOn);
     }
 
-    public void toggleAnchors()
+    public void toggleAnchorsButton()
     {
         anchorsOn = !anchorsOn;
 
         if(anchorsOn)
-        {
-            PC04.getVisualVector().activateAnchors();
             anchorsButton.GetComponent<Image>().color = Color.green;
-        }
         else
-        {
-            PC04.getVisualVector().deactivateAnchors();
             anchorsButton.GetComponent<Image>().color = Color.white;
-        }
+
+        PC04.getVisualVector().toggleAnchors(anchorsOn);
+    }
+
+    public void toggleXY()
+    {
+        XYtoggle = !XYtoggle;
+
+        if (XYtoggle)
+            XYbutton.GetComponent<Image>().color = Color.green;
+        else
+            XYbutton.GetComponent<Image>().color = Color.white;
+
+        PC04.getVisualVector().toggleXYplane(XYtoggle, anchorsOn);
+    }
+
+    public bool getXYtoggle()
+    {
+        return XYtoggle;
+    }
+
+    public void toggleXZ()
+    {
+        XZtoggle = !XZtoggle;
+
+        if (XZtoggle)
+            XZbutton.GetComponent<Image>().color = Color.green;
+        else
+            XZbutton.GetComponent<Image>().color = Color.white;
+
+        PC04.getVisualVector().toggleXZplane(XZtoggle, anchorsOn);
+    }
+
+    public bool getXZtoggle()
+    {
+        return XZtoggle;
+    }
+
+    public void toggleYZ()
+    {
+        YZtoggle = !YZtoggle;
+
+        if (YZtoggle)
+            YZbutton.GetComponent<Image>().color = Color.green;
+        else
+            YZbutton.GetComponent<Image>().color = Color.white;
+
+        PC04.getVisualVector().toggleYZplane(YZtoggle, anchorsOn);
+    }
+
+    public bool getYZtoggle()
+    {
+        return YZtoggle;
     }
 
 

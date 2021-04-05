@@ -63,7 +63,12 @@ public class VisualVector : MonoBehaviour
 
     [Header("---3D Vector Projetion Components---")]
     public GameObject projections;
-    public GameObject anchors;
+    public GameObject XYplane;
+    public GameObject XYanchors;
+    public GameObject XZplane;
+    public GameObject XZanchors;
+    public GameObject YZplane;
+    public GameObject YZanchors;
     private bool isProjecting;
     private bool isAnchored;
 
@@ -74,6 +79,7 @@ public class VisualVector : MonoBehaviour
     public GameObject XYfinal;
     public GameObject XYvector1end;
     public GameObject XYvector2end;
+    public GameObject XYgoalPoint;
     //xz plane parts
     [Header("XZ plane")]
     public GameObject XZvector1;
@@ -81,6 +87,7 @@ public class VisualVector : MonoBehaviour
     public GameObject XZfinal;
     public GameObject XZvector1end;
     public GameObject XZvector2end;
+    public GameObject XZgoalPoint;
     //yz plane parts
     [Header("YZ plane")]
     public GameObject YZvector1;
@@ -88,6 +95,7 @@ public class VisualVector : MonoBehaviour
     public GameObject YZfinal;
     public GameObject YZvector1end;
     public GameObject YZvector2end;
+    public GameObject YZgoalPoint;
     //Grid Anchor Parts
     [Header("Anchors")]
     public GameObject XYanchor1;
@@ -96,6 +104,9 @@ public class VisualVector : MonoBehaviour
     public GameObject XYanchor2;
     public GameObject XZanchor2;
     public GameObject YZanchor2;
+    public GameObject XYanchorGoal;
+    public GameObject XZanchorGoal;
+    public GameObject YZanchorGoal;
 
 
 
@@ -157,11 +168,21 @@ public class VisualVector : MonoBehaviour
         }
 
 
-        createSphereGrid();
+        createAxis();
         createBarGrid();
         isProjecting = false;
         isAnchored = false;
 
+        XYgoalPoint.transform.position = new Vector3(goal.transform.position.x, goal.transform.position.y, start.transform.position.z);
+        XZgoalPoint.transform.position = new Vector3(goal.transform.position.x, start.transform.position.y, goal.transform.position.z);
+        YZgoalPoint.transform.position = new Vector3(start.transform.position.x, goal.transform.position.y, goal.transform.position.z);
+
+        VectorBetweenPoints(XYanchorGoal, XYgoalPoint.transform.position, goal.transform.position, gridThickness);
+        VectorBetweenPoints(XZanchorGoal, XZgoalPoint.transform.position, goal.transform.position, gridThickness);
+        VectorBetweenPoints(YZanchorGoal, YZgoalPoint.transform.position, goal.transform.position, gridThickness);
+        XYanchorGoal.SetActive(false);
+        XZanchorGoal.SetActive(false);
+        YZanchorGoal.SetActive(false);
 
         VectorBetweenPoints(Xvector, Xnegative.transform.position, Xpositive.transform.position, axisThickness);
         VectorBetweenPoints(Yvector, Ynegative.transform.position, Ypositive.transform.position, axisThickness);
@@ -245,12 +266,29 @@ public class VisualVector : MonoBehaviour
 
                 if (PC04.getAnsCard1() != Vector3.zero && PC04.getAnsCard2() != Vector3.zero)
                 {
-                    XYfinal.SetActive(true);
-                    XZfinal.SetActive(true);
-                    YZfinal.SetActive(true);
-                    VectorBetweenPoints(XYfinal, start.transform.position, XYvector2end.transform.position, 0.25f);
-                    VectorBetweenPoints(XZfinal, start.transform.position, XZvector2end.transform.position, 0.25f);
-                    VectorBetweenPoints(YZfinal, start.transform.position, YZvector2end.transform.position, 0.25f);
+                    if (PC04.getGameController().P04W.getXYtoggle())
+                    {
+                        XYfinal.SetActive(PC04.getGameController().P04W.getXYtoggle());
+                        VectorBetweenPoints(XYfinal, start.transform.position, XYvector2end.transform.position, 0.25f);
+                    }
+                    else
+                        XYfinal.SetActive(false);
+
+                    if (PC04.getGameController().P04W.getXZtoggle())
+                    {
+                        XZfinal.SetActive(true);
+                        VectorBetweenPoints(XZfinal, start.transform.position, XZvector2end.transform.position, 0.25f);
+                    }
+                    else
+                        XZfinal.SetActive(false);
+
+                    if (PC04.getGameController().P04W.getYZtoggle())
+                    {
+                        YZfinal.SetActive(true);
+                        VectorBetweenPoints(YZfinal, start.transform.position, YZvector2end.transform.position, 0.25f);
+                    }
+                    else
+                        YZfinal.SetActive(false);
                 }
                 else
                 {
@@ -574,7 +612,7 @@ public class VisualVector : MonoBehaviour
     }
 
 
-    public void createSphereGrid()
+    public void createAxis()
     {
         for(int i = -gridSize; i < gridSize; i++)
         {
@@ -618,7 +656,7 @@ public class VisualVector : MonoBehaviour
             }
         }
 
-        deactivateSphereGrid();
+        deactivateAxis();
 
     }
 
@@ -700,7 +738,7 @@ public class VisualVector : MonoBehaviour
 
     }
 
-    public void setGridSphereNodes(bool Xaxis, bool Yaxis, bool Zaxis)
+    public void setAxisNodes(bool Xaxis, bool Yaxis, bool Zaxis)
     {
 
 
@@ -766,7 +804,7 @@ public class VisualVector : MonoBehaviour
     }
 
 
-    public void deactivateSphereGrid()
+    public void deactivateAxis()
     {
         Xvector.SetActive(false);
         Yvector.SetActive(false);
@@ -788,7 +826,7 @@ public class VisualVector : MonoBehaviour
         }
     }
 
-    public void activateSphereGrid(bool Xaxis, bool Yaxis, bool Zaxis)
+    public void activateAxis(bool Xaxis, bool Yaxis, bool Zaxis)
     {
         Xvector.SetActive(Xaxis);
         Yvector.SetActive(Yaxis);
@@ -875,32 +913,44 @@ public class VisualVector : MonoBehaviour
 
     }
 
-    public void activateProjections()
+    public void toggleProjections(bool val)
     {
-        isProjecting = true;
+        isProjecting = val;
 
-        projections.SetActive(true);   
+        projections.SetActive(val);   
     }
 
-    public void deactivateProjections()
+    public void toggleAnchors(bool val)
     {
-        isProjecting = false;
+        isAnchored = val;
 
-        projections.SetActive(false);
+        XYanchors.SetActive(val);
+        XZanchors.SetActive(val);
+        YZanchors.SetActive(val);
+
+        XYanchorGoal.SetActive(val);
+        XZanchorGoal.SetActive(val);
+        YZanchorGoal.SetActive(val);
+
     }
 
-    public void activateAnchors()
+    public void toggleXYplane(bool XYprojecting, bool isAnchored)
     {
-        isAnchored = true;
-
-        anchors.SetActive(true);
+        XYplane.SetActive(XYprojecting);
+        XYanchors.SetActive(isAnchored);
     }
 
-    public void deactivateAnchors()
+    public void toggleXZplane(bool XZprojecting, bool isAnchored)
     {
-        isAnchored = false;
+        XZplane.SetActive(XZprojecting);
+        XZanchors.SetActive(isAnchored);
+    }
 
-        anchors.SetActive(false);
+
+    public void toggleYZplane(bool YZprojecting, bool isAnchored)
+    {
+        YZplane.SetActive(YZprojecting);
+        YZanchors.SetActive(isAnchored);
     }
 
 }
