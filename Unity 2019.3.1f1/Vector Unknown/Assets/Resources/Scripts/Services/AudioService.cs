@@ -35,6 +35,7 @@ public class AudioService : MonoBehaviour
             else
                 audioBg.volume = bgVolume * 0.5f;
         }
+
         if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
             SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
             SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
@@ -47,12 +48,13 @@ public class AudioService : MonoBehaviour
         }
         else
         {
-            if(GameRoot.isPause)
+            gulls.Stop();
+        }
+        if(GameRoot.isPause)
                 gulls.volume = bgVolume * 0.3f * 0.2f;
             else
                 gulls.volume = bgVolume * 0.3f;
-            gulls.Stop();
-        }
+
         if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
             SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
             SceneManager.GetActiveScene().name == Constants.puzzle02SceneName ||
@@ -67,12 +69,12 @@ public class AudioService : MonoBehaviour
         }
         else
         {
-            if(GameRoot.isPause)
+            ocean.Stop();
+        }
+        if(GameRoot.isPause)
                 ocean.volume = bgVolume * 0.2f;
             else
                 ocean.volume = bgVolume;
-            ocean.Stop();
-        }
     }
 
     public void PlayUIAudio(string audioName)
