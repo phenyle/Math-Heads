@@ -69,7 +69,7 @@ public class PauseWindow : WindowRoot
 
     public void defaultBasicControlsText()
     {
-        controlsText.text = "Move:\n" +
+        controlsText.text = "MOVE:\n" +
                             "W - Move Forward\n" +
                             "A - Move Left\n" +
                             "S - Move Backward\n" +
@@ -80,8 +80,9 @@ public class PauseWindow : WindowRoot
                             "J - Rotate Camera Left\n" +
                             "K - Rotate Camera Down\n" +
                             "L - Rotate Camera Right\n" +
-                            "\n" +
                             "Mouse - Move Camera\n" +
+                            "\n" +
+                            "R - Reset Character\n" +
                             "Z - Swich To Top-Down View\n" +
                             "Tab - Show / Hide Mouse\n" +
                             "Space - Advance Dialogue\n" +

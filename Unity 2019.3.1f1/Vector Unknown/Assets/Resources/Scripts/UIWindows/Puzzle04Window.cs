@@ -91,7 +91,7 @@ public class Puzzle04Window : WindowRoot
                                "Hold R-Click - Drag to Rotate Camera\n" +
                                "MouseWheel - Zoom Camera In/Out\n" +
                                "\n" +
-                               "KEYBOARD CAMERA CONTROLS:\n" +
+                               "KEYBOARD CONTROLS:\n" +
                                 "I - Rotate Camera Up\n" +
                                 "J - Rotate Camera Left\n" +
                                 "K - Rotate Camera Down\n" +
@@ -159,7 +159,6 @@ public class Puzzle04Window : WindowRoot
         YZtoggle = true;
 
         axisButton.transform.localPosition = new Vector3(0, 19, 0);
-        gridButton.SetActive(false);
         XYbutton.GetComponent<Image>().color = Color.green;
         XZbutton.GetComponent<Image>().color = Color.green;
         YZbutton.GetComponent<Image>().color = Color.green;
@@ -179,8 +178,18 @@ public class Puzzle04Window : WindowRoot
         ShowFeedbackPanel(false);
         ShowCardPanel(false);
         ShowButtonPanel(false);
-        SetActive(advGridControls, false);
-        SetActive(advProjectionControls, false);
+        gridButton.SetActive(true);
+        anchorsButton.SetActive(false);
+        if (GCP04.Difficulty < 3)
+        {
+            SetActive(advGridControls, false);
+            SetActive(advProjectionControls, false);
+        }
+        else
+        {
+            SetActive(advGridControls, true);
+            SetActive(advProjectionControls, true);
+        }
 
     }
 
@@ -380,9 +389,7 @@ public class Puzzle04Window : WindowRoot
             scalar2.value = 1;
 
         scalarText1.text = scalar1.value.ToString();
-        scalarText2.text = scalar2.value.ToString();
-
-        
+        scalarText2.text = scalar2.value.ToString();      
 
     }
 
@@ -486,6 +493,15 @@ public class Puzzle04Window : WindowRoot
     public void ShowButtonPanel(bool status)
     {
         SetActive(buttonPanel, status);
+
+        axisButton.SetActive(status);
+        gridButton.SetActive(status);
+
+        if(GCP04.Difficulty == 3 )
+        {
+            SetActive(advGridControls, status);
+            SetActive(advProjectionControls, status);
+        }
     }
 
     public void setInstructions(string input)
@@ -516,7 +532,7 @@ public class Puzzle04Window : WindowRoot
                     break;
             }
 
-            gridButton.SetActive(true);
+ //           gridButton.SetActive(true);
 
             if (gridOn)
             {
@@ -532,7 +548,7 @@ public class Puzzle04Window : WindowRoot
                         PC04.getVisualVector().activateBarGrid(true, true, false);
                         break;
                     case 3:
-                        PC04.getVisualVector().activateBarGrid(true, true, true);
+                        PC04.getVisualVector().activateBarGrid(XYtoggle, XZtoggle, YZtoggle);
                         SetActive(advGridControls, true);
                         break;
                 }
@@ -558,14 +574,14 @@ public class Puzzle04Window : WindowRoot
             PC04.getVisualVector().deactivateAxis();
             axisButton.GetComponent<Image>().color = Color.white;
 
-            gridButton.SetActive(false);
+ //           gridButton.SetActive(false);
 
-            PC04.getVisualVector().deactivateBarGrid();
+ //           PC04.getVisualVector().deactivateBarGrid();
 
-            SetActive(advGridControls, false);
+ //           SetActive(advGridControls, false);
 
-            PC04.getVisualVector().toggleProjections(false);
-            PC04.getVisualVector().toggleAnchors(false);
+ //           PC04.getVisualVector().toggleProjections(false);
+ //           PC04.getVisualVector().toggleAnchors(false);
         }
     }
 
@@ -587,7 +603,7 @@ public class Puzzle04Window : WindowRoot
                     PC04.getVisualVector().activateBarGrid(true, true, false);
                     break;
                 case 3:
-                    PC04.getVisualVector().activateBarGrid(true, true, true);
+                    PC04.getVisualVector().activateBarGrid(XYtoggle, XZtoggle, YZtoggle);
                     SetActive(advGridControls, true);
                     break;
             }
@@ -614,10 +630,10 @@ public class Puzzle04Window : WindowRoot
             PC04.getVisualVector().deactivateBarGrid();
             gridButton.GetComponent<Image>().color = Color.white;
 
-            SetActive(advGridControls, false);
+ //           SetActive(advGridControls, false);
 
-            PC04.getVisualVector().toggleProjections(false);
-            PC04.getVisualVector().toggleAnchors(false);
+ //           PC04.getVisualVector().toggleProjections(false);
+ //           PC04.getVisualVector().toggleAnchors(false);
         }
     }
 
@@ -650,18 +666,22 @@ public class Puzzle04Window : WindowRoot
             anchorsButton.SetActive(true);
 
             if (anchorsOn)
+            {
+                PC04.getVisualVector().toggleAnchors(true);
                 anchorsButton.GetComponent<Image>().color = Color.green;
+            }
+            else
+                anchorsButton.GetComponent<Image>().color = Color.white;
         }
         else
         {
-            SetActive(advProjectionControls, false);
+ //           SetActive(advProjectionControls, false);
             anchorsButton.SetActive(false);
-
+            PC04.getVisualVector().toggleAnchors(false);
             projectionsButton.GetComponent<Image>().color = Color.white;
         }
 
         PC04.getVisualVector().toggleProjections(projectionsOn);
-        PC04.getVisualVector().toggleAnchors(anchorsOn);
     }
 
     public void toggleAnchorsButton()
@@ -685,7 +705,7 @@ public class Puzzle04Window : WindowRoot
         else
             XYbutton.GetComponent<Image>().color = Color.white;
 
-        PC04.getVisualVector().toggleXYplane(XYtoggle, anchorsOn);
+        PC04.getVisualVector().toggleXYplane(XYtoggle, gridOn);
     }
 
     public bool getXYtoggle()
@@ -702,7 +722,7 @@ public class Puzzle04Window : WindowRoot
         else
             XZbutton.GetComponent<Image>().color = Color.white;
 
-        PC04.getVisualVector().toggleXZplane(XZtoggle, anchorsOn);
+        PC04.getVisualVector().toggleXZplane(XZtoggle, gridOn);
     }
 
     public bool getXZtoggle()
@@ -719,7 +739,7 @@ public class Puzzle04Window : WindowRoot
         else
             YZbutton.GetComponent<Image>().color = Color.white;
 
-        PC04.getVisualVector().toggleYZplane(YZtoggle, anchorsOn);
+        PC04.getVisualVector().toggleYZplane(YZtoggle, gridOn);
     }
 
     public bool getYZtoggle()
@@ -741,8 +761,8 @@ public class Puzzle04Window : WindowRoot
         projectionsOn = false;
         anchorsOn = false;
 
-        gridButton.SetActive(false);
-        SetActive(advGridControls, false);
+ //       gridButton.SetActive(false);
+ //       SetActive(advGridControls, false);
 
         axisButton.GetComponent<Image>().color = Color.white;
         gridButton.GetComponent<Image>().color = Color.white;

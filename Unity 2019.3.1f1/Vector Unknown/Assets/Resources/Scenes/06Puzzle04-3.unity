@@ -409,32 +409,32 @@ PrefabInstance:
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxCardScalar
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MinVectorSize.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MinVectorSize.y
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MinVectorSize.z
-      value: -9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MaxDynamicScalar
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
+      propertyPath: MinVectorSize.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MinVectorSize.y
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MinVectorSize.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MaxDynamicScalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
       propertyPath: MaxCardMagnitudes
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -2978,17 +2978,17 @@ PrefabInstance:
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MinVectorSize.x
-      value: -8
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MinVectorSize.y
-      value: 10
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MinVectorSize.z
-      value: 6
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -2998,7 +2998,7 @@ PrefabInstance:
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxCardMagnitudes
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -4712,32 +4712,32 @@ PrefabInstance:
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxCardScalar
-      value: 6
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MinVectorSize.x
-      value: 11
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MinVectorSize.y
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MinVectorSize.z
-      value: 12
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxDynamicScalar
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxCardMagnitudes
-      value: 7
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -6567,32 +6567,32 @@ PrefabInstance:
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxCardScalar
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MinVectorSize.x
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MinVectorSize.y
-      value: -11
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MinVectorSize.z
-      value: -9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MaxDynamicScalar
       value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
+      propertyPath: MinVectorSize.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MinVectorSize.y
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MinVectorSize.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MaxDynamicScalar
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
       propertyPath: MaxCardMagnitudes
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -6988,7 +6988,7 @@ PrefabInstance:
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: isDynamic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -6998,32 +6998,32 @@ PrefabInstance:
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxCardScalar
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MinVectorSize.x
-      value: 9
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MinVectorSize.y
-      value: 11
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MinVectorSize.z
-      value: 8
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxDynamicScalar
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxCardMagnitudes
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -7872,32 +7872,32 @@ PrefabInstance:
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: MaxCardScalar
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MinVectorSize.x
-      value: -10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MinVectorSize.y
-      value: -7
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MinVectorSize.z
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
-        type: 3}
-      propertyPath: MaxDynamicScalar
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
-      propertyPath: MaxCardMagnitudes
+      propertyPath: MinVectorSize.x
+      value: -5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MinVectorSize.y
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MinVectorSize.z
       value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MaxDynamicScalar
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: MaxCardMagnitudes
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -37215,6 +37215,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLock: 0
+  enableUnstuck: 1
+  stuckDelay: 100
+  stuckBounceVelocity: {x: 0, y: 8, z: -5}
 --- !u!136 &2918626237289915401
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -37259,8 +37262,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_MovingTurnSpeed: 360
   m_StationaryTurnSpeed: 360
-  m_JumpPower: 10
-  m_GravityMultiplier: 2
+  m_JumpPower: 13
+  m_GravityMultiplier: 3.5
   m_RunCycleLegOffset: 1
   m_MoveSpeedMultiplier: 1.5
   m_AnimSpeedMultiplier: 1.5

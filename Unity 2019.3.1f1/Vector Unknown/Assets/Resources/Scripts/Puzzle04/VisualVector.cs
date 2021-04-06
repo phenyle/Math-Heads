@@ -43,10 +43,10 @@ public class VisualVector : MonoBehaviour
     private List<GameObject> ZSphereNodes;
     private List<GameObject> XBarNodes;
     private List<GameObject> YBarNodes;
-    private List<GameObject> ZYHoriBarNodes;
-    private List<GameObject> ZYVertBarNodes;
-    private List<GameObject> ZXHoriBarNodes;
-    private List<GameObject> ZXVertBarNodes;
+    private List<GameObject> YZHoriBarNodes;
+    private List<GameObject> YZVertBarNodes;
+    private List<GameObject> XZHoriBarNodes;
+    private List<GameObject> XZVertBarNodes;
 
     [Header("---Grid Color Components---")]
     public float axisThickness = 0.18f;
@@ -63,6 +63,7 @@ public class VisualVector : MonoBehaviour
 
     [Header("---3D Vector Projetion Components---")]
     public GameObject projections;
+    public GameObject anchors;
     public GameObject XYplane;
     public GameObject XYanchors;
     public GameObject XZplane;
@@ -137,6 +138,7 @@ public class VisualVector : MonoBehaviour
         Zvector.SetActive(false);
 
         projections.SetActive(false);
+        anchors.SetActive(false);
 
         overallScale = setOverallScale();
         puzzleScale = setPuzzleScale();
@@ -149,10 +151,10 @@ public class VisualVector : MonoBehaviour
 
         XBarNodes = new List<GameObject>();
         YBarNodes = new List<GameObject>();
-        ZYHoriBarNodes = new List<GameObject>();
-        ZYVertBarNodes = new List<GameObject>();
-        ZXHoriBarNodes = new List<GameObject>();
-        ZXVertBarNodes = new List<GameObject>();
+        YZHoriBarNodes = new List<GameObject>();
+        YZVertBarNodes = new List<GameObject>();
+        XZHoriBarNodes = new List<GameObject>();
+        XZVertBarNodes = new List<GameObject>();
 
         xMin = -gridSize;
         xMax = gridSize;
@@ -180,9 +182,6 @@ public class VisualVector : MonoBehaviour
         VectorBetweenPoints(XYanchorGoal, XYgoalPoint.transform.position, goal.transform.position, gridThickness);
         VectorBetweenPoints(XZanchorGoal, XZgoalPoint.transform.position, goal.transform.position, gridThickness);
         VectorBetweenPoints(YZanchorGoal, YZgoalPoint.transform.position, goal.transform.position, gridThickness);
-        XYanchorGoal.SetActive(false);
-        XZanchorGoal.SetActive(false);
-        YZanchorGoal.SetActive(false);
 
         VectorBetweenPoints(Xvector, Xnegative.transform.position, Xpositive.transform.position, axisThickness);
         VectorBetweenPoints(Yvector, Ynegative.transform.position, Ypositive.transform.position, axisThickness);
@@ -688,49 +687,49 @@ public class VisualVector : MonoBehaviour
 
             if (PC04.getGameController().Difficulty == 3)
             {
-                GameObject zyHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                zyHoriCyln.GetComponent<Renderer>().material = GridDefualt;
+                GameObject yzHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                yzHoriCyln.GetComponent<Renderer>().material = GridDefualt;
                 if (i % 5 == 0)
-                    zyHoriCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                    yzHoriCyln.GetComponent<Renderer>().material = Grid5Incriment;
                 if (i % 10 == 0)
-                    zyHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
-                zyHoriCyln.GetComponent<Collider>().enabled = false;
-                zyHoriCyln.GetComponent<Renderer>().shadowCastingMode = 0;
-                zyHoriCyln.GetComponent<Renderer>().receiveShadows = false;
-                ZYHoriBarNodes.Add(zyHoriCyln);
+                    yzHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                yzHoriCyln.GetComponent<Collider>().enabled = false;
+                yzHoriCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+                yzHoriCyln.GetComponent<Renderer>().receiveShadows = false;
+                YZHoriBarNodes.Add(yzHoriCyln);
 
-                GameObject zyVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                zyVertCyln.GetComponent<Renderer>().material = GridDefualt;
+                GameObject yzVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                yzVertCyln.GetComponent<Renderer>().material = GridDefualt;
                 if (i % 5 == 0)
-                    zyVertCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                    yzVertCyln.GetComponent<Renderer>().material = Grid5Incriment;
                 if (i % 10 == 0)
-                    zyVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
-                zyVertCyln.GetComponent<Collider>().enabled = false;
-                zyVertCyln.GetComponent<Renderer>().shadowCastingMode = 0;
-                zyVertCyln.GetComponent<Renderer>().receiveShadows = false;
-                ZYVertBarNodes.Add(zyVertCyln);
+                    yzVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                yzVertCyln.GetComponent<Collider>().enabled = false;
+                yzVertCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+                yzVertCyln.GetComponent<Renderer>().receiveShadows = false;
+                YZVertBarNodes.Add(yzVertCyln);
 
-                GameObject zxHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                zxHoriCyln.GetComponent<Renderer>().material = GridDefualt;
+                GameObject xzHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                xzHoriCyln.GetComponent<Renderer>().material = GridDefualt;
                 if (i % 5 == 0)
-                    zxHoriCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                    xzHoriCyln.GetComponent<Renderer>().material = Grid5Incriment;
                 if (i % 10 == 0)
-                    zxHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
-                zxHoriCyln.GetComponent<Collider>().enabled = false;
-                zxHoriCyln.GetComponent<Renderer>().shadowCastingMode = 0;
-                zxHoriCyln.GetComponent<Renderer>().receiveShadows = false;
-                ZXHoriBarNodes.Add(zxHoriCyln);
+                    xzHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                xzHoriCyln.GetComponent<Collider>().enabled = false;
+                xzHoriCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+                xzHoriCyln.GetComponent<Renderer>().receiveShadows = false;
+                XZHoriBarNodes.Add(xzHoriCyln);
 
-                GameObject zxVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                zxVertCyln.GetComponent<Renderer>().material = GridDefualt;
+                GameObject xzVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                xzVertCyln.GetComponent<Renderer>().material = GridDefualt;
                 if (i % 5 == 0)
-                    zxVertCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                    xzVertCyln.GetComponent<Renderer>().material = Grid5Incriment;
                 if (i % 10 == 0)
-                    zxVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
-                zxVertCyln.GetComponent<Collider>().enabled = false;
-                zxVertCyln.GetComponent<Renderer>().shadowCastingMode = 0;
-                zxVertCyln.GetComponent<Renderer>().receiveShadows = false;
-                ZXVertBarNodes.Add(zxVertCyln);
+                    xzVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                xzVertCyln.GetComponent<Collider>().enabled = false;
+                xzVertCyln.GetComponent<Renderer>().shadowCastingMode = 0;
+                xzVertCyln.GetComponent<Renderer>().receiveShadows = false;
+                XZVertBarNodes.Add(xzVertCyln);
             }
         }
 
@@ -777,7 +776,7 @@ public class VisualVector : MonoBehaviour
                 //X bars
                 VectorBetweenPoints(XBarNodes[i + gridSize], Ypositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Ynegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
                 if(Zaxis)
-                    VectorBetweenPoints(ZXHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Znegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
+                    VectorBetweenPoints(XZHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), Znegative.transform.position + new Vector3(i * puzzleScale.x, 0f, 0f), gridThickness);
 
             }
 
@@ -787,7 +786,7 @@ public class VisualVector : MonoBehaviour
                 //Ybars
                 VectorBetweenPoints(YBarNodes[i + gridSize], Xpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Xnegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
                 if(Zaxis)
-                    VectorBetweenPoints(ZYHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Znegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
+                    VectorBetweenPoints(YZHoriBarNodes[i + gridSize], Zpositive.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), Znegative.transform.position + new Vector3(0f, i * puzzleScale.y, 0f), gridThickness);
 
 
             }
@@ -796,9 +795,9 @@ public class VisualVector : MonoBehaviour
             for (int i = zMin; i < zMax; i++)
             {
                 //Set ZY plane nodes
-                VectorBetweenPoints(ZYVertBarNodes[i + gridSize], Ypositive.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), Ynegative.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), gridThickness);
+                VectorBetweenPoints(YZVertBarNodes[i + gridSize], Ypositive.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), Ynegative.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), gridThickness);
 
-                VectorBetweenPoints(ZXVertBarNodes[i + gridSize], Xpositive.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), Xnegative.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), gridThickness);
+                VectorBetweenPoints(XZVertBarNodes[i + gridSize], Xpositive.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), Xnegative.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), gridThickness);
             }       
 
     }
@@ -862,20 +861,20 @@ public class VisualVector : MonoBehaviour
             bar.SetActive(false);
         }
 
-        foreach (GameObject bar in ZYHoriBarNodes)
+        foreach (GameObject bar in YZHoriBarNodes)
         {
             bar.SetActive(false);
         }
-        foreach (GameObject bar in ZYVertBarNodes)
+        foreach (GameObject bar in YZVertBarNodes)
         {
             bar.SetActive(false);
         }
 
-        foreach (GameObject bar in ZXHoriBarNodes)
+        foreach (GameObject bar in XZHoriBarNodes)
         {
             bar.SetActive(false);
         }
-        foreach (GameObject bar in ZXVertBarNodes)
+        foreach (GameObject bar in XZVertBarNodes)
         {
             bar.SetActive(false);
         }
@@ -883,32 +882,66 @@ public class VisualVector : MonoBehaviour
 
     public void activateBarGrid(bool Xaxis, bool Yaxis, bool Zaxis)
     {
-        foreach (GameObject bar in XBarNodes)
+        if (PC04.getGameController().Difficulty < 3)
         {
-            bar.SetActive(Xaxis);
-        }
+            foreach (GameObject bar in XBarNodes)
+            {
+                bar.SetActive(Xaxis);
+            }
 
-        foreach (GameObject bar in YBarNodes)
-        {
-            bar.SetActive(Yaxis);
-        }
+            foreach (GameObject bar in YBarNodes)
+            {
+                bar.SetActive(Yaxis);
+            }
 
-        foreach (GameObject bar in ZYHoriBarNodes)
-        {
-            bar.SetActive(Zaxis);
-        }
-        foreach (GameObject bar in ZYVertBarNodes)
-        {
-            bar.SetActive(Zaxis);
-        }
+            foreach (GameObject bar in YZHoriBarNodes)
+            {
+                bar.SetActive(Zaxis);
+            }
+            foreach (GameObject bar in YZVertBarNodes)
+            {
+                bar.SetActive(Zaxis);
+            }
 
-        foreach (GameObject bar in ZXHoriBarNodes)
-        {
-            bar.SetActive(Zaxis);
+            foreach (GameObject bar in XZHoriBarNodes)
+            {
+                bar.SetActive(Zaxis);
+            }
+            foreach (GameObject bar in XZVertBarNodes)
+            {
+                bar.SetActive(Zaxis);
+            }
         }
-        foreach (GameObject bar in ZXVertBarNodes)
+        else
         {
-            bar.SetActive(Zaxis);
+            foreach (GameObject bar in XBarNodes)
+            {
+                bar.SetActive(Xaxis);
+            }
+
+            foreach (GameObject bar in YBarNodes)
+            {
+                bar.SetActive(Xaxis);
+            }
+
+            foreach (GameObject bar in XZHoriBarNodes)
+            {
+                bar.SetActive(Yaxis);
+            }
+            foreach (GameObject bar in XZVertBarNodes)
+            {
+                bar.SetActive(Yaxis);
+            }
+
+            foreach (GameObject bar in YZHoriBarNodes)
+            {
+                bar.SetActive(Zaxis);
+            }
+            foreach (GameObject bar in YZVertBarNodes)
+            {
+                bar.SetActive(Zaxis);
+            }
+
         }
 
     }
@@ -917,40 +950,109 @@ public class VisualVector : MonoBehaviour
     {
         isProjecting = val;
 
-        projections.SetActive(val);   
+        projections.SetActive(val);
     }
 
     public void toggleAnchors(bool val)
     {
         isAnchored = val;
 
+        anchors.SetActive(val);
+    }
+
+    public void toggleXYplane(bool val, bool gridOn)
+    {
+        XYplane.SetActive(val);
         XYanchors.SetActive(val);
+
+        if (gridOn)
+        {
+            foreach (GameObject bar in XBarNodes)
+            {
+                bar.SetActive(val);
+            }
+
+            foreach (GameObject bar in YBarNodes)
+            {
+                bar.SetActive(val);
+            }
+        }
+        else
+        {
+            foreach (GameObject bar in XBarNodes)
+            {
+                bar.SetActive(false);
+            }
+
+            foreach (GameObject bar in YBarNodes)
+            {
+                bar.SetActive(false);
+            }
+        }
+    }
+
+    public void toggleXZplane(bool val, bool gridOn)
+    {
+        XZplane.SetActive(val);
         XZanchors.SetActive(val);
+
+        if (gridOn)
+        {
+            foreach (GameObject bar in XZHoriBarNodes)
+            {
+                bar.SetActive(val);
+            }
+
+            foreach (GameObject bar in XZVertBarNodes)
+            {
+                bar.SetActive(val);
+            }
+        }
+        else
+        {
+            foreach (GameObject bar in XZHoriBarNodes)
+            {
+                bar.SetActive(false);
+            }
+
+            foreach (GameObject bar in XZVertBarNodes)
+            {
+                bar.SetActive(false);
+            }
+        }
+    }
+
+
+    public void toggleYZplane(bool val, bool gridOn)
+    {
+        YZplane.SetActive(val);
         YZanchors.SetActive(val);
 
-        XYanchorGoal.SetActive(val);
-        XZanchorGoal.SetActive(val);
-        YZanchorGoal.SetActive(val);
 
-    }
+        if (gridOn)
+        {
+            foreach (GameObject bar in YZHoriBarNodes)
+            {
+                bar.SetActive(val);
+            }
 
-    public void toggleXYplane(bool XYprojecting, bool isAnchored)
-    {
-        XYplane.SetActive(XYprojecting);
-        XYanchors.SetActive(isAnchored);
-    }
+            foreach (GameObject bar in YZVertBarNodes)
+            {
+                bar.SetActive(val);
+            }
+        }
+        else
+        {
+            foreach (GameObject bar in YZHoriBarNodes)
+            {
+                bar.SetActive(false);
+            }
 
-    public void toggleXZplane(bool XZprojecting, bool isAnchored)
-    {
-        XZplane.SetActive(XZprojecting);
-        XZanchors.SetActive(isAnchored);
-    }
-
-
-    public void toggleYZplane(bool YZprojecting, bool isAnchored)
-    {
-        YZplane.SetActive(YZprojecting);
-        YZanchors.SetActive(isAnchored);
+            foreach (GameObject bar in YZVertBarNodes)
+            {
+                bar.SetActive(false);
+            }
+        }
     }
 
 }

@@ -246,26 +246,32 @@ public class Puzzle04Controller : MonoBehaviour
     }
 
     /// <summary>
-    /// Generates a modified vector based from the MinVectorSize.  If isFractional
-    /// is selected, the generated vector will be first divided by 2,3,or 4.  Then
-    /// that vector will be mutiplied by the MaxDynamicScalar input.
+    /// Generates a modified vector based from the MinVectorSize and MaxDynamicScalar.
+    /// It first divides each vector dimension by a random float and rounds to an int
+    /// then in multiplies the whole vector by a random float and rounds each dimension
+    /// to an int.
+    /// This returns a vector that is generally in the direction of the MinVectorSize
+    /// while being varied enough that each playthrough has different results
     /// </summary>
     /// <returns></returns>
     private Vector3 DynamicGenerator()
     {
         Vector3 temp = Vector3.zero;
-        int tempScal;
+        float tempScal;
 
-        tempScal = Random.Range(1, MaxDynamicScalar + Random.Range(0,3));
+        tempScal = Random.Range(1f, MaxDynamicScalar);
         temp.x = Mathf.RoundToInt(MinVectorSize.x / tempScal);
-        tempScal = Random.Range(1, MaxDynamicScalar + Random.Range(0, 3));
+        tempScal = Random.Range(1f, MaxDynamicScalar);
         temp.y = Mathf.RoundToInt(MinVectorSize.y / tempScal);
-        tempScal = Random.Range(1, MaxDynamicScalar + Random.Range(0, 3));
+        tempScal = Random.Range(1f, MaxDynamicScalar);
         temp.z = Mathf.RoundToInt(MinVectorSize.z / tempScal);
 
 
-        tempScal = Random.Range(1, MaxDynamicScalar);
+        tempScal = Random.Range(0.5f, MaxDynamicScalar);
         temp = temp * tempScal;
+        temp.x = Mathf.RoundToInt(temp.x);
+        temp.y = Mathf.RoundToInt(temp.y);
+        temp.z = Mathf.RoundToInt(temp.z);
 
         return temp;
     }
@@ -313,11 +319,13 @@ public class Puzzle04Controller : MonoBehaviour
     /// <returns>A Vector3 rounded in all dimensions (or 0)</returns>
     private Vector3 firstAnsCard(int scal)
     {
+        int uniqueEscape; //used to prevent getting stuck in an endless do/while
         int tempMagX;
         int tempMagY;
         int tempMagZ;
         Vector3 tempVect = Vector3.zero;
 
+        uniqueEscape = 0;
         do
         {
             //While scalar cannot be 0, some magnitudes MAY be zero,
@@ -356,8 +364,11 @@ public class Puzzle04Controller : MonoBehaviour
 
             } while (tempVect == new Vector3(0f, 0f, 0f));
             //while the vector is all Zeros (random chance), try again
-
-        } while (!testUnique(tempVect));
+            //also if the magnitude is 1, try again.  This is a tweak for Level1
+            //since magnitude 1 means every other card will be a scalar of it
+            //causing the system to lock when testing unique
+            uniqueEscape++;
+        } while (!testUnique(tempVect) && uniqueEscape < 10);
         //while the vector is a duplicate/scalar of previous card, try again
 
 
@@ -376,9 +387,11 @@ public class Puzzle04Controller : MonoBehaviour
     /// <returns></returns>
     private Vector3 secondAnsCard(int scal1, Vector3 ans1)
     {
+        int uniqueEscape; //used to prevent getting stuck in an endless do/while
         int scal2;
         Vector3 tempVect = Vector3.zero;
 
+        uniqueEscape = 0;
         do
         {
             tempVect = (startingAnswer - (ans1 * scal1));
@@ -394,7 +407,8 @@ public class Puzzle04Controller : MonoBehaviour
             tempVect.y = Mathf.RoundToInt(tempVect.y / scal2);
             tempVect.z = Mathf.RoundToInt(tempVect.z / scal2);
 
-        } while (!testUnique(tempVect));
+            uniqueEscape++;
+        } while (!testUnique(tempVect) && uniqueEscape < 10);
         //while the vector is a duplicate/scalar of previous card, try again
 
 
@@ -412,12 +426,14 @@ public class Puzzle04Controller : MonoBehaviour
     /// <returns></returns>
     private Vector3 randomGenerator()
     {
+        int uniqueEscape; //used to prevent getting stuck in an endless do/while
         int tempMagX;
         int tempMagY;
         int tempMagZ;
         int tempScal;
         Vector3 tempVect = Vector3.zero;
 
+        uniqueEscape = 0;
         do
         {
             //We don't want a 0 scalar, this do loop ensures we don't
@@ -461,7 +477,8 @@ public class Puzzle04Controller : MonoBehaviour
             } while (tempVect == new Vector3(0f, 0f, 0f));
             //while the vector is all Zeros (random chance), try again
 
-        } while (!testUnique(tempVect));
+            uniqueEscape++;
+        } while (!testUnique(tempVect) && uniqueEscape < 10);
         //while the vector is a duplicate/scalar of previous card, try again
 
         return tempVect;
@@ -497,9 +514,10 @@ public class Puzzle04Controller : MonoBehaviour
         bool unique = true;
 
         //Test that the new Random Vector is not a Duplicate or scalar
-        //cycle through cards:
+        //cycle through scalars:
         for (int i = -MaxCardScalar; i <= MaxCardScalar; i++)
         {
+            //cycle through cards:
             for (int j = 0; j < cardVectors.Count; j++)
             {
                 if (test * i == cardVectors[j] || test == cardVectors[j] * i)

@@ -1227,6 +1227,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLock: 0
+  enableUnstuck: 1
+  stuckDelay: 100
+  stuckBounceVelocity: {x: 0, y: 8, z: -5}
 --- !u!114 &5781247846317974534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1259,6 +1262,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0701e600c9e79da40af84dc02ba8455c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Level2Stage02: {fileID: 0}
+  isEnterExit: 0
+  level2ChangeStage: 0
+  sceneName: 
 --- !u!1 &398267358142299020
 GameObject:
   m_ObjectHideFlags: 0

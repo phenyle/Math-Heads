@@ -223,5 +223,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 				m_Animator.applyRootMotion = false;
 			}
 		}
+
+		public bool getGroundStatus()
+        {
+			return m_IsGrounded;
+        }
 	}
 }

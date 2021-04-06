@@ -9,11 +9,15 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     {
         [HideInInspector]
         public bool isLock = false;
+        public bool enableUnstuck;
+        public int stuckDelay;
+        public Vector3 stuckBounceVelocity;
         private ThirdPersonCharacter m_Character; // A reference to the ThirdPersonCharacter on the object
         private Transform m_Cam;                  // A reference to the main camera in the scenes transform
         private Vector3 m_CamForward;             // The current forward direction of the camera
         private Vector3 m_Move;
         private bool m_Jump;                      // the world-relative desired move direction, calculated from the camForward and user input.
+        private float stuckCounter;
 
         private void Start()
         {
@@ -31,6 +35,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
 
             // get the third person character ( this should never be null due to require component )
             m_Character = GetComponent<ThirdPersonCharacter>();
+
+            stuckCounter = 0;
         }
 
 
@@ -43,6 +49,22 @@ namespace UnityStandardAssets.Characters.ThirdPerson
                     m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
                 }
             }
+
+            //Player is stuck fix
+            //if the player is stuck in mid-air and not moving
+            if (enableUnstuck && !GetComponent<ThirdPersonCharacter>().getGroundStatus() && GetComponent<Rigidbody>().velocity.magnitude < 0.5)
+            {
+                stuckCounter++;
+                //Player has been stuck, Pop them off the object
+                if (stuckCounter > stuckDelay)
+                {
+                    GetComponent<Rigidbody>().AddRelativeForce(stuckBounceVelocity, ForceMode.VelocityChange);
+                    stuckCounter = 0;
+                }
+            }
+            else
+                stuckCounter = 0;
+
         }
 
 
