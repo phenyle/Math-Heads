@@ -57,6 +57,8 @@ public class EnterExit : MonoBehaviour
                         GameRoot.instance.exitPuzzle = 2;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
                         GameRoot.instance.exitPuzzle = 3;
+                    else if (SceneManager.GetActiveScene().name == Constants.puzzle04SceneName)
+                        GameRoot.instance.exitPuzzle = 4;
 
                     break;
 
