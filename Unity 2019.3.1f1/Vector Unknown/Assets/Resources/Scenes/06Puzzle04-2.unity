@@ -8903,7 +8903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 0
-  puzzleComplete: 0
+  puzzleComplete: 4
 --- !u!65 &2918626235753252267
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -11791,7 +11791,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 0
-  puzzleComplete: 0
+  puzzleComplete: 4
 --- !u!1 &2918626236684459413
 GameObject:
   m_ObjectHideFlags: 0
@@ -16018,7 +16018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 0
-  puzzleComplete: 1
+  puzzleComplete: 4
 --- !u!1 &2918626237468136179
 GameObject:
   m_ObjectHideFlags: 0

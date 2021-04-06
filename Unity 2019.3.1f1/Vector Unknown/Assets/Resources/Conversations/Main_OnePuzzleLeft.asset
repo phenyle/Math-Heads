@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d47500a8f005f364c989b60cb1f8fb81, type: 3}
-  m_Name: Intro
+  m_Name: Main_OnePuzzleLeft
   m_EditorClassIdentifier: 
   dialogues:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
-    - You have crashed your ship onto this Island.
-    - Explore the land looking for portals.
-    - Solve Puzzles to gain treause and rebuild your ship.
-    - The icons on the bottom left indicate what puzzles you need to complete.
-    - Make sure to collect the treasure and take it near the broken ship.
-    - After all puzzles are completed the ship can be fully restored.
+    - Great work out there.
+    - You are so close to being almost done.
+    - 'There''s one chest left '
+    - Now go find it!
