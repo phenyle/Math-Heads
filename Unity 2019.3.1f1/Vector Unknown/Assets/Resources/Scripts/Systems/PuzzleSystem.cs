@@ -20,6 +20,9 @@ public class PuzzleSystem : SystemRoot
     [Header("Tutorial Windows")]
     public TutorialWindow tutorialWindow;
 
+    [Header("Pause Windows")]
+    public PauseWindow pauseWindow;
+
     public override void InitSystem()
     {
         Debug.Log("Init Puzzle System");
@@ -47,6 +50,7 @@ public class PuzzleSystem : SystemRoot
 
                 case Constants.mainSceneName:
                     mainWindow.SetWindowState(true);
+                    pauseWindow.showPuzzleControls(false);
                     audioService.PlayBgMusic(Constants.audioBgMain, true);
                     break;
 
@@ -72,16 +76,19 @@ public class PuzzleSystem : SystemRoot
 
                 case Constants.puzzle04s1SceneName:
                     puzzle04Window.SetWindowState(true);
+                    pauseWindow.showPuzzleControls(true);
                     audioService.PlayBgMusic(Constants.audioBgPuzzle1, true);
                     break;
 
                 case Constants.puzzle04s2SceneName:
                     puzzle04Window.SetWindowState(true);
+                    pauseWindow.showPuzzleControls(true);
                     audioService.PlayBgMusic(Constants.audioBgPuzzle1, true);
                     break;
 
                 case Constants.puzzle04s3SceneName:
                     puzzle04Window.SetWindowState(true);
+                    pauseWindow.showPuzzleControls(true);
                     audioService.PlayBgMusic(Constants.audioBgPuzzle1, true);
                     break;
 

@@ -175,6 +175,8 @@ public class GameRoot : MonoBehaviour
         }
         IsLock(false);
         Time.timeScale = 1;
+        pauseWindow.panelOption.gameObject.SetActive(false);
+        pauseWindow.panelPause.gameObject.SetActive(true);
         pauseWindow.SetWindowState(false);
         isPause = false;
         audioService.ResumeAllAudios();

@@ -6560,6 +6560,10 @@ MonoBehaviour:
   YZbutton: {fileID: 3888677865895123001}
   isInit: 0
   txtInstruction: {fileID: 6152567675923548353}
+  defaultInstructions: 'Enter the Portals to Solve Vector Puzzles
+
+    Hold Shift
+    to Run'
 --- !u!1 &5318755519684734888
 GameObject:
   m_ObjectHideFlags: 0
@@ -7637,7 +7641,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -10919,7 +10923,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}

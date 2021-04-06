@@ -3143,6 +3143,7 @@ MonoBehaviour:
   panelOption: {fileID: 0}
   sliderVolume: {fileID: 0}
   sliderSoundFX: {fileID: 0}
+  controlsText: {fileID: 3809914987831959424}
 --- !u!1 &6221216537355439814
 GameObject:
   m_ObjectHideFlags: 0

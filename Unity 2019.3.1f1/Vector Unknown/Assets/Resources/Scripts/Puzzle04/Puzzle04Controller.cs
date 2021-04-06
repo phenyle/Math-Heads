@@ -145,20 +145,89 @@ public class Puzzle04Controller : MonoBehaviour
             }
 
 
-            //Camera Movementa and Zoom around Puzzle
+            //Mouse Camera Movement and Zoom Controls
             if (GCP04.P04W.getCameraDragController().isCameraDragging())
             {
                 RotateCamera();
             }
 
-            if (Input.GetAxis("Mouse ScrollWheel") > 0f)
+            if (Input.GetAxis("Mouse ScrollWheel") > 0f && (mainCamera.transform.position - cameraTarget.transform.position).magnitude > 5)
             {
                 mainCamera.transform.position += Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed;
             }
 
-            if (Input.GetAxis("Mouse ScrollWheel") < 0f)
+            if (Input.GetAxis("Mouse ScrollWheel") < 0f && (mainCamera.transform.position - cameraTarget.transform.position).magnitude < 150)
             {
                 mainCamera.transform.position -= Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed;
+            }
+
+            //Keyboard Camera Movement and Zoom Controls
+            if (Input.GetKey(KeyCode.J))
+            {
+                mainCamera.transform.LookAt(cameraTarget.transform.position);
+                mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.up, rotateSpeed * 0.5f);
+            }
+
+            if (Input.GetKey(KeyCode.L))
+            {
+                mainCamera.transform.LookAt(cameraTarget.transform.position);
+                mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.up, -rotateSpeed * 0.5f);
+            }
+
+            if (Input.GetKey(KeyCode.I))
+            {
+                mainCamera.transform.LookAt(cameraTarget.transform.position);
+                mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.left, -rotateSpeed * 0.5f);
+            }
+
+            if (Input.GetKey(KeyCode.K))
+            {
+                mainCamera.transform.LookAt(cameraTarget.transform.position);
+                mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.left, rotateSpeed * 0.5f);
+            }
+
+            if (Input.GetKey(KeyCode.U) && (mainCamera.transform.position - cameraTarget.transform.position).magnitude > 5)
+            {
+                mainCamera.transform.position += Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed * 0.25f;
+            }
+
+            if (Input.GetKey(KeyCode.O) && (mainCamera.transform.position - cameraTarget.transform.position).magnitude < 150)
+            {
+                mainCamera.transform.position -= Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed * 0.25f;
+            }
+
+
+
+
+            //Keyboard Scalar Controls
+            if (Input.GetKeyDown(KeyCode.Alpha1))
+            {
+                if (scalar1 > -10)
+                    GCP04.P04W.scalar1.value--;
+                if (GCP04.P04W.scalar1.value == 0)
+                    GCP04.P04W.scalar1.value = -1;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+            {
+                if (scalar1 < 10)
+                    GCP04.P04W.scalar1.value++;
+                if (GCP04.P04W.scalar1.value == 0)
+                    GCP04.P04W.scalar1.value = 1;
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha3))
+            {
+                if (scalar2 > -10)
+                    GCP04.P04W.scalar2.value--;
+                if (GCP04.P04W.scalar2.value == 0)
+                    GCP04.P04W.scalar2.value = -1;
+            }
+            if (Input.GetKeyDown(KeyCode.Alpha4))
+            {
+                if (scalar2 < 10)
+                    GCP04.P04W.scalar2.value++;
+                if (GCP04.P04W.scalar2.value == 0)
+                    GCP04.P04W.scalar2.value = 1;
             }
 
         }

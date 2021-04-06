@@ -4,6 +4,8 @@ using System.Collections.Generic;
 
 public class Puzzle04Window : WindowRoot
 {
+    public PauseWindow pauseWindow;
+
     //LOWER RIGHT PIN WINDOWS---------
     [Header("Input Displays")]
     public Transform iptPanel;
@@ -78,12 +80,32 @@ public class Puzzle04Window : WindowRoot
         {
             InitWindow();
         }
-
     }
 
     protected override void InitWindow()
     {
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
+
+        string controlsText = "MOUSE CONTROLS:\n" +
+                               "Hold L-Click - Drag Answer Cards\n" +
+                               "Hold R-Click - Drag to Rotate Camera\n" +
+                               "MouseWheel - Zoom Camera In/Out\n" +
+                               "\n" +
+                               "KEYBOARD CAMERA CONTROLS:\n" +
+                                "I - Rotate Camera Up\n" +
+                                "J - Rotate Camera Left\n" +
+                                "K - Rotate Camera Down\n" +
+                                "L - Rotate Camera Right\n" +
+                                "U - Zoom Camera In\n" +
+                                "O - Zoom Camera Out\n" +
+                                "\n" +
+                                "1 - Decrease Scalar 1\n" +
+                                "2 - Increase Scalar 1\n" + 
+                                "3 - Decrease Scalar 2\n" + 
+                                "4 - Increase Scalar 2";
+
+        pauseWindow.setPuzzleControlsText(controlsText);
+        pauseWindow.resizePuzzleControls(600, 800);
 
 
         //LOWER RIGHT INIT--------------------------------------
@@ -359,6 +381,8 @@ public class Puzzle04Window : WindowRoot
 
         scalarText1.text = scalar1.value.ToString();
         scalarText2.text = scalar2.value.ToString();
+
+        
 
     }
 
