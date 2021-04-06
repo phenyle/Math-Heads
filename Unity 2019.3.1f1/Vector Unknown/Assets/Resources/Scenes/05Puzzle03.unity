@@ -15395,14 +15395,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 398383483}
-  m_LocalRotation: {x: 0.39601505, y: -0, z: -0, w: 0.918244}
-  m_LocalPosition: {x: -0.020881534, y: 1.6650009, z: -2.959999}
+  m_LocalRotation: {x: 0.3198988, y: -0, z: -0, w: 0.9474518}
+  m_LocalPosition: {x: -0.020874023, y: 390.94812, z: -128.59528}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1392325223}
   m_Father: {fileID: 1794767989}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 46.659, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 37.314003, y: 0, z: 0}
 --- !u!114 &398383487
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -25308,7 +25308,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 120, y: 120}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 150, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &471148250
 MonoBehaviour:
@@ -42877,7 +42877,12 @@ PrefabInstance:
     - target: {fileID: 9184605974035843572, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1
+      value: 3.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 9184605974035843572, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.53
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ef1dcaca6a9bde40a90de82d2e563fc, type: 3}
@@ -63800,7 +63805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 800, y: 600}
@@ -64964,6 +64969,8 @@ MonoBehaviour:
   isTriggerQuestion: 0
   beatLvl1: 0
   finalRotation: {x: 10, y: 0, z: -30}
+  oldRotation: {x: 0, y: 0, z: 0}
+  timeCount: 0
   currentRotation: {x: 0, y: 0, z: 0}
   diffRotation: {x: 0, y: 0, z: 0}
 --- !u!4 &1677935429
