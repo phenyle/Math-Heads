@@ -135,30 +135,8 @@ public class DialogueManager : MonoBehaviour
 
         uiWindows.gameObject.SetActive(true);
 
-        if(!isPuzzleLock)
-        {
-            GameRoot.instance.IsLock(false);
-            Debug.Log("Unlock From Dialogue");
+        StartCoroutine(releaseCharacter(0.5f));
 
-            Debug.Log("Start Try");
-            // lock mouse
-            try
-            {
-                GameObject.Find("Main Camera").GetComponent<CameraController>().postPuzzleLock = true;
-                GameObject.Find("Main Camera").GetComponent<CameraController>().isLock = true;
-                Debug.Log("In Try");
-            }
-            catch { Debug.Log("In Catch"); }
-            Debug.Log("After Try Catch");
-        }
-
-        isInDialogue = false;
-
-        try
-        {
-            GameObject.Find("MainCamera").GetComponent<CameraController>().isLock = true;
-        }
-        catch { }
     }
 
     //Flags for puzzle01 dialogue
@@ -201,5 +179,36 @@ public class DialogueManager : MonoBehaviour
 
         uiWindows.gameObject.SetActive(true);
         dialogueWindow.gameObject.SetActive(false);
+    }
+
+    // release Character movement after dialouge
+    public IEnumerator releaseCharacter(float sec) 
+    {
+        yield return new WaitForSeconds(sec);
+
+        if(!isPuzzleLock)
+        {
+            GameRoot.instance.IsLock(false);
+            Debug.Log("Unlock From Dialogue");
+
+            Debug.Log("Start Try");
+            // lock mouse
+            try
+            {
+                GameObject.Find("Main Camera").GetComponent<CameraController>().postPuzzleLock = true;
+                GameObject.Find("Main Camera").GetComponent<CameraController>().isLock = true;
+                Debug.Log("In Try");
+            }
+            catch { Debug.Log("In Catch"); }
+            Debug.Log("After Try Catch");
+        }
+
+        isInDialogue = false;
+
+        try
+        {
+            GameObject.Find("MainCamera").GetComponent<CameraController>().isLock = true;
+        }
+        catch { }
     }
 }
