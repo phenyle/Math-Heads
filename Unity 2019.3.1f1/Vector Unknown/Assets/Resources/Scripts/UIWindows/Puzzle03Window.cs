@@ -16,7 +16,7 @@ public class Puzzle03Window : WindowRoot
     public Vector3 choice1Pos;
     public Vector3 choice2Pos;
     public Transform panelChoice;
-    public Transform[] panelChoiceList;
+    public GameObject[] panelChoiceList;
     public bool bVal = true;
 
     public List<List<ChoiceClickButton>> BtnChoices = new List<List<ChoiceClickButton>>();
@@ -50,20 +50,16 @@ public class Puzzle03Window : WindowRoot
         SwapFeedbackPanel();
     }
 
-    public void SetSpanValue(Vector3 spanValue, int choiceID)
+    public void SetFirstSpanValue(Vector3 spanValue, int choiceID)
     {
-        if (choiceID1 == choiceID || choiceID2 == choiceID)
-        {
-            Debug.Log("You Already Selected");
-        }
+        txtChoice1.text = spanValue[0] + "\n" + spanValue[1] + "\n" + spanValue[2];
+        choiceID1 = choiceID;
+        choice1Pos = spanValue;
+    }
 
-        if (choiceID1 == 0)
-        {
-            txtChoice1.text = spanValue[0] + "\n" + spanValue[1] + "\n" + spanValue[2];
-            choiceID1 = choiceID;
-            choice1Pos = spanValue;
-        }
-        else if (choiceID2 == 0)
+    public void SetSecondSpanValue(Vector3 spanValue, int choiceID)
+    {
+        if (choiceID2 == 0)
         {
             txtChoice2.text = spanValue[0] + "\n" + spanValue[1] + "\n<color=red>" + spanValue[2] + "</color>";
             choiceID2 = choiceID;
@@ -89,6 +85,8 @@ public class Puzzle03Window : WindowRoot
         ClearSpanValues(txtFBChoice1.text, txtChoice2.text);
 
         GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03Click);
+
+        ClickClearChoice2Btn();
     }
 
     public void ClickSwitchBtn()
@@ -167,7 +165,7 @@ public class Puzzle03Window : WindowRoot
     {
         string[] valueArray = value.Split(',');
 
-        SetSpanValue(new Vector3(
+        SetSecondSpanValue(new Vector3(
                                         (float)Convert.ToDouble(valueArray[0]),
                                         (float)Convert.ToDouble(valueArray[1]),
                                         (float)Convert.ToDouble(valueArray[2])),
@@ -178,7 +176,7 @@ public class Puzzle03Window : WindowRoot
     {
         panelChoice.gameObject.SetActive(false);
 
-        panelChoice = panelChoiceList[puzzleID];
+        panelChoice = panelChoiceList[puzzleID].transform;
 
         panelChoice.gameObject.SetActive(true);
     }

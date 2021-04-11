@@ -14,7 +14,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
     public float tipsAnimationSpeed = 0.01f;
     public float planeShiftSpeed = 0.01f;
     public List<ChoiceClickButton> BtnChoices;
-    public int choicesAmount = 0;
+    // public int choicesAmount = 0;
     public bool[] subPuzzleComplete = { false, false, false };
     public Transform playerPosition;
     public Transform[] playerPositionList;
@@ -85,15 +85,13 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     private void Update()
     {
-        if (choicesAmount <= 0 && P03W.bVal)
+        if (P03W.bVal)
         {
-            SetSpanValue(Vector3.right, 5);
-            choicesAmount = 1;
+            P03W.SetFirstSpanValue(Vector3.right, 5);
         }
-        else if (choicesAmount <= 0 && !P03W.bVal)
+        else if (!P03W.bVal)
         {
-            SetSpanValue(Vector3.up, 4);
-            choicesAmount = 1;
+            P03W.SetFirstSpanValue(Vector3.up, 4);
         }
 
         if (Input.GetKeyDown(KeyCode.R))
@@ -109,7 +107,6 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
         if(isRotate)
         {
-            // if (Mathf.Abs(diffRotation.x) <= 2f && Mathf.Abs(diffRotation.y) <= 2f && Mathf.Abs(diffRotation.z) <= 2f)
             if(currentRotation == finalRotation)
             {
                 plane.transform.eulerAngles = finalRotation;
@@ -124,9 +121,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
                 timeCount = 0f;
             }
             else
-            {
-                // CalDiffRotation();
-              
+            {              
                 currentRotation = Vector3.Slerp(oldRotation, finalRotation, timeCount);
                 timeCount = timeCount + Time.deltaTime;
 
@@ -221,20 +216,6 @@ public class GameControllerPuzzle03 : GameControllerRoot
         previousPosition = player.transform.position;
     }
 
-    private void CalDiffRotation()
-    {
-        currentRotation = plane.transform.eulerAngles;
-
-        // if(currentRotation.x != finalRotation.x)
-        //     currentRotation.x += currentRotation.x > 180f ? -360f : 0f;
-        // if(currentRotation.y != finalRotation.y)
-        //     currentRotation.y += currentRotation.y > 180f ? -360f : 0f;
-        // if(currentRotation.z != finalRotation.z)
-        //     currentRotation.z += currentRotation.z > 180f ? -360f : 0f;
-
-        diffRotation = finalRotation - currentRotation;
-    }
-
     public void TriggerRotation(int ID1, int ID2, Vector3 tipsPoint2Pos, Vector3 tipsPoint3Pos)
     {
         foreach(SpanValue spanValue in DBP03.spanValues)
@@ -250,8 +231,6 @@ public class GameControllerPuzzle03 : GameControllerRoot
         if(isFinded)
         {
             SetTipsPointsValue(tipsPoint2Pos, tipsPoint3Pos);
-
-            // CalDiffRotation();
 
             isRotate = true;
 
@@ -269,14 +248,12 @@ public class GameControllerPuzzle03 : GameControllerRoot
     
     public void SetSpanValue(Vector3 spanValue, int choiceID)
     {
-        Vector3 swapper = spanValue;
+        if(P03W.bVal)
+            spanValue = new Vector3(spanValue[0], spanValue[1], spanValue[2]);
+        else
+            spanValue = new Vector3(spanValue[1], spanValue[0], spanValue[2]);
 
-        if (!P03W.bVal && choicesAmount > 0)
-            swapper = new Vector3(spanValue.y, spanValue.x, spanValue.z);
- 
-        P03W.SetSpanValue(swapper, choiceID);
-
-        choicesAmount += 1;
+        P03W.SetSecondSpanValue(spanValue, choiceID);
     }
 
     public void SetTipsPointsValue(Vector3 tipsPoint2Pos, Vector3 tipsPoint3Pos)
@@ -293,8 +270,17 @@ public class GameControllerPuzzle03 : GameControllerRoot
             if(choiceID == T.choiceID)
             {
                 T.GetComponent<Button>().interactable = true;
+            }
+        }
+    }
 
-                choicesAmount -= 1;
+    public void activateOtherChoiceBtn(int choiceID)
+    {
+        foreach(ChoiceClickButton T in BtnChoices)
+        {
+            if(choiceID != T.choiceID)
+            {
+                T.GetComponent<Button>().interactable = true;
             }
         }
     }
@@ -321,6 +307,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
         }
 
         finalRotation = Vector3.zero;
+        oldRotation = Vector3.zero;
 
         beatLvl1 = true;
 

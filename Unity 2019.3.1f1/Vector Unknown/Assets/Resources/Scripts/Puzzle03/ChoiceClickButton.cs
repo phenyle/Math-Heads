@@ -9,9 +9,14 @@ public class ChoiceClickButton : MonoBehaviour
     private Button btnChoice;
     private GameControllerPuzzle03 GCP03;
 
+    [HideInInspector]
+    public Puzzle03Window P03W;
+
     private void Start()
     {
         GCP03 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle03>();
+
+        P03W = GameObject.Find("Puzzle03Window").GetComponent<Puzzle03Window>();
 
         btnChoice = GetComponent<Button>();
 
@@ -19,13 +24,11 @@ public class ChoiceClickButton : MonoBehaviour
     }
 
     private void TaskOnClick()
-    {
-        if (GCP03.choicesAmount < 2)
-        {
-            btnChoice.interactable = false;
-            GCP03.SetSpanValue(spanValue, choiceID);
-        }
-
+    {      
+        btnChoice.interactable = false;
+        P03W.ClickClearChoice2Btn();
+        GCP03.SetSpanValue(spanValue, choiceID);
+        GCP03.activateOtherChoiceBtn(choiceID);
         GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03Click);
     }
 }
