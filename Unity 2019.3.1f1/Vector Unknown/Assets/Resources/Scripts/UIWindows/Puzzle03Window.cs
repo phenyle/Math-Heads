@@ -47,7 +47,7 @@ public class Puzzle03Window : WindowRoot
         GCP03.InitGameController(this);
 
         ClearSpanValues("", "");
-        ClearFeedbackPanel();
+        SwapFeedbackPanel();
     }
 
     public void SetSpanValue(Vector3 spanValue, int choiceID)
@@ -65,10 +65,7 @@ public class Puzzle03Window : WindowRoot
         }
         else if (choiceID2 == 0)
         {
-            if (GCP03.getSubPuzzleID() > 1)
-                txtChoice2.text = spanValue[0] + "\n" + spanValue[1] + "\n<color=red>" + spanValue[2] + "</color>";
-            else
-                txtChoice2.text = spanValue[0] + "\n" + spanValue[1] + "\n" + spanValue[2] + "";
+            txtChoice2.text = spanValue[0] + "\n" + spanValue[1] + "\n<color=red>" + spanValue[2] + "</color>";
             choiceID2 = choiceID;
             choice2Pos = spanValue;
         }
@@ -99,6 +96,7 @@ public class Puzzle03Window : WindowRoot
         bVal = !bVal;
         ClickClearChoice2Btn();
         ClickClearChoice1Btn();
+        SwapFeedbackPanel();
     }
 
     public void ClickClearChoice1Btn()
@@ -122,10 +120,18 @@ public class Puzzle03Window : WindowRoot
         GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03ClickClear);
     }
 
-    public void ClearFeedbackPanel()
+    public void SwapFeedbackPanel()
     {
-        txtFBChoice1.text = "";
-        txtFBChoice2.text = "";
+        if (bVal)
+        {
+            txtFBChoice1.text = "1\n0\n0";
+            txtFBChoice2.text = "0\n1\n<color=red>b</color>";
+        }
+        else
+        {
+            txtFBChoice1.text = "0\n1\n0";
+            txtFBChoice2.text = "1\n0\n<color=red>b</color>";
+        }
     }
 
 

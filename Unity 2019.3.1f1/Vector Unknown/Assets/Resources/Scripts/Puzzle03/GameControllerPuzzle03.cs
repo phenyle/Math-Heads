@@ -85,29 +85,26 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     private void Update()
     {
-        if(!beatLvl1)
+        if (choicesAmount <= 0 && P03W.bVal)
         {
-            if (choicesAmount == 0 && P03W.bVal)
-            {
-                SetSpanValue(Vector3.right, 5);
-                choicesAmount = 1;
-            }
-            else if (choicesAmount == 0 && !P03W.bVal)
-            {
-                SetSpanValue(Vector3.up, 4);
-                choicesAmount = 1;
-            }
+            SetSpanValue(Vector3.right, 5);
+            choicesAmount = 1;
+        }
+        else if (choicesAmount <= 0 && !P03W.bVal)
+        {
+            SetSpanValue(Vector3.up, 4);
+            choicesAmount = 1;
+        }
 
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                player.transform.localPosition = startPosition;
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            player.transform.localPosition = startPosition;
 
-                GameRoot.instance.IsLock(false);
-                P03W.ShowChoicePanel(false);
-                isTriggerQuestion = false;
+            GameRoot.instance.IsLock(false);
+            P03W.ShowChoicePanel(false);
+            isTriggerQuestion = false;
 
-                GameRoot.ShowTips("", true, false);
-            }
+            GameRoot.ShowTips("", true, false);
         }
 
         if(isRotate)
@@ -330,7 +327,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
         GameRoot.instance.IsLock(false);
         P03W.ShowChoicePanel(false);
         P03W.ClearSpanValues("", "");
-        P03W.ClearFeedbackPanel();
+        P03W.SwapFeedbackPanel();
         isTriggerQuestion = false;
 
         isShiftPlane = true;
