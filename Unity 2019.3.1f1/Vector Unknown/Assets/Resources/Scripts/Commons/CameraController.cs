@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraController : MonoBehaviour
 {
@@ -82,6 +83,8 @@ public class CameraController : MonoBehaviour
         {
             Debug.Log("mouse hidden:" + isLock);
             isLock = !isLock;
+            if(SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
+                GameRoot.isPuzzleLock = !GameRoot.isPuzzleLock;
         }
 
         //if (DialogueManager.isPuzzleLock && newScene == true)
@@ -90,7 +93,7 @@ public class CameraController : MonoBehaviour
         //    newScene = false;
         //}
 
-        if ((DialogueManager.isInDialogue || DialogueManager.isPuzzleLock) && postPuzzleLock == false)
+        if ((DialogueManager.isInDialogue || DialogueManager.isPuzzleLock || GameRoot.isPuzzleLock) && postPuzzleLock == false)
         {
             //Debug.Log("free mouse");
             GameRoot.instance.IsLock(true);

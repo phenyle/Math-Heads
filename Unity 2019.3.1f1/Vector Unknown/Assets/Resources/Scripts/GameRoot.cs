@@ -205,7 +205,7 @@ public class GameRoot : MonoBehaviour
     {
         try
         {
-            Camera.main.GetComponent<CameraController>().isLock = state;
+            Camera.main.GetComponent<CameraController>().isLock = !state;
             GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = state;
         }
         catch { }

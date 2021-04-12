@@ -43,13 +43,15 @@ public class GameControllerPuzzle03 : GameControllerRoot
     private Vector3 tipsPoint3FinalPos;
     private bool isTipsAnimate = false;
 
-    private int subPuzzleID = 1;
+    public int subPuzzleID = 1;
     private bool isShiftPlane = false;
 
     private GameObject player;
     private Vector3 startPosition;
     private Vector3 previousPosition;
     private int timer = 0;
+
+    public GameObject endPortal;
 
     public override void InitGameController(Puzzle03Window P03W)
     {
@@ -85,6 +87,9 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     private void Update()
     {
+        if(subPuzzleID < 3)
+            GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = true;
+        
         if (P03W.bVal)
         {
             P03W.SetFirstSpanValue(Vector3.right, 5);
@@ -287,6 +292,11 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     public void FinishSubLevel(int subPuzzleID)
     {
+        GameRoot.instance.IsLock(false);
+        GameRoot.isPuzzleLock = false;
+        P03W.ShowChoicePanel(false);
+        isTriggerQuestion = false;
+
         this.subPuzzleID = subPuzzleID;
 
         topCamera.depth = 0;
@@ -304,6 +314,11 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
             DBP03.SetPuzzleActive(subPuzzleID);
             plane = DBP03.GetSubLevelPlanes(subPuzzleID);
+        }
+
+        if(subPuzzleID == 3)
+        {
+            endPortal.SetActive(true);
         }
 
         finalRotation = Vector3.zero;
