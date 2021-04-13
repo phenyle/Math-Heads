@@ -52,6 +52,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
     private int timer = 0;
 
     public GameObject endPortal;
+    public GameObject[] puzzles;
 
     public override void InitGameController(Puzzle03Window P03W)
     {
@@ -305,6 +306,8 @@ public class GameControllerPuzzle03 : GameControllerRoot
         plane.GetComponent<PuzzleEnvironmentController>().PlayRotatedSoundFX(false);
 
         isRotate = false;
+
+        puzzles[subPuzzleID - 1].SetActive(false);
 
         if (subPuzzleID < DBP03.subLevelPlanes.Length)
         {

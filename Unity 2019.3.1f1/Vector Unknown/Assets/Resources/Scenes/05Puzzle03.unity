@@ -15369,7 +15369,7 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 125
+  far clip plane: 200
   field of view: 50
   orthographic: 0
   orthographic size: 5
@@ -64980,6 +64980,10 @@ MonoBehaviour:
   diffRotation: {x: 0, y: 0, z: 0}
   subPuzzleID: 1
   endPortal: {fileID: 1026294164}
+  puzzles:
+  - {fileID: 1787378846}
+  - {fileID: 688439265}
+  - {fileID: 476936085}
 --- !u!4 &1677935429
 Transform:
   m_ObjectHideFlags: 0
