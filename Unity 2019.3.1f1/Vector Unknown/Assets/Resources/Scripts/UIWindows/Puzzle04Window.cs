@@ -58,12 +58,10 @@ public class Puzzle04Window : WindowRoot
     private bool YZtoggle;
 
 
-
     //Legacy
     [Header("Legacy")]
     public bool isInit;
     private bool doOnce = true;
-
 
     public Text txtInstruction;
     public string defaultInstructions = "Enter the Portals to Solve Vector Puzzles\nHold Shift to Run";

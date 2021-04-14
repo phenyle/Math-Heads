@@ -43,6 +43,11 @@ public class Puzzle04Controller : MonoBehaviour
     [Range(1, 10)]
     public int MaxCardMagnitudes;
 
+    //Grapple Kit
+    [Header("Grapple Kit")]
+    public GameObject grappleKit;
+
+
 
     //Answer Cards
     private Vector3 startingAnswer;
@@ -139,10 +144,10 @@ public class Puzzle04Controller : MonoBehaviour
 
 
             //TO-DO: create animation "grapple" of player towards goal
-            if (correct)
-            {
-                player.transform.position = finish.transform.position;
-            }
+    //        if (correct)
+     //       {
+     //           player.transform.position = finish.transform.position;
+     //       }
 
 
             //Mouse Camera Movement and Zoom Controls
@@ -648,7 +653,8 @@ public class Puzzle04Controller : MonoBehaviour
         if (playerAnswer == finalAnswerVector)
         {
             correct = true;
-            player.GetComponent<GrappleCode>().grappleToGoal();
+            grappleKit.GetComponent<GrappleCode>().InitGrapple(player.transform.position, goalPoint);
+            grappleKit.GetComponent<GrappleCode>().grappleToGoal(this);
             return true;
 
 

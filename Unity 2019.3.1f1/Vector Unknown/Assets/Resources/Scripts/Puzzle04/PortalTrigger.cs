@@ -26,8 +26,6 @@ public class PortalTrigger : MonoBehaviour
         {
             inPortal = true;
 
-            PC04.player.GetComponent<GrappleCode>().setGoalPoint(PC04.goalPoint);
-
             prevCameraPos = mainCamera.transform.position;
             prevCameraRotation = mainCamera.transform.rotation;
 
