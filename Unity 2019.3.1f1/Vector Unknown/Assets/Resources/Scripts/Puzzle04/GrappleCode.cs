@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityStandardAssets.Characters.ThirdPerson;
+using UnityEngine.Audio;
 using UnityEngine;
 
 public class GrappleCode : MonoBehaviour
@@ -13,22 +14,26 @@ public class GrappleCode : MonoBehaviour
     public GameObject ropeStart;
     public GameObject ropeEnd;
     public GameObject goalPoint;
+    public GameObject gunSmoke;
     private float ropeWidth;
+    public float hookSpeed;
+    private Vector3 hookDirection;
 
-    private float playerSpeed;
+
     private float speedIncri;
 
     [Header("Player Parts")]
     public GameObject charHand;
     public GameObject charShoulder;
-    private Vector3 playerBearing; //from player pos to goal point
-
+    private float playerSpeed;
     private float distanceToGoal;
-    public float hookSpeed;
+
 
     private bool grappleAnimation;
     private bool[] stages = { true, false, false, false };
     private Puzzle04Controller PC04;
+    private bool rightAnswer;
+
 
     public Transform prevShoulderRotation;
 
@@ -37,16 +42,18 @@ public class GrappleCode : MonoBehaviour
     void Start()
     {
         rope.SetActive(false);
-//        ropeStart.transform.position = charHand.transform.localPosition;
-//        ropeEnd.transform.position = charHand.transform.localPosition;
+        ropeStart.transform.position = charHand.transform.position;
+        ropeEnd.transform.position = charHand.transform.position;
         hook.SetActive(false);
-//        hook.transform.position = ropeEnd.transform.position;
+        gunSmoke.SetActive(false);
+        hook.transform.position = ropeEnd.transform.position;
         grappleAnimation = false;
         prevShoulderRotation = charShoulder.transform;
         prevShoulderRotation.rotation = charShoulder.transform.rotation;
         hookSpeed = 0.75f;
         playerSpeed = 0.5f;
         ropeWidth = 0.35f;
+
     }
 
     // Update is called once per frame
@@ -74,95 +81,126 @@ public class GrappleCode : MonoBehaviour
             //rotateShoulder
             charShoulder.transform.LookAt(goalPoint.transform);
             ropeStart.transform.position = charHand.transform.position;
-
-            ropeEnd.transform.LookAt(goalPoint.transform);
-
-            //Rope moving to goal stage
-            if (stages[0])
+            if (rightAnswer) //Shoot hook to goal, move player over
             {
-                rope.SetActive(true);
-                hook.SetActive(true);
-                player.transform.LookAt(new Vector3(goalPoint.transform.position.x, player.transform.position.y, goalPoint.transform.position.z));
+                ropeEnd.transform.LookAt(goalPoint.transform);
+                ropeStart.transform.LookAt(goalPoint.transform);
 
-
-                //             hookSpeed = ropeEndMag / 100;
-
-                player.GetComponent<ThirdPersonUserControl>().enabled = false;
-
-                ropeEnd.transform.position = Vector3.MoveTowards(ropeEnd.transform.position, goalPoint.transform.position, hookSpeed);
-
-                VectorBetweenPoints(rope, ropeStart.transform.position, ropeEnd.transform.position, ropeWidth);
-
-                /**
-                if (hookSpeed > 1)
-                    ropeEndMag++;
-                else
+                //Rope moving to goal stage
+                if (stages[0])
                 {
-                    playerTrajectory = player.transform.position - goalPoint.transform.position;
+                    rope.SetActive(true);
+                    hook.SetActive(true);
+                    gunSmoke.SetActive(true);
+                    player.transform.LookAt(new Vector3(goalPoint.transform.position.x, player.transform.position.y, goalPoint.transform.position.z));
 
-                    stages[0] = false;
-                    stages[1] = true;
+
+                    //             hookSpeed = ropeEndMag / 100;
+
+                    player.GetComponent<ThirdPersonUserControl>().enabled = false;
+
+                    ropeEnd.transform.position = Vector3.MoveTowards(ropeEnd.transform.position, goalPoint.transform.position, hookSpeed);
+
+                    VectorBetweenPoints(rope, ropeStart.transform.position, ropeEnd.transform.position, ropeWidth);
+
+                    if ((ropeEnd.transform.position - goalPoint.transform.position).magnitude < 1)
+                    {
+                        PC04.getGameController().GetAudioService().PlayFXAudio("Puzzle04/grappleHit");
+                        gunSmoke.SetActive(false);
+                        stages[0] = false;
+                        stages[1] = true;
+                    }
+
                 }
-                **/
 
-                if ((ropeEnd.transform.position - goalPoint.transform.position).magnitude < 1)
+                //Player moving to goal stage
+                if (stages[1])
                 {
-                    stages[0] = false;
-                    stages[1] = true;
+                    ropeEnd.transform.position = goalPoint.transform.position;
+
+                    VectorBetweenPoints(rope, ropeStart.transform.position, ropeEnd.transform.position, ropeWidth);
+
+                    player.GetComponent<Animator>().Play("Airborne");
+                    player.GetComponent<Rigidbody>().useGravity = false;
+
+                    distanceToGoal = (player.transform.position - goalPoint.transform.position).magnitude;
+
+                    if (!PC04.portal.GetComponent<PortalTrigger>().inPortal)
+                        player.GetComponent<Collider>().enabled = false;
+
+                    if (distanceToGoal > 3)
+                    {
+                        //        player.GetComponent<Rigidbody>().AddRelativeForce(-Vector3.Normalize(playerTrajectory) * playerSpeed, ForceMode.VelocityChange);
+                        player.transform.position = Vector3.MoveTowards(player.transform.position, goalPoint.transform.position + new Vector3(0, 2.5f, 0), playerSpeed);
+                    }
+                    else
+                    {
+                        //reset the player velocity if they had any
+                        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+                        //this force pushes the player up and beind the goal anchor
+                        player.GetComponent<Rigidbody>().AddForce(goalPoint.transform.TransformDirection(Vector3.right) * 20f + goalPoint.transform.TransformDirection(Vector3.up) * 4f, ForceMode.VelocityChange);
+
+                        stages[1] = false;
+                        stages[2] = true;
+                    }
                 }
 
+                //Player popping over Anchor
+                if (stages[2])
+                {
+                    player.GetComponent<Collider>().enabled = true;
+                    player.GetComponent<ThirdPersonUserControl>().enabled = true;
+
+                    player.GetComponent<Rigidbody>().useGravity = true;
+
+                    rope.SetActive(false);
+                    hook.SetActive(false);
+                    charShoulder.transform.rotation = prevShoulderRotation.rotation;
+
+                    distanceToGoal = (player.transform.position - goalPoint.transform.position).magnitude;
+
+                    ropeStart.transform.localPosition = Vector3.zero;
+                    ropeEnd.transform.localPosition = Vector3.zero;
+                    stages[2] = false;
+                    grappleAnimation = false;
+                    stages[0] = true;
+
+                }
             }
-
-            //Player moving to goal stage
-            if (stages[1])
+            else //Wrong answer, just shoot the hook at the final vector
             {
-                ropeEnd.transform.position = goalPoint.transform.position;
-
-                VectorBetweenPoints(rope, ropeStart.transform.position, ropeEnd.transform.position, ropeWidth);
-
-                player.GetComponent<Animator>().Play("Airborne");
-                player.GetComponent<Rigidbody>().useGravity = false;
-
-                distanceToGoal = (player.transform.position - goalPoint.transform.position).magnitude;
-
-                if(!PC04.portal.GetComponent<PortalTrigger>().inPortal)
-                    player.GetComponent<Collider>().enabled = false;
-
-                if (distanceToGoal > 3)
+                //Rope moving to goal stage
+                if (stages[0])
                 {
-            //        player.GetComponent<Rigidbody>().AddRelativeForce(-Vector3.Normalize(playerTrajectory) * playerSpeed, ForceMode.VelocityChange);
-                    player.transform.position = Vector3.MoveTowards(player.transform.position, goalPoint.transform.position + new Vector3(0,2.5f,0), playerSpeed);
+                    ropeEnd.transform.LookAt(hookDirection);
+                    ropeStart.transform.LookAt(hookDirection);
+
+                    rope.SetActive(true);
+                    hook.SetActive(true);
+                    gunSmoke.SetActive(true);
+                    player.transform.LookAt(new Vector3(hookDirection.x, player.transform.position.y, hookDirection.z));
+
+                    ropeEnd.transform.position = Vector3.MoveTowards(ropeEnd.transform.position, hookDirection, hookSpeed);
+
+                    VectorBetweenPoints(rope, ropeStart.transform.position, ropeEnd.transform.position, ropeWidth);
+
+                    if ((ropeEnd.transform.position - hookDirection).magnitude < 1 || hook.GetComponent<HookTrigger>().isHitObject())
+                    {
+                        PC04.getGameController().GetAudioService().PlayFXAudio("Puzzle04/grappleMiss");
+
+                        rope.SetActive(false);
+                        hook.SetActive(false);
+                        gunSmoke.SetActive(false);
+                        ropeStart.transform.localPosition = Vector3.zero;
+                        ropeEnd.transform.localPosition = Vector3.zero;
+                        grappleAnimation = false;
+                        hook.GetComponent<HookTrigger>().resetHitObject();
+                        stages[0] = true;
+                    }
+
                 }
-                else
-                {
-                    player.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                    player.GetComponent<Rigidbody>().AddForce(goalPoint.transform.TransformDirection(Vector3.right) * 20f + goalPoint.transform.TransformDirection(Vector3.up) * 4f, ForceMode.VelocityChange);
-
-                    stages[1] = false;
-                    stages[2] = true;
-                }
-            }
-
-            //Player popping over Anchor
-            if(stages[2])
-            {
-                player.GetComponent<Collider>().enabled = true;
-                player.GetComponent<ThirdPersonUserControl>().enabled = true;
-
-                player.GetComponent<Rigidbody>().useGravity = true;
-
-                rope.SetActive(false);
-                hook.SetActive(false);
-                charShoulder.transform.rotation = prevShoulderRotation.rotation;
-
-                distanceToGoal = (player.transform.position - goalPoint.transform.position).magnitude;
 
 
-                ropeStart.transform.localPosition = Vector3.zero;
-                ropeEnd.transform.localPosition = Vector3.zero;
-                stages[2] = false;
-                grappleAnimation = false;
-                stages[0] = true;
 
             }
 
@@ -180,9 +218,11 @@ public class GrappleCode : MonoBehaviour
         visVector.transform.localScale = localScale;
     }
 
-    public void InitGrapple(Vector3 start, GameObject goal)
+    public void InitGrapple(bool correct, Vector3 direction, GameObject goal)
     {
         goalPoint = goal;
+        rightAnswer = correct;
+        hookDirection = direction;
    //     ropeStart.transform.position = charHand.transform.localPosition;
     }
 
@@ -192,6 +232,8 @@ public class GrappleCode : MonoBehaviour
         PC04 = puzzleController;
         ropeStart.transform.position = charHand.transform.position;
         ropeEnd.transform.position = charHand.transform.position;
+
+        PC04.getGameController().GetAudioService().PlayFXAudio("Puzzle04/grappleShot");
 
         grappleAnimation = true;
     }

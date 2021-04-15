@@ -359,7 +359,7 @@ public class VisualVector : MonoBehaviour
         return returnVector;
     }
 
-    private Vector3 rescaledVector(Vector3 original)
+    public Vector3 rescaledVector(Vector3 original)
     {
         Vector3 temp, worldVector, gapVector;
 

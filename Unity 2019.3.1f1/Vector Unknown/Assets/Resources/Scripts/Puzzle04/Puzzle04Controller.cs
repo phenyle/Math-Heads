@@ -653,7 +653,7 @@ public class Puzzle04Controller : MonoBehaviour
         if (playerAnswer == finalAnswerVector)
         {
             correct = true;
-            grappleKit.GetComponent<GrappleCode>().InitGrapple(player.transform.position, goalPoint);
+            grappleKit.GetComponent<GrappleCode>().InitGrapple(correct, finalAnswerVector, goalPoint);
             grappleKit.GetComponent<GrappleCode>().grappleToGoal(this);
             return true;
 
@@ -662,6 +662,8 @@ public class Puzzle04Controller : MonoBehaviour
         else
         {
             correct = false;
+            grappleKit.GetComponent<GrappleCode>().InitGrapple(correct, VV01.vector2end.transform.position, goalPoint);
+            grappleKit.GetComponent<GrappleCode>().grappleToGoal(this);
             return false;
         }
 

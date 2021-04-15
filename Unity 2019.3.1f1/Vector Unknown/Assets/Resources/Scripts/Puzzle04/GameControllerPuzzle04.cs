@@ -32,7 +32,9 @@ public class GameControllerPuzzle04 : GameControllerRoot
     [HideInInspector]
     public Puzzle04Window P04W;
     [HideInInspector]
- //   public DatabasePuzzle01 DBP01;
+    //   public DatabasePuzzle01 DBP01;
+
+    private AudioService audio04;
 
     private GameObject player;
     private Vector3 startPosition;
@@ -55,6 +57,7 @@ public class GameControllerPuzzle04 : GameControllerRoot
         Debug.Log("Connect Puzzle04 Window");
         this.P04W = P04W;
 
+        audio04 = audioService;
   //      Debug.Log("Connect Database of Puzzle01");
   //      DBP01 = GetComponent<DatabasePuzzle01>();
 
@@ -255,6 +258,11 @@ public class GameControllerPuzzle04 : GameControllerRoot
     public Vector3 getResetPos()
     {
         return startPosition;
+    }
+
+    public AudioService GetAudioService()
+    {
+        return audio04;
     }
     /**
         public bool CheckAnswer(float scalar, float x, float y, float z)
