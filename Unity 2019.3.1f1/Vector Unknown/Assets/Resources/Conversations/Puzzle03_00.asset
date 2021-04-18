@@ -15,9 +15,9 @@ MonoBehaviour:
   dialogues:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
-    - "The building is on fire! The villagers in there need our help before it\u2019s
-      too late.\r"
-    - Choose between vectors to create a span that each floor will follow.
-    - You are given a handful of vectors to choose from.
-    - Roll every villager off each floor to succeed. Try to avoid rolling the villagers
-      into the fire or those scurvy pirates.
+    - The trapped villagers need your help!
+    - Roll the ball into the highlighted goal by choosing a span that tilts the environment
+      in the right way.
+    - You are given a variable within the vectors to modify.
+    - You are able to swap the fixed vector, and therefore change the vector ,you
+      are modifying through the use of the Swap Vectors button.
