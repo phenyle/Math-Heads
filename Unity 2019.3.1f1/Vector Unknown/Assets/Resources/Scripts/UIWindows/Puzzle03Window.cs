@@ -25,6 +25,9 @@ public class Puzzle03Window : WindowRoot
     public List<ChoiceClickButton> BtnChoices3;
 
     public GameControllerPuzzle03 GCP03;
+    public GameObject PanelAnswer;
+    public GameObject PanelInstruction;
+    public GameObject PanelFeedback;
 
     private void Start()
     {
@@ -154,10 +157,16 @@ public class Puzzle03Window : WindowRoot
         if (status)
         {
             panelChoiceAni.Play("ChoiceShow");
+            PanelAnswer.SetActive(true);
+            PanelInstruction.SetActive(true);
+            PanelFeedback.SetActive(true);
         }
         else
         {
             panelChoiceAni.Play("ChoiceHide");
+            PanelAnswer.SetActive(false);
+            PanelInstruction.SetActive(false);
+            PanelFeedback.SetActive(false);
         }
     }
 

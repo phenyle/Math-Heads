@@ -155,6 +155,9 @@ public class GameControllerMain : GameControllerRoot
             }
 
             SetActive(Chest_3, true);
+            MW.SetCheckImage(0, spriteChecks[0]);
+            MW.SetCheckImage(1, spriteChecks[1]);
+            MW.SetCheckImage(2, spriteChecks[2]);
 
             camera.GetComponent<CameraController>().isLock = true;
         }
@@ -165,16 +168,19 @@ public class GameControllerMain : GameControllerRoot
 
            
             SetActive(Chest_4, true);
+            MW.SetCheckImage(0, spriteChecks[0]);
+            MW.SetCheckImage(1, spriteChecks[1]);
+            MW.SetCheckImage(2, spriteChecks[2]);
+            MW.SetCheckImage(3, spriteChecks[3]);
 
             camera.GetComponent<CameraController>().isLock = true;
         }
         //***************** if Player finishes puzzle 2
-        if (GameRoot.instance.puzzleCompleted[2] == true)
+        if (GameRoot.instance.puzzleCompleted[1] == true)
         {
 
 
             SetActive(Chest_2, true);
-            MW.SetCheckImage(0, spriteChecks[0]);
             MW.SetCheckImage(1, spriteChecks[1]);
 
             camera.GetComponent<CameraController>().isLock = true;
@@ -185,7 +191,6 @@ public class GameControllerMain : GameControllerRoot
 
 
             SetActive(Chest_3, true);
-            MW.SetCheckImage(0, spriteChecks[0]);
             MW.SetCheckImage(2, spriteChecks[2]);
 
             camera.GetComponent<CameraController>().isLock = true;
