@@ -153,6 +153,13 @@ public class DialogueManager : MonoBehaviour
 
     public static bool showP03_00 = true;
 
+    //Flags for Puzzle04 dialog (done right, instead whatever the above is)
+    //bool[0] is always the level start dialog, any added on length is for
+    //mid level dialogs
+    public static bool[] showP04_1 = { true, true, true };
+    public static bool[] showP04_2 = { true, true };
+    public static bool[] showP04_3 = { true, true };
+
 
     public static bool showIntro = true;
     public static bool showM_00 = true;
@@ -172,6 +179,15 @@ public class DialogueManager : MonoBehaviour
         showP01_09 = true;
 
         showP03_00 = true;
+
+        for (int i = 0; i < showP04_1.Length; i++)
+            showP04_1[i] = true;
+
+        for (int i = 0; i < showP04_2.Length; i++)
+            showP04_2[i] = true;
+
+        for (int i = 0; i < showP04_3.Length; i++)
+            showP04_3[i] = true;
 
         showM_00 = true;
         showM_01 = true;

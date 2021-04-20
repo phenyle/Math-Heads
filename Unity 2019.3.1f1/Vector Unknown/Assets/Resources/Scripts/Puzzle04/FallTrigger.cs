@@ -37,8 +37,7 @@ public class FallTrigger : MonoBehaviour
     {
         if (GCP04.Difficulty < 3)
         {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraHeight(prevCamHeight);
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraZoom(prevCamZoom);
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().resetCamera();
         }
         
         GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>().getResetPos();

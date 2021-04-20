@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public class PortalTrigger : MonoBehaviour
 {
@@ -9,7 +10,13 @@ public class PortalTrigger : MonoBehaviour
     public Puzzle04Controller PC04;
     private GameObject mainCamera;
     private Vector3 prevCameraPos;
+    private Vector3 prevPlayerPos;
     private Quaternion prevCameraRotation;
+    private bool cameraToPuzzle;
+    private bool cameraToPlayer;
+    private float triggerDelay;
+    private float cameraMoveSpeed = 0.25f;
+    private float cameraRotateSpeed = 0.07f;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +24,67 @@ public class PortalTrigger : MonoBehaviour
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
         PC04 = this.GetComponentInParent<Puzzle04Controller>();
+        cameraToPuzzle = false;
+        cameraToPlayer = false;
+    }
+
+    public void Update()
+    {
+        if(cameraToPuzzle)
+        {
+            PC04.player.GetComponent<ThirdPersonCharacter>().enabled = false;
+            PC04.player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            PC04.setCameraControls(false);
+            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, PC04.CameraStartPosition.transform.position, cameraMoveSpeed);
+            mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, Quaternion.LookRotation((PC04.cameraTarget.transform.position - mainCamera.transform.position).normalized), cameraRotateSpeed);
+
+            if ((mainCamera.transform.position - PC04.CameraStartPosition.transform.position).magnitude < 2)
+            {
+                PC04.setCameraControls(true);
+                cameraToPuzzle = false;
+
+                PC04.player.GetComponent<ThirdPersonCharacter>().enabled = true;
+
+            }
+
+        }
+
+        if(cameraToPlayer)
+        {
+            PC04.setCameraControls(false);
+            mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, prevCameraPos + (PC04.player.transform.position - prevPlayerPos), cameraMoveSpeed);
+            mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, prevCameraRotation, cameraRotateSpeed);
+
+
+            if ((mainCamera.transform.position - (prevCameraPos + (PC04.player.transform.position - prevPlayerPos))).magnitude < 0.1)
+            {
+                mainCamera.transform.rotation = prevCameraRotation;
+                PC04.setCameraControls(true);
+                triggerDelay = 10f;
+                cameraToPlayer = false;
+
+                if (GCP04.Difficulty < 3)
+                {
+                    mainCamera.GetComponent<Camera2DFollowMod>().setPortalStatus(false);
+                    mainCamera.GetComponent<Camera2DFollowMod>().enabled = true;
+                    mainCamera.GetComponent<Camera2DFollowMod>().resetCamera();
+                }
+                else
+                {
+                    mainCamera.GetComponent<CameraController>().enabled = true;
+                    mainCamera.GetComponent<CameraController>().isLock = true;
+                }
+            }
+        }
+
+        if (triggerDelay > 0)
+        {
+            this.GetComponent<Collider>().enabled = false;
+            triggerDelay--;
+        }
+        else
+            this.GetComponent<Collider>().enabled = true;
+
     }
 
 
@@ -25,6 +93,15 @@ public class PortalTrigger : MonoBehaviour
         if (other.tag == "Player")
         {
             inPortal = true;
+
+            cameraMoveSpeed = 0.25f;
+            cameraRotateSpeed = 0.07f;
+
+            //Dialog Trigger
+            if (PC04.convoTriggerNumber != 0)
+            {
+                GCP04.conversation(PC04.convoTriggerNumber);
+            }
 
             prevCameraPos = mainCamera.transform.position;
             prevCameraRotation = mainCamera.transform.rotation;
@@ -49,6 +126,7 @@ public class PortalTrigger : MonoBehaviour
             PC04.setAnsCard2(Vector3.zero);
             turnOnVisualVectors();
 
+            cameraToPuzzle = true;
 
             if (GCP04.Difficulty < 3)
             {
@@ -58,22 +136,29 @@ public class PortalTrigger : MonoBehaviour
             else
             {
                 mainCamera.GetComponent<CameraController>().enabled = false;
-                Cursor.lockState = CursorLockMode.Confined;
-                Cursor.visible = true;
                 mainCamera.GetComponent<CameraController>().isLock = false;
             }
 
-            mainCamera.transform.position = PC04.getCameraTransform().position;
-            mainCamera.transform.LookAt(PC04.getCameraTarget().transform.position);
+            Cursor.lockState = CursorLockMode.Confined;
+            Cursor.visible = true;
 
-            Debug.Log("portal enter");
-            Debug.Log(PC04.getAnswerVector());
+ //           mainCamera.transform.position = PC04.getCameraTransform().position;
+ //           mainCamera.transform.LookAt(PC04.getCameraTarget().transform.position);
         }
     }
     private void OnTriggerExit(Collider other)
     {
         if (other.tag == "Player")
         {
+            PC04.player.GetComponent<ThirdPersonUserControl>().enabled = true;
+            prevPlayerPos = PC04.player.transform.position;
+
+            if(PC04.getCorrect())
+            {
+                cameraMoveSpeed = 6f;
+                cameraRotateSpeed = 0.5f;
+            }
+
             inPortal = false;
 
             GCP04.isInQues = false;      
@@ -99,24 +184,14 @@ public class PortalTrigger : MonoBehaviour
 
             turnOffVisualVectors();
 
+            cameraToPlayer = true;
 
-            if (GCP04.Difficulty < 3)
-            {
-                mainCamera.GetComponent<Camera2DFollowMod>().setPortalStatus(false);
-                mainCamera.GetComponent<Camera2DFollowMod>().enabled = true;
-            }
-            else
-            {
-                mainCamera.GetComponent<CameraController>().enabled = true;
-                Cursor.visible = false;
-                Cursor.lockState = CursorLockMode.Locked;
-                mainCamera.GetComponent<CameraController>().isLock = true;
-            }
-            mainCamera.transform.position = prevCameraPos;
-            mainCamera.transform.rotation = prevCameraRotation;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
 
+//            mainCamera.transform.position = prevCameraPos;
+ //           mainCamera.transform.rotation = prevCameraRotation;
 
-            Debug.Log("portal exit");
         }
     }
 

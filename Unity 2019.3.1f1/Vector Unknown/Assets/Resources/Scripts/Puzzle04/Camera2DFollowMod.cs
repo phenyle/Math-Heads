@@ -10,8 +10,11 @@ public class Camera2DFollowMod : MonoBehaviour
     public float lookAheadFactor = 3;
     public float lookAheadReturnSpeed = 0.5f;
     public float lookAheadMoveThreshold = 0.1f;
-    public float m_OffsetY = 4f;
+    public float m_OffsetY;
     public float m_OffsetZ;
+    private float startOffsetY;
+    private float startOffsetZ;
+    private Quaternion startRotation;
 
     private Vector3 m_LastTargetPosition;
     private Vector3 m_CurrentVelocity;
@@ -25,6 +28,11 @@ public class Camera2DFollowMod : MonoBehaviour
            
         m_LastTargetPosition = target.position + Vector3.up * m_OffsetY;
         m_OffsetZ = (transform.position - target.position).z;
+        m_OffsetY = (transform.position - target.position).y;
+        startOffsetY = m_OffsetY;
+        startOffsetZ = m_OffsetZ;
+        startRotation = this.transform.rotation;
+
         transform.parent = null;
 
         inPortal = false;
@@ -56,6 +64,13 @@ public class Camera2DFollowMod : MonoBehaviour
 
             m_LastTargetPosition = target.position;            
 
+    }
+
+    public void resetCamera()
+    {
+        m_OffsetY = startOffsetY;
+        m_OffsetZ = startOffsetZ;
+        this.transform.rotation = startRotation;
     }
 
     public float getCameraHeight()

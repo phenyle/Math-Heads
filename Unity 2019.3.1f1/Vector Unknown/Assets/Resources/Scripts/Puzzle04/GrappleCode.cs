@@ -138,7 +138,7 @@ public class GrappleCode : MonoBehaviour
                         //reset the player velocity if they had any
                         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
                         //this force pushes the player up and beind the goal anchor
-                        player.GetComponent<Rigidbody>().AddForce(goalPoint.transform.TransformDirection(Vector3.right) * 20f + goalPoint.transform.TransformDirection(Vector3.up) * 4f, ForceMode.VelocityChange);
+                        player.GetComponent<Rigidbody>().AddForce(goalPoint.transform.TransformDirection(Vector3.right) * 25f + goalPoint.transform.TransformDirection(Vector3.up) * 8f, ForceMode.VelocityChange);
 
                         stages[1] = false;
                         stages[2] = true;

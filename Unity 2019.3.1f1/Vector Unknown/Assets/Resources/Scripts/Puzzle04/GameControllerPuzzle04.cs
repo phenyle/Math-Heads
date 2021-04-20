@@ -67,11 +67,8 @@ public class GameControllerPuzzle04 : GameControllerRoot
         player = GameObject.FindGameObjectWithTag("Player");
         startPosition = player.transform.position;
 
-        if (DialogueManager.showP01_00)
-        {
-            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_00"));
-            DialogueManager.showP01_00 = false;
-        }
+        //Starter Conversation Managment
+        conversationStart();
 
         if (GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true)
         {
@@ -229,6 +226,74 @@ public class GameControllerPuzzle04 : GameControllerRoot
         previousPosition = player.transform.position;
     }
 
+    private void conversationStart()
+    {
+        switch(Difficulty)
+        {
+            case 1:
+                if (DialogueManager.showP04_1[0])
+                {
+                    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle04-1_00"));
+                    DialogueManager.showP04_1[0] = false;
+                }
+
+                break;
+            case 2:
+                if (DialogueManager.showP04_2[0])
+                {
+                    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle04-2_00"));
+                    DialogueManager.showP04_2[0] = false;
+                }
+
+                break;
+            case 3:
+                if (DialogueManager.showP04_3[0])
+                {
+                    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle04-3_00"));
+                    DialogueManager.showP04_3[0] = false;
+                }
+
+                break;
+        }
+    }
+
+    /// <summary>
+    /// Selects the conversation dialog to pop up
+    /// Requires that the associated bool[] and conversation file be established
+    /// with the DialogManager.cs
+    /// </summary>
+    /// <param name="val"></param>
+    public void conversation(int val)
+    {
+        switch (Difficulty)
+        {
+            case 1: //Level 1 Dialogs
+                if (DialogueManager.showP04_1[val])
+                {
+                    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle04-1_0" + val.ToString()));
+                    DialogueManager.showP04_1[val] = false;
+                }
+
+                break;
+            case 2: //Level 2 Dialogs
+                if (DialogueManager.showP04_2[val])
+                {
+                    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle04-2_0" + val.ToString()));
+                    DialogueManager.showP04_2[val] = false;
+                }
+
+                break;
+            case 3: //Level 3 Dialogs
+                if (DialogueManager.showP04_3[val])
+                {
+                    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle04-3_0" + val.ToString()));
+                    DialogueManager.showP04_3[val] = false;
+                }
+
+                break;
+        }
+    }
+
     private void SwitchCamera()
     {
         switch (Camera.main.depth)
@@ -264,89 +329,6 @@ public class GameControllerPuzzle04 : GameControllerRoot
     {
         return audio04;
     }
-    /**
-        public bool CheckAnswer(float scalar, float x, float y, float z)
-        {
-            bool check = DBP01.Calculation(questionNum, scalar, x, y, z);
 
-            string formula = DBP01.GetCurrentVector(questionNum) + " + " + scalar + " * (" + x + ", " + y + ", " + z + ") = " + DBP01.GetResultVector();
-            if(check)
-            {
-                isAnswerCorrect = true;
-
-                P01W.SetFeedback(formula, "Correct", Color.black);
-
-                //Prepare next question to show the question tips in feedback panel
-                isFirstTimeTriggerQuestion = true;   
-
-                //DBP01.ClearGreenLineTips();
-
-                //Correct answer audio FX;
-                audioService.PlayFXAudio(Constants.audioP01CorrectAnswer);
-            }
-            else
-            {
-                isAnswerCorrect = false;
-
-                P01W.SetFeedback(formula, "Not quite, please try again...", Color.red);
-
-                //Wrong answer audio FX
-                audioService.PlayFXAudio(Constants.audioP01WrongAnswer);
-            }
-
-            //Show the dialogue after player input the correct answer
-            if (questionNum == 1 && check && DialogueManager.showP01_02)
-            {
-                FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_02"));
-                DialogueManager.showP01_02 = false;
-            }
-            else if (questionNum == 2 && check && DialogueManager.showP01_04)
-            {
-                FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_04"));
-                DialogueManager.showP01_04 = false;
-            }
-            else if (questionNum == 3 && check && DialogueManager.showP01_06)
-            {
-                FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_06"));
-                DialogueManager.showP01_06 = false;
-            }
-            else if (questionNum == 4 && check && DialogueManager.showP01_08)
-            {
-                FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_08"));
-                DialogueManager.showP01_08 = false;
-            }
-            //********************************************************
-
-            if (check)
-            {
-                questionNum = 0;
-            }
-
-            //Resume can unlock the lock
-            GameRoot.isPuzzleLock = false;
-
-            //Dialogue manager can unlock the lock;
-            DialogueManager.isPuzzleLock = false;
-
-            return check;
-        }
-    **/
-
-    public void SetText(string content)
-    {
-       // SetText(P01W.txtInstruction, content);
-    }
-
-    //methods for dynamic input field calls
-
-    /**
-    public void updateLine(int index, float value)
-    {
-        if (index == 0) { DBP01.updateLineScalar(value, questionNum); }
-        else if (index == 1) { DBP01.updateLineX(value, questionNum); }
-        else if (index == 2) { DBP01.updateLineY(value, questionNum); }
-        else { DBP01.updateLineZ(value, questionNum); }
-    }
-    **/
 
 }
