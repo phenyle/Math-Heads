@@ -52,13 +52,14 @@ public class EnterExit : MonoBehaviour
                     playerController.sceneName = Constants.mainSceneName;
 
                     if (SceneManager.GetActiveScene().name == Constants.puzzle01SceneName)
-                        GameRoot.instance.exitPuzzle = 1;
+                        GameRoot.instance.exitPuzzle = 5;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle02SceneName)
                         GameRoot.instance.exitPuzzle = 2;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
                         GameRoot.instance.exitPuzzle = 3;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle04SceneName)
                         GameRoot.instance.exitPuzzle = 4;
+                   
 
                     break;
 

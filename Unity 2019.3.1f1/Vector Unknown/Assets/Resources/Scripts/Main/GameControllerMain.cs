@@ -11,7 +11,7 @@ public class GameControllerMain : GameControllerRoot
     public Transform Chest_2;
     public Transform Chest_3;
     public Transform Chest_4;
-    // public Transform Loadin;
+    public Transform Loadin;
     public Transform PCFromPuzzle04; // puzzle 4 area to pop out of
 
     public Transform sunLight;
@@ -47,7 +47,7 @@ public class GameControllerMain : GameControllerRoot
                 SetActive(PCFromPuzzle01, true);
                 SetActive(PCFromPuzzle02, false);
                 SetActive(PCFromPuzzle03, false);
-               // SetActive(Loadin, true);
+                SetActive(Loadin, false);
                 SetActive(PCFromPuzzle04, false);
 
                 break;
@@ -56,7 +56,7 @@ public class GameControllerMain : GameControllerRoot
                 SetActive(PCFromPuzzle01, false);
                 SetActive(PCFromPuzzle02, true);
                 SetActive(PCFromPuzzle03, false);
-               // SetActive(Loadin, false);
+                SetActive(Loadin, false);
                 SetActive(PCFromPuzzle04, false);
                 break;
 
@@ -64,7 +64,7 @@ public class GameControllerMain : GameControllerRoot
                 SetActive(PCFromPuzzle01, false);
                 SetActive(PCFromPuzzle02, false);
                 SetActive(PCFromPuzzle03, true);
-               // SetActive(Loadin, false);
+                SetActive(Loadin, false);
                 SetActive(PCFromPuzzle04, false);
                 break;
 
@@ -73,8 +73,16 @@ public class GameControllerMain : GameControllerRoot
                 SetActive(PCFromPuzzle01, false);
                 SetActive(PCFromPuzzle02, false);
                 SetActive(PCFromPuzzle03, false);
-                //SetActive(Loadin, false);
+                SetActive(Loadin, false);
                  SetActive(PCFromPuzzle04, true);
+                break;
+
+            case 5: // new player object is activated and others are turned off
+                SetActive(PCFromPuzzle01, false);
+                SetActive(PCFromPuzzle02, false);
+                SetActive(PCFromPuzzle03, false);
+                SetActive(Loadin, true);
+                SetActive(PCFromPuzzle04, false);
                 break;
         }
         //*****************Start of the game 
