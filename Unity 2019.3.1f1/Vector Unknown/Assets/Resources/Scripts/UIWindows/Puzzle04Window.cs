@@ -745,6 +745,11 @@ public class Puzzle04Window : WindowRoot
         return YZtoggle;
     }
 
+    public bool getAxisStatus()
+    {
+        return axisOn;
+    }
+
 
     public void resetCamera()
     {

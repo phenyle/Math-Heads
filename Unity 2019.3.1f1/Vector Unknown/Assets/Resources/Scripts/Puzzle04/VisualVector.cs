@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-//using TMPro;
+using TMPro;
 using UnityEngine;
 
 public class VisualVector : MonoBehaviour
@@ -38,6 +38,9 @@ public class VisualVector : MonoBehaviour
     public GameObject Ypositive; 
     public GameObject Znegative;
     public GameObject Zpositive;
+    public GameObject Xlabel;
+    public GameObject Ylabel;
+    public GameObject Zlabel;
     private List<GameObject> XSphereNodes;
     private List<GameObject> YSphereNodes;
     private List<GameObject> ZSphereNodes;
@@ -136,6 +139,9 @@ public class VisualVector : MonoBehaviour
         Xvector.SetActive(false);
         Yvector.SetActive(false);
         Zvector.SetActive(false);
+        Xlabel.SetActive(false);
+        Ylabel.SetActive(false);
+        Zlabel.SetActive(false);
 
         projections.SetActive(false);
         anchors.SetActive(false);
@@ -309,6 +315,13 @@ public class VisualVector : MonoBehaviour
                     VectorBetweenPoints(YZanchor2, YZvector2end.transform.position, vector2end.transform.position, gridThickness);
                 }
 
+            }
+
+            if(PC04.getGameController().P04W.getAxisStatus())
+            {
+                Xlabel.transform.LookAt(PC04.mainCamera.transform.position, -Vector3.up);
+                Ylabel.transform.LookAt(PC04.mainCamera.transform.position, -Vector3.up);
+                Zlabel.transform.LookAt(PC04.mainCamera.transform.position, -Vector3.up);
             }
         }
 
@@ -655,7 +668,48 @@ public class VisualVector : MonoBehaviour
             }
         }
 
+        placeAxisLabels();
+
         deactivateAxis();
+
+    }
+
+    private void placeAxisLabels()
+    {
+        if(PC04.getAnswerVector().x >= 0) //if x is positive
+        {
+            Xlabel.transform.position += new Vector3(2 * puzzleScale.x, 0, 0);
+            Xlabel.GetComponent<TextMeshPro>().text = "+ X";
+        }
+        else
+        {
+            Xlabel.transform.position += new Vector3(-2 * puzzleScale.x, 0, 0);
+            Xlabel.GetComponent<TextMeshPro>().text = "- X";
+
+        }
+
+        if (PC04.getAnswerVector().y >= 0) //if y is positive
+        {
+            Ylabel.transform.position += new Vector3(0, 2 * puzzleScale.y, 0);
+            Ylabel.GetComponent<TextMeshPro>().text = "+ Y";
+
+        }
+        else
+        {
+            Ylabel.transform.position += new Vector3(0, -2 * puzzleScale.y, 0);
+            Ylabel.GetComponent<TextMeshPro>().text = "- Y";
+        }
+
+        if (PC04.getAnswerVector().z >= 0) //if y is positive
+        {
+            Zlabel.transform.position += new Vector3(0, 0, 2 * puzzleScale.z);
+            Zlabel.GetComponent<TextMeshPro>().text = "+ Z";
+        }
+        else
+        {
+            Zlabel.transform.position += new Vector3(0, 0, -2 * puzzleScale.z);
+            Zlabel.GetComponent<TextMeshPro>().text = "- Z";
+        }
 
     }
 
@@ -808,6 +862,9 @@ public class VisualVector : MonoBehaviour
         Xvector.SetActive(false);
         Yvector.SetActive(false);
         Zvector.SetActive(false);
+        Xlabel.SetActive(false);
+        Ylabel.SetActive(false);
+        Zlabel.SetActive(false);
 
         foreach (GameObject sphere in XSphereNodes)
         {
@@ -830,7 +887,9 @@ public class VisualVector : MonoBehaviour
         Xvector.SetActive(Xaxis);
         Yvector.SetActive(Yaxis);
         Zvector.SetActive(Zaxis);
-
+        Xlabel.SetActive(Xaxis);
+        Ylabel.SetActive(Yaxis);
+        Zlabel.SetActive(Zaxis);
 
         foreach (GameObject sphere in XSphereNodes)
         {
