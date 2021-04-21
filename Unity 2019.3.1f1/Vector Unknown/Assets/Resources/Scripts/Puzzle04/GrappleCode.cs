@@ -50,14 +50,14 @@ public class GrappleCode : MonoBehaviour
         grappleAnimation = false;
         prevShoulderRotation = charShoulder.transform;
         prevShoulderRotation.rotation = charShoulder.transform.rotation;
-        hookSpeed = 0.75f;
-        playerSpeed = 0.5f;
+        hookSpeed = 1.5f;
+        playerSpeed = 1f;
         ropeWidth = 0.35f;
 
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         /**Theory of the Grapple Animation in steps
          * 1: player hits submit with the correct answer
@@ -107,6 +107,10 @@ public class GrappleCode : MonoBehaviour
                     {
                         PC04.getGameController().GetAudioService().PlayFXAudio("Puzzle04/grappleHit");
                         gunSmoke.SetActive(false);
+
+                        player.GetComponent<Rigidbody>().useGravity = false;
+                        Physics.gravity = Vector3.zero;
+
                         stages[0] = false;
                         stages[1] = true;
                     }
@@ -120,8 +124,7 @@ public class GrappleCode : MonoBehaviour
 
                     VectorBetweenPoints(rope, ropeStart.transform.position, ropeEnd.transform.position, ropeWidth);
 
-                    player.GetComponent<Animator>().Play("Airborne");
-                    player.GetComponent<Rigidbody>().useGravity = false;
+                    player.GetComponent<Animator>().Play("Airborne");                    
 
                     distanceToGoal = (player.transform.position - goalPoint.transform.position).magnitude;
 
@@ -138,7 +141,10 @@ public class GrappleCode : MonoBehaviour
                         //reset the player velocity if they had any
                         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
                         //this force pushes the player up and beind the goal anchor
-                        player.GetComponent<Rigidbody>().AddForce(goalPoint.transform.TransformDirection(Vector3.right) * 25f + goalPoint.transform.TransformDirection(Vector3.up) * 8f, ForceMode.VelocityChange);
+                        player.GetComponent<Rigidbody>().AddForce(goalPoint.transform.TransformDirection(Vector3.right) * 25f + goalPoint.transform.TransformDirection(Vector3.up) * 10f, ForceMode.VelocityChange);
+                        
+                        player.GetComponent<Rigidbody>().useGravity = true;
+                        Physics.gravity = new Vector3(0, -9.81f, 0);
 
                         stages[1] = false;
                         stages[2] = true;
@@ -150,8 +156,6 @@ public class GrappleCode : MonoBehaviour
                 {
                     player.GetComponent<Collider>().enabled = true;
                     player.GetComponent<ThirdPersonUserControl>().enabled = true;
-
-                    player.GetComponent<Rigidbody>().useGravity = true;
 
                     rope.SetActive(false);
                     hook.SetActive(false);
