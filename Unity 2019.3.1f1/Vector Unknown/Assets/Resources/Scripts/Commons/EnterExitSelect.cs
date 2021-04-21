@@ -52,6 +52,7 @@ public class EnterExitSelect : WindowRoot
 
         if(other.tag == "Player")
         {
+            mainCamera = GameObject.Find("MainCamera").GetComponent<CameraController>();
             // playerController.isEnterExit = true;
 
             SetActive(levelSelectUI, true);
