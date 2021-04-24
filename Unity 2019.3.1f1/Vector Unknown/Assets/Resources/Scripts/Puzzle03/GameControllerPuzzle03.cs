@@ -51,8 +51,9 @@ public class GameControllerPuzzle03 : GameControllerRoot
     private Vector3 previousPosition;
     private int timer = 0;
 
-    public GameObject endPortal;
+    public GameObject endZone;
     public GameObject[] puzzles;
+    public float cameraHorizontal, cameraVertical;
 
     public override void InitGameController(Puzzle03Window P03W)
     {
@@ -84,6 +85,9 @@ public class GameControllerPuzzle03 : GameControllerRoot
         plane = DBP03.subLevelPlanes[0];
         topCamera = topCameraList[0];
         P03W.SetInstructionalText("Choose a number to assign 'b' a new value. The environment will then imitate the newly generated span.");
+
+        cameraHorizontal = GameObject.Find("MainCamera").GetComponent<CameraController>().horizontal;
+        cameraVertical = GameObject.Find("MainCamera").GetComponent<CameraController>().vertical;
     }
 
     private void Update()
@@ -329,7 +333,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
         if(subPuzzleID == 3)
         {
-            endPortal.SetActive(true);
+            endZone.SetActive(true);
         }
 
         finalRotation = Vector3.zero;
@@ -343,6 +347,9 @@ public class GameControllerPuzzle03 : GameControllerRoot
         P03W.SwapFeedbackPanel();
         isTriggerQuestion = false;
 
+        SetTipsPointsValue(new Vector3(1,0,0),new Vector3(0,1,0));
+        GameObject.Find("MainCamera").GetComponent<CameraController>().vertical = cameraVertical;
+        GameObject.Find("MainCamera").GetComponent<CameraController>().horizontal = cameraHorizontal;
         isShiftPlane = true;
     }
 
