@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
     //public bool isLock = false;
     public bool isLock = true;
     private Vector3 rotationSmoothVelocity, currentRotation;
-    private float horizontal, vertical;
+    public float horizontal, vertical;
 
     public bool postPuzzleLock = false;
 

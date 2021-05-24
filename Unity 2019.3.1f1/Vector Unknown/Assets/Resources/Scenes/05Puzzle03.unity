@@ -48043,7 +48043,7 @@ PrefabInstance:
     - target: {fileID: 7241357825222830099, guid: ab851272ebaa04b0996d5681c0dd8ab4,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7241357825550064315, guid: ab851272ebaa04b0996d5681c0dd8ab4,
         type: 3}
@@ -48052,12 +48052,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab851272ebaa04b0996d5681c0dd8ab4, type: 3}
---- !u!1 &1026294164 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7241357825222830099, guid: ab851272ebaa04b0996d5681c0dd8ab4,
-    type: 3}
-  m_PrefabInstance: {fileID: 1026294163}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1039604678
 GameObject:
   m_ObjectHideFlags: 0
@@ -58282,7 +58276,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1129869490
 Transform:
   m_ObjectHideFlags: 0
@@ -64979,7 +64973,7 @@ MonoBehaviour:
   currentRotation: {x: 0, y: 0, z: 0}
   diffRotation: {x: 0, y: 0, z: 0}
   subPuzzleID: 1
-  endPortal: {fileID: 1026294164}
+  endZone: {fileID: 1129869489}
   puzzles:
   - {fileID: 1787378846}
   - {fileID: 688439265}
