@@ -1880,6 +1880,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1917182346}
   m_CullTransparentMesh: 0
+--- !u!1 &1977183515 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7024020349616395428, guid: eee79c634ca777149b1a3a7cba30dd5e,
+    type: 3}
+  m_PrefabInstance: {fileID: 7024020350406897161}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1977183516
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977183515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f13361dc8360604cbc5c8a96ad12ffe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2078814990 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2012438974594575700, guid: eee79c634ca777149b1a3a7cba30dd5e,
@@ -2922,7 +2940,7 @@ PrefabInstance:
     - target: {fileID: 2224685914837882977, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2247405625374392428, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
@@ -3211,7 +3229,7 @@ PrefabInstance:
     - target: {fileID: 2787911957098011027, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 7
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2793485676298188535, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
@@ -3668,6 +3686,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3996315433975612993, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: gameRoot
+      value: 
+      objectReference: {fileID: 1977183515}
     - target: {fileID: 3996315434352273452, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_FontData.m_Font
@@ -5014,7 +5037,7 @@ PrefabInstance:
     - target: {fileID: 7024020349568988930, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7024020349616395428, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
@@ -5479,7 +5502,7 @@ PrefabInstance:
     - target: {fileID: 7957081807443176894, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7958094534752107168, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
