@@ -1612,6 +1612,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle02
       objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642332, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: m_TagString
+      value: p4puzzles
+      objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642333, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: m_RootOrder
@@ -2780,6 +2785,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle05
       objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642332, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: m_TagString
+      value: p4puzzles
+      objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642333, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: m_RootOrder
@@ -3484,6 +3494,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: obstacle08
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642332, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: m_TagString
+      value: p4puzzles
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642333, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -4193,6 +4208,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle01
       objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642332, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: m_TagString
+      value: p4puzzles
+      objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642333, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: m_RootOrder
@@ -4603,6 +4623,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: obstacle03
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642332, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: m_TagString
+      value: p4puzzles
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642333, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -5114,6 +5139,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle07
       objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642332, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: m_TagString
+      value: p4puzzles
+      objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642333, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: m_RootOrder
@@ -5419,6 +5449,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: obstacle06
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642332, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: m_TagString
+      value: p4puzzles
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642333, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -5848,6 +5883,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: obstacle04
       objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642332, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: m_TagString
+      value: p4puzzles
+      objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642333, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: m_RootOrder
@@ -6219,6 +6259,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: obstacle09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642332, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: m_TagString
+      value: p4puzzles
       objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642333, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
@@ -13715,7 +13760,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 0
-  puzzleComplete: 4
+  puzzleComplete: 5
 --- !u!65 &2918626235753252267
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -43043,6 +43088,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topCamPlayer: {fileID: 2918626236268589570}
   Difficulty: 1
+  puzzleTime: 0
+  puzzles: []
   sunLight: {fileID: 2918626237422057002}
   moonLight: {fileID: 2918626235661196956}
   ocean: {fileID: 2918626237385298201}

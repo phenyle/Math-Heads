@@ -38,9 +38,9 @@ public class AudioService : MonoBehaviour
 
         if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
             SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
-            SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
-            SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
-            SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04_3SceneName ||
             SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
         {
             gulls.loop = isLoop;
@@ -57,11 +57,11 @@ public class AudioService : MonoBehaviour
 
         if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
             SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
-            SceneManager.GetActiveScene().name == Constants.puzzle02SceneName ||
-            SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName ||
-            SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
-            SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
-            SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
+            SceneManager.GetActiveScene().name == Constants.puzzle04_3SceneName ||
             SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
         {
             ocean.loop = isLoop;
@@ -120,20 +120,20 @@ public class AudioService : MonoBehaviour
             audioBg.volume = bgVolume * 0.5f * 0.2f;
             if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
                 SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_3SceneName ||
                 SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
             {
                 gulls.volume = bgVolume * 0.3f * 0.2f;
             }
             if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
                 SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle02SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_3SceneName ||
                 SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
             {
                 ocean.volume = bgVolume * 0.2f;
@@ -144,20 +144,20 @@ public class AudioService : MonoBehaviour
             audioBg.volume = bgVolume * 0.5f;
             if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
                 SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_3SceneName ||
                 SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
             {
                 gulls.volume = bgVolume * 0.3f;
             }
             if(SceneManager.GetActiveScene().name == Constants.mainSceneName ||
                 SceneManager.GetActiveScene().name == Constants.puzzle01SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle02SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s1SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s2SceneName ||
-                SceneManager.GetActiveScene().name == Constants.puzzle04s3SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
+                SceneManager.GetActiveScene().name == Constants.puzzle04_3SceneName ||
                 SceneManager.GetActiveScene().name == Constants.tutorialSceneName)
             {
                 ocean.volume = bgVolume;

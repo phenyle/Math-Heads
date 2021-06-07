@@ -24,6 +24,9 @@ public class GameControllerPuzzle01 : GameControllerRoot
     public ParticleSystem congrats;
     public Transform endportal;
 
+    [Header("Database Info")]
+    public float puzzleTime;
+
     //MVC Components
     [HideInInspector]
     public Puzzle01Window P01W;
@@ -66,6 +69,8 @@ public class GameControllerPuzzle01 : GameControllerRoot
             ocean.sun = moonLight.GetChild(0).GetComponent<Light>();
             RenderSettings.skybox = night;
         }
+
+        puzzleTime = 0.0f;
 
         //Init Components
         SetActive(endportal, false);
@@ -114,6 +119,9 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
         if (!DialogueManager.isInDialogue)
         {
+            if (!GameRoot.isPause)
+                puzzleTime += Time.deltaTime;
+
             // Z key to switch camera
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -336,6 +344,14 @@ public class GameControllerPuzzle01 : GameControllerRoot
         else if (index == 1) { DBP01.updateLineX(value, questionNum); }
         else if (index == 2) { DBP01.updateLineY(value, questionNum); }
         else { DBP01.updateLineZ(value, questionNum); }
+    }
+
+    public void RecordData()
+    {
+        if (GameRoot.player.users.p1_1clear_time == 0.0f)
+            GameRoot.player.users.p1_1clear_time = puzzleTime;
+        else if (puzzleTime < GameRoot.player.users.p1_1clear_time)
+            GameRoot.player.users.p1_1clear_time = puzzleTime;
     }
 
 }

@@ -502,7 +502,7 @@ GameObject:
   - component: {fileID: 6921089389071107373}
   m_Layer: 0
   m_Name: obstacle01
-  m_TagString: Untagged
+  m_TagString: p4puzzles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -547,6 +547,7 @@ MonoBehaviour:
   goalPoint: {fileID: 2793692883886971105}
   reset: {fileID: 2123756034428608147}
   finish: {fileID: 2123756033212542150}
+  isActive: 0
   mainCamera: {fileID: 0}
   cameraTarget: {fileID: 2564460763641614983}
   CameraStartPosition: {fileID: 6599879233226375686}
@@ -557,7 +558,7 @@ MonoBehaviour:
   MaxCardScalar: 0
   MaxCardMagnitudes: 0
   grappleKit: {fileID: 0}
-  isActive: 0
+  convoTriggerNumber: 0
 --- !u!114 &6921089389071107373
 MonoBehaviour:
   m_ObjectHideFlags: 0

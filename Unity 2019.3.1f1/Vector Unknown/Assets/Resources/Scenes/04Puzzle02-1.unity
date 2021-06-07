@@ -343,12 +343,12 @@ PrefabInstance:
     - target: {fileID: 1358280738454144554, guid: 554b25c6e3921dc468b4592d7bf0f8e0,
         type: 3}
       propertyPath: sceneName
-      value: 3
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1358280738454144554, guid: 554b25c6e3921dc468b4592d7bf0f8e0,
         type: 3}
       propertyPath: puzzleComplete
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1358280738497951902, guid: 554b25c6e3921dc468b4592d7bf0f8e0,
         type: 3}

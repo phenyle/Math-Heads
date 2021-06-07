@@ -1,4 +1,14 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+
+
+/// <summary>
+/// This whole class originally started as a replacment for Puzzle01
+/// That plan was abandoned when we decided to keep both the old Puzzle01
+/// and make this into a whole new separate Puzzle.
+/// There is still some legacy code that does not apply to the new puzzle
+/// I did not write it but touching it makes bad things happen.
+/// </summary>
 
 public class GameControllerPuzzle04 : GameControllerRoot
 {
@@ -7,6 +17,11 @@ public class GameControllerPuzzle04 : GameControllerRoot
     [Header("STAGE LEVEL")]
     [Range(1, 3)]
     public int Difficulty;
+
+    [Header("Database Records")]
+    public float tot_puzzleTime;
+    public List<Puzzle04Controller> puzzleDatas;
+
 
     [Header("Environment Components")]
     public Transform sunLight;
@@ -47,6 +62,11 @@ public class GameControllerPuzzle04 : GameControllerRoot
         P04W = puzzleWindow.GetComponent<Puzzle04Window>();
 
         player = GameObject.FindGameObjectWithTag("Player");
+
+        tot_puzzleTime = 0.0f;
+
+
+
     }
 
     public override void InitGameController(Puzzle04Window P04W)
@@ -68,7 +88,8 @@ public class GameControllerPuzzle04 : GameControllerRoot
         startPosition = player.transform.position;
 
         //Starter Conversation Managment
-        conversationStart();
+        conversation(0);
+  //      conversationStart();
 
         if (GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true)
         {
@@ -78,9 +99,12 @@ public class GameControllerPuzzle04 : GameControllerRoot
             RenderSettings.skybox = night;
         }
 
+        foreach (GameObject obstacle in GameObject.FindGameObjectsWithTag("p4puzzles"))
+            puzzleDatas.Add(obstacle.GetComponent<Puzzle04Controller>());
+
         //Init Components
-       // SetActive(endportal, false);
-     }
+        // SetActive(endportal, false);
+    }
 
     private void Update()
     {
@@ -127,6 +151,9 @@ public class GameControllerPuzzle04 : GameControllerRoot
 
         if (!DialogueManager.isInDialogue)
         {
+            if (!GameRoot.isPause)
+                tot_puzzleTime += Time.deltaTime;
+
             // Z key to switch camera
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -328,6 +355,169 @@ public class GameControllerPuzzle04 : GameControllerRoot
     public AudioService GetAudioService()
     {
         return audio04;
+    }
+
+
+    /// <summary>
+    /// Everytime a player correctly answers a puzzle, that puzzle data struct
+    /// will be sent to their local playerData.  This is not sent to GSFU unless
+    /// the player completes the level, exits via pause->menu, or closes the game
+    /// 
+    /// This is good for making one consistent object but structs cannot be walked
+    /// through.  Unfortunately, GSFU can only parse Serializalble structs and arrays[],
+    /// Lists<>, etc aren't it
+    /// </summary>
+    /// <param name="puzzle"></param>
+    public void SaveLocalPuzzleData(Puzzle04Controller puzzle)
+    {
+        int index = -1;
+
+        index = puzzleDatas.IndexOf(puzzle);
+        puzzle.puzzleData.obsID = index + 1;
+
+        switch (Difficulty)
+        {
+            case 1:
+                switch (index)
+                {
+                    case 1:
+                        GameRoot.player.p4_1.obs1_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_1.obs1 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 2:
+                        GameRoot.player.p4_1.obs2_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_1.obs2 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 3:
+                        GameRoot.player.p4_1.obs3_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_1.obs3= puzzleDatas[index].puzzleData;
+                        break;
+                    case 4:
+                        GameRoot.player.p4_1.obs4_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_1.obs4 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 5:
+                        GameRoot.player.p4_1.obs5_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_1.obs5 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 6:
+                        GameRoot.player.p4_1.obs6_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_1.obs6 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 7:
+                        GameRoot.player.p4_1.obs7_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_1.obs7 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 8:
+                        GameRoot.player.p4_1.obs8_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_1.obs8 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 9:
+                        GameRoot.player.p4_1.obs9_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_1.obs9 = puzzleDatas[index].puzzleData;
+                        break;
+
+                }
+                break;
+
+
+            case 2:
+                switch (index)
+                {
+                    case 1:
+                        GameRoot.player.p4_2.obs1_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_2.obs1 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 2:
+                        GameRoot.player.p4_2.obs2_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_2.obs2 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 3:
+                        GameRoot.player.p4_2.obs3_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_2.obs3 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 4:
+                        GameRoot.player.p4_2.obs4_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_2.obs4 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 5:
+                        GameRoot.player.p4_2.obs5_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_2.obs5 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 6:
+                        GameRoot.player.p4_2.obs6_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_2.obs6 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 7:
+                        GameRoot.player.p4_2.obs7_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_2.obs7 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 8:
+                        GameRoot.player.p4_2.obs8_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_2.obs8 = puzzleDatas[index].puzzleData;
+                        break;
+
+                }
+                break;
+
+
+            case 3:
+                switch (index)
+                {
+                    case 1:
+                        GameRoot.player.p4_3.obs1_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_3.obs1 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 2:
+                        GameRoot.player.p4_3.obs2_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_3.obs2 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 3:
+                        GameRoot.player.p4_3.obs3_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_3.obs3 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 4:
+                        GameRoot.player.p4_3.obs4_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_3.obs4 = puzzleDatas[index].puzzleData;
+                        break;
+                    case 5:
+                        GameRoot.player.p4_3.obs5_time = puzzle.puzzleData.obsTime;
+                        GameRoot.player.p4_3.obs5 = puzzleDatas[index].puzzleData;
+                        break;
+                }
+                break;
+        }
+    }
+
+    public void RecordData()
+    {
+
+        switch(Difficulty)
+        {
+            case 1:
+                if (GameRoot.player.users.p4_1clear_time == 0.0f)
+                    GameRoot.player.users.p4_1clear_time = tot_puzzleTime;
+                else if (tot_puzzleTime < GameRoot.player.users.p4_1clear_time)
+                    GameRoot.player.users.p4_1clear_time = tot_puzzleTime;
+
+                break;
+
+            case 2:
+                if (GameRoot.player.users.p4_2clear_time == 0.0f)
+                    GameRoot.player.users.p4_2clear_time = tot_puzzleTime;
+                else if (tot_puzzleTime < GameRoot.player.users.p4_2clear_time)
+                    GameRoot.player.users.p4_2clear_time = tot_puzzleTime;
+
+                break;
+
+            case 3:
+                if (GameRoot.player.users.p4_3clear_time == 0.0f)
+                    GameRoot.player.users.p4_3clear_time = tot_puzzleTime;
+                else if (tot_puzzleTime < GameRoot.player.users.p4_3clear_time)
+                    GameRoot.player.users.p4_3clear_time = tot_puzzleTime;
+
+                break;
+        }
     }
 
 

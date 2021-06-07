@@ -27,12 +27,12 @@ public class Puzzle02Window : WindowRoot
         Debug.Log("Init Puzzle02 window");
         base.InitWindow();
 
-        if(SceneManager.GetActiveScene().name == Constants.puzzle02SceneName)
+        if(SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName)
         {
             GCP02_01 = GameObject.Find("GameController_Puzzle02_01").GetComponent<GameControllerPuzzle02>();
             GCP02_01.InitGameController(this);
         }
-        else if(SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName)
+        else if(SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName)
         {
             GCP02_02 = GameObject.Find("GameController_Puzzle02_02").GetComponent<GameControllerPuzzle02>();
             GCP02_02.InitGameController(this);

@@ -6,14 +6,21 @@ namespace GoogleSheetsForUnity
 {
     public class SendToGoogle : MonoBehaviour
     {
-        //Player Holder
-        public PlayerData player;
+        //A temporary holder when retrieving data
+        public PlayerData tmp_player;
+
+        public bool retrieved { get; set; }
 
         //SearchValues
         private string searchTable;
         private string searchColumn;
         private string searchPlayer;
 
+        private void Start()
+        {
+            tmp_player = new PlayerData();
+            retrieved = false;
+        }
 
         private void OnEnable()
         {
@@ -27,96 +34,94 @@ namespace GoogleSheetsForUnity
             Drive.responseCallback -= HandleDriveResponse;
         }
 
-
-        public void CreatePlayer()
-        {
-            player = new PlayerData();
-        }
-
         public void SaveNewPlayer()
         {
+            tmp_player = GameRoot.player;
+
             string jsonPlayer = "";
             // Get the json string of the object.
-            for (int i = 0; i < player.sheetNames.Length; i++)
+            for (int i = 0; i < tmp_player.sheetNames.Length; i++)
             {
                 jsonPlayer = "";
                 switch(i)
                 {
                     case 0: //users
-                        jsonPlayer = JsonUtility.ToJson(player.users);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.users);
                         break;
                     case 1: //p1-1
-                        jsonPlayer = JsonUtility.ToJson(player.p1_1);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p1_1);
                         break;
                     case 2: //p2-1
-                        jsonPlayer = JsonUtility.ToJson(player.p2_1);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p2_1);
                         break;
                     case 3: //p2-2
-                        jsonPlayer = JsonUtility.ToJson(player.p2_2);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p2_2);
                         break;
                     case 4: //p3-1
-                        jsonPlayer = JsonUtility.ToJson(player.p3_1);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p3_1);
                         break;
                     case 5: //p4-1
-                        jsonPlayer = JsonUtility.ToJson(player.p4_1);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p4_1);
                         break;
                     case 6: //p4-2
-                        jsonPlayer = JsonUtility.ToJson(player.p4_2);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p4_2);
                         break;
                     case 7: //p4-3
-                        jsonPlayer = JsonUtility.ToJson(player.p4_3);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p4_3);
                         break;
                 }
-                Debug.Log("<color=yellow>Sending following player table: " + player.sheetNames[i] + "\n</color>" + jsonPlayer);
+                Debug.Log("<color=yellow>Sending following player table: " + tmp_player.sheetNames[i] + "\n</color>" + jsonPlayer);
 
-                Drive.CreateObject(jsonPlayer, player.sheetNames[i], true);
+                Drive.CreateObject(jsonPlayer, tmp_player.sheetNames[i], true);
             }
         }
 
         public void UpdatePlayer(bool create)
         {
+            tmp_player = GameRoot.player;
+
             string jsonPlayer = "";
             // Get the json string of the object.
-            for (int i = 0; i < player.sheetNames.Length; i++)
+            for (int i = 0; i < tmp_player.sheetNames.Length; i++)
             {
                 jsonPlayer = "";
                 switch (i)
                 {
                     case 0: //users
-                        jsonPlayer = JsonUtility.ToJson(player.users);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.users);
                         break;
                     case 1: //p1-1
-                        jsonPlayer = JsonUtility.ToJson(player.p1_1);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p1_1);
                         break;
                     case 2: //p2-1
-                        jsonPlayer = JsonUtility.ToJson(player.p2_1);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p2_1);
                         break;
                     case 3: //p2-2
-                        jsonPlayer = JsonUtility.ToJson(player.p2_2);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p2_2);
                         break;
                     case 4: //p3-1
-                        jsonPlayer = JsonUtility.ToJson(player.p3_1);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p3_1);
                         break;
                     case 5: //p4-1
-                        jsonPlayer = JsonUtility.ToJson(player.p4_1);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p4_1);
                         break;
                     case 6: //p4-2
-                        jsonPlayer = JsonUtility.ToJson(player.p4_2);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p4_2);
                         break;
                     case 7: //p4-3
-                        jsonPlayer = JsonUtility.ToJson(player.p4_3);
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p4_3);
                         break;
                 }
-                Debug.Log("<color=yellow>Sending following player table: " + player.sheetNames[i] + "\n</color>" + jsonPlayer);
+                Debug.Log("<color=yellow>Sending following player table: " + tmp_player.sheetNames[i] + "\n</color>" + jsonPlayer);
 
                 // Look in the 'PlayerInfo' table, for an object of name as specified, and overwrite with the current obj data.
-                Drive.UpdateObjects(player.sheetNames[i], "name", player.users.name, jsonPlayer, create, true);
-
+                Drive.UpdateObjects(tmp_player.sheetNames[i], "username", tmp_player.users.username, jsonPlayer, create, true);
             }
         }
 
         public void RetrievePlayerData(string tableName, string columnName, string playerName)
         {
+            retrieved = false; //when first calling retrieve, reset trigger
             searchTable = tableName;
             searchColumn = columnName;
             searchPlayer = playerName;
@@ -130,57 +135,144 @@ namespace GoogleSheetsForUnity
             Drive.GetObjectsByField(searchTable, searchColumn, searchPlayer, true);
         }
 
-        public string RetrieveSalt(string username)
+        /// <summary>
+        /// This method simply calls the database to check for a connection to the
+        /// database via the debug sheet.  If a connection is found, the method 
+        /// HandleDriveResponse() will trigger retrieved to be true.
+        /// 
+        /// This is important because when creating a new user, if there is no match
+        /// for the new users first.last when checking for duplicates (HIGHLY likely
+        /// since it's a new users) the Drive will simply error, not respond and 
+        /// not even call HandleDriveResponse().
+        /// Be sure to unflag "retrieved" after a successful response.
+        /// </summary>
+        public void VerifyDatabaseConnection()
         {
-            player.users.name = username;
-
-            Debug.Log("<color=yellow>Retrieving player of name " + username + " from the Cloud.</color>");
-
-            // Get any objects from table 'PlayerInfo' with value 'Mithrandir' in the field called 'name'.
-            Drive.GetObjectsByField("users", "name", player.users.name, true);
-            //
-            return "fix this later";
+            retrieved = false;
+            Drive.GetObjectsByField("debug", "testConnection", "database");
         }
-
-        public string RetrieveHash(string username)
-        {
-            player.users.name = username;
-
-            Debug.Log("<color=yellow>Retrieving player of name " + username + " from the Cloud.</color>");
-
-            // Get any objects from table 'PlayerInfo' with value 'Mithrandir' in the field called 'name'.
-            Drive.GetObjectsByField("users", "name", player.users.name, true);
-
-            return player.users.hash;
-        }
-
 
 
         public void HandleDriveResponse(Drive.DataContainer dataContainer)
         {
             Debug.Log(dataContainer.msg);
+            retrieved = true;
 
             // First check the type of answer.
             if (dataContainer.QueryType == Drive.QueryType.getObjectsByField)
             {
+                tmp_player = new PlayerData();
                 string rawJSon = dataContainer.payload;
                 Debug.Log(rawJSon);
 
-                switch(searchTable)
+                switch(dataContainer.objType)
                 {
-                    case "users":
-                        // Check if the type is correct.
-                        if (string.Compare(dataContainer.objType, searchTable) == 0)
-                        {
-                            // Parse from json to the desired object type.
-                            PlayerData.tbl_Users[] tmp_users = JsonHelper.ArrayFromJson<PlayerData.tbl_Users>(rawJSon);
+                    case "debug":
+                        retrieved = true;
+                        break;
 
-                            for (int i = 0; i < tmp_users.Length; i++)
-                            {
-                                player.users = tmp_users[i];
-                                Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
-                            }
+                    case "users":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_Users[] tmp_users = JsonHelper.ArrayFromJson<PlayerData.tbl_Users>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_users.Length; i++)
+                        {
+                            tmp_player.users = tmp_users[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
                         }
+                        GameRoot.player.users = tmp_player.users;
+                        break;
+
+                    case "p1-1":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P1_1[] tmp_p1_1 = JsonHelper.ArrayFromJson<PlayerData.tbl_P1_1>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p1_1.Length; i++)
+                        {
+                            tmp_player.p1_1 = tmp_p1_1[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p1_1 = tmp_player.p1_1;
+                        break;
+
+                    case "p2-1":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P2_1[] tmp_p2_1 = JsonHelper.ArrayFromJson<PlayerData.tbl_P2_1>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p2_1.Length; i++)
+                        {
+                            tmp_player.p2_1 = tmp_p2_1[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p2_1 = tmp_player.p2_1;
+                        break;
+
+                    case "p2-2":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P2_2[] tmp_p2_2 = JsonHelper.ArrayFromJson<PlayerData.tbl_P2_2>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p2_2.Length; i++)
+                        {
+                            tmp_player.p2_2 = tmp_p2_2[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p2_2 = tmp_player.p2_2;
+                        break;
+
+                    case "p3-1":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P3_1[] tmp_p3_1 = JsonHelper.ArrayFromJson<PlayerData.tbl_P3_1>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p3_1.Length; i++)
+                        {
+                            tmp_player.p3_1 = tmp_p3_1[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p3_1 = tmp_player.p3_1;
+                        break;
+
+                    case "p4-1":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P4_1[] tmp_p4_1 = JsonHelper.ArrayFromJson<PlayerData.tbl_P4_1>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p4_1.Length; i++)
+                        {
+                            tmp_player.p4_1 = tmp_p4_1[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p4_1 = tmp_player.p4_1;
+                        break;
+
+                    case "p4-2":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P4_2[] tmp_p4_2 = JsonHelper.ArrayFromJson<PlayerData.tbl_P4_2>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p4_2.Length; i++)
+                        {
+                            tmp_player.p4_2 = tmp_p4_2[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p4_2 = tmp_player.p4_2;
+                        break;
+
+                    case "p4-3":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P4_3[] tmp_p4_3 = JsonHelper.ArrayFromJson<PlayerData.tbl_P4_3>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p4_3.Length; i++)
+                        {
+                            tmp_player.p4_3 = tmp_p4_3[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p4_3 = tmp_player.p4_3;
                         break;
                 }
 

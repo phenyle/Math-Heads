@@ -78,7 +78,7 @@ public class EnterExitSelect : WindowRoot
 
                     if (SceneManager.GetActiveScene().name == Constants.puzzle01SceneName)
                         GameRoot.instance.exitPuzzle = 1;
-                    else if (SceneManager.GetActiveScene().name == Constants.puzzle02SceneName)
+                    else if (SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName)
                         GameRoot.instance.exitPuzzle = 2;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
                         GameRoot.instance.exitPuzzle = 3;
@@ -98,7 +98,7 @@ public class EnterExitSelect : WindowRoot
                     stageDescip = "Matrix Multiplication";
                     levelSelectUI.GetComponent<LevelSelectButtons>().setHeaderInfo(stageTitle, stageDescip);
 
-                    playerController.sceneName = Constants.puzzle02SceneName;
+                    playerController.sceneName = Constants.puzzle02_1SceneName;
                     break;
 
                 case SceneNameMod.Puzzle03SceneName:

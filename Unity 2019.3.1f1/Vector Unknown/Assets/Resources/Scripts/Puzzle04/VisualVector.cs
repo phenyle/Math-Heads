@@ -175,7 +175,6 @@ public class VisualVector : MonoBehaviour
             limitGraphSize();
         }
 
-
         createAxis();
         createBarGrid();
         isProjecting = false;

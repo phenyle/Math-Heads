@@ -5,10 +5,12 @@ public enum SceneName
 {
     MainSceneName,
     Puzzle01SceneName,
-    Puzzle02SceneName,
-    Puzzle02s2SceneName,
+    Puzzle02_1SceneName,
+    Puzzle02_2SceneName,
     Puzzle03SceneName,
-    Puzzle04SceneName,
+    Puzzle04_1SceneName,
+    Puzzle04_2SceneName,
+    Puzzle04_3SceneName,
     CreditSceneName,
     MenuScene
 }
@@ -17,9 +19,12 @@ public enum PuzzleComplete
 {
     NullPuzzle,
     Puzzle01Complete,
-    Puzzle02Complete,
+    Puzzle02_1Complete,
+    Puzzle02_2Complete,
     Puzzle03Complete,
-    Puzzle04Complete
+    Puzzle04_1Complete,
+    Puzzle04_2Complete,
+    Puzzle04_3Complete
 }
 
 public class EnterExit : MonoBehaviour
@@ -50,16 +55,18 @@ public class EnterExit : MonoBehaviour
 
                 case SceneName.MainSceneName:
                     playerController.sceneName = Constants.mainSceneName;
-
+                   
                     if (SceneManager.GetActiveScene().name == Constants.puzzle01SceneName)
                         GameRoot.instance.exitPuzzle = 5;
-                    else if (SceneManager.GetActiveScene().name == Constants.puzzle02SceneName)
+                    else if (SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName)
                         GameRoot.instance.exitPuzzle = 2;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
                         GameRoot.instance.exitPuzzle = 3;
-                    else if (SceneManager.GetActiveScene().name == Constants.puzzle04SceneName)
-                        GameRoot.instance.exitPuzzle = 4;
-                   
+                    else if (SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle04_3SceneName)
+                        GameRoot.instance.exitPuzzle = 4;                   
 
                     break;
 
@@ -67,19 +74,19 @@ public class EnterExit : MonoBehaviour
                     playerController.sceneName = Constants.puzzle01SceneName;
                     break;
 
-                case SceneName.Puzzle02SceneName:
-                    playerController.sceneName = Constants.puzzle02SceneName;
+                case SceneName.Puzzle02_1SceneName:
+                    playerController.sceneName = Constants.puzzle02_1SceneName;
                     break;
 
-                case SceneName.Puzzle02s2SceneName:
-                    playerController.sceneName = Constants.puzzle02s2SceneName;
+                case SceneName.Puzzle02_2SceneName:
+                    playerController.sceneName = Constants.puzzle02_2SceneName;
                     break;
 
                 case SceneName.Puzzle03SceneName:
                     playerController.sceneName = Constants.puzzle03SceneName;
                     break;
 
-                case SceneName.Puzzle04SceneName:
+                case SceneName.Puzzle04_1SceneName:
                     playerController.sceneName = Constants.puzzle04SceneName;
                     break;
 
@@ -91,19 +98,45 @@ public class EnterExit : MonoBehaviour
             switch(puzzleComplete)
             {
                 case PuzzleComplete.Puzzle01Complete:
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle01>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
                     GameRoot.instance.puzzleCompleted[0] = true;
                     break;
 
-                case PuzzleComplete.Puzzle02Complete:
+                case PuzzleComplete.Puzzle02_1Complete:
+                    GameObject.Find("GameController_Puzzle02_01").GetComponent<GameControllerPuzzle02>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
+                    GameRoot.instance.puzzleCompleted[1] = true;
+                    break;
+
+                case PuzzleComplete.Puzzle02_2Complete:
+                    GameObject.Find("GameController_Puzzle02_02").GetComponent<GameControllerPuzzle02>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
                     GameRoot.instance.puzzleCompleted[1] = true;
                     break;
 
                 case PuzzleComplete.Puzzle03Complete:
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle03>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
                     GameRoot.instance.puzzleCompleted[2] = true;
                     break;
 
-                case PuzzleComplete.Puzzle04Complete:
+                case PuzzleComplete.Puzzle04_1Complete:
                     GameRoot.instance.puzzleCompleted[3] = true;
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle04>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
+                    break;
+
+                case PuzzleComplete.Puzzle04_2Complete:
+                    GameRoot.instance.puzzleCompleted[3] = true;
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle04>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
+                    break;
+
+                case PuzzleComplete.Puzzle04_3Complete:
+                    GameRoot.instance.puzzleCompleted[3] = true;
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle04>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
                     break;
 
 

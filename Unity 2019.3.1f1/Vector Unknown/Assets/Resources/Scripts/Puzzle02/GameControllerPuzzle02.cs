@@ -92,14 +92,15 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
     //stage control
     public int stageNumber;
-    public GameObject stage01;
-    public GameObject stage02;
-    public GameObject stage02GameController;
     private bool portalActive = false;
+
+    //Database Records
+    public float tot_puzzleTime = 0;
+
 
     public override void InitGameController(Puzzle02Window P02W)
     {
-        
+
         Debug.Log("Init GameController Puzzle02");
         base.InitGameController();
 
@@ -107,20 +108,20 @@ public class GameControllerPuzzle02 : GameControllerRoot
         this.P02W = P02W;
 
         Debug.Log("Connect Database of Puzzle02");
-        if(stageNumber == 1)
+        if (stageNumber == 1)
         {
             DBP02 = GetComponent<DatabasePuzzle02>();
             Debug.Log("Call Database of Puzzle02 to connect");
             DBP02.InitDatabase();
         }
-            
-        else if(stageNumber == 2)
+
+        else if (stageNumber == 2)
         {
             DBP02_02 = GetComponent<DatabasePuzzle02_02>();
             Debug.Log("Call Database of Puzzle02 to connect");
             DBP02_02.InitDatabase();
         }
-            
+
         //GR = GameObject.FindGameObjectWithTag("").GetComponent<GameRoot>();
 
         player = GameObject.FindGameObjectWithTag("Player");
@@ -151,12 +152,12 @@ public class GameControllerPuzzle02 : GameControllerRoot
         Vector = P02W.Vector;
         shipImages = P02W.shipImages;
 
-        if(stageNumber == 2 || stageNumber == 1)
+        if (stageNumber == 2 || stageNumber == 1)
         {
             Vector.text = "0" + "\n" + "0";
             Matrix.text = "0" + " " + "0" + "\n" +
                 "0" + " " + "0";
-            foreach(Image ship in shipImages)
+            foreach (Image ship in shipImages)
             {
                 ship.sprite = activeBoat;
             }
@@ -165,7 +166,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         SetActive(endportal, false);
 
     }
-   
+
     void Update()
     {
         // reset position tip
@@ -182,6 +183,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
         //     timer = 0;
         // }
 
+        if (!DialogueManager.isInDialogue && !GameRoot.isPause)
+            tot_puzzleTime += Time.deltaTime;
+
         if (Input.GetKeyDown(KeyCode.R))
         {
             player.transform.position = startPosition;
@@ -195,11 +199,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         if (ActiveBoat == 6 && !portalActive)
         {
-            if(stageNumber == 1)
+            if (stageNumber == 1)
             {
-                GameRoot.ShowTips("You Completed stage 1!", true, false);   
-                // stage02.SetActive(true);                         
-                // GameObject.Find("Puzzle02Window").GetComponent<Puzzle02Window>().switchStage();
+                GameRoot.ShowTips("You Completed stage 1!", true, false);
             }
             else
             {
@@ -218,9 +220,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
             {
                 TopViewText[ActiveBoat].gameObject.SetActive(true);
                 TopViewText[6].gameObject.SetActive(true);
-                if(ActiveBoat < 6)
+                if (ActiveBoat < 6)
                     normalText[ActiveBoat].gameObject.SetActive(false);
-                for(int i = ActiveBoat - 1; i >=0; i--)
+                for (int i = ActiveBoat - 1; i >= 0; i--)
                 {
                     TopViewVectors[i].gameObject.SetActive(true);
                 }
@@ -229,9 +231,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
             {
                 TopViewText[ActiveBoat].gameObject.SetActive(false);
                 TopViewText[6].gameObject.SetActive(false);
-                if(ActiveBoat < 6)
+                if (ActiveBoat < 6)
                     normalText[ActiveBoat].gameObject.SetActive(true);
-                for(int i = ActiveBoat - 1; i >=0; i--)
+                for (int i = ActiveBoat - 1; i >= 0; i--)
                 {
                     TopViewVectors[i].gameObject.SetActive(false);
                 }
@@ -293,7 +295,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
             {
                 FireCannon();
                 Debug.Log("cannon fired");
-                isBallSelected = false; 
+                isBallSelected = false;
                 isCannonSelected = false;
             }
             audioService.PlayFXAudio(Constants.audioP02CannonFire);
@@ -311,12 +313,12 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
         //previousPosition = player.transform.position;
 
-        if(fireCannon)
+        if (fireCannon)
         {
             // have a camera follow cannon ball shot if answer is correct
-            if(cameraFollow)
+            if (cameraFollow)
             {
-                if(cameraSwitch)
+                if (cameraSwitch)
                 {
                     // switch cameras
                     MainCamera.SetActive(false);
@@ -325,13 +327,13 @@ public class GameControllerPuzzle02 : GameControllerRoot
                 }
 
                 //camera goes half way to ship
-                Vector3 target = Vector3.Lerp(cannonCameraOriginalPosition,targetPosition + targetPositionOffset, 0.5f);
+                Vector3 target = Vector3.Lerp(cannonCameraOriginalPosition, targetPosition + targetPositionOffset, 0.5f);
                 Debug.Log("Camera Target: " + target);
 
                 // move camera
-                if(CannonCamera.transform.position != target)
+                if (CannonCamera.transform.position != target)
                 {
-                    Vector3 pos = Vector3.MoveTowards(CannonCamera.transform.position, target, cameraCannonSpeed/2);
+                    Vector3 pos = Vector3.MoveTowards(CannonCamera.transform.position, target, cameraCannonSpeed / 2);
                     CannonCamera.GetComponent<Rigidbody>().MovePosition(pos);
                 }
             }
@@ -341,19 +343,19 @@ public class GameControllerPuzzle02 : GameControllerRoot
             }
 
             // move cannonball
-            if(tempCannonball.transform.position != targetPosition)
+            if (tempCannonball.transform.position != targetPosition)
             {
                 Vector3 pos = Vector3.MoveTowards(tempCannonball.transform.position, targetPosition, cameraCannonSpeed);
                 tempCannonball.GetComponent<Rigidbody>().MovePosition(pos);
             }
-            
+
         }
     }
 
     private void SwitchCamera()
     {
         if (topCameraActive)
-        {          
+        {
             MainCamera.gameObject.SetActive(true);
             MainCamera.GetComponent<CameraController>().isLock = true;
 
@@ -403,10 +405,10 @@ public class GameControllerPuzzle02 : GameControllerRoot
 
     private void FireCannon()
     {
-        targetPosition = new Vector3 (0, -5, 0);
-        int[] targetVector = {1,0};
+        targetPosition = new Vector3(0, -5, 0);
+        int[] targetVector = { 1, 0 };
 
-        if(stageNumber == 1)
+        if (stageNumber == 1)
             targetVector = DBP02.calculation(selectedVector, selectedTransformMatrix);
         else if (stageNumber == 2)
             targetVector = DBP02_02.calculation(selectedVector, selectedTransformMatrix);
@@ -423,9 +425,9 @@ public class GameControllerPuzzle02 : GameControllerRoot
         // maincannonText.GetComponent<Text>().color = Color.red;
 
         bool activeBoatCheck = false;
-        if(stageNumber == 1)
+        if (stageNumber == 1)
             activeBoatCheck = DBP02.tragetMatracies[ActiveBoat, 0] == targetPosition.x && DBP02.tragetMatracies[ActiveBoat, 1] == targetPosition.z;
-        else if(stageNumber == 2)
+        else if (stageNumber == 2)
             activeBoatCheck = DBP02_02.tragetMatracies[ActiveBoat, 0] == targetPosition.x && DBP02_02.tragetMatracies[ActiveBoat, 1] == targetPosition.z;
 
         if (ActiveBoat < 6 && activeBoatCheck)
@@ -435,7 +437,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
             maincannonText.GetComponent<Text>().color = Color.green;
             Debug.Log("Will Hit!");
             firedCannonYet = true;
-            foreach(GameObject cannonBall in cannonBallsText)
+            foreach (GameObject cannonBall in cannonBallsText)
             {
                 // cannonBall.GetComponent<Text>().color = Color.black;
                 cannonBall.gameObject.transform.GetChild(0).GetComponent<Text>().color = Color.black;
@@ -472,7 +474,7 @@ public class GameControllerPuzzle02 : GameControllerRoot
         ballIsFlying = true;
         fireCannon = true;
         cannonBlast.SetActive(true);
-        cannonBlast.GetComponent<ParticleSystem>().Play(true); 
+        cannonBlast.GetComponent<ParticleSystem>().Play(true);
     }
 
     // public void switchStage()
@@ -480,4 +482,29 @@ public class GameControllerPuzzle02 : GameControllerRoot
     //     stage01.SetActive(false);
     //     this.InitGameController(P02W);
     // }
+
+    public void RecordData()
+    {
+        switch (stageNumber)
+        {
+            case 1:
+                if (GameRoot.player.users.p2_1clear_time == 0.0f)
+                    GameRoot.player.users.p2_1clear_time = tot_puzzleTime;
+                else if (tot_puzzleTime < GameRoot.player.users.p2_1clear_time)
+                    GameRoot.player.users.p2_1clear_time = tot_puzzleTime;
+                break;
+
+            case 2:
+                if (GameRoot.player.users.p2_2clear_time == 0.0f)
+                    GameRoot.player.users.p2_2clear_time = tot_puzzleTime;
+                else if (tot_puzzleTime < GameRoot.player.users.p2_2clear_time)
+                    GameRoot.player.users.p2_2clear_time = tot_puzzleTime;
+                break;
+
+            case 3:
+                //unused. Left for future stage development
+                break;
+        }
+
+    }
 }

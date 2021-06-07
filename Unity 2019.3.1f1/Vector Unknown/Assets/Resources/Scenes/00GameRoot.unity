@@ -180,7 +180,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 153.69926, y: -46.50006}
+  m_AnchoredPosition: {x: 153.69922, y: -46.5}
   m_SizeDelta: {x: 253.49701, y: 64.949646}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &129816953
@@ -1898,6 +1898,84 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3f13361dc8360604cbc5c8a96ad12ffe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  tmp_player: {fileID: 0}
+--- !u!114 &1977183523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1977183515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8358e477b1975643a46a5c150b14336, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sheetNames:
+  - users
+  - p1-1
+  - p2-1
+  - p2-2
+  - p3-1
+  - p4-1
+  - p4-2
+  - p4-3
+  users:
+    username: default
+    hash: 
+    salt: 
+    first_last: 
+    ID_num: -1
+    education: 
+    last_login: 6/5/2021 8:42:29 PM
+    tot_time: 0
+    p1_1clear_time: 0
+    p2_1clear_time: 0
+    p2_2clear_time: 0
+    p3_1clear_time: 0
+    p4_1clear_time: 0
+    p4_2clear_time: 0
+    p4_3clear_time: 0
+    admin: 0
+    isClass: 0
+    isExpo: 0
+    expires: 
+  p1_1:
+    username: 
+  p2_1:
+    username: 
+  p2_2:
+    username: 
+  p3_1:
+    username: 
+  p4_1:
+    username: 
+    obs1_time: 0
+    obs2_time: 0
+    obs3_time: 0
+    obs4_time: 0
+    obs5_time: 0
+    obs6_time: 0
+    obs7_time: 0
+    obs8_time: 0
+    obs9_time: 0
+  p4_2:
+    username: 
+    obs1_time: 0
+    obs2_time: 0
+    obs3_time: 0
+    obs4_time: 0
+    obs5_time: 0
+    obs6_time: 0
+    obs7_time: 0
+    obs8_time: 0
+  p4_3:
+    username: 
+    obs1_time: 0
+    obs2_time: 0
+    obs3_time: 0
+    obs4_time: 0
+    obs5_time: 0
 --- !u!1 &2078814990 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2012438974594575700, guid: eee79c634ca777149b1a3a7cba30dd5e,
@@ -4033,12 +4111,12 @@ PrefabInstance:
     - target: {fileID: 4878887737545778949, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 153.7
+      value: 153.69922
       objectReference: {fileID: 0}
     - target: {fileID: 4878887737545778949, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -291.4
+      value: -291.4004
       objectReference: {fileID: 0}
     - target: {fileID: 4878887737820921048, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
@@ -5101,6 +5179,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7024020349616395431, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
+      propertyPath: GFSU
+      value: 
+      objectReference: {fileID: 1977183516}
+    - target: {fileID: 7024020349616395431, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
       propertyPath: exitPuzzle
       value: 1
       objectReference: {fileID: 0}
@@ -5631,12 +5714,12 @@ PrefabInstance:
     - target: {fileID: 8320146607113829470, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -126.8999
+      value: -126.90039
       objectReference: {fileID: 0}
     - target: {fileID: 8320146607113829470, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -142.30005
+      value: -142.30078
       objectReference: {fileID: 0}
     - target: {fileID: 8353935207090448749, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
@@ -6061,7 +6144,8 @@ PrefabInstance:
       propertyPath: m_FontData.m_FontSize
       value: 39
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7978663898359897050, guid: eee79c634ca777149b1a3a7cba30dd5e, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: eee79c634ca777149b1a3a7cba30dd5e, type: 3}
 --- !u!114 &7024020350406897162 stripped
 MonoBehaviour:

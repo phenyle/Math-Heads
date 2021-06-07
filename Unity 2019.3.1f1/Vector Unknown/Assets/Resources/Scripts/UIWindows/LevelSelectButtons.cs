@@ -78,10 +78,10 @@ public class LevelSelectButtons : MonoBehaviour
                         GameRoot.ShowTips("Please select a level", true, false);
                         break;
                     case 1:
-                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle02SceneName);
+                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle02_1SceneName);
                         break;
                     case 2:
-                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle02s2SceneName);
+                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle02_2SceneName);
                         break;
                     case 3:
                         GameRoot.ShowTips("That level doesn't exist right now\nCheck back later", true, false);
@@ -126,13 +126,13 @@ public class LevelSelectButtons : MonoBehaviour
                         GameRoot.ShowTips("Please select a level", true, false);
                         break;
                     case 1:
-                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle04s1SceneName);
+                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle04_1SceneName);
                         break;
                     case 2:
-                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle04s2SceneName);
+                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle04_2SceneName);
                         break;
                     case 3:
-                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle04s3SceneName);
+                        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle04_3SceneName);
                         break;
                     default:
                         GameRoot.ShowTips("Error: what?? how?", true, false);

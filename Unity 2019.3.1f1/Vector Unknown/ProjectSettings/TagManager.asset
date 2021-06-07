@@ -16,6 +16,8 @@ TagManager:
   - GameRoot
   - TopCamera
   - Controls
+  - terrain
+  - p4puzzles
   layers:
   - Default
   - TransparentFX

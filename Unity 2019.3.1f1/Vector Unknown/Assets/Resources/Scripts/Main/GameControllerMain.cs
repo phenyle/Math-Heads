@@ -41,6 +41,9 @@ public class GameControllerMain : GameControllerRoot
         player = GameObject.FindGameObjectWithTag("Player").transform;
         startPosition = player.transform.position;
 
+        CheckPlayerDataRecords();
+
+
         switch (GameRoot.instance.exitPuzzle)
         { 
             case 1:
@@ -255,5 +258,39 @@ public class GameControllerMain : GameControllerRoot
 		// }
 
         previousPosition = player.transform.position;
+    }
+
+    /// <summary>
+    /// Everytime the player is loaded into the main scene (like on game start or
+    /// after completeing a level).  This method checks to see if they have a 
+    /// recorded completion time for each stage.  If they do, it flags that level
+    /// on GameRoot as complete.
+    /// </summary>
+    public void CheckPlayerDataRecords()
+    {
+        if (GameRoot.player.users.p1_1clear_time != 0.0f)
+            GameRoot.instance.puzzleCompleted[0] = true;
+        else
+            GameRoot.instance.puzzleCompleted[0] = false;
+
+
+        if (GameRoot.player.users.p2_1clear_time != 0.0f ||
+            GameRoot.player.users.p2_2clear_time != 0.0f)
+            GameRoot.instance.puzzleCompleted[1] = true;
+        else
+            GameRoot.instance.puzzleCompleted[1] = false;
+
+        if (GameRoot.player.users.p3_1clear_time != 0.0f)
+            GameRoot.instance.puzzleCompleted[2] = true;
+        else
+            GameRoot.instance.puzzleCompleted[2] = false;
+
+
+        if (GameRoot.player.users.p4_1clear_time != 0.0f ||
+            GameRoot.player.users.p4_2clear_time != 0.0f ||
+            GameRoot.player.users.p4_3clear_time != 0.0f)
+            GameRoot.instance.puzzleCompleted[3] = true;
+        else
+            GameRoot.instance.puzzleCompleted[3] = false;
     }
 }

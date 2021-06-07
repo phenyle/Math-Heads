@@ -1,8 +1,17 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using GoogleSheetsForUnity;
 
 public class GameRoot : MonoBehaviour
 {
+
+    public static PlayerData player;
+    public static SendToGoogle GSFU;
+    public static bool isExpo = false;
+    public static string expoName;
+    public static bool isClass = false;
+
     public static GameRoot instance = null;
     public static bool isPause = false;
     public static bool isPuzzleLock = false;
@@ -38,9 +47,15 @@ public class GameRoot : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
+
         instance = this;
-        
-        if(SceneManager.GetActiveScene().name == Constants.gameRootSceneName)
+        GSFU = this.GetComponent<SendToGoogle>();
+        player = this.GetComponent<PlayerData>();
+
+        DontDestroyOnLoad(GSFU);
+        DontDestroyOnLoad(player);
+
+        if (SceneManager.GetActiveScene().name == Constants.gameRootSceneName)
         {
             InitUI();
         }
@@ -56,7 +71,21 @@ public class GameRoot : MonoBehaviour
 
     }
 
-    private void Update()
+    //On game shut down, save player info
+    public void OnDisable()
+    {
+        player.users.last_login = DateTime.Now.ToString();
+        GSFU.UpdatePlayer(false);
+    }
+
+    //On game shut down, save player info
+    public void OnApplicationQuit()
+    {
+        player.users.last_login = DateTime.Now.ToString();
+        GSFU.UpdatePlayer(false);
+    }
+
+    public void Update()
     {
         if(Input.GetKeyDown(KeyCode.Escape))
         {
@@ -76,6 +105,12 @@ public class GameRoot : MonoBehaviour
         {
 
         }
+
+        if(!isPause)
+        {
+            player.users.tot_time += Time.deltaTime;
+        }
+
     }
 
     public void InitUI()
@@ -131,8 +166,10 @@ public class GameRoot : MonoBehaviour
     public void Pause()
     {
         Debug.Log("Pause");
+
+
         // check to change cameras in puzzle 2
-        if(SceneManager.GetActiveScene().name == Constants.puzzle02SceneName)
+        if(SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName)
         {
             Debug.Log("Puzzle 2 Level 1");
             GCP02_01 = GameObject.Find("GameController_Puzzle02_01").GetComponent<GameControllerPuzzle02>();
@@ -145,7 +182,7 @@ public class GameRoot : MonoBehaviour
             else
                 Debug.Log("Puzzle 2 Level 1: no camera follow");
         }
-        if(SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName)
+        if(SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName)
         {
             Debug.Log("Puzzle 2 Level 2");
             GCP02_02 = GameObject.Find("GameController_Puzzle02_02").GetComponent<GameControllerPuzzle02>();
@@ -158,6 +195,14 @@ public class GameRoot : MonoBehaviour
         IsLock(true);
         Time.timeScale = 0;
         pauseWindow.SetWindowState(true);
+        try
+        {
+            pauseWindow.setLoginInfo(player.users.username);
+        }
+        catch
+        {
+            pauseWindow.setLoginInfo("error");
+        }
         isPause = true;
         audioService.PauseAllAudios();
         Debug.Log("Lock");
@@ -181,7 +226,7 @@ public class GameRoot : MonoBehaviour
         isPause = false;
         audioService.ResumeAllAudios();
         // check to change cameras in puzzle 2
-        if(SceneManager.GetActiveScene().name == Constants.puzzle02SceneName)
+        if(SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName)
         {
             GCP02_01 = GameObject.Find("GameController_Puzzle02_01").GetComponent<GameControllerPuzzle02>();
             if(GCP02_01.cameraFollow)
@@ -190,7 +235,7 @@ public class GameRoot : MonoBehaviour
                 GCP02_01.CannonCamera.SetActive(true);
             }
         }
-        if(SceneManager.GetActiveScene().name == Constants.puzzle02s2SceneName)
+        if(SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName)
         {
             GCP02_02 = GameObject.Find("GameController_Puzzle02_02").GetComponent<GameControllerPuzzle02>();
             if(GCP02_02.cameraFollow)

@@ -9150,7 +9150,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 0
-  puzzleComplete: 4
+  puzzleComplete: 6
 --- !u!65 &2918626235753252267
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -16623,6 +16623,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topCamPlayer: {fileID: 2918626236268589570}
   Difficulty: 2
+  puzzleTime: 0
   sunLight: {fileID: 2918626237422057002}
   moonLight: {fileID: 2918626235661196956}
   ocean: {fileID: 2918626237385298201}

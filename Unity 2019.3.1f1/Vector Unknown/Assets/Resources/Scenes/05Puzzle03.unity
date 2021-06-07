@@ -15422,6 +15422,8 @@ MonoBehaviour:
   verticalMinMax: {x: -30, y: 90}
   keyboardRotatedSpeed: 50
   isLock: 0
+  horizontal: 0
+  vertical: 0
   postPuzzleLock: 0
 --- !u!4 &411027181 stripped
 Transform:
@@ -47978,7 +47980,7 @@ PrefabInstance:
     - target: {fileID: 3071903117526020226, guid: ab851272ebaa04b0996d5681c0dd8ab4,
         type: 3}
       propertyPath: puzzleComplete
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7241357825222472755, guid: ab851272ebaa04b0996d5681c0dd8ab4,
         type: 3}
@@ -64978,6 +64980,9 @@ MonoBehaviour:
   - {fileID: 1787378846}
   - {fileID: 688439265}
   - {fileID: 476936085}
+  cameraHorizontal: 0
+  cameraVertical: 0
+  tot_puzzleTime: 0
 --- !u!4 &1677935429
 Transform:
   m_ObjectHideFlags: 0

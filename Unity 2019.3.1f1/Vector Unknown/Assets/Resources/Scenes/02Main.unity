@@ -1729,6 +1729,8 @@ MonoBehaviour:
   verticalMinMax: {x: -30, y: 60}
   keyboardRotatedSpeed: 50
   isLock: 0
+  horizontal: 0
+  vertical: 0
   postPuzzleLock: 0
 --- !u!20 &544412576
 Camera:
@@ -1932,6 +1934,8 @@ MonoBehaviour:
   verticalMinMax: {x: -30, y: 60}
   keyboardRotatedSpeed: 50
   isLock: 0
+  horizontal: 0
+  vertical: 0
   postPuzzleLock: 0
 --- !u!20 &579918331
 Camera:
@@ -2128,6 +2132,8 @@ MonoBehaviour:
   verticalMinMax: {x: -30, y: 60}
   keyboardRotatedSpeed: 50
   isLock: 0
+  horizontal: 0
+  vertical: 0
   postPuzzleLock: 0
 --- !u!20 &591749697
 Camera:
@@ -2984,6 +2990,8 @@ MonoBehaviour:
   verticalMinMax: {x: -30, y: 60}
   keyboardRotatedSpeed: 50
   isLock: 0
+  horizontal: 0
+  vertical: 0
   postPuzzleLock: 0
 --- !u!20 &752644447
 Camera:
@@ -4350,6 +4358,8 @@ MonoBehaviour:
   verticalMinMax: {x: -30, y: 60}
   keyboardRotatedSpeed: 50
   isLock: 0
+  horizontal: 0
+  vertical: 0
   postPuzzleLock: 0
 --- !u!20 &1090373526
 Camera:
@@ -7226,7 +7236,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 163471312, guid: d3d28548d4f17b445bb501d2096bf746, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.2
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 163471312, guid: d3d28548d4f17b445bb501d2096bf746, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.66
       objectReference: {fileID: 0}
     - target: {fileID: 369241745, guid: d3d28548d4f17b445bb501d2096bf746, type: 3}
       propertyPath: m_Convex

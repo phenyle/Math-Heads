@@ -74,6 +74,33 @@ public class Puzzle04Controller : MonoBehaviour
 
     private GameControllerPuzzle04 GCP04;
 
+    //Database Records
+    private float obstacleTime;
+
+    [HideInInspector]
+    [System.Serializable]
+    public struct obsData
+    {
+        public int obsID;
+        public float obsTime;
+        public Vector3 answer;
+
+        //Puzzle generated and Expected values (e)
+        public int e_Scal1;
+        public int e_Scal2;
+        public Vector3 e_Vect1;
+        public Vector3 e_Vect2;
+
+        //Player generated and Input values (i)
+        public int i_Scal1;
+        public int i_Scal2;
+        public Vector3 i_Vect1;
+        public Vector3 i_Vect2;
+    }
+
+    [HideInInspector]
+    public obsData puzzleData;
+
 
 
     // Awake is called when the Instance is Initialized
@@ -110,8 +137,12 @@ public class Puzzle04Controller : MonoBehaviour
 
         correct = false;
 
+        obstacleTime = 0.0f;
+        puzzleData = new obsData();
+
+
  //       intAnswerGenerator();
-        answerGenerators();        
+        AnswerGenerators();        
 
     }
     
@@ -120,6 +151,10 @@ public class Puzzle04Controller : MonoBehaviour
     {
         if (portal.GetComponent<PortalTrigger>().inPortal)
         {
+            if (!DialogueManager.isInDialogue && !GameRoot.isPause)
+                obstacleTime += Time.deltaTime;
+
+
             isActive = true;
 
             scalar1 = GCP04.P04W.getScalar1Value();
@@ -292,7 +327,7 @@ public class Puzzle04Controller : MonoBehaviour
     /// Creates the first Scalar and sends it both the first and second cards
     /// for calculating the finalAnswerVector (set in secondAnsCard()
     /// </summary>
-    private void answerGenerators()
+    private void AnswerGenerators()
     {
         int scal1;
         Vector3 answer1a;
@@ -305,7 +340,6 @@ public class Puzzle04Controller : MonoBehaviour
             scal1 = Random.Range(-MaxCardScalar, MaxCardScalar + 1);
         } while (scal1 == 0);
 
-
         answer1a = firstAnsCard(scal1);
         cardVectors.Add(answer1a);
         answer1b = secondAnsCard(scal1, answer1a);
@@ -314,6 +348,9 @@ public class Puzzle04Controller : MonoBehaviour
         cardVectors.Add(answer2a);
         answer2b = randomGenerator();
         cardVectors.Add(answer2b);
+
+        puzzleData.e_Vect1 = answer1a;
+        puzzleData.e_Vect2 = answer1b;
 
         answerShuffle();
     }
@@ -382,6 +419,7 @@ public class Puzzle04Controller : MonoBehaviour
         //while the vector is a duplicate/scalar of previous card, try again
 
 
+
         return tempVect;
     }
 
@@ -421,9 +459,13 @@ public class Puzzle04Controller : MonoBehaviour
         } while (!testUnique(tempVect) && uniqueEscape < 10);
         //while the vector is a duplicate/scalar of previous card, try again
 
+        puzzleData.e_Scal1 = scal1;
+        puzzleData.e_Scal2 = scal2;
 
         //Final Answer Adjustment
         finalAnswerVector = (ans1 * scal1) + (tempVect * scal2);
+
+        puzzleData.answer = finalAnswerVector;
 
         return tempVect;
     }
@@ -663,24 +705,35 @@ public class Puzzle04Controller : MonoBehaviour
 
     public bool checkFinalAnswer()
     {
-        //Need to add a check that both Answer Slots are being used
-
-        if (playerAnswer == finalAnswerVector)
+        if (ans1Entered && ans2Entered)
         {
-            correct = true;
-            grappleKit.GetComponent<GrappleCode>().InitGrapple(correct, finalAnswerVector, goalPoint);
-            grappleKit.GetComponent<GrappleCode>().grappleToGoal(this);
-            return true;
+            if (playerAnswer == finalAnswerVector)
+            {
+                correct = true;
+                grappleKit.GetComponent<GrappleCode>().InitGrapple(correct, finalAnswerVector, goalPoint);
+                grappleKit.GetComponent<GrappleCode>().grappleToGoal(this);
 
 
+                puzzleData.obsTime = this.obstacleTime;
+                puzzleData.i_Scal1 = this.scalar1;
+                puzzleData.i_Vect1 = this.card1;
+                puzzleData.i_Scal2 = this.scalar2;
+                puzzleData.i_Vect2 = this.card2;
+
+                GCP04.SaveLocalPuzzleData(this);
+
+                return true;
+            }
+            else
+            {
+                correct = false;
+                grappleKit.GetComponent<GrappleCode>().InitGrapple(correct, VV01.vector2end.transform.position, goalPoint);
+                grappleKit.GetComponent<GrappleCode>().grappleToGoal(this);
+                return false;
+            }
         }
         else
-        {
-            correct = false;
-            grappleKit.GetComponent<GrappleCode>().InitGrapple(correct, VV01.vector2end.transform.position, goalPoint);
-            grappleKit.GetComponent<GrappleCode>().grappleToGoal(this);
             return false;
-        }
 
     }
 

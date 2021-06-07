@@ -55,6 +55,9 @@ public class GameControllerPuzzle03 : GameControllerRoot
     public GameObject[] puzzles;
     public float cameraHorizontal, cameraVertical;
 
+    //Database Records
+    public float tot_puzzleTime;
+
     public override void InitGameController(Puzzle03Window P03W)
     {
         Debug.Log("Init GameController Puzzle03");
@@ -92,6 +95,10 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     private void Update()
     {
+        if (!DialogueManager.isInDialogue && !GameRoot.isPause)
+            tot_puzzleTime += Time.deltaTime;
+
+
         if(subPuzzleID < 3)
             GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = true;
         
@@ -356,5 +363,13 @@ public class GameControllerPuzzle03 : GameControllerRoot
     public int getSubPuzzleID()
     {
         return subPuzzleID;
+    }
+
+    public void RecordData()
+    {
+        if (GameRoot.player.users.p3_1clear_time == 0.0f)
+            GameRoot.player.users.p3_1clear_time = tot_puzzleTime;
+        else if (tot_puzzleTime < GameRoot.player.users.p3_1clear_time)
+            GameRoot.player.users.p3_1clear_time = tot_puzzleTime;
     }
 }

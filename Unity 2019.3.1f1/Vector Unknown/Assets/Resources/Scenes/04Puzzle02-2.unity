@@ -293,6 +293,11 @@ PrefabInstance:
       propertyPath: cannonBallsText.Array.data[3]
       value: 
       objectReference: {fileID: 5025889}
+    - target: {fileID: 309748556955564831, guid: c86ac1605b28b7049979d95215342fa6,
+        type: 3}
+      propertyPath: puzzleComplete
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 866291653719960956, guid: c86ac1605b28b7049979d95215342fa6,
         type: 3}
       propertyPath: m_IsActive

@@ -11,6 +11,9 @@ public class PauseWindow : WindowRoot
     public Text controlsText;
     public Text puzzleText;
 
+    public Transform panelLoginInfo;
+    public Text loginInfoText;
+
     protected override void InitWindow()
     {
         base.InitWindow();
@@ -42,12 +45,18 @@ public class PauseWindow : WindowRoot
         SetActive(panelPause, true);
     }
 
+    
+
     public void ClickMenuBtn()
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
         GameObject.Find("DialogueManager").GetComponent<DialogueManager>().EndDialogue();
         //Resume can unlock the lock
         GameRoot.isPuzzleLock = false;
+
+        GameRoot.player.users.last_login = System.DateTime.Now.ToString();
+        GameRoot.GSFU.UpdatePlayer(false);
+        GameRoot.player = new PlayerData();
 
         //Dialogue manager can unlock the lock;
         DialogueManager.isPuzzleLock = false;
@@ -102,6 +111,13 @@ public class PauseWindow : WindowRoot
     public void setPuzzleControlsText(string newControls)
     {
         puzzleText.text = newControls;
+    }
+
+    public void setLoginInfo(string userName)
+    {
+        loginInfoText.text = "<b>Logged in As:</b>\n" +
+                     "<size=18>" + userName + "</size>";
+
     }
 
     /// <summary>
