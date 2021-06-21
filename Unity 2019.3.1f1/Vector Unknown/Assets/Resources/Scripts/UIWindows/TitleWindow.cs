@@ -67,6 +67,10 @@ public class TitleWindow : WindowRoot
     public Transform panelError;
     public Text errorText;
 
+    public Transform panel_awaitServer;
+    public AwaitingServerPopup awaitServePop;
+    
+
     [Header("Buttons")]
     public Button lg_login;
     public Button na_login;
@@ -80,6 +84,8 @@ public class TitleWindow : WindowRoot
     private bool creatingAcct = false;
     private bool joiningSession = false;
     private int attemptNum = 0;
+    private int connectionAttmpTimeout = 600;
+
 
     //private Resolution[] resolutions;
 
@@ -98,6 +104,8 @@ public class TitleWindow : WindowRoot
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
+
+        SetActive(panel_awaitServer, false);
 
         //doubling down on my initial values
         loadingPlayer = false;
@@ -159,17 +167,21 @@ public class TitleWindow : WindowRoot
                 {
                     case 1: //query type: Logging into Account
                         //call to database for "username" to find login name
+                        panel_awaitServer.gameObject.GetComponent<AwaitingServerPopup>().SetStatus("Finding Player");
                         GameRoot.GSFU.RetrievePlayerData("users", "username", lg_username.text);
                         loadingPlayer = true;
                         break;
 
                     case 2: //query type: Creating a new Account
-                        //call to database for "first.last" to check for duplicates
+                            //call to database for "first.last" to check for duplicates
+                        panel_awaitServer.gameObject.GetComponent<AwaitingServerPopup>().SetStatus("Creating Account");
                         GameRoot.GSFU.RetrievePlayerData("users", "first_last", na_first.text + "." + na_last.text);
                         creatingAcct = true;
                         break;
 
                     case 3: //query type: Joining Session
+                        panel_awaitServer.gameObject.GetComponent<AwaitingServerPopup>().SetStatus("Finding Session");
+
                         GameRoot.GSFU.RetrievePlayerData("users", "username", js_Name.text);
                         joiningSession = true;
                         break;
@@ -180,9 +192,10 @@ public class TitleWindow : WindowRoot
                 attemptNum++;
 
                 //timeout
-                if (attemptNum > 1000)
+                if (attemptNum > connectionAttmpTimeout)
                 {
                     //login timeout
+                    SetActive(panel_awaitServer, false);
                     checkingConnection = false;
                     Debug.Log("LOGIN ERROR: timeout");
                     attemptNum = 0;
@@ -201,10 +214,11 @@ public class TitleWindow : WindowRoot
             //stop waiting for database and check credentials
             if (GameRoot.GSFU.retrieved)
             {
+
                 GameRoot.GSFU.retrieved = false; //reset retrieved flag
                 loadingPlayer = false;
                 attemptNum = 0;
-                lg_login.enabled = true;
+                lg_login.enabled = true; //reenable the login button, in case login fails
 
 
                 string salt = GameRoot.player.users.salt;
@@ -223,6 +237,9 @@ public class TitleWindow : WindowRoot
 
                     tmp_player.users.last_login = DateTime.Now.ToString();
                     LG_ClearLoginFields();
+
+                    awaitServePop.SetStatus("");
+                    SetActive(panel_awaitServer, false);
 
                     //admin logins
                     if(GameRoot.player.users.admin)
@@ -256,9 +273,9 @@ public class TitleWindow : WindowRoot
                 //connection to database already confirmed, if drive has
                 //no response at this stage, it is because that name is not
                 //in the database
-                if(attemptNum > 1000)
+                if(attemptNum > connectionAttmpTimeout)
                 {
-                    lg_login.enabled = true;
+                    lg_login.enabled = true; //reenable login button
                     loadingPlayer = false;
                     Debug.Log("LOGIN ERROR: wrong user/pass");
                     LG_ClearLoginFields();
@@ -303,12 +320,15 @@ public class TitleWindow : WindowRoot
 
                 userNameText.text = "<b>Your Username is:</b>\n" +
                                     "<size=28>" + tmp_player.users.username + "</size>";
+                
                 SetActive(panelNewUserName, true);
 
                 tmp_player.users.last_login = DateTime.Now.ToString();
 
                 GameRoot.player = tmp_player;
                 GameRoot.GSFU.SaveNewPlayer();
+
+
             }
             else //wait timer for database to respond to search for name first.last
             {
@@ -318,7 +338,7 @@ public class TitleWindow : WindowRoot
                 //no database response HERE means that the user entered "first.last" 
                 //doesn't exist in the database hence the DriveResponse did not trigger.
                 //Meaning, this new account is the first of its name
-                if (attemptNum > 1000)
+                if (attemptNum > connectionAttmpTimeout)
                 {
                     GameRoot.GSFU.retrieved = false;
                     creatingAcct = false;
@@ -342,6 +362,7 @@ public class TitleWindow : WindowRoot
 
                     userNameText.text = "<b>Your Username is:</b>\n" +
                                         "<size=28>" + tmp_player.users.username + "</size>";
+                    
                     SetActive(panelNewUserName, true);
 
                     tmp_player.users.last_login = DateTime.Now.ToString();
@@ -418,7 +439,7 @@ public class TitleWindow : WindowRoot
                 else
                 {
                     joiningSession = false;
-                    Debug.Log("LOGIN ERROR: Session has expired");
+                    Debug.Log("LOGIN ERROR:\nSession has expired");
                     attemptNum = 0;
                     errorText.text = "Sorry, that session has expired.";
                     SetActive(panelError, true);
@@ -431,7 +452,7 @@ public class TitleWindow : WindowRoot
                 attemptNum++;
 
                 //no session with that name
-                if (attemptNum > 1000)
+                if (attemptNum > connectionAttmpTimeout)
                 {
                     //login timeout
                     joiningSession = false;
@@ -450,6 +471,7 @@ public class TitleWindow : WindowRoot
     {
 
 
+
         //Reset puzzle complete status
         for (int i = 0; i < GameRoot.instance.puzzleCompleted.Length; i++)
         {
@@ -461,6 +483,7 @@ public class TitleWindow : WindowRoot
         audioService.PlayUIAudio(Constants.audioUIStartBtn);
         //GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.puzzle01SceneName);// original 
 
+        GameRoot.instance.exitPuzzle = 0;
         GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.mainSceneName);//added by LaQuez Brown 1-26-21
 
         // hides mouse when loading game
@@ -582,7 +605,10 @@ public class TitleWindow : WindowRoot
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
 
-        lg_login.enabled = false;
+        SetActive(panel_awaitServer, true);
+        awaitServePop.SetStatus("Checking Connection");
+
+        lg_login.enabled = false; //disable button so player can't spam click login and overload database with login requests
         query = 1;
         checkingConnection = true;
         GameRoot.GSFU.VerifyDatabaseConnection();
@@ -625,7 +651,10 @@ public class TitleWindow : WindowRoot
                 }
                 else
                 {
-                    na_login.enabled = false;
+                    SetActive(panel_awaitServer, true);
+                    awaitServePop.SetStatus("Checking Connection");
+
+                    na_login.enabled = false; //disable button so player can't spam click login and overload database with login requests
                     query = 2;
                     checkingConnection = true;
                     GameRoot.GSFU.VerifyDatabaseConnection();
@@ -690,7 +719,10 @@ public class TitleWindow : WindowRoot
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
 
-        js_login.enabled = false;
+        SetActive(panel_awaitServer, true);
+        awaitServePop.SetStatus("Checking Connection");
+
+        js_login.enabled = false; //disable button so player can't spam click login and overload database with login requests
         query = 3;
         checkingConnection = true;
         GameRoot.GSFU.VerifyDatabaseConnection();  
@@ -907,6 +939,12 @@ public class TitleWindow : WindowRoot
     public void ErrorOKButton()
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
+
+        lg_login.enabled = true;
+        na_login.enabled = true;
+        js_login.enabled = true;
+
+        SetActive(panel_awaitServer, false);
 
         SetActive(panelError, false);
     }

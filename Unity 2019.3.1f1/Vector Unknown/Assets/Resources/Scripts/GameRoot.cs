@@ -36,6 +36,10 @@ public class GameRoot : MonoBehaviour
     [HideInInspector]
     public int score = 0;
     //[HideInInspector]
+    public bool firstCompletion = false;
+    public int prevStage;
+    public int prevLevel;
+    public bool[][] puzzlesDone;
     public bool[] puzzleCompleted = { false, false, false, false };
     public int exitPuzzle = 0;
 
@@ -47,6 +51,25 @@ public class GameRoot : MonoBehaviour
     private void Awake()
     {
         DontDestroyOnLoad(this);
+
+        //First Array is Number of Stages
+        //Second Array is the Levels of that Stage
+        //Array is made for easier readability
+        //exp: puzzlesDone[3][2] is Stage3, Level 2
+        //yea that's right, we starting Arrays at 1 over here
+        puzzlesDone = new bool[Constants.numOfStages + 1][];
+        puzzlesDone[0] = new bool[0]; //empty
+        puzzlesDone[1] = new bool[Constants.numLvlsStage1 + 1];
+        puzzlesDone[2] = new bool[Constants.numLvlsStage2 + 1];
+        puzzlesDone[3] = new bool[Constants.numLvlsStage3 + 1];
+        puzzlesDone[4] = new bool[Constants.numLvlsStage4 + 1];
+
+        //init all puzzleDones as assumed false
+        //these will be reflipped after the player loads with their game data
+        //upon entering the mainScene hubworld
+        for (int i = 0; i < puzzlesDone.Length; i++)
+            for (int j = 0; j < puzzlesDone[i].Length; j++)
+                puzzlesDone[i][j] = false;
 
         instance = this;
         GSFU = this.GetComponent<SendToGoogle>();

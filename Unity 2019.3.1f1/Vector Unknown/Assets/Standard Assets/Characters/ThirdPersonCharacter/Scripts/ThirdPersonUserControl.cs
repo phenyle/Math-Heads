@@ -9,6 +9,8 @@ namespace UnityStandardAssets.Characters.ThirdPerson
     {
         [HideInInspector]
         public bool isLock = false;
+        [Range(1.0f,3.0f)]
+        public float runSpeedMod = 2.0f;
         public bool enableUnstuck;
         public int stuckDelay;
         public Vector3 stuckBounceVelocity;
@@ -104,7 +106,7 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             }
 #if !MOBILE_INPUT
             // walk speed multiplier
-            if (Input.GetKey(KeyCode.LeftShift)) m_Move *= 2f;
+            if (Input.GetKey(KeyCode.LeftShift)) m_Move *= runSpeedMod;
 #endif
 
             // pass all parameters to the character control script

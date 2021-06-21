@@ -1959,6 +1959,114 @@ MonoBehaviour:
     obs7_time: 0
     obs8_time: 0
     obs9_time: 0
+    obs1:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs2:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs3:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs4:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs5:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs6:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs7:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs8:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs9:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
   p4_2:
     username: 
     obs1_time: 0
@@ -1969,6 +2077,102 @@ MonoBehaviour:
     obs6_time: 0
     obs7_time: 0
     obs8_time: 0
+    obs1:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs2:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs3:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs4:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs5:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs6:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs7:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs8:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
   p4_3:
     username: 
     obs1_time: 0
@@ -1976,6 +2180,66 @@ MonoBehaviour:
     obs3_time: 0
     obs4_time: 0
     obs5_time: 0
+    obs1:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs2:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs3:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs4:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
+    obs5:
+      obsID: 0
+      obsTime: 0
+      answer: {x: 0, y: 0, z: 0}
+      e_Scal1: 0
+      e_Scal2: 0
+      e_Vect1: {x: 0, y: 0, z: 0}
+      e_Vect2: {x: 0, y: 0, z: 0}
+      i_Scal1: 0
+      i_Scal2: 0
+      i_Vect1: {x: 0, y: 0, z: 0}
+      i_Vect2: {x: 0, y: 0, z: 0}
 --- !u!1 &2078814990 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2012438974594575700, guid: eee79c634ca777149b1a3a7cba30dd5e,
@@ -3671,6 +3935,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3697150985787032411, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3719627290707755552, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_Text
@@ -4569,6 +4838,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 12800000, guid: 306d5b32779c8344ca73e1097231f1e5,
         type: 3}
+    - target: {fileID: 6204321975534291973, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: flavorSpeed
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 6204321975534291973, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: statusSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6211610757280869816, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_Text
@@ -5566,6 +5845,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 330.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7916983978640473763, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: anim_speed
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 7946324476127745128, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}

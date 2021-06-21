@@ -55,9 +55,11 @@ public class EnterExit : MonoBehaviour
 
                 case SceneName.MainSceneName:
                     playerController.sceneName = Constants.mainSceneName;
-                   
-                    if (SceneManager.GetActiveScene().name == Constants.puzzle01SceneName)
-                        GameRoot.instance.exitPuzzle = 5;
+
+                    if (SceneManager.GetActiveScene().name == Constants.menuSceneName)
+                        GameRoot.instance.exitPuzzle = 0;                   
+                    else if (SceneManager.GetActiveScene().name == Constants.puzzle01SceneName)
+                        GameRoot.instance.exitPuzzle = 1;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName ||
                                 SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName)
                         GameRoot.instance.exitPuzzle = 2;
@@ -100,40 +102,101 @@ public class EnterExit : MonoBehaviour
                 case PuzzleComplete.Puzzle01Complete:
                     GameObject.Find("GameController").GetComponent<GameControllerPuzzle01>().RecordData();
                     GameRoot.GSFU.UpdatePlayer(false);
+                    GameRoot.instance.prevStage = 1;
+                    GameRoot.instance.prevLevel = 1;
+
+                    if (!GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel])
+                        GameRoot.instance.firstCompletion = true;
+
+                    GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
+
                     GameRoot.instance.puzzleCompleted[0] = true;
                     break;
 
                 case PuzzleComplete.Puzzle02_1Complete:
                     GameObject.Find("GameController_Puzzle02_01").GetComponent<GameControllerPuzzle02>().RecordData();
                     GameRoot.GSFU.UpdatePlayer(false);
+                    GameRoot.instance.prevStage = 2;
+                    GameRoot.instance.prevLevel = 1;
+
+                    if (!GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel])
+                        GameRoot.instance.firstCompletion = true;
+
+                    GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
+
                     GameRoot.instance.puzzleCompleted[1] = true;
                     break;
 
                 case PuzzleComplete.Puzzle02_2Complete:
                     GameObject.Find("GameController_Puzzle02_02").GetComponent<GameControllerPuzzle02>().RecordData();
                     GameRoot.GSFU.UpdatePlayer(false);
+
+                    GameRoot.instance.prevStage = 2;
+                    GameRoot.instance.prevLevel = 2;
+
+                    if (!GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel])
+                        GameRoot.instance.firstCompletion = true;
+
+                    GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
+
                     GameRoot.instance.puzzleCompleted[1] = true;
                     break;
 
                 case PuzzleComplete.Puzzle03Complete:
                     GameObject.Find("GameController").GetComponent<GameControllerPuzzle03>().RecordData();
                     GameRoot.GSFU.UpdatePlayer(false);
+
+                    GameRoot.instance.prevStage = 3;
+                    GameRoot.instance.prevLevel = 1;
+
+                    if (!GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel])
+                        GameRoot.instance.firstCompletion = true;
+
+                    GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
+
                     GameRoot.instance.puzzleCompleted[2] = true;
                     break;
 
                 case PuzzleComplete.Puzzle04_1Complete:
+
+                    GameRoot.instance.prevStage = 4;
+                    GameRoot.instance.prevLevel = 1;
+
+                    if (!GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel])
+                        GameRoot.instance.firstCompletion = true;
+
+                    GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
+
                     GameRoot.instance.puzzleCompleted[3] = true;
                     GameObject.Find("GameController").GetComponent<GameControllerPuzzle04>().RecordData();
                     GameRoot.GSFU.UpdatePlayer(false);
                     break;
 
                 case PuzzleComplete.Puzzle04_2Complete:
+
+                    GameRoot.instance.prevStage = 4;
+                    GameRoot.instance.prevLevel = 2;
+
+                    if (!GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel])
+                        GameRoot.instance.firstCompletion = true;
+
+                    GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
+
                     GameRoot.instance.puzzleCompleted[3] = true;
                     GameObject.Find("GameController").GetComponent<GameControllerPuzzle04>().RecordData();
                     GameRoot.GSFU.UpdatePlayer(false);
                     break;
 
                 case PuzzleComplete.Puzzle04_3Complete:
+
+                    GameRoot.instance.prevStage = 4;
+                    GameRoot.instance.prevLevel = 3;
+
+                    if (!GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel])
+                        GameRoot.instance.firstCompletion = true;
+
+                    GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
+
                     GameRoot.instance.puzzleCompleted[3] = true;
                     GameObject.Find("GameController").GetComponent<GameControllerPuzzle04>().RecordData();
                     GameRoot.GSFU.UpdatePlayer(false);
@@ -143,6 +206,8 @@ public class EnterExit : MonoBehaviour
                 default:
                     break;
             }
+
+
         }
     }
 

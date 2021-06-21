@@ -1163,6 +1163,8 @@ MonoBehaviour:
   verticalMinMax: {x: -30, y: 60}
   keyboardRotatedSpeed: 50
   isLock: 0
+  horizontal: 0
+  vertical: 0
   postPuzzleLock: 0
 --- !u!1 &1541554312
 GameObject:
@@ -1175,7 +1177,6 @@ GameObject:
   - component: {fileID: 1541554316}
   - component: {fileID: 1541554315}
   - component: {fileID: 1541554314}
-  - component: {fileID: 1541554313}
   m_Layer: 0
   m_Name: Cube (4)
   m_TagString: Untagged
@@ -1183,19 +1184,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &1541554313
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1541554312}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1541554314
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1355,6 +1343,7 @@ MonoBehaviour:
   isTriggerMast: 0
   congrats: {fileID: 1491016927}
   endportal: {fileID: 1491016928}
+  puzzleTime: 0
   P01W: {fileID: 0}
   DBP01: {fileID: 0}
   timer: 0
@@ -1369,7 +1358,6 @@ GameObject:
   - component: {fileID: 1662354032}
   - component: {fileID: 1662354031}
   - component: {fileID: 1662354030}
-  - component: {fileID: 1662354029}
   m_Layer: 0
   m_Name: Cube (3)
   m_TagString: Untagged
@@ -1377,19 +1365,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &1662354029
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1662354028}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1662354030
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1538,6 +1513,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 358621829808625529, guid: ab851272ebaa04b0996d5681c0dd8ab4,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3071903117526020226, guid: ab851272ebaa04b0996d5681c0dd8ab4,
         type: 3}
       propertyPath: puzzleComplete
@@ -1626,7 +1606,6 @@ GameObject:
   - component: {fileID: 1876835161}
   - component: {fileID: 1876835160}
   - component: {fileID: 1876835159}
-  - component: {fileID: 1876835158}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -1634,19 +1613,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &1876835158
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1876835157}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &1876835159
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1811,7 +1777,6 @@ GameObject:
   - component: {fileID: 2089797006}
   - component: {fileID: 2089797005}
   - component: {fileID: 2089797004}
-  - component: {fileID: 2089797003}
   m_Layer: 0
   m_Name: Cube (1)
   m_TagString: Untagged
@@ -1819,19 +1784,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &2089797003
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2089797002}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2089797004
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1904,7 +1856,6 @@ GameObject:
   - component: {fileID: 2095414776}
   - component: {fileID: 2095414775}
   - component: {fileID: 2095414774}
-  - component: {fileID: 2095414773}
   m_Layer: 0
   m_Name: Cube (2)
   m_TagString: Untagged
@@ -1912,19 +1863,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &2095414773
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2095414772}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &2095414774
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3501,7 +3439,7 @@ PrefabInstance:
     - target: {fileID: 5781247846317974534, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}
       propertyPath: m_AnimSpeedMultiplier
-      value: 2.5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5781247846317974534, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}
@@ -3511,12 +3449,17 @@ PrefabInstance:
     - target: {fileID: 5781247846317974534, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}
       propertyPath: m_MoveSpeedMultiplier
-      value: 2.5
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5781247846317974534, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
         type: 3}
       propertyPath: m_StationaryTurnSpeed
       value: 360
+      objectReference: {fileID: 0}
+    - target: {fileID: 9157693102889691827, guid: 7ef1dcaca6a9bde40a90de82d2e563fc,
+        type: 3}
+      propertyPath: runSpeedMod
+      value: 1.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7ef1dcaca6a9bde40a90de82d2e563fc, type: 3}

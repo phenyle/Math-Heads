@@ -14700,6 +14700,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLock: 0
+  runSpeedMod: 1.75
   enableUnstuck: 1
   stuckDelay: 100
   stuckBounceVelocity: {x: 0, y: 8, z: -5}
@@ -14750,7 +14751,7 @@ MonoBehaviour:
   m_JumpPower: 13
   m_GravityMultiplier: 3.5
   m_RunCycleLegOffset: 1
-  m_MoveSpeedMultiplier: 1
+  m_MoveSpeedMultiplier: 3
   m_AnimSpeedMultiplier: 1
   m_GroundCheckDistance: 1
 --- !u!4 &2918626237289915404
@@ -16623,7 +16624,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   topCamPlayer: {fileID: 2918626236268589570}
   Difficulty: 2
-  puzzleTime: 0
+  tot_puzzleTime: 0
+  puzzleDatas: []
   sunLight: {fileID: 2918626237422057002}
   moonLight: {fileID: 2918626235661196956}
   ocean: {fileID: 2918626237385298201}

@@ -18,6 +18,8 @@ TagManager:
   - Controls
   - terrain
   - p4puzzles
+  - Puzzle02Matrix
+  - cameraSlideSurface
   layers:
   - Default
   - TransparentFX

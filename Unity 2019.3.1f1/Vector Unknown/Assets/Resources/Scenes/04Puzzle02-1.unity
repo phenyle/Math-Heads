@@ -496,6 +496,21 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4819567845576693356, guid: 554b25c6e3921dc468b4592d7bf0f8e0,
+        type: 3}
+      propertyPath: m_AnimSpeedMultiplier
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4819567845576693356, guid: 554b25c6e3921dc468b4592d7bf0f8e0,
+        type: 3}
+      propertyPath: m_MoveSpeedMultiplier
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7912609561640491225, guid: 554b25c6e3921dc468b4592d7bf0f8e0,
+        type: 3}
+      propertyPath: runSpeedMod
+      value: 1.75
+      objectReference: {fileID: 0}
     - target: {fileID: 8550063764763521768, guid: 554b25c6e3921dc468b4592d7bf0f8e0,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -37,10 +37,7 @@ public class LevelSelectButtons : MonoBehaviour
     }
 
     public void submitButton()
-    {
-        
-
-
+    { 
         //while the player is in the portal, if they select the "GO" button
         //Find which Puzzle/Scene this portal applies to
         switch (sceneName)

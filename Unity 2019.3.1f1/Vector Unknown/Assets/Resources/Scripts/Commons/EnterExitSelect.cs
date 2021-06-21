@@ -78,10 +78,15 @@ public class EnterExitSelect : WindowRoot
 
                     if (SceneManager.GetActiveScene().name == Constants.puzzle01SceneName)
                         GameRoot.instance.exitPuzzle = 1;
-                    else if (SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName)
+                    else if (SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName)
                         GameRoot.instance.exitPuzzle = 2;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
                         GameRoot.instance.exitPuzzle = 3;
+                    else if (SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle04_3SceneName)
+                        GameRoot.instance.exitPuzzle = 4;
 
                     break;
 

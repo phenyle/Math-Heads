@@ -29,17 +29,17 @@ Update Log since last:
 
 
 CHANGE IDEAS:
-Guest play, no login, no tracking (for demo/interview showing)
+Guest play, no login, no tracking (for demo/interview showing) === DONE 20210606
 Z-axis change
-Save Best time
+Save Best time ==== DONE 20210606
 Username generation (First.Last#)  ==== DONE20210525
 Password Recovery (email)
 Password entry privacy ==== DONE 20210525
 Broswer Advisory ==== DONE 20210525
-Group Level Play (session play ID with mulitple users)
-Last login time tracker
+Group Level Play (session play ID with mulitple users)  === DONE 20210606
+Last login time tracker  === DONE 20210605
 
-Admin Login and Game Settings
+Admin Login and Game Settings  === DONE 20210606
  - Expo Guest play
  - Classroom Passcode play
 
@@ -48,9 +48,6 @@ Admin Login and Game Settings
 - Expo (Admin Setup) with login replaced with expo name and incriment.  No password
 - Classroom (Admin Setup), no login, password replaced with session passcode
 - Guest login, no login, no password (quick play) 
-
-https://researchintegrity.asu.edu/human-subjects/training#citi-irb-training
-send cert to Dr Zandieh
 
 2D game and 3D uniform in GSFU (shared logins, one spreadsheet for both games)
 

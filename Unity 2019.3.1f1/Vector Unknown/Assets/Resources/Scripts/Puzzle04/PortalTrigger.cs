@@ -87,7 +87,11 @@ public class PortalTrigger : MonoBehaviour
 
     }
 
-
+    /// <summary>
+    /// OnTriggerEnter is the catalyst for telling the UI which Puzzle the player
+    /// is at.  
+    /// </summary>
+    /// <param name="other"></param>
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Player")
@@ -96,6 +100,13 @@ public class PortalTrigger : MonoBehaviour
 
             cameraMoveSpeed = 0.25f;
             cameraRotateSpeed = 0.07f;
+
+            PC04.player.GetComponent<ThirdPersonCharacter>().enabled = false;
+            PC04.player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+            PC04.setCameraControls(false);
+            PC04.cameraGlide.SetObjectMoveSpeed(0.25f);
+            PC04.cameraGlide.SetObjectRotateSpeed(0.07f);
+            PC04.cameraGlide.GlideToPosition(PC04.CameraStartPosition.transform.position, PC04.cameraTarget.transform.position, PC04.mainCamera.transform.position);
 
             //Dialog Trigger
             if (PC04.convoTriggerNumber != 0)

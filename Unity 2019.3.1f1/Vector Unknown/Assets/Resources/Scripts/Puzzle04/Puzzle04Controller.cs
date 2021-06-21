@@ -19,6 +19,7 @@ public class Puzzle04Controller : MonoBehaviour
     public GameObject goalPoint;
     public GameObject reset;
     public GameObject finish;
+    public int puzzleID;
     public bool isActive;
     private VisualVector VV01;
 
@@ -30,6 +31,8 @@ public class Puzzle04Controller : MonoBehaviour
     private float rotateSpeed = 1;
     private float zoomSpeed = 2;
     private bool cameraControls;
+    public ObjectGlide cameraGlide;
+    public CameraRotate cameraRotate;
 
     [Header("---Puzzle Vectors---")]
     public Vector3 MinVectorSize;
@@ -48,13 +51,12 @@ public class Puzzle04Controller : MonoBehaviour
     //Grapple Kit
     [Header("Grapple Kit")]
     public GameObject grappleKit;
+    //public GrappleCode grappleKit;
 
     [Header("---Conversation Select---")]
     [Range(0, 9)]
     [Tooltip("Sets the dialog number used.\n0 val means no dialog\n1-9 selects that specific dialog")]
     public int convoTriggerNumber;
-
-
 
 
     //Answer Cards
@@ -108,6 +110,7 @@ public class Puzzle04Controller : MonoBehaviour
     {
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
         VV01 = this.GetComponent<VisualVector>();
+        player = GameObject.FindGameObjectWithTag("Player");
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
         cameraControls = false;
 
@@ -129,6 +132,12 @@ public class Puzzle04Controller : MonoBehaviour
             DynamicVector = new Vector3(0f, 0f, 0f);
 
 
+        cameraGlide = this.GetComponent<ObjectGlide>();
+        cameraGlide.glideObject = mainCamera;
+
+        cameraRotate = this.GetComponent<CameraRotate>();
+        cameraRotate.rotCamera = mainCamera.transform;
+
         //Final Answer is created after generating the cards
         startingAnswer = MinVectorSize + DynamicVector;
 
@@ -139,6 +148,7 @@ public class Puzzle04Controller : MonoBehaviour
 
         obstacleTime = 0.0f;
         puzzleData = new obsData();
+        puzzleData.obsID = puzzleID;
 
 
  //       intAnswerGenerator();

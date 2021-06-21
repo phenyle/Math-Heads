@@ -1,6 +1,13 @@
 ﻿
 public class Constants
 {
+    //Game Settings
+    public const int numOfStages = 4;
+    public const int numLvlsStage1 = 1;
+    public const int numLvlsStage2 = 2;
+    public const int numLvlsStage3 = 1;
+    public const int numLvlsStage4 = 3;
+
     //Scene Names
     public const string gameRootSceneName = "00GameRoot";
     public const string menuSceneName = "01Menu";
