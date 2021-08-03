@@ -16,6 +16,6 @@ MonoBehaviour:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
     - These gaps are going to be a bit more difficult than last time.
-    - This time the goals are in both the X AND Y directions.
-    - You'll have to pay attention to each vector's X/Y values when using the scalars.
+    - This time the goals are in both the X AND Z directions.
+    - You'll have to pay attention to each vector's X/Z values when using the scalars.
     - Adjusting the scalar will increase/decrease the resulting vector in both directions.

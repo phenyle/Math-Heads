@@ -55,15 +55,7 @@ public class GameControllerMain : GameControllerRoot
 
         CheckPlayerDataRecords();
 
-        if (GameRoot.instance.firstCompletion)
-        {
-            shipRepair.AnimatePartUnlock(player, mainCamera);
-            GameRoot.instance.firstCompletion = false;
-        }
-        else
-        {
-            shipRepair.ShipUpdate();
-        }
+
 
 
 
@@ -242,6 +234,17 @@ public class GameControllerMain : GameControllerRoot
         }
         // DialogueManager.isInDialogue = true;
         // DialogueManager.isPuzzleLock = false;
+
+
+        if (GameRoot.instance.firstCompletion)
+        {
+            shipRepair.AnimatePartUnlock(player, mainCamera);
+            GameRoot.instance.firstCompletion = false;
+        }
+        else
+        {
+            shipRepair.ShipUpdate();
+        }
 
     }
 

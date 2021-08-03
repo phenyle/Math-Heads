@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 using GoogleSheetsForUnity;
 
@@ -32,6 +33,8 @@ public class GameRoot : MonoBehaviour
     public MenuSystem menuSystem;
     [HideInInspector]
     public PuzzleSystem puzzleSystem;
+    [HideInInspector]
+    public static UnityEvent camEvents; 
 
     [HideInInspector]
     public int score = 0;
@@ -74,6 +77,7 @@ public class GameRoot : MonoBehaviour
         instance = this;
         GSFU = this.GetComponent<SendToGoogle>();
         player = this.GetComponent<PlayerData>();
+        camEvents = new UnityEvent();
 
         DontDestroyOnLoad(GSFU);
         DontDestroyOnLoad(player);

@@ -20,6 +20,10 @@ TagManager:
   - p4puzzles
   - Puzzle02Matrix
   - cameraSlideSurface
+  - cameraTools
+  - finTrig
+  - resTrig
+  - PuzzleCamera
   layers:
   - Default
   - TransparentFX

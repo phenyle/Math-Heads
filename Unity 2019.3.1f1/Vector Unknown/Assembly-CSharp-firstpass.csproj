@@ -97,6 +97,7 @@
     <Compile Include="Assets\Plugins\PolygonArsenal\Scripts\PolygonLightFlicker.cs" />
     <Compile Include="Assets\Plugins\PolygonArsenal\Scripts\PolygonRotation.cs" />
     <Compile Include="Assets\Plugins\PolygonArsenal\Scripts\PolygonSoundSpawn.cs" />
+    <Compile Include="Assets\Plugins\QuickOutline\Scripts\Outline.cs" />
     <Compile Include="Assets\Standard Assets\2D\Scripts\Camera2DFollow.cs" />
     <Compile Include="Assets\Standard Assets\2D\Scripts\CameraFollow.cs" />
     <Compile Include="Assets\Standard Assets\2D\Scripts\Platformer2DUserControl.cs" />
@@ -200,6 +201,7 @@
     <None Include="Assets\Plugins\LowPolyWaterv2\Shaders\LPWLighting.cginc" />
     <None Include="Assets\Plugins\BOXOPHOBIC\Utils\Legacy\Shaders\SimpleLit Prototype Terrain.shader" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\WaterInclude.cginc" />
+    <None Include="Assets\Plugins\QuickOutline\Resources\Shaders\OutlineMask.shader" />
     <None Include="Assets\Plugins\BOXOPHOBIC\Utils\Legacy\Shaders\StandardLit Prototype Terrain.shader" />
     <None Include="Assets\Plugins\PolygonArsenal\Shaders\Standard\PolyRimLightSelective.shader" />
     <None Include="Assets\Plugins\LowPolyWaterv2\Shaders\LPWNoise.cginc" />
@@ -210,6 +212,7 @@
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Advanced.shader" />
     <None Include="Assets\Standard Assets\Environment\Water (Basic)\DO_NOT_WORK_IN_VR.txt" />
     <None Include="Assets\Plugins\PolygonArsenal\Polygon Arsenal - Readme.txt" />
+    <None Include="Assets\Plugins\QuickOutline\Readme.txt" />
     <None Include="Assets\Plugins\LowPolyWaterv2\Shaders\LPWShoreBlend.cginc" />
     <None Include="Assets\Standard Assets\Environment\Water\DO_NOT_WORK_IN_VR.txt" />
     <None Include="Assets\Standard Assets\Environment\Water\Water4\Shaders\FXWater4Simple.shader" />
@@ -220,6 +223,7 @@
     <None Include="Assets\Plugins\BOXOPHOBIC\Utils\Shaders\Unlit Prototype Skybox.shader" />
     <None Include="Assets\Plugins\PolygonArsenal\Shaders\Standard\PolyLitSurface.shader" />
     <None Include="Assets\Standard Assets\Environment\Water (Basic)\Shaders\FXWaterBasic.shader" />
+    <None Include="Assets\Plugins\QuickOutline\Resources\Shaders\OutlineFill.shader" />
     <None Include="Assets\Plugins\PolygonNature\Shaders\SyntyStudios_SkyGradient.shader" />
     <None Include="Assets\Plugins\BOXOPHOBIC\Polyverse Skies\Core\Shaders\Standard.shader" />
     <None Include="Assets\Plugins\LowPolyWaterv2\Shaders\LPWCompatibility.cginc" />

@@ -17,6 +17,7 @@ public class CameraController : MonoBehaviour
     public float horizontal, vertical;
 
     public bool postPuzzleLock = false;
+    private bool puzzle04hack = false;
 
 
     private void Start()
@@ -38,8 +39,8 @@ public class CameraController : MonoBehaviour
             MouseMovement();
         }
         CameraMovement();
-
-        toggleMouse();
+        if(!puzzle04hack)
+            toggleMouse();
     }
 
     public void MouseMovement()
@@ -110,5 +111,10 @@ public class CameraController : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    public void SetPuzzle04Hack(bool val)
+    {
+        puzzle04hack = val;
     }
 }

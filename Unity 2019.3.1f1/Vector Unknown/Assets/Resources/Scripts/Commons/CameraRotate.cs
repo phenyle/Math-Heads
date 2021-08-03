@@ -11,15 +11,16 @@ public class CameraRotate : MonoBehaviour
 {
     public Transform rotCamera;
     private Vector3 cameraTarget;
-    private float rotateSpeed = 1;
-    private float zoomSpeed = 2;
+    public float rotateSpeed = 1;
+    public float zoomSpeed = 2;
     private CameraDragSurface dragController;
 
 
     void Start()
     {
-        dragController = GameObject.FindGameObjectWithTag("cameraSliderSurface").GetComponent<CameraDragSurface>();
-        this.enabled = false;
+        dragController = GameObject.FindGameObjectWithTag("cameraTools").GetComponent<CameraDragSurface>();
+        rotCamera = GameObject.FindGameObjectWithTag("PuzzleCamera").transform;
+ //       this.enabled = false;
     }
 
     public void OnDisable()
@@ -105,6 +106,11 @@ public class CameraRotate : MonoBehaviour
     {
         rotCamera = camera;
 
+    }
+
+    public void SetCameraTarget(Vector3 target)
+    {
+        cameraTarget = target;
     }
 
     public void EnableCameraControls(GameObject camera, Vector3 target, bool val)

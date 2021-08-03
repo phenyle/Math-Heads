@@ -18,6 +18,7 @@ public class GrappleCode : MonoBehaviour
     private float ropeWidth;
     public float hookSpeed;
     private Vector3 hookDirection;
+    private Vector3 startPos;
 
 
     private float speedIncri;
@@ -53,6 +54,7 @@ public class GrappleCode : MonoBehaviour
         hookSpeed = 1.5f;
         playerSpeed = 1f;
         ropeWidth = 0.35f;
+        this.enabled = false;
 
     }
 
@@ -128,9 +130,6 @@ public class GrappleCode : MonoBehaviour
 
                     distanceToGoal = (player.transform.position - goalPoint.transform.position).magnitude;
 
-                    if (!PC04.portal.GetComponent<PortalTrigger>().inPortal)
-                        player.GetComponent<Collider>().enabled = false;
-
                     if (distanceToGoal > 3)
                     {
                         //        player.GetComponent<Rigidbody>().AddRelativeForce(-Vector3.Normalize(playerTrajectory) * playerSpeed, ForceMode.VelocityChange);
@@ -154,7 +153,7 @@ public class GrappleCode : MonoBehaviour
                 //Player popping over Anchor
                 if (stages[2])
                 {
-                    player.GetComponent<Collider>().enabled = true;
+                    PC04.ToggleAllTriggers(true);
                     player.GetComponent<ThirdPersonUserControl>().enabled = true;
 
                     rope.SetActive(false);
@@ -168,6 +167,7 @@ public class GrappleCode : MonoBehaviour
                     stages[2] = false;
                     grappleAnimation = false;
                     stages[0] = true;
+                    this.enabled = false;
 
                 }
             }
@@ -200,6 +200,7 @@ public class GrappleCode : MonoBehaviour
                         grappleAnimation = false;
                         hook.GetComponent<HookTrigger>().resetHitObject();
                         stages[0] = true;
+                        this.enabled = false;
                     }
 
                 }
@@ -222,11 +223,12 @@ public class GrappleCode : MonoBehaviour
         visVector.transform.localScale = localScale;
     }
 
-    public void InitGrapple(bool correct, Vector3 direction, GameObject goal)
+    public void InitGrapple(bool correct, Vector3 direction, GameObject goal, Vector3 playerStartPos)
     {
         goalPoint = goal;
         rightAnswer = correct;
         hookDirection = direction;
+        startPos = playerStartPos;
    //     ropeStart.transform.position = charHand.transform.localPosition;
     }
 
@@ -240,5 +242,42 @@ public class GrappleCode : MonoBehaviour
         PC04.getGameController().GetAudioService().PlayFXAudio("Puzzle04/grappleShot");
 
         grappleAnimation = true;
+        this.enabled = true;
+    }
+
+    public void ReleaseGrapple()
+    {
+        PC04.ToggleAllTriggers(true);
+
+        //reset the player velocity if they had any
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //this force pushes the player up and beind the goal anchor
+        player.GetComponent<Rigidbody>().AddForce(goalPoint.transform.TransformDirection(Vector3.right) * 25f + goalPoint.transform.TransformDirection(Vector3.up) * 10f, ForceMode.VelocityChange);
+
+        Physics.gravity = new Vector3(0, -9.81f, 0);
+        player.GetComponent<Rigidbody>().useGravity = true;
+
+        player.GetComponent<Collider>().enabled = true;
+        player.GetComponent<ThirdPersonUserControl>().enabled = true;
+
+        rope.SetActive(false);
+        hook.SetActive(false);
+        charShoulder.transform.rotation = prevShoulderRotation.rotation;
+
+        distanceToGoal = (player.transform.position - goalPoint.transform.position).magnitude;
+
+        ropeStart.transform.localPosition = Vector3.zero;
+        ropeEnd.transform.localPosition = Vector3.zero;
+
+        grappleAnimation = false;
+        stages[2] = false;
+        stages[1] = false;
+        stages[0] = true;
+        this.enabled = false;
+    }
+
+    public bool isGrappling()
+    {
+        return grappleAnimation;
     }
 }

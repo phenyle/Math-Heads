@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 public enum Direction
 {
     X,
     Y,
+    Z,
     XY,
     XYZ
 };
@@ -12,8 +16,8 @@ public enum Direction
 public class Puzzle04Controller : MonoBehaviour
 {
     [Header("---Object Assignment---")]
-    public GameObject player;    
-    public GameObject portal;
+    public GameObject player;
+    //    public GameObject portal;
     public GameObject startPoint;
     public GameObject goal;
     public GameObject goalPoint;
@@ -21,37 +25,44 @@ public class Puzzle04Controller : MonoBehaviour
     public GameObject finish;
     public int puzzleID;
     public bool isActive;
-    private VisualVector VV01;
+
+    static private UnityEvent events;
 
     [Header("---View Controls---")]
     public GameObject mainCamera;
+    public GameObject puzzleCamera;
+    public GameObject visVectCamera;
     public GameObject cameraTarget;
     public GameObject CameraStartPosition;
     private Vector3 prevCameraPosition;
-    private float rotateSpeed = 1;
-    private float zoomSpeed = 2;
-    private bool cameraControls;
-    public ObjectGlide cameraGlide;
-    public CameraRotate cameraRotate;
+
 
     [Header("---Puzzle Vectors---")]
-    public Vector3 MinVectorSize;
-    public bool isDynamic;
-    [Range(1,10)]
-    public int MaxDynamicScalar;
+    public Vector3 InitFinalVector; //this is the vector input from the Unity Inspector, it's the basis for the FinalAnswer
+    public bool isDynamic; //this bool tells the system to slightly randomize the InitFinalVector before setting it as the startingAnswer
+    [Range(1, 10)]
+    public int FinalDynamicRange;
     public Direction LimitAxis = new Direction();
     private Vector3 DynamicVector;
 
     [Header("---Answer Card Vectors---")]
     [Range(1, 10)]
     public int MaxCardScalar;
-    [Range(1, 10)]
-    public int MaxCardMagnitudes;
+    //   [Range(1, 10)]
+    //   public int MaxCardMagnitudes;
 
-    //Grapple Kit
-    [Header("Grapple Kit")]
-    public GameObject grappleKit;
-    //public GrappleCode grappleKit;
+    //Object Tools
+    [Header("Puzzle Tools")]
+    public PortalTrigger portal;
+    public GrappleCode grappleKit;
+    public GapTriggersController gapTriggers;
+    private bool inPortal = false;
+    private VisualVector VV01;
+    public ReleaseGrappleTrigger releaseTrigger;
+    private ObjectGlide cameraGlide;
+    private CameraRotate cameraRotate;
+
+
 
     [Header("---Conversation Select---")]
     [Range(0, 9)]
@@ -60,8 +71,8 @@ public class Puzzle04Controller : MonoBehaviour
 
 
     //Answer Cards
-    private Vector3 startingAnswer;
-    private Vector3 finalAnswerVector;
+    private Vector3 startingAnswer; //this is the starting vector after being slightly randomized (when applicable) used for answer card calculation
+    private Vector3 finalAnswerVector; //this is the Final answer vector that is tailored to match what the pair of answer cards can reproduce
     private List<Vector3> cardVectors;
 
     //Player Answers
@@ -70,8 +81,8 @@ public class Puzzle04Controller : MonoBehaviour
     private Vector3 card1;
     private Vector3 card2;
     private Vector3 playerAnswer;
-    private bool ans1Entered;
-    private bool ans2Entered;
+    private bool ans1Entered; //condition flag that a card is slotted in position1 in the UI
+    private bool ans2Entered; //condition flag that a card is slotted in position2 in the UI
     private bool correct;
 
     private GameControllerPuzzle04 GCP04;
@@ -110,9 +121,27 @@ public class Puzzle04Controller : MonoBehaviour
     {
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
         VV01 = this.GetComponent<VisualVector>();
+        cameraRotate = this.GetComponent<CameraRotate>();
         player = GameObject.FindGameObjectWithTag("Player");
         mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
-        cameraControls = false;
+        puzzleCamera = GameObject.FindGameObjectWithTag("PuzzleCamera");
+        cameraGlide = GameObject.FindGameObjectWithTag("cameraTools").GetComponent<ObjectGlide>();
+        cameraRotate = GameObject.FindGameObjectWithTag("cameraTools").GetComponent<CameraRotate>();
+        visVectCamera = GameObject.Find("VisVectorCamera");
+        //have to flicker visvect clear flags on start, because of a weird bug.
+        //it should be set to depth, but on Level 3 it only works if it gets reset to depth after
+        //starting the level.  So, that's what this does.
+        visVectCamera.GetComponent<Camera>().clearFlags = CameraClearFlags.Depth;
+        visVectCamera.GetComponent<Camera>().enabled = false;
+
+
+        grappleKit = GameObject.Find("GrappleKit").GetComponent<GrappleCode>();
+        
+        gapTriggers.SetPuzzleController(this);
+        portal.SetPuzzleController(this);
+        inPortal = false;
+        releaseTrigger.SetPuzzleController(this);
+        VV01.SetPuzzleController(this);
 
         cardVectors = new List<Vector3>();
 
@@ -132,17 +161,12 @@ public class Puzzle04Controller : MonoBehaviour
             DynamicVector = new Vector3(0f, 0f, 0f);
 
 
-        cameraGlide = this.GetComponent<ObjectGlide>();
-        cameraGlide.glideObject = mainCamera;
+        //Final Answer is created after generating the cards       
+        startingAnswer = InitFinalVector + DynamicVector;
 
-        cameraRotate = this.GetComponent<CameraRotate>();
-        cameraRotate.rotCamera = mainCamera.transform;
-
-        //Final Answer is created after generating the cards
-        startingAnswer = MinVectorSize + DynamicVector;
 
         //Move camera target inbetween the starting position and the goal
-        cameraTarget.transform.position += (goalPoint.transform.position - startPoint.transform.position) / 2; 
+        cameraTarget.transform.position += (goalPoint.transform.position - startPoint.transform.position) / 2;
 
         correct = false;
 
@@ -150,17 +174,25 @@ public class Puzzle04Controller : MonoBehaviour
         puzzleData = new obsData();
         puzzleData.obsID = puzzleID;
 
+        //       intAnswerGenerator();
+        //AnswerGenerators();
+        AnswerCards();
 
- //       intAnswerGenerator();
-        AnswerGenerators();        
+        if(GCP04.Difficulty == 1)
+            finalAnswerVector = SetFinalAnswer(0, Vector3.zero, 1, startingAnswer);
 
     }
-    
+
     // Update is called once per frame
     void Update()
     {
-        if (portal.GetComponent<PortalTrigger>().inPortal)
+        if (inPortal)
         {
+            //if (cameraGlide.isAtDestination())
+            //    cameraRotate.enabled = true;
+
+
+
             if (!DialogueManager.isInDialogue && !GameRoot.isPause)
                 obstacleTime += Time.deltaTime;
 
@@ -197,63 +229,6 @@ public class Puzzle04Controller : MonoBehaviour
             GCP04.P04W.setFinalAnswerDisplay(this);
 
 
-            if (cameraControls)
-            {
-                //Mouse Camera Movement and Zoom Controls
-                if (GCP04.P04W.getCameraDragController().isCameraDragging())
-                {
-                    RotateCamera();
-                }
-
-                if (Input.GetAxis("Mouse ScrollWheel") > 0f && (mainCamera.transform.position - cameraTarget.transform.position).magnitude > 5)
-                {
-                    mainCamera.transform.position += Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed;
-                }
-
-                if (Input.GetAxis("Mouse ScrollWheel") < 0f && (mainCamera.transform.position - cameraTarget.transform.position).magnitude < 150)
-                {
-                    mainCamera.transform.position -= Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed;
-                }
-
-                //Keyboard Camera Movement and Zoom Controls
-                if (Input.GetKey(KeyCode.J))
-                {
-                    mainCamera.transform.LookAt(cameraTarget.transform.position);
-                    mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.up, rotateSpeed * 0.5f);
-                }
-
-                if (Input.GetKey(KeyCode.L))
-                {
-                    mainCamera.transform.LookAt(cameraTarget.transform.position);
-                    mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.up, -rotateSpeed * 0.5f);
-                }
-
-                if (Input.GetKey(KeyCode.I))
-                {
-                    mainCamera.transform.LookAt(cameraTarget.transform.position);
-                    mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.left, -rotateSpeed * 0.5f);
-                }
-
-                if (Input.GetKey(KeyCode.K))
-                {
-                    mainCamera.transform.LookAt(cameraTarget.transform.position);
-                    mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.left, rotateSpeed * 0.5f);
-                }
-
-                if (Input.GetKey(KeyCode.U) && (mainCamera.transform.position - cameraTarget.transform.position).magnitude > 5)
-                {
-                    mainCamera.transform.position += Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed * 0.25f;
-                }
-
-                if (Input.GetKey(KeyCode.O) && (mainCamera.transform.position - cameraTarget.transform.position).magnitude < 150)
-                {
-                    mainCamera.transform.position -= Vector3.Normalize(mainCamera.transform.forward) * zoomSpeed * 0.25f;
-                }
-            }
-
-
-
-
             //Keyboard Scalar Controls
             if (Input.GetKeyDown(KeyCode.Alpha1))
             {
@@ -285,18 +260,14 @@ public class Puzzle04Controller : MonoBehaviour
                     GCP04.P04W.scalar2.value = 1;
             }
 
+
+
+
         }
         else
+        {
             isActive = false;
-
-    }
-
-    private void RotateCamera()
-    {
-        Debug.Log("rotating camera");
-        mainCamera.transform.LookAt(cameraTarget.transform.position);
-        mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.up, Input.GetAxis("Mouse X") * rotateSpeed);
-        mainCamera.transform.RotateAround(cameraTarget.transform.position, Vector3.left, Input.GetAxis("Mouse Y") * rotateSpeed);
+        }
 
     }
 
@@ -312,238 +283,233 @@ public class Puzzle04Controller : MonoBehaviour
     private Vector3 DynamicGenerator()
     {
         Vector3 temp = Vector3.zero;
-        float tempScal;
 
-        tempScal = Random.Range(1f, MaxDynamicScalar);
-        temp.x = Mathf.RoundToInt(MinVectorSize.x / tempScal);
-        tempScal = Random.Range(1f, MaxDynamicScalar);
-        temp.y = Mathf.RoundToInt(MinVectorSize.y / tempScal);
-        tempScal = Random.Range(1f, MaxDynamicScalar);
-        temp.z = Mathf.RoundToInt(MinVectorSize.z / tempScal);
+        switch (GCP04.Difficulty)
+        {
+            case 1:
+                switch (LimitAxis)
+                {
+                    //Zero vectors are allowed here for "extra" vectors
+                    case Direction.X:
+                        temp.x += UnityEngine.Random.Range(0, FinalDynamicRange);
+                        temp.y += 0.0f;
+                        temp.z += 0.0f;
+                        break;
 
+                    case Direction.Y:
+                        temp.x += 0.0f;
+                        temp.y += UnityEngine.Random.Range(0, FinalDynamicRange);
+                        temp.z += 0.0f;
+                        break;
+                }
 
-        tempScal = Random.Range(0.5f, MaxDynamicScalar);
-        temp = temp * tempScal;
-        temp.x = Mathf.RoundToInt(temp.x);
-        temp.y = Mathf.RoundToInt(temp.y);
-        temp.z = Mathf.RoundToInt(temp.z);
+                break;
+
+            case 2:
+                    temp.x += UnityEngine.Random.Range(0, FinalDynamicRange);
+                    temp.y += UnityEngine.Random.Range(0, FinalDynamicRange);
+                    temp.z += 0.0f;
+                break;
+
+            case 3:
+                //No zero vectors allowed
+                temp.x += UnityEngine.Random.Range(0, FinalDynamicRange);
+                temp.y += UnityEngine.Random.Range(0, FinalDynamicRange);
+                temp.z += UnityEngine.Random.Range(0, FinalDynamicRange);
+                break;
+        }
 
         return temp;
     }
 
-    /// <summary>
-    /// Used for generating Answer Cards based on the Vector created from
-    /// the AnswerVector.
-    /// Creates the first Scalar and sends it both the first and second cards
-    /// for calculating the finalAnswerVector (set in secondAnsCard()
-    /// </summary>
-    private void AnswerGenerators()
+
+    private void AnswerCards()
     {
+        Vector3 answer1, answer2, extra1, extra2;
         int scal1;
-        Vector3 answer1a;
-        Vector3 answer1b;
-        Vector3 answer2a;
-        Vector3 answer2b;
 
-        do
+
+        if(GCP04.Difficulty == 1)
         {
-            scal1 = Random.Range(-MaxCardScalar, MaxCardScalar + 1);
-        } while (scal1 == 0);
+            if(this.getDirection() == Direction.X)
+            {
+                cardVectors.Add(new Vector3(1, 0, 0));
+                cardVectors.Add(new Vector3(-1, 0, 0));
 
-        answer1a = firstAnsCard(scal1);
-        cardVectors.Add(answer1a);
-        answer1b = secondAnsCard(scal1, answer1a);
-        cardVectors.Add(answer1b);
-        answer2a = randomGenerator();
-        cardVectors.Add(answer2a);
-        answer2b = randomGenerator();
-        cardVectors.Add(answer2b);
+                if(UnityEngine.Random.value > 0.5f)                
+                    cardVectors.Add(new Vector3(2, 0, 0));
+                else
+                    cardVectors.Add(new Vector3(-2, 0, 0));
 
-        puzzleData.e_Vect1 = answer1a;
-        puzzleData.e_Vect2 = answer1b;
+                if (UnityEngine.Random.value > 0.5f)
+                    cardVectors.Add(new Vector3(3, 0, 0));
+                else
+                    cardVectors.Add(new Vector3(-3, 0, 0));
+
+            }
+            if (this.getDirection() == Direction.Y)
+            {
+                cardVectors.Add(new Vector3(0, 1, 0));
+                cardVectors.Add(new Vector3(0, -1, 0));
+
+                if (UnityEngine.Random.value > 0.5f)
+                    cardVectors.Add(new Vector3(0, 2, 0));
+                else
+                    cardVectors.Add(new Vector3(0, -2, 0));
+
+                if (UnityEngine.Random.value > 0.5f)
+                    cardVectors.Add(new Vector3(0, 3, 0));
+                else
+                    cardVectors.Add(new Vector3(0, -3, 0));
+            }
+        }
+        else
+        {
+            scal1 = UnityEngine.Random.Range(Mathf.RoundToInt(MaxCardScalar / 2), MaxCardScalar + 1);
+            do { answer1 = VectorGenerator(); } while (answer1 == Vector3.zero || (answer1 * scal1) == InitFinalVector);
+            cardVectors.Add(answer1);
+
+            answer2 = VectorPairFinder(scal1, answer1);
+            cardVectors.Add(answer2);
+
+            do { extra1 = VectorGenerator(); } while (extra1 == Vector3.zero);
+            cardVectors.Add(extra1);
+
+            do { extra2 = VectorGenerator(); } while (extra2 == Vector3.zero);
+            cardVectors.Add(extra2);
+        }
 
         answerShuffle();
     }
 
     /// <summary>
-    /// Creates the first Answer card for use in the puzzle.
-    /// This card is generated SIMILAR to the randomGenerator().
-    /// Uses the input scal value to divide then round the vector
-    /// The round value is the final version of the card which is 
-    /// returned
+    /// This function generates a Vector in the set of V where V is defined as:
+    ///  V = { [x,y,z] | x,y,z >= -3 and x,y,z <= 3 and x=y=z != 0 }
     /// </summary>
-    /// <param name="scal">Used to divide the random vector</param>
-    /// <returns>A Vector3 rounded in all dimensions (or 0)</returns>
-    private Vector3 firstAnsCard(int scal)
+    /// <returns>returns a Vector3 in the set of V </returns>
+    private Vector3 VectorGenerator()
     {
-        int uniqueEscape; //used to prevent getting stuck in an endless do/while
-        int tempMagX;
-        int tempMagY;
-        int tempMagZ;
-        Vector3 tempVect = Vector3.zero;
+        Vector3 temp = Vector3.zero;
 
-        uniqueEscape = 0;
-        do
+        switch (GCP04.Difficulty)
         {
-            //While scalar cannot be 0, some magnitudes MAY be zero,
-            //this is acceptable as long as not ALL the magnitudes are zero
-            //this do while loop ensure we don't end with a zero vector.
-            do
-            {
-                tempMagX = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
-                tempMagY = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
-                tempMagZ = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
-
-
-                switch (GCP04.Difficulty)
+            case 1:
+                switch (LimitAxis)
                 {
-                    case 1:
-                        switch (LimitAxis)
-                        {
-                            case Direction.X:
-                                tempVect.x = Mathf.RoundToInt(tempMagX / scal);
-                                break;
-                            case Direction.Y:
-                                tempVect.y = Mathf.RoundToInt(tempMagY / scal);
-                                break;
-                        }
+                    //Zero vectors are allowed here for "extra" vectors
+                    case Direction.X:
+                        temp.x = UnityEngine.Random.Range(-3, 4);
+                        temp.y = 0.0f;
+                        temp.z = 0.0f;
                         break;
-                    case 2:
-                        tempVect.x = Mathf.RoundToInt(tempMagX / scal);
-                        tempVect.y = Mathf.RoundToInt(tempMagY / scal);
-                        break;
-                    case 3:
-                        tempVect.x = Mathf.RoundToInt(tempMagX / scal);
-                        tempVect.y = Mathf.RoundToInt(tempMagY / scal);
-                        tempVect.z = Mathf.RoundToInt(tempMagZ / scal);
+
+                    case Direction.Y:
+                        temp.x = 0.0f;
+                        temp.y = UnityEngine.Random.Range(-3, 4);
+                        temp.z = 0.0f;
                         break;
                 }
 
-            } while (tempVect == new Vector3(0f, 0f, 0f));
-            //while the vector is all Zeros (random chance), try again
-            //also if the magnitude is 1, try again.  This is a tweak for Level1
-            //since magnitude 1 means every other card will be a scalar of it
-            //causing the system to lock when testing unique
-            uniqueEscape++;
-        } while (!testUnique(tempVect) && uniqueEscape < 10);
-        //while the vector is a duplicate/scalar of previous card, try again
+                break;
 
+            case 2:
+                //No zero vectors allowed
+                do
+                {
+                    temp.x = UnityEngine.Random.Range(-3, 4);
+                    temp.y = UnityEngine.Random.Range(-3, 4);
+                    temp.z = 0.0f;
+                } while (temp == Vector3.zero && testUnique(temp));
+                break;
 
+            case 3:
+                //No zero vectors allowed
+                do
+                {
+                    temp.x = UnityEngine.Random.Range(-3, 4);
+                    temp.y = UnityEngine.Random.Range(-3, 4);
+                    temp.z = UnityEngine.Random.Range(-3, 4);
+                } while (temp == Vector3.zero && testUnique(temp));
 
-        return tempVect;
+                break;
+        }
+
+        return temp;
     }
 
-    /// <summary>
-    /// Used for creating the Second answer card.  This second card is the displacement
-    /// from the First card (times its scalar) and the desired startingAnswer.
-    /// After this card is created it adjust the finalAnswerVector to a value
-    /// that both card1 and card2 can create.
-    /// </summary>
-    /// <param name="scal1">the scalar by which to multiply ans1 vector by</param>
-    /// <param name="ans1">the previously determined vector for which to base the
-    /// displacement needed to meet the startingAnswer</param>
-    /// <returns></returns>
-    private Vector3 secondAnsCard(int scal1, Vector3 ans1)
+    private Vector3 VectorPairFinder(int scal1, Vector3 answer1)
     {
-        int uniqueEscape; //used to prevent getting stuck in an endless do/while
-        int scal2;
-        Vector3 tempVect = Vector3.zero;
+        Vector3 answer2 = Vector3.zero;
+        float maxDimension = 0.0f;
+        int scal2 = 0;
 
-        uniqueEscape = 0;
-        do
+        //first find which version of scal is closest to goal
+        if (V1reversedScal(scal1, answer1))
+            scal1 *= -1;
+
+        //Set answer2 to exact displacement
+        answer2 = startingAnswer - (answer1 * scal1);
+
+        //find the largest Dimension of displacement (answer2)        
+        maxDimension = Mathf.Abs(answer2.x);
+        if (maxDimension < Mathf.Abs(answer2.y))
+            maxDimension = Mathf.Abs(answer2.y);
+        if (maxDimension < Mathf.Abs(answer2.z))
+            maxDimension = Mathf.Abs(answer2.z);
+
+        //We'll use that maxDimension to determine what the scalar should be
+        for (int i = 1; i <= MaxCardScalar + 1; i++)
         {
-            tempVect = (startingAnswer - (ans1 * scal1));
-
-            //We don't want a 0 scalar, this do loop ensures we don't
-            do
+            //if there is no suitable scalar we'll shave 1/8 off and try again
+            if (i == MaxCardScalar + 1)
             {
-                scal2 = Random.Range(-MaxCardScalar, MaxCardScalar + 1);
-            } while (scal2 == 0);
+                answer2 *= 0.875f;
 
+                maxDimension = Mathf.Abs(answer2.x);
+                if (maxDimension < Mathf.Abs(answer2.y))
+                    maxDimension = Mathf.Abs(answer2.y);
+                if (maxDimension < Mathf.Abs(answer2.z))
+                    maxDimension = Mathf.Abs(answer2.z);
 
-            tempVect.x = Mathf.RoundToInt(tempVect.x / scal2);
-            tempVect.y = Mathf.RoundToInt(tempVect.y / scal2);
-            tempVect.z = Mathf.RoundToInt(tempVect.z / scal2);
+                i = 1;
+            }
+            //if the largest dimension can be reduced to less than 3 by some scalar
+            else if ((maxDimension / i ) <= 3)
+            {
+                scal2 = i;
+                break;
+            }
+        }
 
-            uniqueEscape++;
-        } while (!testUnique(tempVect) && uniqueEscape < 10);
-        //while the vector is a duplicate/scalar of previous card, try again
+        //With scal2 set, we need to chop the displacment vector (answer2) into that size and round the results
+        answer2.x = Mathf.RoundToInt(answer2.x / scal2);
+        answer2.y = Mathf.RoundToInt(answer2.y / scal2);
+        answer2.z = Mathf.RoundToInt(answer2.z / scal2);
 
+        //Now that we have both answer1 and answer2 created in the set of V, we need to adjust the finalGoal to match these rounded vectors
+        finalAnswerVector = SetFinalAnswer(scal1, answer1, scal2, answer2);
+        //set the expected card and scal values for the database object
+
+        return answer2;
+    }
+
+    private Vector3 SetFinalAnswer(int scal1, Vector3 vect1, int scal2, Vector3 vect2)
+    {
         puzzleData.e_Scal1 = scal1;
+        puzzleData.e_Vect1 = vect1;
         puzzleData.e_Scal2 = scal2;
-
-        //Final Answer Adjustment
-        finalAnswerVector = (ans1 * scal1) + (tempVect * scal2);
-
-        puzzleData.answer = finalAnswerVector;
-
-        return tempVect;
+        puzzleData.e_Vect2 = vect2;
+        puzzleData.answer = (vect1 * scal1) + (vect2 * scal2);
+        return (vect1 * scal1) + (vect2 * scal2);
     }
 
-    /// <summary>
-    /// Generates random and unique vectors for use by the AnswerGenerator function
-    /// only returns vectors that are not <0,0,0> and are not already generated
-    /// in the cardVectors list.
-    /// </summary>
-    /// <returns></returns>
-    private Vector3 randomGenerator()
+    private bool V1reversedScal(int scal, Vector3 vector)
     {
-        int uniqueEscape; //used to prevent getting stuck in an endless do/while
-        int tempMagX;
-        int tempMagY;
-        int tempMagZ;
-        int tempScal;
-        Vector3 tempVect = Vector3.zero;
+        float origDisplacementMag = (startingAnswer - (vector * scal)).magnitude;
+        float reversedDisplacementMag = (startingAnswer - (vector * (scal * (-1)))).magnitude;
 
-        uniqueEscape = 0;
-        do
-        {
-            //We don't want a 0 scalar, this do loop ensures we don't
-            do
-            {
-                tempScal = Random.Range(-MaxCardScalar, MaxCardScalar + 1);
-            } while (tempScal == 0);
-
-
-            //While scalar cannot be 0, some magnitudes MAY be zero,
-            //this is acceptable as long as not ALL the magnitudes are zero
-            //this do while loop ensure we don't end with a zero vector.
-            do
-            {
-                tempMagX = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
-                tempMagY = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
-                tempMagZ = Random.Range(-MaxCardMagnitudes, MaxCardMagnitudes + 1);
-
-
-                switch (GCP04.Difficulty)
-                {
-                    case 1:
-                        switch (LimitAxis)
-                        {
-                            case Direction.X:
-                                tempVect = new Vector3(tempMagX, 0f, 0f) * tempScal;
-                                break;
-                            case Direction.Y:
-                                tempVect = new Vector3(0f, tempMagY, 0f) * tempScal;
-                                break;
-                        }
-                        break;
-                    case 2:
-                        tempVect = new Vector3(tempMagX, tempMagY, 0f) * tempScal;
-                        break;
-                    case 3:
-                        tempVect = new Vector3(tempMagX, tempMagY, tempMagZ) * tempScal;
-                        break;
-                }
-
-            } while (tempVect == new Vector3(0f, 0f, 0f));
-            //while the vector is all Zeros (random chance), try again
-
-            uniqueEscape++;
-        } while (!testUnique(tempVect) && uniqueEscape < 10);
-        //while the vector is a duplicate/scalar of previous card, try again
-
-        return tempVect;
+        //basically, if the original displacement is smaller leave it as is, otherwise flip the scalar when calculating "answer2".
+        return origDisplacementMag > reversedDisplacementMag;
     }
 
     /// <summary>
@@ -556,7 +522,7 @@ public class Puzzle04Controller : MonoBehaviour
         int last = count - 1;
         for (int i = 0; i < last; i++)
         {
-            int r = Random.Range(i, count);
+            int r = UnityEngine.Random.Range(i, count);
             Vector3 temp = cardVectors[i];
             cardVectors[i] = cardVectors[r];
             cardVectors[r] = temp;
@@ -601,7 +567,7 @@ public class Puzzle04Controller : MonoBehaviour
 
     public Vector3 getMinVector()
     {
-        return MinVectorSize;
+        return InitFinalVector;
     }
 
     public Vector3 getDynamicVector()
@@ -703,11 +669,6 @@ public class Puzzle04Controller : MonoBehaviour
         return GCP04;
     }
 
-    public void setCameraControls(bool val)
-    {
-        cameraControls = val;
-    }
-
     public bool getCorrect()
     {
         return correct;
@@ -719,10 +680,12 @@ public class Puzzle04Controller : MonoBehaviour
         {
             if (playerAnswer == finalAnswerVector)
             {
+                if (!correct)
+                    GCP04.P04W.SetComplete();
                 correct = true;
-                grappleKit.GetComponent<GrappleCode>().InitGrapple(correct, finalAnswerVector, goalPoint);
-                grappleKit.GetComponent<GrappleCode>().grappleToGoal(this);
 
+                grappleKit.InitGrapple(correct, finalAnswerVector, goalPoint, player.transform.position);
+                grappleKit.grappleToGoal(this);
 
                 puzzleData.obsTime = this.obstacleTime;
                 puzzleData.i_Scal1 = this.scalar1;
@@ -737,8 +700,8 @@ public class Puzzle04Controller : MonoBehaviour
             else
             {
                 correct = false;
-                grappleKit.GetComponent<GrappleCode>().InitGrapple(correct, VV01.vector2end.transform.position, goalPoint);
-                grappleKit.GetComponent<GrappleCode>().grappleToGoal(this);
+                grappleKit.InitGrapple(correct, VV01.vector2end.transform.position, goalPoint, player.transform.position);
+                grappleKit.grappleToGoal(this);
                 return false;
             }
         }
@@ -747,5 +710,217 @@ public class Puzzle04Controller : MonoBehaviour
 
     }
 
+    //------------------------------------
+    // TOOL ACTIONS
+    //------------------------------------
+
+    // PORTAL---------------
+
+    public void OnPortalEnter()
+    {
+        inPortal = true;
+
+        GCP04.SetPuzzlePause(true);
+
+        visVectCamera.GetComponent<Camera>().enabled = true;
+        visVectCamera.GetComponent<Camera>().clearFlags = CameraClearFlags.Nothing;
+
+        cameraRotate.SetCameraTarget(cameraTarget.transform.position);
+
+        puzzleCamera.transform.position = mainCamera.transform.position;
+        puzzleCamera.transform.rotation = mainCamera.transform.rotation;
+
+        if (mainCamera.transform.TryGetComponent<CameraController>(out CameraController cam))
+            cam.GetComponent<CameraController>().SetPuzzle04Hack(true);
+      
+        
+        puzzleCamera.GetComponent<Camera>().enabled = true;
+        mainCamera.GetComponent<Camera>().enabled = false;
+
+       
+
+        cameraGlide.SetObjectMoveSpeed(0.25f);
+        cameraGlide.SetObjectRotateSpeed(0.07f);
+        cameraGlide.GlideToMovingPosition(puzzleCamera, CameraStartPosition, cameraTarget, prevCameraPosition);
+
+        GameRoot.camEvents.AddListener(activateCamRotate);
+
+
+        player.GetComponent<ThirdPersonCharacter>().enabled = false;
+        player.GetComponent<Rigidbody>().velocity = Vector3.zero;
+
+        GCP04.P04W.setPuzzleController(this);
+
+        //Dialog Trigger
+        if (convoTriggerNumber != 0)
+        {
+            GCP04.conversation(convoTriggerNumber);
+        }
+
+        GCP04.isInQues = true;
+
+        GCP04.P04W.ShowInputPanel(true);
+        GCP04.P04W.ShowFeedbackPanel(true);
+        GCP04.P04W.ShowCardPanel(true);
+        GCP04.P04W.ShowButtonPanel(true);
+
+
+        GCP04.P04W.resetButtons();
+
+
+        assignCards();
+        GCP04.P04W.setAnswer1(null);
+        setAnsCard1(Vector3.zero);
+        GCP04.P04W.setAnswer2(null);
+        setAnsCard2(Vector3.zero);
+
+        turnOnVisualVectors();
+
+        Cursor.lockState = CursorLockMode.Confined;
+        Cursor.visible = true;
+    }
+
+    public void OnPortalExit()
+    {
+        inPortal = false;
+        GCP04.SetPuzzlePause(true);
+
+        visVectCamera.GetComponent<Camera>().clearFlags = CameraClearFlags.Depth;
+        visVectCamera.GetComponent<Camera>().enabled = false;
+
+        player.GetComponent<ThirdPersonUserControl>().enabled = true;
+
+
+        if (getCorrect())
+        {
+            ToggleAllTriggers(false);
+            cameraGlide.SetObjectMoveSpeed(6.0f);
+            cameraGlide.SetObjectRotateSpeed(0.5f);
+        }
+
+        if (mainCamera.transform.TryGetComponent<CameraController>(out CameraController cam))
+            cam.GetComponent<CameraController>().SetPuzzle04Hack(false);
+
+        cameraRotate.enabled = false;
+        cameraGlide.GlideToMovingPosition(puzzleCamera, mainCamera, player, puzzleCamera.transform.position);
+
+        GameRoot.camEvents.AddListener(activateCamPlayer);
+
+
+        GCP04.isInQues = false;
+
+        GCP04.P04W.ShowInputPanel(false);
+        GCP04.P04W.ShowFeedbackPanel(false);
+        GCP04.P04W.ShowCardPanel(false);
+        GCP04.P04W.ShowButtonPanel(false);
+
+
+        GCP04.P04W.resetButtons();
+
+        GCP04.P04W.resetCardPos();
+
+        GCP04.P04W.setAnswer1(null);
+        setAnsCard1(Vector3.zero);
+        GCP04.P04W.setAnswer2(null);
+        setAnsCard2(Vector3.zero);
+
+        GCP04.P04W.scalar1.value = 1;
+        GCP04.P04W.scalar2.value = 1;
+
+        turnOffVisualVectors();
+
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    private void assignCards()
+    {
+        GCP04.P04W.setCardValues(getAnswerCards());
+        GCP04.P04W.setCardDisplay(this);
+        GCP04.P04W.setFeedbackDisplay(this);
+    }
+
+
+
+    //GAP TRIGGERS------------------
+
+    public void ToggleAllTriggers(bool value)
+    {
+        gapTriggers.ToggleFallTriggers(value);
+        gapTriggers.ToggleFinishTriggers(value);
+        gapTriggers.ToggleResetTriggers(value);
+    }
+
+
+
+    // VISUAL VECTOR----------------
+
+    private void turnOnVisualVectors()
+    {
+        VV01.ToggleBasicVectors(true);
+
+        switch (GCP04.Difficulty)
+        {
+            case 1:
+                switch (getDirection())
+                {
+                    case Direction.X:
+                        VV01.setAxisNodes(true, false, false);
+                        VV01.setGridBarNodes(true, false, false);
+                        break;
+                    case Direction.Y:
+                        VV01.setAxisNodes(false, true, false);
+                        VV01.setGridBarNodes(false, true, false);
+                        break;
+                }
+                break;
+            case 2:
+                VV01.setAxisNodes(true, true, false);
+                VV01.setGridBarNodes(true, true, false);
+                break;
+            case 3:
+                VV01.setAxisNodes(true, true, true);
+                VV01.setGridBarNodes(true, true, true);
+                break;
+        }
+
+    }
+
+    private void turnOffVisualVectors()
+    {
+        //Basic is player vectors, goal vector, orbs
+        VV01.ToggleBasicVectors(false);
+
+        VV01.getXvector().SetActive(false);
+        VV01.getYvector().SetActive(false);
+        VV01.getZvector().SetActive(false);
+
+        VV01.deactivateAxis();
+        VV01.deactivateBarGrid();
+        VV01.toggleProjections(false);
+        VV01.toggleAnchors(false);
+    }
+
+
+    //CAMERA GLIDE/ROTATE------------------
+
+    private void activateCamRotate()
+    {
+        GCP04.SetPuzzlePause(false);  
+        GameRoot.camEvents.RemoveListener(activateCamRotate);
+        player.GetComponent<ThirdPersonCharacter>().enabled = true;
+        cameraRotate.enabled = true;
+    }
+
+    private void activateCamPlayer()
+    {
+        GCP04.SetPuzzlePause(false);
+        GameRoot.camEvents.RemoveListener(activateCamPlayer);
+        cameraRotate.enabled = false;    
+
+        visVectCamera.GetComponent<Camera>().enabled = false;
+        puzzleCamera.GetComponent<Camera>().enabled = false;
+        mainCamera.GetComponent<Camera>().enabled = true;
+    }
 }
 

@@ -6,13 +6,13 @@ public class TipsPoint : MonoBehaviour
 {
     public Transform point1, point2, point3;
     public Text txtPoint1, txtPoint2, txtPoint3;
-    public LineRenderer line;
+    public LineRenderer line1, line2, line3;
 
     private void Update()
     {
-        line.SetPosition(0, point1.localPosition);
-        line.SetPosition(1, point2.localPosition);
-        line.SetPosition(2, point3.localPosition);
+        line1.SetPosition(0, point1.localPosition);
+        line2.SetPosition(1, point2.localPosition);
+        line3.SetPosition(2, point3.localPosition);
 
         txtPoint1.text = point1.localPosition.x + "\n" +
                                   point1.localPosition.z + "\n" +

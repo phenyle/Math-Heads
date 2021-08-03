@@ -32,8 +32,6 @@ public class Puzzle04Window : WindowRoot
     //UPPER RIGHT PIN WINDOWS------------
     [Header("Feedback Displays")]
     public Transform feedbackPanel;
-    public GameObject gapDisplay;
-    public GameObject windDisplay;
     public GameObject goalDisplay;
     public GameObject finalDisplay;
 
@@ -58,12 +56,22 @@ public class Puzzle04Window : WindowRoot
     private bool YZtoggle;
 
 
+    //UPPER LEFT PIN WINDOW------------
+    [Header("Puzzle Complete Info")]
+    public Text puzzleName;
+    public Text puzzleComplete;
+    public Text timeDisplay;
+    public Slider puzzleSlider;
+    private int numComplete;
+
     //Legacy
     [Header("Legacy")]
     public bool isInit;
     private bool doOnce = true;
 
-    public Text txtInstruction;
+
+
+
     public string defaultInstructions = "Enter the Portals to Solve Vector Puzzles\nHold Shift to Run";
 
     private GameControllerPuzzle04 GCP04;
@@ -73,7 +81,8 @@ public class Puzzle04Window : WindowRoot
     private void Start()
     {
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
-
+        numComplete = 0;
+        puzzleSlider.value = 0;
         if (isInit)
         {
             InitWindow();
@@ -170,7 +179,12 @@ public class Puzzle04Window : WindowRoot
         GCP04.InitGameController(this);
 
         //Init Components
-        txtInstruction.text = defaultInstructions;
+        numComplete = 0;
+        puzzleSlider.value = 0;
+        puzzleName.text = "Stage 4 - Level " + GCP04.Difficulty.ToString();
+        puzzleComplete.text = numComplete.ToString() + "/" + GCP04.puzzleDatas.Count.ToString();
+        puzzleSlider.maxValue = GCP04.puzzleDatas.Count;
+        timeDisplay.text = "00 : 00";
 
         ShowInputPanel(false);
         ShowFeedbackPanel(false);
@@ -199,46 +213,29 @@ public class Puzzle04Window : WindowRoot
         switch (GCP04.Difficulty)
         {
             case 1:
-                gapDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
-                gapDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-                gapDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-                windDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
-                windDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-                windDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-                goalDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
-                goalDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-                goalDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
                 finalDisplay.transform.Find("1DBracketFin").gameObject.SetActive(true);
                 finalDisplay.transform.Find("2DBracketFin").gameObject.SetActive(false);
                 finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(false);
+                goalDisplay.transform.Find("1DBracket").gameObject.SetActive(true);
+                goalDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
+
                 break;
             case 2:
-                gapDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-                gapDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
-                gapDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-                windDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-                windDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
-                windDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
-                goalDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-                goalDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
-                goalDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
                 finalDisplay.transform.Find("1DBracketFin").gameObject.SetActive(false);
                 finalDisplay.transform.Find("2DBracketFin").gameObject.SetActive(true);
                 finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(false);
+                goalDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("2DBracket").gameObject.SetActive(true);
+                goalDisplay.transform.Find("3DBracket").gameObject.SetActive(false);
                 break;
             case 3:
-                gapDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-                gapDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-                gapDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
-                windDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-                windDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-                windDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
-                goalDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
-                goalDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
-                goalDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
                 finalDisplay.transform.Find("1DBracketFin").gameObject.SetActive(false);
                 finalDisplay.transform.Find("2DBracketFin").gameObject.SetActive(false);
                 finalDisplay.transform.Find("3DBracketFin").gameObject.SetActive(true);
+                goalDisplay.transform.Find("1DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("2DBracket").gameObject.SetActive(false);
+                goalDisplay.transform.Find("3DBracket").gameObject.SetActive(true);
                 break;
 
 
@@ -310,8 +307,8 @@ public class Puzzle04Window : WindowRoot
         for (int i = 0; i < UIcards.Count; i++)
         {
             UIcards[i].transform.Find("3DBracket").transform.Find("3DvalX").GetComponentInChildren<Text>().text = UIcards[i].GetComponent<CardVectors>().getCardVector().x.ToString();
-            UIcards[i].transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = UIcards[i].GetComponent<CardVectors>().getCardVector().y.ToString();
-            UIcards[i].transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = UIcards[i].GetComponent<CardVectors>().getCardVector().z.ToString();
+            UIcards[i].transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = UIcards[i].GetComponent<CardVectors>().getCardVector().z.ToString();
+            UIcards[i].transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = UIcards[i].GetComponent<CardVectors>().getCardVector().y.ToString();
         }
 
     }
@@ -321,37 +318,23 @@ public class Puzzle04Window : WindowRoot
         //1D Vectors------------------------------------------
         if (PC04.getDirection().ToString().CompareTo("X") == 0)
         {
-            gapDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getMinVector().x.ToString();
-            windDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getDynamicVector().x.ToString();
             goalDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getAnswerVector().x.ToString();
         }
         if (PC04.getDirection().ToString().CompareTo("Y") == 0)
         {
 
-            gapDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getMinVector().y.ToString();
-            windDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getDynamicVector().y.ToString();
             goalDisplay.transform.Find("1DBracket").transform.Find("1Dval").GetComponentInChildren<Text>().text = PC04.getAnswerVector().y.ToString();
         }
 
         //2D Vectors----------------------------------------
-        gapDisplay.transform.Find("2DBracket").transform.Find("2DvalX").GetComponentInChildren<Text>().text = PC04.getMinVector().x.ToString();
-        gapDisplay.transform.Find("2DBracket").transform.Find("2DvalY").GetComponentInChildren<Text>().text = PC04.getMinVector().y.ToString();
-        windDisplay.transform.Find("2DBracket").transform.Find("2DvalX").GetComponentInChildren<Text>().text = PC04.getDynamicVector().x.ToString();
-        windDisplay.transform.Find("2DBracket").transform.Find("2DvalY").GetComponentInChildren<Text>().text = PC04.getDynamicVector().y.ToString();
         goalDisplay.transform.Find("2DBracket").transform.Find("2DvalX").GetComponentInChildren<Text>().text = PC04.getAnswerVector().x.ToString();
         goalDisplay.transform.Find("2DBracket").transform.Find("2DvalY").GetComponentInChildren<Text>().text = PC04.getAnswerVector().y.ToString();
 
 
         //3D Vectors------------------------------------------
-        gapDisplay.transform.Find("3DBracket").transform.Find("3DvalX").GetComponentInChildren<Text>().text = PC04.getMinVector().x.ToString();
-        gapDisplay.transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getMinVector().y.ToString();
-        gapDisplay.transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getMinVector().z.ToString();
-        windDisplay.transform.Find("3DBracket").transform.Find("3DvalX").GetComponentInChildren<Text>().text = PC04.getDynamicVector().x.ToString();
-        windDisplay.transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getDynamicVector().y.ToString();
-        windDisplay.transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getDynamicVector().z.ToString();
         goalDisplay.transform.Find("3DBracket").transform.Find("3DvalX").GetComponentInChildren<Text>().text = PC04.getAnswerVector().x.ToString();
-        goalDisplay.transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getAnswerVector().y.ToString();
-        goalDisplay.transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getAnswerVector().z.ToString();
+        goalDisplay.transform.Find("3DBracket").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getAnswerVector().z.ToString();
+        goalDisplay.transform.Find("3DBracket").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getAnswerVector().y.ToString();
     }
 
 
@@ -374,8 +357,8 @@ public class Puzzle04Window : WindowRoot
 
         //3D Vectors------------------------------------------
         finalDisplay.transform.Find("3DBracketFin").transform.Find("3DvalX").GetComponentInChildren<Text>().text = PC04.getPlayerAnswer().x.ToString();
-        finalDisplay.transform.Find("3DBracketFin").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getPlayerAnswer().y.ToString();
-        finalDisplay.transform.Find("3DBracketFin").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getPlayerAnswer().z.ToString();
+        finalDisplay.transform.Find("3DBracketFin").transform.Find("3DvalY").GetComponentInChildren<Text>().text = PC04.getPlayerAnswer().z.ToString();
+        finalDisplay.transform.Find("3DBracketFin").transform.Find("3DvalZ").GetComponentInChildren<Text>().text = PC04.getPlayerAnswer().y.ToString();
     }
 
 
@@ -387,8 +370,7 @@ public class Puzzle04Window : WindowRoot
             scalar2.value = 1;
 
         scalarText1.text = scalar1.value.ToString();
-        scalarText2.text = scalar2.value.ToString();      
-
+        scalarText2.text = scalar2.value.ToString();
     }
 
     public List<GameObject> getCards()
@@ -502,15 +484,10 @@ public class Puzzle04Window : WindowRoot
         }
     }
 
-    public void setInstructions(string input)
-    {
-        txtInstruction.text = input;
-    }
-
-
     public void toggleAxis()
     {
         axisOn = !axisOn;
+
 
         if(axisOn)
         {
@@ -777,5 +754,19 @@ public class Puzzle04Window : WindowRoot
     {
         return cameraDragInput.GetComponent<CameraDragSurface>();
     }
+
+    public void SetTime(string val)
+    {
+        timeDisplay.text = val;
+    }
+
+    public void SetComplete()
+    {
+        numComplete++;
+        puzzleSlider.value = numComplete;
+
+        puzzleComplete.text = numComplete.ToString() + "/" + GCP04.puzzleDatas.Count.ToString();
+    }
+
 
 }

@@ -4518,6 +4518,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Senior
       m_Image: {fileID: 0}
+    - m_Text: Educator
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -13021,7 +13023,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Version 1.1a
+  m_Text: Version 1.25a
 --- !u!1 &6201341227524761678
 GameObject:
   m_ObjectHideFlags: 0

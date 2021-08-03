@@ -61,6 +61,7 @@ public class ShipRepair : MonoBehaviour
 
     private GameObject player;
     private GameObject mainCamera;
+    private GameObject shipCamera;
     private Vector3 prevCameraPos;
     private Vector3 cameraPos;
     private Vector3 targetPos;
@@ -81,6 +82,8 @@ public class ShipRepair : MonoBehaviour
         animStage = 0;
         fxIter = 0;
         waitIter = 0;
+
+        shipCamera = GameObject.FindGameObjectWithTag("PuzzleCamera");
 
         pulseFX.SetActive(false);
         explosionFX.SetActive(false);
@@ -120,16 +123,19 @@ public class ShipRepair : MonoBehaviour
                     {
                         waitIter = 0;
                         animStage = 3;
-                        GCM.GetComponent<ObjectGlide>().GlideToPosition(prevCameraPos, player.transform.position, prevCameraPos);
+                        GameRoot.camEvents.AddListener(camAtPlayer);
+                        GCM.GetComponent<ObjectGlide>().GlideToMovingPosition(shipCamera, mainCamera, player, prevCameraPos);
                     }
                     break;
 
                 case 3: //moving the camera back to the player
-                    if(GCM.GetComponent<ObjectGlide>().isAtDestination(prevCameraPos))
+                    if(GCM.GetComponent<ObjectGlide>().isAtDestination(mainCamera.transform.position))
                     {
                         player.GetComponentInChildren<ThirdPersonCharacter>().enabled = true;
                         mainCamera.GetComponent<CameraController>().enabled = true;
 
+                        shipCamera.GetComponent<Camera>().enabled = false;
+                        mainCamera.GetComponent<Camera>().enabled = true;
 
                         fxIter = 0;
                         animStage = 0;
@@ -138,34 +144,6 @@ public class ShipRepair : MonoBehaviour
                     break;
             }
         }
-
-        //if (cameraToPlayer)
-        //{
-        //    PC04.setCameraControls(false);
-        //    mainCamera.transform.position = Vector3.MoveTowards(mainCamera.transform.position, prevCameraPos + (PC04.player.transform.position - prevPlayerPos), cameraMoveSpeed);
-        //    mainCamera.transform.rotation = Quaternion.Slerp(mainCamera.transform.rotation, prevCameraRotation, cameraRotateSpeed);
-
-
-        //    if ((mainCamera.transform.position - (prevCameraPos + (PC04.player.transform.position - prevPlayerPos))).magnitude < 0.1)
-        //    {
-        //        mainCamera.transform.rotation = prevCameraRotation;
-        //        PC04.setCameraControls(true);
-        //        triggerDelay = 10f;
-        //        cameraToPlayer = false;
-
-        //        if (GCP04.Difficulty < 3)
-        //        {
-        //            mainCamera.GetComponent<Camera2DFollowMod>().setPortalStatus(false);
-        //            mainCamera.GetComponent<Camera2DFollowMod>().enabled = true;
-        //            mainCamera.GetComponent<Camera2DFollowMod>().resetCamera();
-        //        }
-        //        else
-        //        {
-        //            mainCamera.GetComponent<CameraController>().enabled = true;
-        //            mainCamera.GetComponent<CameraController>().isLock = true;
-        //        }
-        //    }
-        //}
 
     }
 
@@ -183,16 +161,20 @@ public class ShipRepair : MonoBehaviour
     {
         //since this only runs when a new part is unlocked
         //we must turn that part OFF first before running ShipUpdate()
-        //then we'll turn that puzzleDones back on after the sparkles and fanfair
+        //then we'll turn that puzzleDones[][] back on after the sparkles and fanfair
         GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = false;
         ShipUpdate();
         this.player = player;
         this.mainCamera = camera;
         prevCameraPos = mainCamera.transform.position;
 
-        player.GetComponentInChildren<ThirdPersonCharacter>().enabled = false;
-        player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
-        camera.GetComponent<CameraController>().enabled = false;
+        this.player.GetComponentInChildren<ThirdPersonCharacter>().enabled = false;
+        this.player.GetComponentInChildren<Rigidbody>().velocity = Vector3.zero;
+        mainCamera.GetComponent<Camera>().enabled = false;
+        shipCamera.transform.position = mainCamera.transform.position;
+        shipCamera.transform.rotation = mainCamera.transform.rotation;
+        shipCamera.GetComponent<Camera>().enabled = true;
+
 
         switch (GameRoot.instance.prevStage)
         {
@@ -242,17 +224,40 @@ public class ShipRepair : MonoBehaviour
 
                 break;
         }
-        GCM.GetComponent<ObjectGlide>().GlideToPosition(cameraPos, targetPos, prevCameraPos);
+
+
+        GameRoot.camEvents.AddListener(camAtShip);
+        GCM.GetComponent<ObjectGlide>().SetObjectMoveSpeed(((this.player.transform.position-cameraPos).magnitude / 1400.0f) * 6.0f);
+        GCM.GetComponent<ObjectGlide>().GlideToPosition(shipCamera, cameraPos, targetPos, prevCameraPos);
         animate = true;
     }
 
-/// <summary>
-/// This Method determines what parts of the ship to play effects at depending
-/// on which level was competeled
-/// </summary>
-/// <param name="stage">The stage that was just completed</param>
-/// <param name="level">The level at which the stage was completed</param>
-/// <param name="iter">the duration thusfar for the effects</param>
+    public void camAtShip()
+    {
+        GameRoot.camEvents.RemoveListener(camAtShip);
+    }
+
+    public void camAtPlayer()
+    {
+        player.GetComponentInChildren<ThirdPersonCharacter>().enabled = true;
+        mainCamera.GetComponent<CameraController>().enabled = true;
+
+        shipCamera.GetComponent<Camera>().enabled = false;
+        mainCamera.GetComponent<Camera>().enabled = true;
+
+        fxIter = 0;
+        animStage = 0;
+        animate = false;
+        GameRoot.camEvents.RemoveListener(camAtPlayer);
+    }
+
+    /// <summary>
+    /// This Method determines what parts of the ship to play effects at depending
+    /// on which level was competeled
+    /// </summary>
+    /// <param name="stage">The stage that was just completed</param>
+    /// <param name="level">The level at which the stage was completed</param>
+    /// <param name="iter">the duration thusfar for the effects</param>
     public void FXSelect(int stage, int level, int iter)
     {
         switch(stage)

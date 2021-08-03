@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 
 /// <summary>
@@ -20,6 +21,7 @@ public class GameControllerPuzzle04 : GameControllerRoot
 
     [Header("Database Records")]
     public float tot_puzzleTime;
+    private bool pausePuzzTime;
     public List<Puzzle04Controller> puzzleDatas;
 
 
@@ -36,7 +38,7 @@ public class GameControllerPuzzle04 : GameControllerRoot
     public bool isAnswerCorrect = true;
 
     [Header("Mast Trigger Components")]
-    public bool isInMast = false;
+ //   public bool isInMast = false;
     public bool isTriggerMast = false;
     public ParticleSystem congrats;
     //   public Transform endportal;
@@ -47,6 +49,7 @@ public class GameControllerPuzzle04 : GameControllerRoot
     [HideInInspector]
     public Puzzle04Window P04W;
     [HideInInspector]
+    public UnityEvent events;
     //   public DatabasePuzzle01 DBP01;
 
     private AudioService audio04;
@@ -56,17 +59,15 @@ public class GameControllerPuzzle04 : GameControllerRoot
     private bool isFirstTimeTriggerQuestion = true;
     private Vector3 previousPosition;
     public int timer = 0;
+    public int numCorrect = 0;
 
     public void Start()
     {
         P04W = puzzleWindow.GetComponent<Puzzle04Window>();
 
         player = GameObject.FindGameObjectWithTag("Player");
-
+        pausePuzzTime = false;
         tot_puzzleTime = 0.0f;
-
-
-
     }
 
     public override void InitGameController(Puzzle04Window P04W)
@@ -151,14 +152,22 @@ public class GameControllerPuzzle04 : GameControllerRoot
 
         if (!DialogueManager.isInDialogue)
         {
-            if (!GameRoot.isPause)
+            if (!GameRoot.isPause && !pausePuzzTime)
+            {
                 tot_puzzleTime += Time.deltaTime;
+                int minutes = (int)tot_puzzleTime / 60;
+                int seconds = (int)tot_puzzleTime - 60 * minutes;
+                if (seconds < 10)
+                    P04W.SetTime(minutes.ToString() + " : 0" + seconds.ToString());
+                else
+                    P04W.SetTime(minutes.ToString() + " : " + seconds.ToString());
+            }
 
             // Z key to switch camera
-            if (Input.GetKeyDown(KeyCode.Z))
-            {
-                SwitchCamera();
-            }
+            //if (Input.GetKeyDown(KeyCode.Z))
+            //{
+            //    SwitchCamera();
+            //}
 
             if (isInQues && questionNum != 0)
             {
@@ -228,26 +237,26 @@ public class GameControllerPuzzle04 : GameControllerRoot
                 }
             }
 
-            //Trigger Mast prop to end the puzzle01
-            if(isInMast && !isTriggerMast)
-            {
-                if(Input.GetKeyDown(KeyCode.E))
-                {
-                    isTriggerMast = true;
+            ////Trigger Mast prop to end the puzzle01
+            //if(isInMast && !isTriggerMast)
+            //{
+            //    if(Input.GetKeyDown(KeyCode.E))
+            //    {
+            //        isTriggerMast = true;
 
-                    congrats.Play();
-                //    endportal.gameObject.SetActive(true);
+            //        congrats.Play();
+            //    //    endportal.gameObject.SetActive(true);
 
-                    //Congratulation FX
-                    audioService.PlayFXAudio(Constants.audioP01Congratulation);
+            //        //Congratulation FX
+            //        audioService.PlayFXAudio(Constants.audioP01Congratulation);
 
-                    if (DialogueManager.showP01_09)
-                    {
-                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_09"));
-                        DialogueManager.showP01_09 = false;
-                    }
-                }
-            }
+            //        if (DialogueManager.showP01_09)
+            //        {
+            //            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_09"));
+            //            DialogueManager.showP01_09 = false;
+            //        }
+            //    }
+            //}
         }
 
         previousPosition = player.transform.position;
@@ -518,6 +527,11 @@ public class GameControllerPuzzle04 : GameControllerRoot
 
                 break;
         }
+    }
+
+    public void SetPuzzlePause(bool val)
+    {
+        pausePuzzTime = val;
     }
 
 

@@ -6,8 +6,7 @@ using UnityEngine;
 public class FallTrigger : MonoBehaviour
 {
     private GameControllerPuzzle04 GCP04;
-    private float prevCamHeight;
-    private float prevCamZoom;
+    private Puzzle04Controller PC04;
 
     public void Start()
     {
@@ -16,18 +15,10 @@ public class FallTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "Player")
+        if (other.tag == "Player" && !PC04.grappleKit.isGrappling())
         {
             Debug.Log("fall trigger");
 
-            if (GCP04.Difficulty < 3)
-            { 
-                prevCamHeight = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().getCameraHeight();
-                prevCamZoom = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().getCameraZoom();
-
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraHeight(0);
-                GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().setCameraZoom(-50);
-            }
             GetComponentInParent<GapTriggersController>().fall = true;
 
         }
@@ -35,15 +26,19 @@ public class FallTrigger : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (GCP04.Difficulty < 3)
+        if (other.tag == "Player" && !PC04.grappleKit.isGrappling())
         {
-            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera2DFollowMod>().resetCamera();
-        }
-        
-        GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>().getResetPos();
-        
-        GetComponentInParent<GapTriggersController>().fall = false;
 
+            GameObject.FindGameObjectWithTag("Player").transform.position = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>().getResetPos();
+
+            GetComponentInParent<GapTriggersController>().fall = false;
+        }
+
+    }
+
+    public void SetPuzzleController(Puzzle04Controller controller)
+    {
+        PC04 = controller;
     }
 
 }

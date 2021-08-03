@@ -1,7 +1,13 @@
-﻿using System.Collections;
+﻿
+/**
+
+
+**/
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+
 
 public class VisualVector : MonoBehaviour
 {
@@ -56,6 +62,9 @@ public class VisualVector : MonoBehaviour
     public float gridThickness = 0.09f;
     public float gridNodeScale = 0.6f;
     public int gridSize = 100;
+    private Color gridOutline = new Color(0.1f, 0.1f, 0.1f, 0.5f);
+    private Color grid5incriOutline = new Color(0.2f, 0.2f, 0.0f, 0.4f);
+    private Color grid10incriOutline = new Color(0.5f, 0.5f, 0.0f, 0.4f);
     public Material MainAxis;
     public Material NodeDefualt;
     public Material GridDefualt;
@@ -318,9 +327,9 @@ public class VisualVector : MonoBehaviour
 
             if(PC04.getGameController().P04W.getAxisStatus())
             {
-                Xlabel.transform.LookAt(PC04.mainCamera.transform.position, -Vector3.up);
-                Ylabel.transform.LookAt(PC04.mainCamera.transform.position, -Vector3.up);
-                Zlabel.transform.LookAt(PC04.mainCamera.transform.position, -Vector3.up);
+                Xlabel.transform.LookAt(PC04.visVectCamera.transform.position, -Vector3.up);
+                Ylabel.transform.LookAt(PC04.visVectCamera.transform.position, -Vector3.up);
+                Zlabel.transform.LookAt(PC04.visVectCamera.transform.position, -Vector3.up);
             }
         }
 
@@ -355,13 +364,13 @@ public class VisualVector : MonoBehaviour
         else
             returnVector.x = 0;
 
-        //Y-scale
+        //Z-scale
         if (gapVector.y != 0)
             returnVector.y = Mathf.Abs(worldVector.y / gapVector.y);
         else
             returnVector.y = 0;
 
-        //Z-scale
+        //Y-scale
         if (gapVector.z != 0)
             returnVector.z = Mathf.Abs(worldVector.z / gapVector.z);
         else
@@ -488,6 +497,7 @@ public class VisualVector : MonoBehaviour
     {
         return Zvector;
     }
+
 
     public int determineQuadrant()
     {
@@ -637,6 +647,7 @@ public class VisualVector : MonoBehaviour
             xSphere.GetComponent<Collider>().enabled = false;
             xSphere.GetComponent<Renderer>().shadowCastingMode = 0;
             xSphere.GetComponent<Renderer>().receiveShadows = false;
+            xSphere.layer = 10;
             XSphereNodes.Add(xSphere);
 
             GameObject ySphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -649,6 +660,7 @@ public class VisualVector : MonoBehaviour
             ySphere.GetComponent<Collider>().enabled = false;
             ySphere.GetComponent<Renderer>().shadowCastingMode = 0;
             ySphere.GetComponent<Renderer>().receiveShadows = false;
+            ySphere.layer = 10;
             YSphereNodes.Add(ySphere);
 
             if (PC04.getGameController().Difficulty == 3)
@@ -663,6 +675,7 @@ public class VisualVector : MonoBehaviour
                 zSphere.GetComponent<Collider>().enabled = false;
                 zSphere.GetComponent<Renderer>().shadowCastingMode = 0;
                 zSphere.GetComponent<Renderer>().receiveShadows = false;
+                zSphere.layer = 10;
                 ZSphereNodes.Add(zSphere);
             }
         }
@@ -690,24 +703,24 @@ public class VisualVector : MonoBehaviour
         if (PC04.getAnswerVector().y >= 0) //if y is positive
         {
             Ylabel.transform.position += new Vector3(0, 2 * puzzleScale.y, 0);
-            Ylabel.GetComponent<TextMeshPro>().text = "+ Y";
+            Ylabel.GetComponent<TextMeshPro>().text = "+ Z";
 
         }
         else
         {
             Ylabel.transform.position += new Vector3(0, -2 * puzzleScale.y, 0);
-            Ylabel.GetComponent<TextMeshPro>().text = "- Y";
+            Ylabel.GetComponent<TextMeshPro>().text = "- Z";
         }
 
         if (PC04.getAnswerVector().z >= 0) //if y is positive
         {
             Zlabel.transform.position += new Vector3(0, 0, 2 * puzzleScale.z);
-            Zlabel.GetComponent<TextMeshPro>().text = "+ Z";
+            Zlabel.GetComponent<TextMeshPro>().text = "+ Y";
         }
         else
         {
             Zlabel.transform.position += new Vector3(0, 0, -2 * puzzleScale.z);
-            Zlabel.GetComponent<TextMeshPro>().text = "- Z";
+            Zlabel.GetComponent<TextMeshPro>().text = "- Y";
         }
 
     }
@@ -717,71 +730,137 @@ public class VisualVector : MonoBehaviour
         for (int i = -gridSize; i < gridSize; i++)
         {
             GameObject xCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            xCyln.AddComponent<Outline>();
+            xCyln.GetComponent<Outline>().OutlineMode = Outline.Mode.SilhouetteOnly;
+            xCyln.GetComponent<Outline>().OutlineColor = gridOutline;
             xCyln.GetComponent<Renderer>().material = GridDefualt;
             if (i % 5 == 0)
+            {
                 xCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                xCyln.GetComponent<Outline>().OutlineColor = grid5incriOutline;
+            }
             if (i % 10 == 0)
+            {
                 xCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                xCyln.GetComponent<Outline>().OutlineColor = grid10incriOutline;
+            }
             xCyln.GetComponent<Collider>().enabled = false;
             xCyln.GetComponent<Renderer>().shadowCastingMode = 0;
             xCyln.GetComponent<Renderer>().receiveShadows = false;
+            xCyln.layer = 10;
+
             XBarNodes.Add(xCyln);
 
             GameObject yCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+            yCyln.AddComponent<Outline>();
+            yCyln.GetComponent<Outline>().OutlineMode = Outline.Mode.SilhouetteOnly;
+            yCyln.GetComponent<Outline>().OutlineColor = gridOutline;
             yCyln.GetComponent<Renderer>().material = GridDefualt;
             if (i % 5 == 0)
+            {
                 yCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                yCyln.GetComponent<Outline>().OutlineColor = grid5incriOutline;
+            }
             if (i % 10 == 0)
+            {
                 yCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                yCyln.GetComponent<Outline>().OutlineColor = grid10incriOutline;
+            }
             yCyln.GetComponent<Collider>().enabled = false;
             yCyln.GetComponent<Renderer>().shadowCastingMode = 0;
             yCyln.GetComponent<Renderer>().receiveShadows = false;
+            yCyln.layer = 10;
+
             YBarNodes.Add(yCyln);
 
             if (PC04.getGameController().Difficulty == 3)
             {
                 GameObject yzHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                yzHoriCyln.AddComponent<Outline>();
+                yzHoriCyln.GetComponent<Outline>().OutlineMode = Outline.Mode.SilhouetteOnly;
+                yzHoriCyln.GetComponent<Outline>().OutlineColor = gridOutline;
                 yzHoriCyln.GetComponent<Renderer>().material = GridDefualt;
                 if (i % 5 == 0)
+                {
                     yzHoriCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                    yzHoriCyln.GetComponent<Outline>().OutlineColor = grid5incriOutline;
+                }
                 if (i % 10 == 0)
+                {
                     yzHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                    yzHoriCyln.GetComponent<Outline>().OutlineColor = grid10incriOutline;
+                }
                 yzHoriCyln.GetComponent<Collider>().enabled = false;
                 yzHoriCyln.GetComponent<Renderer>().shadowCastingMode = 0;
                 yzHoriCyln.GetComponent<Renderer>().receiveShadows = false;
+                yzHoriCyln.layer = 10;
+
                 YZHoriBarNodes.Add(yzHoriCyln);
 
                 GameObject yzVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                yzVertCyln.AddComponent<Outline>();
+                yzVertCyln.GetComponent<Outline>().OutlineMode = Outline.Mode.SilhouetteOnly;
+                yzVertCyln.GetComponent<Outline>().OutlineColor = gridOutline;
                 yzVertCyln.GetComponent<Renderer>().material = GridDefualt;
                 if (i % 5 == 0)
+                {
                     yzVertCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                    yzVertCyln.GetComponent<Outline>().OutlineColor = grid5incriOutline;
+                }
                 if (i % 10 == 0)
+                {
                     yzVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                    yzVertCyln.GetComponent<Outline>().OutlineColor = grid10incriOutline;
+                }
                 yzVertCyln.GetComponent<Collider>().enabled = false;
                 yzVertCyln.GetComponent<Renderer>().shadowCastingMode = 0;
                 yzVertCyln.GetComponent<Renderer>().receiveShadows = false;
+                yzVertCyln.layer = 10;
+
                 YZVertBarNodes.Add(yzVertCyln);
 
                 GameObject xzHoriCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                xzHoriCyln.AddComponent<Outline>();
+                xzHoriCyln.GetComponent<Outline>().OutlineMode = Outline.Mode.SilhouetteOnly;
+                xzHoriCyln.GetComponent<Outline>().OutlineColor = gridOutline;
                 xzHoriCyln.GetComponent<Renderer>().material = GridDefualt;
                 if (i % 5 == 0)
+                {
                     xzHoriCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                    xzHoriCyln.GetComponent<Outline>().OutlineColor = grid5incriOutline;
+                }
                 if (i % 10 == 0)
+                {
                     xzHoriCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                    xzHoriCyln.GetComponent<Outline>().OutlineColor = grid10incriOutline;
+                }
                 xzHoriCyln.GetComponent<Collider>().enabled = false;
                 xzHoriCyln.GetComponent<Renderer>().shadowCastingMode = 0;
                 xzHoriCyln.GetComponent<Renderer>().receiveShadows = false;
+                xzHoriCyln.layer = 10;
+
                 XZHoriBarNodes.Add(xzHoriCyln);
 
                 GameObject xzVertCyln = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                xzVertCyln.AddComponent<Outline>();
+                xzVertCyln.GetComponent<Outline>().OutlineMode = Outline.Mode.SilhouetteOnly;
+                xzVertCyln.GetComponent<Outline>().OutlineColor = gridOutline;
                 xzVertCyln.GetComponent<Renderer>().material = GridDefualt;
                 if (i % 5 == 0)
+                {
                     xzVertCyln.GetComponent<Renderer>().material = Grid5Incriment;
+                    xzVertCyln.GetComponent<Outline>().OutlineColor = grid5incriOutline;
+                }
                 if (i % 10 == 0)
+                {
                     xzVertCyln.GetComponent<Renderer>().material = Grid10Incriment;
+                    xzVertCyln.GetComponent<Outline>().OutlineColor = grid10incriOutline;
+                }
                 xzVertCyln.GetComponent<Collider>().enabled = false;
                 xzVertCyln.GetComponent<Renderer>().shadowCastingMode = 0;
                 xzVertCyln.GetComponent<Renderer>().receiveShadows = false;
+                xzVertCyln.layer = 10;
+
                 XZVertBarNodes.Add(xzVertCyln);
             }
         }
@@ -853,6 +932,11 @@ public class VisualVector : MonoBehaviour
                 VectorBetweenPoints(XZVertBarNodes[i + gridSize], Xpositive.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), Xnegative.transform.position + new Vector3(0f, 0f, i * puzzleScale.z), gridThickness);
             }       
 
+    }
+
+    public void SetPuzzleController(Puzzle04Controller controller)
+    {
+        PC04 = controller;
     }
 
 
@@ -1111,6 +1195,17 @@ public class VisualVector : MonoBehaviour
                 bar.SetActive(false);
             }
         }
+    }
+
+    public void ToggleBasicVectors(bool value)
+    {
+        getGapVector().SetActive(value);
+        getVector1().SetActive(value);
+        getVector2().SetActive(value);
+        getFinalVector().SetActive(value);
+        vector1ball.SetActive(value);
+        vector2ball.SetActive(value);
+
     }
 
 }

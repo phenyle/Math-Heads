@@ -14,6 +14,7 @@ public class CameraDragSurface : EventTrigger
 
     public void Update()
     {
+        //if Right-Click is down
         if (Input.GetMouseButton(1))
         {
             Debug.Log("background click down");

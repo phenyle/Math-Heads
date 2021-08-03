@@ -91051,10 +91051,25 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3307338005267164462, guid: f3635ffe47980454fa9133cbcb9946d8,
+        type: 3}
+      propertyPath: line1
+      value: 
+      objectReference: {fileID: 3307338005406477251}
+    - target: {fileID: 3307338005267164462, guid: f3635ffe47980454fa9133cbcb9946d8,
+        type: 3}
+      propertyPath: line2
+      value: 
+      objectReference: {fileID: 3307338005406477250}
+    - target: {fileID: 3307338005267164462, guid: f3635ffe47980454fa9133cbcb9946d8,
+        type: 3}
+      propertyPath: line3
+      value: 
+      objectReference: {fileID: 3307338005406477249}
     - target: {fileID: 3307338005367671022, guid: f3635ffe47980454fa9133cbcb9946d8,
         type: 3}
       propertyPath: m_Positions.Array.data[0].x
-      value: -1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3307338005367671022, guid: f3635ffe47980454fa9133cbcb9946d8,
         type: 3}
@@ -91128,8 +91143,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3307338006980362251, guid: f3635ffe47980454fa9133cbcb9946d8,
         type: 3}
+      propertyPath: m_Positions.Array.data[1].x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3307338006980362251, guid: f3635ffe47980454fa9133cbcb9946d8,
+        type: 3}
       propertyPath: m_Positions.Array.data[1].z
-      value: 1.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3307338007210887119, guid: f3635ffe47980454fa9133cbcb9946d8,
         type: 3}
@@ -91201,6 +91221,24 @@ PrefabInstance:
     - {fileID: 8610858071318991877, guid: f3635ffe47980454fa9133cbcb9946d8, type: 3}
     - {fileID: 3307338006201120743, guid: f3635ffe47980454fa9133cbcb9946d8, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: f3635ffe47980454fa9133cbcb9946d8, type: 3}
+--- !u!120 &3307338005406477249 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 3307338006744217712, guid: f3635ffe47980454fa9133cbcb9946d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 3307338005406477248}
+  m_PrefabAsset: {fileID: 0}
+--- !u!120 &3307338005406477250 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 3307338006980362251, guid: f3635ffe47980454fa9133cbcb9946d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 3307338005406477248}
+  m_PrefabAsset: {fileID: 0}
+--- !u!120 &3307338005406477251 stripped
+LineRenderer:
+  m_CorrespondingSourceObject: {fileID: 3307338005367671022, guid: f3635ffe47980454fa9133cbcb9946d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 3307338005406477248}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &4367994433361666090
 ParticleSystem:
   m_ObjectHideFlags: 0

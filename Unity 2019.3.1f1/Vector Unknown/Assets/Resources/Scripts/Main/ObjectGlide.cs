@@ -1,14 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityStandardAssets.Characters.ThirdPerson;
 
 public class ObjectGlide : MonoBehaviour
 {
     [Header("Glide Object")]
     public GameObject glideObject;
-    private Vector3 targetPos;
-    private Vector3 destinationPos;
+
+    private GameObject targetPos;
+    private GameObject destinationPos;
     private Vector3 startPos;
     private Vector3 halfwayPoint;
     private bool reachedDestination = false;
@@ -22,22 +24,25 @@ public class ObjectGlide : MonoBehaviour
     public float arcHeight = 0.0f;
 
 
-    // Start is called before the first frame update
-    void Start()
+
+    void Awake()
     {
         this.enabled = false;
+        targetPos = new GameObject();
+        destinationPos = new GameObject();
     }
 
     // Update is called once per frame
     void Update()
     {
-        glideObject.transform.position = Vector3.MoveTowards(glideObject.transform.position, destinationPos, objectMoveSpeed);
+        glideObject.transform.position = Vector3.MoveTowards(glideObject.transform.position, destinationPos.transform.position, objectMoveSpeed);
   //      glideObject.transform.position += new Vector3(0, CalcArcHeight(), 0);
-        glideObject.transform.rotation = Quaternion.Slerp(glideObject.transform.rotation, Quaternion.LookRotation((targetPos - glideObject.transform.position).normalized), objectRotateSpeed);
+        glideObject.transform.rotation = Quaternion.Slerp(glideObject.transform.rotation, Quaternion.LookRotation((targetPos.transform.position - glideObject.transform.position).normalized), objectRotateSpeed);
 
-        if ((glideObject.transform.position - destinationPos).magnitude < 1)
+        if ((glideObject.transform.position - destinationPos.transform.position).magnitude < 0.2f)
         {
             reachedDestination = true;
+            GameRoot.camEvents.Invoke();
             this.enabled = false;
         }      
     }
@@ -48,7 +53,7 @@ public class ObjectGlide : MonoBehaviour
         SetDestinationPos(newDestination);
         SetTargetPos(target);
         SetStartPos(newStartPos);
-        halfwayPoint = ( new Vector3(destinationPos.x, 0, destinationPos.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
+        halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
 
         reachedDestination = false;
         this.enabled = true;
@@ -60,11 +65,65 @@ public class ObjectGlide : MonoBehaviour
         SetTargetPos(target);
         SetStartPos(newStartPos);
         arcHeight = arc;
-        halfwayPoint = (new Vector3(destinationPos.x, 0, destinationPos.z) - new Vector3(startPos.x, 0, startPos.z)) / 2 ;
+        halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
 
         reachedDestination = false;
         this.enabled = true;
     }
+
+    public void GlideToPosition(GameObject gobject, Vector3 newDestination, Vector3 target, Vector3 newStartPos)
+    {
+
+        glideObject = gobject;
+        SetDestinationPos(newDestination);
+        SetTargetPos(target);
+        SetStartPos(newStartPos);
+        
+        halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
+
+        reachedDestination = false;
+        this.enabled = true;
+        
+    }
+
+    public void GlideToPosition(GameObject gobject, Vector3 newDestionation, Vector3 target, Vector3 newStartPos, float arc)
+    {
+        glideObject = gobject;
+        SetDestinationPos(newDestionation);
+        SetTargetPos(target);
+        SetStartPos(newStartPos);
+        arcHeight = arc;
+        halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
+
+        reachedDestination = false;
+        this.enabled = true;
+    }
+
+    public void GlideToMovingPosition(GameObject gobject, GameObject newDestination, GameObject target, Vector3 newStartPos)
+    {
+        glideObject = gobject;
+        SetDestinationPos(newDestination);
+        SetTargetPos(target);
+        SetStartPos(newStartPos);
+        halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
+
+        reachedDestination = false;
+        this.enabled = true;
+    }
+
+    public void GlideToMovingPosition(GameObject gobject, GameObject newDestionation, GameObject target, Vector3 newStartPos, float arc)
+    {
+        glideObject = gobject;
+        SetDestinationPos(newDestionation);
+        SetTargetPos(target);
+        SetStartPos(newStartPos);
+        arcHeight = arc;
+        halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
+
+        reachedDestination = false;
+        this.enabled = true;
+    }
+
 
     public void SetStartPos(Vector3 newStartPos)
     {
@@ -78,10 +137,20 @@ public class ObjectGlide : MonoBehaviour
 
     public void SetDestinationPos(Vector3 newPos)
     {
-        destinationPos = newPos;
+        destinationPos.transform.position = newPos;
     }
 
     public void SetTargetPos(Vector3 newPos)
+    {
+        targetPos.transform.position = newPos;
+    }
+
+    public void SetDestinationPos(GameObject newPos)
+    {
+        destinationPos = newPos;
+    }
+
+    public void SetTargetPos(GameObject newPos)
     {
         targetPos = newPos;
     }
@@ -112,7 +181,7 @@ public class ObjectGlide : MonoBehaviour
     }
 
     public bool isAtDestination()
-    {
+    {       
         return reachedDestination;
     }
 
