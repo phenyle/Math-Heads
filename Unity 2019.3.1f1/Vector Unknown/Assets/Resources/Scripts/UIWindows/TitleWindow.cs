@@ -948,7 +948,6 @@ public class TitleWindow : WindowRoot
 
         SetActive(panelError, false);
     }
-
     #endregion
 
 

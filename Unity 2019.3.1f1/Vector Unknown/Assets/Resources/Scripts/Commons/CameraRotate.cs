@@ -11,8 +11,9 @@ public class CameraRotate : MonoBehaviour
 {
     public Transform rotCamera;
     private Vector3 cameraTarget;
-    public float rotateSpeed = 1;
-    public float zoomSpeed = 2;
+    public float rotateSpeed = 1.0f;
+    public float zoomSpeed = 2.0f;
+    public float maxZoomOut = 150.0f;
     private CameraDragSurface dragController;
 
 
@@ -52,7 +53,7 @@ public class CameraRotate : MonoBehaviour
             rotCamera.position += Vector3.Normalize(rotCamera.forward) * zoomSpeed;
         }
 
-        if (Input.GetAxis("Mouse ScrollWheel") < 0f && (rotCamera.position - cameraTarget).magnitude < 150)
+        if (Input.GetAxis("Mouse ScrollWheel") < 0f && (rotCamera.position - cameraTarget).magnitude < maxZoomOut)
         {
             rotCamera.position -= Vector3.Normalize(rotCamera.forward) * zoomSpeed;
         }
@@ -111,6 +112,11 @@ public class CameraRotate : MonoBehaviour
     public void SetCameraTarget(Vector3 target)
     {
         cameraTarget = target;
+    }
+
+    public void SetMaxZoomOut(float val)
+    {
+        maxZoomOut = val;
     }
 
     public void EnableCameraControls(GameObject camera, Vector3 target, bool val)

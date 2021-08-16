@@ -15,6 +15,15 @@ public class QuestionTrigger : MonoBehaviour
         {
             GCP03.isInQuestion = true;
             GameRoot.ShowTips("Please press \"E\" to answer the question", true, false);
+
+            GCP03.CamGlideToPuzzle();
+            GCP03.isTriggerQuestion = true;
+            GameRoot.instance.IsLock(true);
+            GameRoot.isPuzzleLock = true;
+            GCP03.P03W.ShowChoicePanel(true);
+            GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = true;
+            GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03TriggerQuestion);
+
         }
     }
 
@@ -24,6 +33,13 @@ public class QuestionTrigger : MonoBehaviour
         {
             GCP03.isInQuestion = false;
             GameRoot.ShowTips("", false, false);
+
+            GCP03.CamGlideToPlayer();
+            GameRoot.instance.IsLock(false);
+            GameRoot.isPuzzleLock = false;
+            GCP03.P03W.ShowChoicePanel(false);
+            GCP03.isTriggerQuestion = false;
+            GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03ExitQuestion);
         }
     }
 

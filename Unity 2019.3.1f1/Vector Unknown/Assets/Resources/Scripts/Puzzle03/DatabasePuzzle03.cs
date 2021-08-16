@@ -14,20 +14,20 @@ public class DatabasePuzzle03 : MonoBehaviour
 
         
         //Init sub level environment
-        foreach(Transform T in subLevelPlanes)
-        {
-            T.gameObject.SetActive(false);
-        }
-        subLevelPlanes[0].gameObject.SetActive(true);   
+        //foreach(Transform T in subLevelPlanes)
+        //{
+        //    T.gameObject.SetActive(false);
+        //}
+        //subLevelPlanes[0].gameObject.SetActive(true);   
     }
 
-    public void SetPuzzleActive(int subPuzzleID)
-    {
-        subLevelPlanes[subPuzzleID].gameObject.SetActive(true);
-    }
+    //public void SetPuzzleActive(int subPuzzleID)
+    //{
+    //    subLevelPlanes[subPuzzleID].gameObject.SetActive(true);
+    //}
 
-    public Transform GetSubLevelPlanes(int subPuzzleID)
-    {
-        return subLevelPlanes[subPuzzleID];
-    }
+    //public Transform GetSubLevelPlanes(int subPuzzleID)
+    //{
+    //    return subLevelPlanes[subPuzzleID];
+    //}
 }

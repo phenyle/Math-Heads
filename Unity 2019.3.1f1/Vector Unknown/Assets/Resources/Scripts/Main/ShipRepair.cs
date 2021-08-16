@@ -41,7 +41,7 @@ public class ShipRepair : MonoBehaviour
     public GameObject pulseFX;
     public GameObject explosionFX;
     [Range(1,1000)]
-    public int fxFixedInterval = 25;
+    public int fxFixedInterval = 24;
     [Range(1,1000)]
     public int fxMaxTime = 100;
     [Range(0.0f, 1.0f)]
@@ -49,7 +49,7 @@ public class ShipRepair : MonoBehaviour
     public float fxRand = 0.2f;
     private int fxIter = 0;
     private int waitIter = 0;
-    private int waitTime = 200;
+    private int waitTime = 100;
 
     [Header("Sounds")]
     public AudioClip fixedPulseSound;
@@ -234,6 +234,7 @@ public class ShipRepair : MonoBehaviour
 
     public void camAtShip()
     {
+        animStage = 1;
         GameRoot.camEvents.RemoveListener(camAtShip);
     }
 
@@ -291,16 +292,16 @@ public class ShipRepair : MonoBehaviour
                         foreach (Renderer cannonRends in portCannons.GetComponentsInChildren<Renderer>())
                             FXGlowRings(cannonRends, iter, true);
 
-                        foreach (Renderer cannonBallRends in portCannonBalls.GetComponentsInChildren<Renderer>())
-                            FXGlowRings(cannonBallRends, iter, false);
+                        //foreach (Renderer cannonBallRends in portCannonBalls.GetComponentsInChildren<Renderer>())
+                        //    FXGlowRings(cannonBallRends, iter, false);
                         break;
 
                     case 2:
                         foreach (Renderer cannonRends in stbdCannons.GetComponentsInChildren<Renderer>())
                             FXGlowRings(cannonRends, iter, true);
 
-                        foreach (Renderer cannonBallRends in stbdCannonBalls.GetComponentsInChildren<Renderer>())
-                            FXGlowRings(cannonBallRends, iter, false);
+                        //foreach (Renderer cannonBallRends in stbdCannonBalls.GetComponentsInChildren<Renderer>())
+                        //    FXGlowRings(cannonBallRends, iter, false);
 
                         break;
                 }
@@ -317,6 +318,9 @@ public class ShipRepair : MonoBehaviour
                         foreach (Renderer treasurRend in treasureForecastle.GetComponentsInChildren<Renderer>())
                             FXGlowRings(treasurRend, iter, false);
 
+                        break;
+
+                    case 2:
                         foreach (Renderer treasurRend in treasureStern.GetComponentsInChildren<Renderer>())
                             FXGlowRings(treasurRend, iter, false);
 

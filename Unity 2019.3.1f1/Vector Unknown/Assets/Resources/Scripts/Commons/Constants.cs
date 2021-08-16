@@ -5,7 +5,7 @@ public class Constants
     public const int numOfStages = 4;
     public const int numLvlsStage1 = 1;
     public const int numLvlsStage2 = 2;
-    public const int numLvlsStage3 = 1;
+    public const int numLvlsStage3 = 3;
     public const int numLvlsStage4 = 3;
 
     //Scene Names
@@ -16,6 +16,9 @@ public class Constants
     public const string puzzle02_1SceneName = "04Puzzle02-1";
     public const string puzzle02_2SceneName = "04Puzzle02-2";
     public const string puzzle03SceneName = "05Puzzle03";
+    public const string puzzle03_1SceneName = "05Puzzle03-1";
+    public const string puzzle03_2SceneName = "05Puzzle03-2";
+    public const string puzzle03_3SceneName = "05Puzzle03-3";
     public const string puzzle04SceneName = "06Puzzle04-1"; // for scene 4
     public const string puzzle04_1SceneName = "06Puzzle04-1"; // for scene 4
     public const string puzzle04_2SceneName = "06Puzzle04-2"; // for scene 4

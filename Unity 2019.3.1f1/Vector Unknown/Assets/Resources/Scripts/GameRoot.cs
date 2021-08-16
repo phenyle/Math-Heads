@@ -251,6 +251,7 @@ public class GameRoot : MonoBehaviour
         pauseWindow.panelPause.gameObject.SetActive(true);
         pauseWindow.SetWindowState(false);
         isPause = false;
+        pauseWindow.ResetPauseMenu();
         audioService.ResumeAllAudios();
         // check to change cameras in puzzle 2
         if(SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName)

@@ -14,8 +14,8 @@ Optimization and decentrilization of Puzzle04 tools
 
 
 Notes:
-Table of Possible Vector pairs for goals
-Picks from table
+Table of Possible Vector pairs for goals [OLD]
+Picks from table [OLD]
 
 
 

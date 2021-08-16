@@ -44,6 +44,8 @@ public class PlayerData : MonoBehaviour
         public float p2_1clear_time;
         public float p2_2clear_time;
         public float p3_1clear_time;
+        public float p3_2clear_time;
+        public float p3_3clear_time;
         public float p4_1clear_time;
         public float p4_2clear_time;
         public float p4_3clear_time;
@@ -51,6 +53,9 @@ public class PlayerData : MonoBehaviour
         public bool isClass;
         public bool isExpo;
         public string expires;
+        public float mouseSense;
+        public float soundVol;
+        public float soundFX;
     }
     [System.Serializable]
     public struct tbl_P1_1
@@ -70,6 +75,16 @@ public class PlayerData : MonoBehaviour
     }
     [System.Serializable]
     public struct tbl_P3_1
+    {
+        public string username;
+    }
+    [System.Serializable]
+    public struct tbl_P3_2
+    {
+        public string username;
+    }
+    [System.Serializable]
+    public struct tbl_P3_3
     {
         public string username;
     }
@@ -139,6 +154,8 @@ public class PlayerData : MonoBehaviour
     public tbl_P2_1 p2_1;
     public tbl_P2_2 p2_2;
     public tbl_P3_1 p3_1;
+    public tbl_P3_2 p3_2;
+    public tbl_P3_3 p3_3;
     public tbl_P4_1 p4_1;
     public tbl_P4_2 p4_2;
     public tbl_P4_3 p4_3;
@@ -151,6 +168,8 @@ public class PlayerData : MonoBehaviour
         p2_1 = new tbl_P2_1();
         p2_2 = new tbl_P2_2();
         p3_1 = new tbl_P3_1();
+        p3_2 = new tbl_P3_2();
+        p3_3 = new tbl_P3_3();
         p4_1 = new tbl_P4_1();
         p4_2 = new tbl_P4_2();
         p4_3 = new tbl_P4_3();
@@ -166,10 +185,15 @@ public class PlayerData : MonoBehaviour
         users.p2_1clear_time = 0.0f;
         users.p2_2clear_time = 0.0f;
         users.p3_1clear_time = 0.0f;
+        users.p3_2clear_time = 0.0f;
+        users.p3_3clear_time = 0.0f;
         users.p4_1clear_time = 0.0f;
         users.p4_2clear_time = 0.0f;
         users.p4_3clear_time = 0.0f;
         users.admin = false;
+        users.mouseSense = 2.0f;
+        users.soundVol = 0.25f;
+        users.soundFX = 1.0f;
 
         //player.p1_1 INIT
 
@@ -206,7 +230,6 @@ public class PlayerData : MonoBehaviour
         p4_3.obs3_time = 0.0f;
         p4_3.obs4_time = 0.0f;
         p4_3.obs5_time = 0.0f;
-
     }
 
     public void SetUserName(string new_name)
@@ -216,6 +239,8 @@ public class PlayerData : MonoBehaviour
         p2_1.username = new_name;
         p2_2.username = new_name;
         p3_1.username = new_name;
+        p3_2.username = new_name;
+        p3_3.username = new_name;
         p4_1.username = new_name;
         p4_2.username = new_name;
         p4_3.username = new_name;

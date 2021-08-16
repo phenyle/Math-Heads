@@ -6,8 +6,14 @@ public class PauseWindow : WindowRoot
     public Transform panelPause;
     public Transform panelOption;
     public Transform puzzleControls;
+    public Transform popupQuit;
+    public Transform popupHub;
+    public Transform popBlackScreen;
+    public Transform[] pauseButtons;
+    public bool popupActive;
     public Slider sliderVolume;
     public Slider sliderSoundFX;
+    public Slider sliderMouseSense;
     public Text controlsText;
     public Text puzzleText;
 
@@ -20,26 +26,45 @@ public class PauseWindow : WindowRoot
         Debug.Log("Init Pause Window");
         sliderVolume.value = audioService.bgVolume;
         sliderSoundFX.value = audioService.UIFXVolume;
+        popupActive = false;
+
+
         defaultBasicControlsText();
     }
 
     public void ClickResumeBtn()
     {
-        audioService.PlayUIAudio(Constants.audioUIClickBtn);
-        GameRoot.instance.Resume();
+        if (!popupActive)
+        {
+            audioService.PlayUIAudio(Constants.audioUIClickBtn);
+            GameRoot.instance.Resume();
+        }
     }
 
     public void ClickSettingBtn()
     {
-        audioService.PlayUIAudio(Constants.audioUIClickBtn);
+        if (!popupActive)
+        {
+            audioService.PlayUIAudio(Constants.audioUIClickBtn);
 
-        SetActive(panelPause, false);
-        SetActive(panelOption, true);
+            SetActive(panelPause, false);
+            SetActive(panelOption, true);
+            sliderMouseSense.value = GameRoot.player.users.mouseSense;
+            sliderSoundFX.value = GameRoot.player.users.soundFX;
+            sliderVolume.value = GameRoot.player.users.soundVol;
+        }
     }
 
     public void ClickBackBtn()
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
+
+        GameRoot.player.users.mouseSense = sliderMouseSense.value;
+        GameRoot.player.users.soundFX = sliderSoundFX.value;
+        GameRoot.player.users.soundVol = sliderVolume.value;
+
+        if(GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>() != null)
+            GameObject.FindGameObjectWithTag("MainCamera").GetComponent<CameraController>().SetRotateSpeed(sliderMouseSense.value);
 
         SetActive(panelOption, false);
         SetActive(panelPause, true);
@@ -65,6 +90,89 @@ public class PauseWindow : WindowRoot
         GameRoot.instance.Resume();
         
     }
+
+    public void ClickQuitBtn()
+    {
+        if (!popupActive)
+        {
+            popupActive = true;
+            SetActive(popBlackScreen, true);
+            SetActive(popupQuit, true);
+            audioService.PlayUIAudio(Constants.audioUIClickBtn);
+        }
+    }
+
+    public void ClickConfirmQuit()
+    {
+        popupActive = false;
+        audioService.PlayUIAudio(Constants.audioUIClickBtn);
+        GameObject.Find("DialogueManager").GetComponent<DialogueManager>().EndDialogue();
+        //Resume can unlock the lock
+        GameRoot.isPuzzleLock = false;
+
+        GameRoot.player.users.last_login = System.DateTime.Now.ToString();
+        GameRoot.GSFU.UpdatePlayer(false);
+        GameRoot.player = new PlayerData();
+
+        ResetPauseMenu();
+
+        //Dialogue manager can unlock the lock;
+        DialogueManager.isPuzzleLock = false;
+        GameRoot.instance.InitUI();
+        GameRoot.instance.menuSystem.EnterMenu();
+        GameRoot.instance.Resume();
+
+        
+    }
+
+    public void ClickQuitBackBtn()
+    {
+        audioService.PlayUIAudio(Constants.audioUIClickBtn);
+        ResetPauseMenu();
+    }
+
+    public void ClickHubBtn()
+    {
+        if (!popupActive)
+        {
+            popupActive = true;
+            SetActive(popBlackScreen, true);
+
+            SetActive(popupHub, true);
+            audioService.PlayUIAudio(Constants.audioUIClickBtn);
+        }
+    }
+
+    public void ClickConfirmHub()
+    {
+        audioService.PlayUIAudio(Constants.audioUIStartBtn);
+        GameRoot.instance.Resume();
+        ResetPauseMenu();
+
+        GameRoot.instance.exitPuzzle = 0;
+        GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.mainSceneName);
+        // hides mouse when loading game
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+
+ 
+    }
+
+    public void ClickHubBackBtn()
+    {
+
+        audioService.PlayUIAudio(Constants.audioUIClickBtn);
+        ResetPauseMenu();
+    }
+
+    public void ResetPauseMenu()
+    {
+        popupActive = false;
+        SetActive(popupHub, false);
+        SetActive(popupQuit, false);
+        SetActive(popBlackScreen, false);
+    }
+
 
     public void SetBgVolume()
     {

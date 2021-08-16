@@ -63,6 +63,7 @@ public class EnterExitSelect : WindowRoot
             levelSelectUI.GetComponent<LevelSelectButtons>().setLevel(0);
             levelSelectUI.GetComponent<LevelSelectButtons>().setSceneName(sceneName);
             levelSelectUI.GetComponent<LevelSelectButtons>().setPuzzleCompleteName(puzzleComplete);
+            levelSelectUI.GetComponent<LevelSelectButtons>().ActivateBestTimes();
             
 
             //GameRoot.ShowTips("Press \"E\" to enter", true, false);
@@ -81,7 +82,9 @@ public class EnterExitSelect : WindowRoot
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName ||
                                 SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName)
                         GameRoot.instance.exitPuzzle = 2;
-                    else if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
+                    else if (SceneManager.GetActiveScene().name == Constants.puzzle03_1SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle03_2SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle03_3SceneName)
                         GameRoot.instance.exitPuzzle = 3;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
                                 SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
@@ -159,6 +162,7 @@ public class EnterExitSelect : WindowRoot
             // playerController.isEnterExit = false;
 
             levelSelectUI.GetComponent<LevelSelectButtons>().setLevel(0);
+            levelSelectUI.GetComponent<LevelSelectButtons>().DeactivateTimes();
 
             SetActive(levelSelectUI, false);
             Cursor.visible = false;

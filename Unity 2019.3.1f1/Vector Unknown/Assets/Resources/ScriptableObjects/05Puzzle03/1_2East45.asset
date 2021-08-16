@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb2407d4f489bbe49b03705b7bf79ed0, type: 3}
   m_Name: 1_2East45
   m_EditorClassIdentifier: 
-  choiceID1: 4
-  choiceID2: 4
+  choiceID1: 1
+  choiceID2: 2
   x: 0
   y: 0
   z: 45

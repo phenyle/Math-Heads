@@ -18,10 +18,6 @@ public class GameControllerMain : GameControllerRoot
     //public Transform PCFromPuzzle01;
     //public Transform PCFromPuzzle02;
     //public Transform PCFromPuzzle03;
-    public Transform Chest_1;
-    public Transform Chest_2;
-    public Transform Chest_3;
-    public Transform Chest_4;
     //public Transform Loadin;
     //public Transform PCFromPuzzle04; // puzzle 4 area to pop out of
 
@@ -55,7 +51,7 @@ public class GameControllerMain : GameControllerRoot
 
         CheckPlayerDataRecords();
 
-
+        SetUserSettings();
 
 
 
@@ -128,18 +124,13 @@ public class GameControllerMain : GameControllerRoot
             //Set the instructional text and check image
             MW.SetInstructionText("Find & enter the cave to beat the pirates.");
             MW.SetCheckImage(0, spriteChecks[0]);
-            SetActive(Chest_1, true);
         }
         //If player finish puzzle 01 & puzzle 02
         else if(GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true && GameRoot.instance.puzzleCompleted[2] == false)
         {
             SetActive(sunLight, false);
             SetActive(moonLight, true);
-            ocean.sun = moonLight.GetChild(0).GetComponent<Light>();
-
-       
-            
-            SetActive(Chest_2, true);
+            ocean.sun = moonLight.GetChild(0).GetComponent<Light>();      
 
             RenderSettings.skybox = night;
             SetActive(portalPuzzle03, true);
@@ -172,7 +163,7 @@ public class GameControllerMain : GameControllerRoot
                 mainCamera.GetComponent<CameraController>().isLock = true;
             }
 
-            SetActive(Chest_3, true);
+
             MW.SetCheckImage(0, spriteChecks[0]);
             MW.SetCheckImage(1, spriteChecks[1]);
             MW.SetCheckImage(2, spriteChecks[2]);
@@ -184,8 +175,6 @@ public class GameControllerMain : GameControllerRoot
         else if (GameRoot.instance.puzzleCompleted[0] == true && GameRoot.instance.puzzleCompleted[1] == true && GameRoot.instance.puzzleCompleted[2] && GameRoot.instance.puzzleCompleted[3])
         {
 
-           
-            SetActive(Chest_4, true);
             MW.SetCheckImage(0, spriteChecks[0]);
             MW.SetCheckImage(1, spriteChecks[1]);
             MW.SetCheckImage(2, spriteChecks[2]);
@@ -196,9 +185,6 @@ public class GameControllerMain : GameControllerRoot
         //***************** if Player finishes puzzle 2
         if (GameRoot.instance.puzzleCompleted[1] == true)
         {
-
-
-            SetActive(Chest_2, true);
             MW.SetCheckImage(1, spriteChecks[1]);
 
             mainCamera.GetComponent<CameraController>().isLock = true;
@@ -207,8 +193,6 @@ public class GameControllerMain : GameControllerRoot
         if (GameRoot.instance.puzzleCompleted[2] == true)
         {
 
-
-            SetActive(Chest_3, true);
             MW.SetCheckImage(2, spriteChecks[2]);
 
             mainCamera.GetComponent<CameraController>().isLock = true;
@@ -225,9 +209,7 @@ public class GameControllerMain : GameControllerRoot
             {
                 mainCamera.GetComponent<CameraController>().isLock = true;
             }
-
-            SetActive(Chest_4, true);
-           
+            
             MW.SetCheckImage(3, spriteChecks[3]);
 
             mainCamera.GetComponent<CameraController>().isLock = true;
@@ -356,5 +338,11 @@ public class GameControllerMain : GameControllerRoot
             GameRoot.instance.puzzlesDone[4][3] = true;
         else
             GameRoot.instance.puzzlesDone[4][3] = false;
+    }
+
+    public void SetUserSettings()
+    {
+        GameRoot.instance.audioService.bgVolume = GameRoot.player.users.soundVol;
+        GameRoot.instance.audioService.UIFXVolume = GameRoot.player.users.soundFX;
     }
 }

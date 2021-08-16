@@ -29,7 +29,7 @@ public class CameraController : MonoBehaviour
 
         isLock = true;
         postPuzzleLock = false;
-        rotatedSpeed = 0.4f;
+        rotatedSpeed = GameRoot.player.users.mouseSense;
     }
 
     private void LateUpdate()
@@ -111,6 +111,11 @@ public class CameraController : MonoBehaviour
             Cursor.visible = true;
             Cursor.lockState = CursorLockMode.None;
         }
+    }
+
+    public void SetRotateSpeed(float val)
+    {
+        rotatedSpeed = val;
     }
 
     public void SetPuzzle04Hack(bool val)
