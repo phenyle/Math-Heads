@@ -52416,7 +52416,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1081723487
 Transform:
   m_ObjectHideFlags: 0
@@ -64583,7 +64583,7 @@ PrefabInstance:
     - target: {fileID: 3071903117526020226, guid: ab851272ebaa04b0996d5681c0dd8ab4,
         type: 3}
       propertyPath: puzzleComplete
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7241357825222472755, guid: ab851272ebaa04b0996d5681c0dd8ab4,
         type: 3}
@@ -65202,6 +65202,7 @@ MonoBehaviour:
   divisionWall: {fileID: 1503701876}
   trigger: {fileID: 2031113261}
   puzzCamStart: {fileID: 1295461453}
+  startingFloor: {fileID: 615118377}
   mainCamera: {fileID: 398383483}
   puzzleCamera: {fileID: 1920456138}
   CameraTools: {fileID: 1920456139}
@@ -65230,11 +65231,12 @@ MonoBehaviour:
   cameraHorizontal: 0
   cameraVertical: 0
   tot_puzzleTime: 0
+  movesList: 
   puzzleData:
     obsID: 0
     obsTime: 0
     startingRotation: {x: 0, y: 0, z: 0}
-    attempts: 0
+    numOfMoves: 0
 --- !u!4 &1677935429
 Transform:
   m_ObjectHideFlags: 0
@@ -65293,7 +65295,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1668784895102394, guid: 70d59fac261e86f489f55b465d666b26, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4656526324291700, guid: 70d59fac261e86f489f55b465d666b26, type: 3}
       propertyPath: m_RootOrder
@@ -65317,11 +65319,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4656526324291700, guid: 70d59fac261e86f489f55b465d666b26, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.0099983215
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4656526324291700, guid: 70d59fac261e86f489f55b465d666b26, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1.6699829
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4656526324291700, guid: 70d59fac261e86f489f55b465d666b26, type: 3}
       propertyPath: m_LocalRotation.w

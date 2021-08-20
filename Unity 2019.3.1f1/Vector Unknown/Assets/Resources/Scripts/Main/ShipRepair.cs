@@ -30,6 +30,8 @@ public class ShipRepair : MonoBehaviour
     [Header("Treasure Parts")]
     public GameObject treasureForecastle;
     public GameObject treasureStern;
+    public GameObject treasureChests;
+    public GameObject treasureSparkles;
 
     [Header("Camera Positions")]
     public Transform fromPuzzle1;
@@ -124,7 +126,7 @@ public class ShipRepair : MonoBehaviour
                         waitIter = 0;
                         animStage = 3;
                         GameRoot.camEvents.AddListener(camAtPlayer);
-                        GCM.GetComponent<ObjectGlide>().GlideToMovingPosition(shipCamera, mainCamera, player, prevCameraPos);
+                        GCM.GetComponent<ObjectGlide>().GlideToMovingPosition(shipCamera, mainCamera, player, prevCameraPos, -0.5f);
                     }
                     break;
 
@@ -202,7 +204,13 @@ public class ShipRepair : MonoBehaviour
                 switch(GameRoot.instance.prevLevel)
                 {
                     case 1:
+                        targetPos = treasureStern.transform.position;
+                        break;
+                    case 2:
                         targetPos = treasureForecastle.transform.position;
+                        break;
+                    case 3:
+                        targetPos = treasureChests.transform.position;
                         break;
                 }
                 break;
@@ -228,7 +236,7 @@ public class ShipRepair : MonoBehaviour
 
         GameRoot.camEvents.AddListener(camAtShip);
         GCM.GetComponent<ObjectGlide>().SetObjectMoveSpeed(((this.player.transform.position-cameraPos).magnitude / 1400.0f) * 6.0f);
-        GCM.GetComponent<ObjectGlide>().GlideToPosition(shipCamera, cameraPos, targetPos, prevCameraPos);
+        GCM.GetComponent<ObjectGlide>().GlideToPosition(shipCamera, cameraPos, targetPos, prevCameraPos, 30.0f);
         animate = true;
     }
 
@@ -314,16 +322,18 @@ public class ShipRepair : MonoBehaviour
                     case 1:
                         //Might be too many objects here to really work
                         //might just make a custom fx method for this one
-
-                        foreach (Renderer treasurRend in treasureForecastle.GetComponentsInChildren<Renderer>())
+                        foreach (Renderer treasurRend in treasureStern.GetComponentsInChildren<Renderer>())
                             FXGlowRings(treasurRend, iter, false);
-
                         break;
 
                     case 2:
-                        foreach (Renderer treasurRend in treasureStern.GetComponentsInChildren<Renderer>())
+                        foreach (Renderer treasurRend in treasureForecastle.GetComponentsInChildren<Renderer>())
                             FXGlowRings(treasurRend, iter, false);
+                        break;
 
+                    case 3:
+                        foreach (Renderer treasurRend in treasureChests.GetComponentsInChildren<Renderer>())
+                            FXGlowRings(treasurRend, iter, false);
                         break;
                 }
 
@@ -405,9 +415,23 @@ public class ShipRepair : MonoBehaviour
         //all done: hull cannons (note: need to break hull model to rip hull cannons out)
 
 
-        //Stage3 Completed
-        treasureForecastle.SetActive(GameRoot.instance.puzzlesDone[3][1]);
+        //Stage3 Completed        
         treasureStern.SetActive(GameRoot.instance.puzzlesDone[3][1]);
+        treasureForecastle.SetActive(GameRoot.instance.puzzlesDone[3][2]);
+        treasureChests.SetActive(GameRoot.instance.puzzlesDone[3][3]);
+
+        if (GameRoot.instance.puzzlesDone[3][1] &&
+                GameRoot.instance.puzzlesDone[3][2] &&
+                GameRoot.instance.puzzlesDone[3][3])
+        {
+            treasureSparkles.SetActive(true);
+        }
+        else
+        {
+            treasureSparkles.SetActive(false);
+
+        }
+
 
         //Stage4 Completed
         mast1.SetActive(GameRoot.instance.puzzlesDone[4][1]);

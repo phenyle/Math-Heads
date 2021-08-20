@@ -25,4 +25,4 @@ MonoBehaviour:
       move in 3D space.
     - But don't worry, we've got some extra tools to help you out.
     - Since you're in 3D space again, your camera is returned to you with the mouse
-      (or keyboard controls).
+      (or keyboard controls) when you're not in a puzzle.

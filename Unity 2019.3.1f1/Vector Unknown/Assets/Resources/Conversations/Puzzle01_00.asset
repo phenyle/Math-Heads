@@ -22,8 +22,8 @@ MonoBehaviour:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
     - Now that you're awake.
-    - I overheard that scurvy pirate talking about his key at the top of the tower
-      over there.
+    - I overheard that scurvy pirate talking about the key to the lumber yard at
+      the top of the tower over there.
     - You will need to build some bridges to access that tall tower.
     - If you need me to get a better view of structures, press Z and I will fly up
       to get a top down view.

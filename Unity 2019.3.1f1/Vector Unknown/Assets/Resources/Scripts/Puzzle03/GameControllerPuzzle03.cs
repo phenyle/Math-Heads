@@ -12,6 +12,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
     public GameObject divisionWall;
     public GameObject trigger;
     public GameObject puzzCamStart;
+    public Transform startingFloor;
 
     private Vector3 startRandRotate;
 
@@ -60,8 +61,6 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     private GameObject player;
     private Vector3 startPosition;
-    private Vector3 previousPosition;
-    private int timer = 0;
 
     public GameObject puzzleOverall;
     private int puzzleRotNum;
@@ -70,7 +69,6 @@ public class GameControllerPuzzle03 : GameControllerRoot
     public float cameraHorizontal, cameraVertical;
 
     //Database Records
-    public float tot_puzzleTime;
 
     [HideInInspector]
     [System.Serializable]
@@ -79,10 +77,10 @@ public class GameControllerPuzzle03 : GameControllerRoot
         public int obsID;
         public float obsTime;
         public Vector3 startingRotation;
-        public int attempts;
-
-
+        public int numOfMoves;
     }
+
+    public string movesList;
 
     [HideInInspector]
     public obsData puzzleData;
@@ -94,6 +92,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
         puzzleOverall.transform.Rotate(SetPuzzleRandomRotate());
         player = GameObject.FindGameObjectWithTag("Player");
         startPosition = player.transform.localPosition;
+        movesList = "";
     }
 
     public override void InitGameController(Puzzle03Window P03W)
@@ -110,11 +109,13 @@ public class GameControllerPuzzle03 : GameControllerRoot
         Debug.Log("Call Database of Puzzle03 to connect");
         DBP03.InitDatabase();
 
-        if(DialogueManager.showP03_00)
-        {
-            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle03_00"));
-            DialogueManager.showP03_00 = false;
-        }
+        conversation(0);
+
+        //if(DialogueManager.showP03_00)
+        //{
+        //    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle03_00"));
+        //    DialogueManager.showP03_00 = false;
+        //}
 
 
 
@@ -122,10 +123,10 @@ public class GameControllerPuzzle03 : GameControllerRoot
         startPosition = player.transform.localPosition;
 
         //Get all the buttons of first sub-buttons from window
- //       BtnChoices = P03W.BtnChoices1;
+        //       BtnChoices = P03W.BtnChoices1;
 
         //Initilize Components
-        plane = DBP03.subLevelPlanes[0];
+        plane = currPuzzle.transform;
         topCamera = ConsoleCamera;
         P03W.SetInstructionalText("Choose a number to assign 'b' a new value. The environment will then imitate the newly generated span.");
 
@@ -138,18 +139,26 @@ public class GameControllerPuzzle03 : GameControllerRoot
         puzzleData.obsID = Difficulty;
         puzzleData.obsTime = 0.0f;
         puzzleData.startingRotation = startRandRotate;
-        puzzleData.attempts = 0;
+        puzzleData.numOfMoves = 0;
 
 
     }
 
     private void Update()
     {
-        if (!DialogueManager.isInDialogue && !GameRoot.isPause)
-            tot_puzzleTime += Time.deltaTime;
-
-        if (isInQuestion)
+        if (!DialogueManager.isInDialogue && !GameRoot.isPause && isInQuestion)
+        {
             puzzleData.obsTime += Time.deltaTime;
+
+            int minutes = (int)puzzleData.obsTime / 60;
+            int seconds = (int)puzzleData.obsTime - 60 * minutes;
+            if (seconds < 10)
+                P03W.SetTime(minutes.ToString() + " : 0" + seconds.ToString());
+            else
+                P03W.SetTime(minutes.ToString() + " : " + seconds.ToString());
+        }
+
+
 
         //if(subPuzzleID < 3)
         //    GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = true;
@@ -214,34 +223,6 @@ public class GameControllerPuzzle03 : GameControllerRoot
             topCamera.depth = topCamera.depth == 0 ? 1 : 0;
         }
 
-        //*********************** Interaction with the trigger and submission *************************
-
-        //if(isInQuestion && Input.GetKeyDown(KeyCode.E))
-        //{
-        //    if(isTriggerQuestion)
-        //    {
-        //        CamGlideToPlayer();
-        //        GameRoot.instance.IsLock(false);
-        //        GameRoot.isPuzzleLock = false;
-        //        P03W.ShowChoicePanel(false);
-        //        isTriggerQuestion = false;
-
-        //        GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = false;
-        //        GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03ExitQuestion);
-        //    }
-        //    else
-        //    {
-        //        CamGlideToPuzzle();
-        //        isTriggerQuestion = true;
-        //        GameRoot.instance.IsLock(true);
-        //        GameRoot.isPuzzleLock = true;
-        //        P03W.ShowChoicePanel(true);
-        //        GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = true;
-        //        GameRoot.instance.audioService.PlayUIAudio(Constants.audioP03TriggerQuestion);
-        //    }
-        //}
-        // ***********************************************************************************************
-
         if(isTipsAnimate)
         {
             tipsPoint2.localPosition = Vector3.Lerp(tipsPoint2.localPosition, tipsPoint2FinalPos, tipsAnimationSpeed);
@@ -260,32 +241,6 @@ public class GameControllerPuzzle03 : GameControllerRoot
             }
         }
 
-        //When player finish sub-level, the puzzle environment shift into next sub-level
-        //if(isShiftPlane)
-        //{
-        //    playerPosition.position = Vector3.Lerp(playerPosition.position, playerPositionList[subPuzzleID].position, planeShiftSpeed);
-
-        //    Vector3 diffPP = playerPositionList[subPuzzleID].position - playerPosition.position;
-
-        //    if(Mathf.Abs(diffPP.z) <= 0.05f)
-        //    {
-        //        if(subPuzzleID >= DBP03.subLevelPlanes.Length)
-        //        {
-        //            playerPosition.position = playerPositionList[subPuzzleID].position;
-        //            SetActive(endWall, false);
-        //            P03W.ShowChoicePanel(false);
-
-        //            GameRoot.instance.IsLock(false);
-        //            GameRoot.ShowTips("", false, false);
-        //            isInQuestion = false;
-        //            P03W.SetInstructionalText("Go to the exit.");
-        //        }
-
-        //        isShiftPlane = false;
-        //    }
-        //}
-
-//        previousPosition = player.transform.position;
     }
 
     public void TriggerRotation(int ID1, int ID2, Vector3 tipsPoint2Pos, Vector3 tipsPoint3Pos)
@@ -381,8 +336,8 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
         finalRotation = temp;
         isFinded = true;
-
-        puzzleData.attempts++;
+        movesList += CreateAttemptItem(tipsPoint2Pos, tipsPoint3Pos);
+        P03W.SetMoves(puzzleData.numOfMoves); 
 
 
         //foreach (SpanValue spanValue in DBP03.spanValues)
@@ -411,6 +366,19 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
         isFinded = false;
     } 
+
+    private string CreateAttemptItem(Vector3 span1, Vector3 span2) 
+    {
+        string temp = "";
+        puzzleData.numOfMoves++;
+
+        temp += puzzleData.numOfMoves.ToString() + ", ";
+        temp += puzzleData.obsTime.ToString("0.00") + ", ";
+        temp += span1.x.ToString() + ", " + span1.y.ToString() + ", " + span1.z.ToString() + ", ";
+        temp += span2.x.ToString() + ", " + span2.y.ToString() + ", " + span2.z.ToString() + "\n";
+        
+        return temp;
+    }
     
     public void SetSpanValue(Vector3 spanValue, int choiceID)
     {
@@ -461,13 +429,13 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     public void FinishSubLevel()
     {
-
-
         GameRoot.instance.IsLock(false);
         GameRoot.isPuzzleLock = false;
         P03W.ShowChoicePanel(false);
         isTriggerQuestion = false;
 
+        startingFloor.localScale = new Vector3(10, 1, 300);
+        startingFloor.localPosition = new Vector3(0, 0, 5);
  //       this.subPuzzleID = subPuzzleID;
 
         topCamera.depth = 0;
@@ -506,7 +474,6 @@ public class GameControllerPuzzle03 : GameControllerRoot
     //    beatLvl1 = true;
 
         GameRoot.instance.IsLock(false);
-        P03W.ShowChoicePanel(false);
         P03W.ClearSpanValues("", "");
         P03W.SwapFeedbackPanel();
         isTriggerQuestion = false;
@@ -538,9 +505,46 @@ public class GameControllerPuzzle03 : GameControllerRoot
                 break;
         }
         puzzleRotNum = rand;
+        startRandRotate = temp;
         return temp;
     }
 
+    /// <summary>
+    /// Selects the conversation dialog to pop up
+    /// Requires that the associated bool[] and conversation file be established
+    /// with the DialogManager.cs
+    /// </summary>
+    /// <param name="val"></param>
+    public void conversation(int val)
+    {
+        switch (Difficulty)
+        {
+            case 1: //Level 1 Dialogs
+                if (DialogueManager.showP03_1[val])
+                {
+                    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle03-1_0" + val.ToString()));
+                    DialogueManager.showP03_1[val] = false;
+                }
+
+                break;
+            case 2: //Level 2 Dialogs
+                if (DialogueManager.showP03_2[val])
+                {
+                    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle03-2_0" + val.ToString()));
+                    DialogueManager.showP03_2[val] = false;
+                }
+
+                break;
+            case 3: //Level 3 Dialogs
+                if (DialogueManager.showP03_3[val])
+                {
+                    FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle03-3_0" + val.ToString()));
+                    DialogueManager.showP03_3[val] = false;
+                }
+
+                break;
+        }
+    }
 
     public int getSubPuzzleID()
     {
@@ -591,9 +595,38 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
     public void RecordData()
     {
-        if (GameRoot.player.users.p3_1clear_time == 0.0f)
-            GameRoot.player.users.p3_1clear_time = tot_puzzleTime;
-        else if (tot_puzzleTime < GameRoot.player.users.p3_1clear_time)
-            GameRoot.player.users.p3_1clear_time = tot_puzzleTime;
+        switch (Difficulty) {
+
+            case 1:
+                if (GameRoot.player.users.p3_1clear_time == 0.0f)
+                    GameRoot.player.users.p3_1clear_time = puzzleData.obsTime;
+                else if (puzzleData.obsTime < GameRoot.player.users.p3_1clear_time)
+                    GameRoot.player.users.p3_1clear_time = puzzleData.obsTime;
+
+                GameRoot.player.p3_1.obs = puzzleData;
+                GameRoot.player.p3_1.obs_movesList = movesList;
+                break;
+
+            case 2:
+                if (GameRoot.player.users.p3_2clear_time == 0.0f)
+                    GameRoot.player.users.p3_2clear_time = puzzleData.obsTime;
+                else if (puzzleData.obsTime < GameRoot.player.users.p3_2clear_time)
+                    GameRoot.player.users.p3_2clear_time = puzzleData.obsTime;
+
+                GameRoot.player.p3_2.obs = puzzleData;
+                GameRoot.player.p3_2.obs_movesList = movesList;
+                break;
+
+            case 3:
+                if (GameRoot.player.users.p3_3clear_time == 0.0f)
+                    GameRoot.player.users.p3_3clear_time = puzzleData.obsTime;
+                else if (puzzleData.obsTime < GameRoot.player.users.p3_3clear_time)
+                    GameRoot.player.users.p3_3clear_time = puzzleData.obsTime;
+
+                GameRoot.player.p3_3.obs = puzzleData;
+                GameRoot.player.p3_3.obs_movesList = movesList;
+                break;
+
+        }
     }
 }

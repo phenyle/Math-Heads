@@ -3,6 +3,7 @@
 public class QuestionTrigger : MonoBehaviour
 {
     private GameControllerPuzzle03 GCP03;
+    public int convoNumber;
 
     private void Start()
     {
@@ -15,6 +16,7 @@ public class QuestionTrigger : MonoBehaviour
         {
             GCP03.isInQuestion = true;
             GameRoot.ShowTips("Please press \"E\" to answer the question", true, false);
+            GCP03.conversation(convoNumber);
 
             GCP03.CamGlideToPuzzle();
             GCP03.isTriggerQuestion = true;

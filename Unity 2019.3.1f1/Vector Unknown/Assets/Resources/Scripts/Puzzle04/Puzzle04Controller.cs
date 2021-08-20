@@ -26,8 +26,6 @@ public class Puzzle04Controller : MonoBehaviour
     public int puzzleID;
     public bool isActive;
 
-    static private UnityEvent events;
-
     [Header("---View Controls---")]
     public GameObject mainCamera;
     public GameObject puzzleCamera;
@@ -35,7 +33,6 @@ public class Puzzle04Controller : MonoBehaviour
     public GameObject cameraTarget;
     public GameObject CameraStartPosition;
     private Vector3 prevCameraPosition;
-
 
     [Header("---Puzzle Vectors---")]
     public Vector3 InitFinalVector; //this is the vector input from the Unity Inspector, it's the basis for the FinalAnswer
@@ -62,8 +59,6 @@ public class Puzzle04Controller : MonoBehaviour
     private ObjectGlide cameraGlide;
     private CameraRotate cameraRotate;
 
-
-
     [Header("---Conversation Select---")]
     [Range(0, 9)]
     [Tooltip("Sets the dialog number used.\n0 val means no dialog\n1-9 selects that specific dialog")]
@@ -87,6 +82,18 @@ public class Puzzle04Controller : MonoBehaviour
 
     private GameControllerPuzzle04 GCP04;
 
+    //MISC
+    private bool chgScal1 = false;
+    private bool chgScal2 = false;
+    private float time1 = 0;
+    private float time2 = 0;
+    private float waitTimeToEnterAttempt = 1.0f;
+    private int attempts = 0;
+    private int prevScal1;
+    private int prevScal2;
+    private Vector3 prevVect1;
+    private Vector3 prevVect2;
+
     //Database Records
     private float obstacleTime;
 
@@ -97,28 +104,57 @@ public class Puzzle04Controller : MonoBehaviour
         public int obsID;
         public float obsTime;
         public Vector3 answer;
+        public bool userUniqueSolution;
 
-        //Puzzle generated and Expected values (e)
         public int e_Scal1;
         public int e_Scal2;
         public Vector3 e_Vect1;
         public Vector3 e_Vect2;
 
-        //Player generated and Input values (i)
         public int i_Scal1;
         public int i_Scal2;
         public Vector3 i_Vect1;
         public Vector3 i_Vect2;
+
+        
+
+        ////Puzzle generated and Expected values (e)
+        //public struct expectedData {
+        //    public int e_Scal1;
+        //    public int e_Scal2;
+        //    public Vector3 e_Vect1;
+        //    public Vector3 e_Vect2;
+        //}
+        //public expectedData expected;
+
+        ////Player generated and Input values (i)
+        //public struct inputData {
+        //    public int i_Scal1;
+        //    public int i_Scal2;
+        //    public Vector3 i_Vect1;
+        //    public Vector3 i_Vect2;
+        //}
+        //public inputData input;
+
+        public struct attemptsData
+        {
+            public int attemptNum;
+            public float time;
+            public int a_Scal1;
+            public Vector3 a_Vect1;
+            public int a_Scal2;
+            public Vector3 a_Vect2;
+            public Vector3 a_Ans;
+        }
     }
 
     [HideInInspector]
     public obsData puzzleData;
-
-
+    public string attemptsList;
 
     // Awake is called when the Instance is Initialized
     void Awake()
-    {
+    {     
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
         VV01 = this.GetComponent<VisualVector>();
         cameraRotate = this.GetComponent<CameraRotate>();
@@ -172,6 +208,9 @@ public class Puzzle04Controller : MonoBehaviour
 
         obstacleTime = 0.0f;
         puzzleData = new obsData();
+        attemptsList = "";
+        //puzzleData.expected = new obsData.expectedData();
+        //puzzleData.input = new obsData.inputData();
         puzzleData.obsID = puzzleID;
 
         //       intAnswerGenerator();
@@ -261,8 +300,12 @@ public class Puzzle04Controller : MonoBehaviour
             }
 
 
+            EnterAttempts();
 
-
+            prevScal1 = scalar1;
+            prevScal2 = scalar2;
+            prevVect1 = card1;
+            prevVect2 = card2;
         }
         else
         {
@@ -271,6 +314,8 @@ public class Puzzle04Controller : MonoBehaviour
 
     }
 
+
+    #region Answer Generation
     /// <summary>
     /// Generates a modified vector based from the MinVectorSize and MaxDynamicScalar.
     /// It first divides each vector dimension by a random float and rounds to an int
@@ -564,7 +609,9 @@ public class Puzzle04Controller : MonoBehaviour
 
         return unique;
     }
+    #endregion
 
+    #region Get/Sets
     public Vector3 getMinVector()
     {
         return InitFinalVector;
@@ -673,6 +720,81 @@ public class Puzzle04Controller : MonoBehaviour
     {
         return correct;
     }
+    #endregion
+
+    /// <summary>
+    /// This function creates an attemptData CSV string with the current attempt values and returns it.
+    /// This is done so that when checking for possible attempt entries to add to the attemptsList
+    /// we aren't needlessly creating heap memory items.  The heap memory is only reserved WHEN
+    /// EnterAttempt() needs to add a new node
+    /// </summary>
+    /// <returns></returns>
+    private string CreateAttemptCSV()
+    {
+        string temp = "";
+
+        temp += attempts.ToString() + ", "; //attempt number
+        temp += obstacleTime.ToString("0.00") + ", "; //time attempted at
+        temp += scalar1.ToString() + ", "; //scalar value for vector 1
+        temp += card1.x.ToString() + ", " + card1.y.ToString() + ", " + card1.z.ToString() + ", "; // vector1 information
+        temp += scalar2.ToString() + ", "; //scalar value for vector 2
+        temp += card2.x.ToString() + ", " + card2.y.ToString() + ", " + card2.z.ToString() + "\n"; // vector 2 information
+
+        return temp;
+    }
+
+    private void EnterAttempts()
+    {
+        //If card 1 or 2 are changed automatically add it to attempts
+        if ((card1 != prevVect1 || card2 != prevVect2) && (card1 != Vector3.zero || card2 != Vector3.zero))
+        {
+            chgScal1 = false;
+            chgScal2 = false;
+            attempts++;
+            attemptsList += CreateAttemptCSV();
+//            puzzleData.attemptsList.Add(CreateAttemptNode());
+        }
+        
+        //We'll note that the player changed a scalar but not automatically add it
+        //instead we'll reset a wait clock each time they change it.  If after changing
+        //a scalar they wait for a certain time at one value THEN we'll add that attempt to the list
+        if (scalar1 != prevScal1)
+        {
+            chgScal1 = true;
+            time1 = 0.0f;
+        }
+
+        if (scalar2 != prevScal2)
+        {
+            chgScal2 = true;
+            time2 = 0.0f;
+        }
+
+        if (chgScal1)
+        {
+            time1 += Time.deltaTime;
+            if(time1 > waitTimeToEnterAttempt)
+            {
+                chgScal1 = false;
+                attempts++;
+                attemptsList += CreateAttemptCSV();
+                //                puzzleData.attemptsList.Add(CreateAttemptNode());
+            }
+        }
+
+        if (chgScal2)
+        {
+            time2 += Time.deltaTime;
+            if (time2 > waitTimeToEnterAttempt)
+            {
+                chgScal2 = false;
+                attempts++;
+                attemptsList += CreateAttemptCSV();
+                //                puzzleData.attemptsList.Add(CreateAttemptNode());
+            }
+        }
+
+    }
 
     public bool checkFinalAnswer()
     {
@@ -692,6 +814,15 @@ public class Puzzle04Controller : MonoBehaviour
                 puzzleData.i_Vect1 = this.card1;
                 puzzleData.i_Scal2 = this.scalar2;
                 puzzleData.i_Vect2 = this.card2;
+
+                //Did the player arrive at the answer with the expected Scal/Vectors?
+                if (puzzleData.e_Scal1 != puzzleData.i_Scal1 ||
+                    puzzleData.e_Scal2 != puzzleData.i_Scal2 ||
+                    puzzleData.e_Vect1 != puzzleData.i_Vect1 ||
+                    puzzleData.e_Vect2 != puzzleData.i_Vect2)
+                    puzzleData.userUniqueSolution = true;
+                else
+                    puzzleData.userUniqueSolution = false;                
 
                 GCP04.SaveLocalPuzzleData(this);
 
@@ -713,9 +844,9 @@ public class Puzzle04Controller : MonoBehaviour
     //------------------------------------
     // TOOL ACTIONS
     //------------------------------------
-
+    #region Tool Actions
     // PORTAL---------------
-
+    #region Portal
     public void OnPortalEnter()
     {
         inPortal = true;
@@ -840,10 +971,10 @@ public class Puzzle04Controller : MonoBehaviour
         GCP04.P04W.setFeedbackDisplay(this);
     }
 
-
+    #endregion
 
     //GAP TRIGGERS------------------
-
+    #region Gap Triggers
     public void ToggleAllTriggers(bool value)
     {
         gapTriggers.ToggleFallTriggers(value);
@@ -851,10 +982,10 @@ public class Puzzle04Controller : MonoBehaviour
         gapTriggers.ToggleResetTriggers(value);
     }
 
-
+    #endregion
 
     // VISUAL VECTOR----------------
-
+    #region Visual Vector
     private void turnOnVisualVectors()
     {
         VV01.ToggleBasicVectors(true);
@@ -901,9 +1032,10 @@ public class Puzzle04Controller : MonoBehaviour
         VV01.toggleAnchors(false);
     }
 
+    #endregion
 
     //CAMERA GLIDE/ROTATE------------------
-
+    #region Camera Glide/Rotate
     private void activateCamRotate()
     {
         GCP04.SetPuzzlePause(false);  
@@ -922,5 +1054,7 @@ public class Puzzle04Controller : MonoBehaviour
         puzzleCamera.GetComponent<Camera>().enabled = false;
         mainCamera.GetComponent<Camera>().enabled = true;
     }
+    #endregion
+    #endregion
 }
 

@@ -10,14 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d47500a8f005f364c989b60cb1f8fb81, type: 3}
-  m_Name: Puzzle04-1_02
+  m_Name: Puzzle03-1_01
   m_EditorClassIdentifier: 
   dialogues:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
-    - Hey, you're out of the cave!
-    - Did you know you can rotate and zoom around the puzzle to get a better view?
-    - Right-click and hold to drag the background to rotate.  Use the mousewheel
-      to zoom in/out.
-    - You can also use the keyboard to control the camera.  Check the pause menu
-      (by pressing ESC) for extra puzzle controls.
+    - You can also rotate the camera around to get a better look.
+    - Click and hold Right-click to drag the camera around for when you can't see. 
+      Use the mouse wheel to zoom in and out.
+    - Or you can use keyboard controls with I, J, K, L to rotate and U, O to zoom
+      in/out.

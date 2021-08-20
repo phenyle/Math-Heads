@@ -9,6 +9,7 @@ HubWorld Changes:
 - Removed Old "ship repair" assets
 - Replaced the ground glow portals with standing portals (easier to see)
 - Fixed the portal text overlaying everything
+- Lowered the "bridge" between the islands to stop popping up
 Added new functionality to the LevelSelectUI:
 - LevelSelectUI now shows the best completion time for completed levels
 - Added support for Puzzle03 multilevels
@@ -28,10 +29,29 @@ Puzzle03 Changes:
 - Also player is not just an amorphous being, User has control of player again
 - Split Puzzle03 into 3 separate levels of difficulty (but some bug is killing levels 2 and 3, fix later).
 
+
 STILL NEED TO DO:
 Dialog overhaul changes
 Fix Puzzle03 bug crash on higher difficulties
 
+
 KNOWN BUGS:
 Puzzle03_2 and Puzzle03_3 crash from and audioSource null error
 Solving Puzzle03 without ever rotating the camera causes the camera to hang instead of returning to player
+LevelSelectUI is ghosting scores from different levels on stage2
+
+
+AGENDA:
+Get to Final Build
+Keep Puzzle1?
+Fix Tutorial to MainGame Bug from Menu
+Puzzle3 Camera/Mouse on load
+Puzzle3 question portal more noticable.
+Readdress Camera Angle on ShipRepair
+Dialog about busted up ship on start.
+-- Parrot tells what parts are missing and what puzzles need to be completed.
+Bulletin Board? Leader Board?
+UI overhaul for Level 2
+Add Safari to supported browsers
+
+Create a Grammar for Puzzle Struct composition for easier parsing <-Big Brain

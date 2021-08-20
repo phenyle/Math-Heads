@@ -153,6 +153,10 @@ public class DialogueManager : MonoBehaviour
 
     public static bool showP03_00 = true;
 
+    public static bool[] showP03_1 = { true, true };
+    public static bool[] showP03_2 = { true };
+    public static bool[] showP03_3 = { true };
+
     //Flags for Puzzle04 dialog (done right, instead whatever the above is)
     //bool[0] is always the level start dialog, any added on length is for
     //mid level dialogs

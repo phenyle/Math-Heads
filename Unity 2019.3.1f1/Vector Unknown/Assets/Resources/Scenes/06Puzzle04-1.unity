@@ -1673,6 +1673,11 @@ PrefabInstance:
       objectReference: {fileID: 2918626237289915407}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
+      propertyPath: puzzleID
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
       propertyPath: LimitAxis
       value: 1
       objectReference: {fileID: 0}
@@ -2851,6 +2856,11 @@ PrefabInstance:
       objectReference: {fileID: 2918626237289915407}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
+      propertyPath: puzzleID
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
       propertyPath: LimitAxis
       value: 1
       objectReference: {fileID: 0}
@@ -3574,6 +3584,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2918626237289915407}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: puzzleID
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: isDynamic
@@ -4403,6 +4418,11 @@ PrefabInstance:
       objectReference: {fileID: 2918626237289915407}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
+      propertyPath: puzzleID
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
       propertyPath: grappleKit
       value: 
       objectReference: {fileID: 0}
@@ -4827,6 +4847,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2918626237289915407}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: puzzleID
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: isDynamic
@@ -5354,6 +5379,11 @@ PrefabInstance:
       objectReference: {fileID: 2918626237289915407}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
+      propertyPath: puzzleID
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
       propertyPath: LimitAxis
       value: 1
       objectReference: {fileID: 0}
@@ -5673,6 +5703,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2918626237289915407}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: puzzleID
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: isDynamic
@@ -6118,6 +6153,11 @@ PrefabInstance:
       objectReference: {fileID: 2918626237289915407}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
+      propertyPath: puzzleID
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
       propertyPath: LimitAxis
       value: 1
       objectReference: {fileID: 0}
@@ -6503,6 +6543,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2918626237289915407}
+    - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
+        type: 3}
+      propertyPath: puzzleID
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 2123756033255642334, guid: 2fe55e2abb3cfa946b17cc2c71a8d77e,
         type: 3}
       propertyPath: LimitAxis

@@ -6,26 +6,49 @@ using UnityEngine.UI;
 public class Puzzle03Window : WindowRoot
 {
     public bool isInit;
+
+    [Header("--------Instruction Panel--------")]
+    public GameObject PanelInstruction;
     public Text txtInstruction;
-    public Text txtChoice1;
-    public Text txtChoice2;
+
+    [Header("--------Feedback Panel--------")]
+    public GameObject PanelFeedback;
     public Text txtFBChoice1;
     public Text txtFBChoice2;
+
+    [Header("--------Answer Panel--------")]
+    public GameObject PanelAnswer;
+    public Text txtChoice1;
+    public Text txtChoice2;
+
+    [Header("--------Choice Panel--------")]
+    public Transform panelChoice;
     public int choiceID1 = 0;
     public int choiceID2 = 0;
     public Vector3 choice1Pos;
     public Vector3 choice2Pos;
-    public Transform panelChoice;
+
+    [Header("--------Progress Panel--------")]
+    public GameObject PanelProgress;
+    public Text puzzleHeader;
+    public Text movesNumber;
+    public Text timeNumber;
+
+
+    [Header("--------Misc--------")]
+
+    
     public bool bVal = true;
     private bool ansSelected = false;
 
-    public List<ChoiceClickButton> BtnChoices1;
+ //   public List<ChoiceClickButton> BtnChoices1;
 
 
     public GameControllerPuzzle03 GCP03;
-    public GameObject PanelAnswer;
-    public GameObject PanelInstruction;
-    public GameObject PanelFeedback;
+    
+    
+    
+    
 
     private void Start()
     {
@@ -43,6 +66,11 @@ public class Puzzle03Window : WindowRoot
         GCP03 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle03>();
         GCP03.InitGameController(this);
 
+        puzzleHeader.text = "Stage 3 - Level " + GCP03.Difficulty.ToString();
+        timeNumber.text = "";
+        movesNumber.text = "0";
+
+        ShowChoicePanel(false);
         ClearSpanValues("", "");
         SwapFeedbackPanel();
     }
@@ -223,10 +251,13 @@ public class Puzzle03Window : WindowRoot
 
         if (status)
         {
+            SetActive(panelChoice, true);
             panelChoiceAni.Play("ChoiceShow");
             PanelAnswer.SetActive(true);
             PanelInstruction.SetActive(true);
             PanelFeedback.SetActive(true);
+            PanelProgress.SetActive(true);
+            
         }
         else
         {
@@ -234,6 +265,8 @@ public class Puzzle03Window : WindowRoot
             PanelAnswer.SetActive(false);
             PanelInstruction.SetActive(false);
             PanelFeedback.SetActive(false);
+            PanelProgress.SetActive(false);
+            SetActive(panelChoice, false);
         }
     }
 
@@ -258,5 +291,15 @@ public class Puzzle03Window : WindowRoot
     public void SetInstructionalText(string content)
     {
         txtInstruction.text = content;
+    }
+
+    public void SetTime(string val)
+    {
+        timeNumber.text = val;
+    }
+
+    public void SetMoves(int val)
+    {
+        movesNumber.text = val.ToString();
     }
 }

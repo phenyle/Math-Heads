@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d47500a8f005f364c989b60cb1f8fb81, type: 3}
-  m_Name: Puzzle04-1_02
+  m_Name: Puzzle03-2_00
   m_EditorClassIdentifier: 
   dialogues:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
-    - Hey, you're out of the cave!
-    - Did you know you can rotate and zoom around the puzzle to get a better view?
-    - Right-click and hold to drag the background to rotate.  Use the mousewheel
-      to zoom in/out.
-    - You can also use the keyboard to control the camera.  Check the pause menu
-      (by pressing ESC) for extra puzzle controls.
+    - There's the second thief!
+    - This puzzle operates the same as the last, it's just a bit bigger.
+    - Did you know, each time you try this puzzle it might start differently?  It
+      does!  Test yourself by trying again and again.

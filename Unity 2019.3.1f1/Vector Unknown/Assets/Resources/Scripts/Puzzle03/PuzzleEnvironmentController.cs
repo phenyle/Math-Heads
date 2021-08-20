@@ -18,10 +18,10 @@ public class PuzzleEnvironmentController : MonoBehaviour
     {
         if(isPlay)
         {
-            //if(audioSource.clip == null)
-            //{
-            //    audioSource.clip = GameRoot.instance.audioService.GetFXAudioClip(Constants.audioP03RotatedPuzzleEnvironment);
-            //}
+            if(audioSource.clip == null)
+            {
+                audioSource.clip = GameRoot.instance.audioService.GetFXAudioClip(Constants.audioP03RotatedPuzzleEnvironment);
+            }
 
             audioSource.loop = true;
             audioSource.Play();

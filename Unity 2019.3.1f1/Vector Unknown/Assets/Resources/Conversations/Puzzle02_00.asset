@@ -15,9 +15,7 @@ MonoBehaviour:
   dialogues:
   - character: {fileID: 11400000, guid: aa5ca46dd3ebae0429769c09e7af7719, type: 2}
     sentences:
-    - "Oh no, some pirates are out fishing. The last thing we need is for them to
-      get in our way.\r"
-    - You need to man those cannons and take those pirates out by destroying their
-      ships.
+    - "Those are the pirates that stole all your cannons!.\r"
+    - use these cannons and take those pirates out by destroying their ships.
     - "Choose a cannon. Then choose a cannon ball with a matrix that will act as
       a transformation matrix to the cannon\u2019s matrix.\r"

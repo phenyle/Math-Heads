@@ -379,51 +379,59 @@ public class GameControllerPuzzle04 : GameControllerRoot
     /// <param name="puzzle"></param>
     public void SaveLocalPuzzleData(Puzzle04Controller puzzle)
     {
-        int index = -1;
+        int index;
 
         index = puzzleDatas.IndexOf(puzzle);
-        puzzle.puzzleData.obsID = index + 1;
 
         switch (Difficulty)
         {
             case 1:
-                switch (index)
+                switch (puzzle.puzzleID)
                 {
                     case 1:
                         GameRoot.player.p4_1.obs1_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_1.obs1 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_1.obs1 = puzzle.puzzleData;
+                        GameRoot.player.p4_1.obs1_attempts = puzzle.attemptsList;
                         break;
                     case 2:
                         GameRoot.player.p4_1.obs2_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_1.obs2 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_1.obs2 = puzzle.puzzleData;
+                        GameRoot.player.p4_1.obs2_attempts = puzzle.attemptsList;
                         break;
                     case 3:
                         GameRoot.player.p4_1.obs3_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_1.obs3= puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_1.obs3 = puzzle.puzzleData;
+                        GameRoot.player.p4_1.obs3_attempts = puzzle.attemptsList;
                         break;
                     case 4:
                         GameRoot.player.p4_1.obs4_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_1.obs4 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_1.obs4 = puzzle.puzzleData;
+                        GameRoot.player.p4_1.obs4_attempts = puzzle.attemptsList;
                         break;
                     case 5:
                         GameRoot.player.p4_1.obs5_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_1.obs5 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_1.obs5 = puzzle.puzzleData;
+                        GameRoot.player.p4_1.obs5_attempts = puzzle.attemptsList;
                         break;
                     case 6:
                         GameRoot.player.p4_1.obs6_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_1.obs6 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_1.obs6 = puzzle.puzzleData;
+                        GameRoot.player.p4_1.obs6_attempts = puzzle.attemptsList;
                         break;
                     case 7:
                         GameRoot.player.p4_1.obs7_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_1.obs7 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_1.obs7 = puzzle.puzzleData;
+                        GameRoot.player.p4_1.obs7_attempts = puzzle.attemptsList;
                         break;
                     case 8:
                         GameRoot.player.p4_1.obs8_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_1.obs8 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_1.obs8 = puzzle.puzzleData;
+                        GameRoot.player.p4_1.obs8_attempts = puzzle.attemptsList;
                         break;
                     case 9:
                         GameRoot.player.p4_1.obs9_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_1.obs9 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_1.obs9 = puzzle.puzzleData;
+                        GameRoot.player.p4_1.obs9_attempts = puzzle.attemptsList;
                         break;
 
                 }
@@ -435,37 +443,44 @@ public class GameControllerPuzzle04 : GameControllerRoot
                 {
                     case 1:
                         GameRoot.player.p4_2.obs1_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_2.obs1 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_2.obs1 = puzzle.puzzleData;
+                        GameRoot.player.p4_2.obs1_attempts = puzzle.attemptsList;
                         break;
                     case 2:
                         GameRoot.player.p4_2.obs2_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_2.obs2 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_2.obs2 = puzzle.puzzleData;
+                        GameRoot.player.p4_2.obs2_attempts = puzzle.attemptsList;
                         break;
                     case 3:
                         GameRoot.player.p4_2.obs3_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_2.obs3 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_2.obs3 = puzzle.puzzleData;
+                        GameRoot.player.p4_2.obs3_attempts = puzzle.attemptsList;
                         break;
                     case 4:
                         GameRoot.player.p4_2.obs4_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_2.obs4 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_2.obs4 = puzzle.puzzleData;
+                        GameRoot.player.p4_2.obs4_attempts = puzzle.attemptsList;
                         break;
                     case 5:
                         GameRoot.player.p4_2.obs5_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_2.obs5 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_2.obs5 = puzzle.puzzleData;
+                        GameRoot.player.p4_2.obs5_attempts = puzzle.attemptsList;
                         break;
                     case 6:
                         GameRoot.player.p4_2.obs6_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_2.obs6 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_2.obs6 = puzzle.puzzleData;
+                        GameRoot.player.p4_2.obs6_attempts = puzzle.attemptsList;
                         break;
                     case 7:
                         GameRoot.player.p4_2.obs7_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_2.obs7 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_2.obs7 = puzzle.puzzleData;
+                        GameRoot.player.p4_2.obs7_attempts = puzzle.attemptsList;
                         break;
                     case 8:
                         GameRoot.player.p4_2.obs8_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_2.obs8 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_2.obs8 = puzzle.puzzleData;
+                        GameRoot.player.p4_2.obs8_attempts = puzzle.attemptsList;
                         break;
-
                 }
                 break;
 
@@ -475,23 +490,28 @@ public class GameControllerPuzzle04 : GameControllerRoot
                 {
                     case 1:
                         GameRoot.player.p4_3.obs1_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_3.obs1 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_3.obs1 = puzzle.puzzleData;
+                        GameRoot.player.p4_3.obs1_attempts = puzzle.attemptsList;
                         break;
                     case 2:
                         GameRoot.player.p4_3.obs2_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_3.obs2 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_3.obs2 = puzzle.puzzleData;
+                        GameRoot.player.p4_3.obs2_attempts = puzzle.attemptsList;
                         break;
                     case 3:
                         GameRoot.player.p4_3.obs3_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_3.obs3 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_3.obs3 = puzzle.puzzleData;
+                        GameRoot.player.p4_3.obs3_attempts = puzzle.attemptsList;
                         break;
                     case 4:
                         GameRoot.player.p4_3.obs4_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_3.obs4 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_3.obs4 = puzzle.puzzleData;
+                        GameRoot.player.p4_3.obs4_attempts = puzzle.attemptsList;
                         break;
                     case 5:
                         GameRoot.player.p4_3.obs5_time = puzzle.puzzleData.obsTime;
-                        GameRoot.player.p4_3.obs5 = puzzleDatas[index].puzzleData;
+                        GameRoot.player.p4_3.obs5 = puzzle.puzzleData;
+                        GameRoot.player.p4_3.obs5_attempts = puzzle.attemptsList;
                         break;
                 }
                 break;

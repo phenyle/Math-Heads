@@ -22,5 +22,6 @@ MonoBehaviour:
     - You can retrieve your ship parts still by scaling across the gaps.
     - These islands and cliffs are farily easy to cross.  They're only in the X or
       Z directions.
+    - It's as easy as doing simple mulitplication and addition!
     - Find the combinations of 2 vectors and adjust their scalars to aim the grapple
       gun at the goal.

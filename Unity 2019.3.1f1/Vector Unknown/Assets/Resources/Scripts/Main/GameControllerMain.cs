@@ -303,16 +303,29 @@ public class GameControllerMain : GameControllerRoot
 
         //Puzzle 3-----------
         //legacy puzzle checks:
-        if (GameRoot.player.users.p3_1clear_time != 0.0f)
+        if (GameRoot.player.users.p3_1clear_time != 0.0f ||
+            GameRoot.player.users.p3_2clear_time != 0.0f ||
+            GameRoot.player.users.p3_3clear_time != 0.0f)
             GameRoot.instance.puzzleCompleted[2] = true;
         else
             GameRoot.instance.puzzleCompleted[2] = false;
+
 
         //new puzzle checks:
         if (GameRoot.player.users.p3_1clear_time != 0.0f)
             GameRoot.instance.puzzlesDone[3][1] = true;
         else
             GameRoot.instance.puzzlesDone[3][1] = false;
+
+        if (GameRoot.player.users.p3_2clear_time != 0.0f)
+            GameRoot.instance.puzzlesDone[3][2] = true;
+        else
+            GameRoot.instance.puzzlesDone[3][2] = false;
+
+        if (GameRoot.player.users.p3_3clear_time != 0.0f)
+            GameRoot.instance.puzzlesDone[3][3] = true;
+        else
+            GameRoot.instance.puzzlesDone[3][3] = false;
 
         //Puzzle 4-----------
         //legacy puzzle checks:

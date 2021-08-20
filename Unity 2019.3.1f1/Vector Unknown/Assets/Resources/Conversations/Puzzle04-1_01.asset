@@ -18,6 +18,6 @@ MonoBehaviour:
     - Solve the puzzle by dragging the cards on the right to the bottom.
     - Adjust the scalars by dragging the sliders below the answer cards or use the
       keyboard.
-    - For the keyboard press 1 or 2 to adjust scalar 1.  Press 3 or 4 to adjust scalar
-      2.
+    - For the keyboard press 1 or 2 to adjust scalar one.  Press 3 or 4 to adjust
+      scalar two.
     - Find a combination of vectors and scalars that equal the goal on the top right.

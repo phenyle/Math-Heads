@@ -60,13 +60,19 @@ namespace GoogleSheetsForUnity
                     case 4: //p3-1
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p3_1);
                         break;
-                    case 5: //p4-1
+                    case 5: //p3-2
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p3_2);
+                        break;
+                    case 6: //p3-3
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p3_3);
+                        break;
+                    case 7: //p4-1
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p4_1);
                         break;
-                    case 6: //p4-2
+                    case 8: //p4-2
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p4_2);
                         break;
-                    case 7: //p4-3
+                    case 9: //p4-3
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p4_3);
                         break;
                 }
@@ -102,13 +108,19 @@ namespace GoogleSheetsForUnity
                     case 4: //p3-1
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p3_1);
                         break;
-                    case 5: //p4-1
+                    case 5: //p3-2
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p3_2);
+                        break;
+                    case 6: //p3-3
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p3_3);
+                        break;
+                    case 7: //p4-1
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p4_1);
                         break;
-                    case 6: //p4-2
+                    case 8: //p4-2
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p4_2);
                         break;
-                    case 7: //p4-3
+                    case 9: //p4-3
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p4_3);
                         break;
                 }
@@ -234,6 +246,32 @@ namespace GoogleSheetsForUnity
                             Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
                         }
                         GameRoot.player.p3_1 = tmp_player.p3_1;
+                        break;
+
+                    case "p3-2":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P3_2[] tmp_p3_2 = JsonHelper.ArrayFromJson<PlayerData.tbl_P3_2>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p3_2.Length; i++)
+                        {
+                            tmp_player.p3_2 = tmp_p3_2[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p3_2 = tmp_player.p3_2;
+                        break;
+
+                    case "p3-3":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P3_3[] tmp_p3_3 = JsonHelper.ArrayFromJson<PlayerData.tbl_P3_3>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p3_3.Length; i++)
+                        {
+                            tmp_player.p3_3 = tmp_p3_3[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p3_3 = tmp_player.p3_3;
                         break;
 
                     case "p4-1":

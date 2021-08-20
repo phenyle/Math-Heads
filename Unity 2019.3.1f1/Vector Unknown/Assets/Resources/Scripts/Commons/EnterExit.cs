@@ -21,7 +21,9 @@ public enum PuzzleComplete
     Puzzle01Complete,
     Puzzle02_1Complete,
     Puzzle02_2Complete,
-    Puzzle03Complete,
+    Puzzle03_1Complete,
+    Puzzle03_2Complete,
+    Puzzle03_3Complete,
     Puzzle04_1Complete,
     Puzzle04_2Complete,
     Puzzle04_3Complete
@@ -63,7 +65,9 @@ public class EnterExit : MonoBehaviour
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName ||
                                 SceneManager.GetActiveScene().name == Constants.puzzle02_2SceneName)
                         GameRoot.instance.exitPuzzle = 2;
-                    else if (SceneManager.GetActiveScene().name == Constants.puzzle03SceneName)
+                    else if (SceneManager.GetActiveScene().name == Constants.puzzle03_1SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle03_2SceneName ||
+                                SceneManager.GetActiveScene().name == Constants.puzzle03_3SceneName)
                         GameRoot.instance.exitPuzzle = 3;
                     else if (SceneManager.GetActiveScene().name == Constants.puzzle04_1SceneName ||
                                 SceneManager.GetActiveScene().name == Constants.puzzle04_2SceneName ||
@@ -100,8 +104,7 @@ public class EnterExit : MonoBehaviour
             switch(puzzleComplete)
             {
                 case PuzzleComplete.Puzzle01Complete:
-                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle01>().RecordData();
-                    GameRoot.GSFU.UpdatePlayer(false);
+
                     GameRoot.instance.prevStage = 1;
                     GameRoot.instance.prevLevel = 1;
 
@@ -111,11 +114,13 @@ public class EnterExit : MonoBehaviour
                     GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
 
                     GameRoot.instance.puzzleCompleted[0] = true;
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle01>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
+
                     break;
 
                 case PuzzleComplete.Puzzle02_1Complete:
-                    GameObject.Find("GameController_Puzzle02_01").GetComponent<GameControllerPuzzle02>().RecordData();
-                    GameRoot.GSFU.UpdatePlayer(false);
+
                     GameRoot.instance.prevStage = 2;
                     GameRoot.instance.prevLevel = 1;
 
@@ -125,11 +130,13 @@ public class EnterExit : MonoBehaviour
                     GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
 
                     GameRoot.instance.puzzleCompleted[1] = true;
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle02>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
+
                     break;
 
                 case PuzzleComplete.Puzzle02_2Complete:
-                    GameObject.Find("GameController_Puzzle02_02").GetComponent<GameControllerPuzzle02>().RecordData();
-                    GameRoot.GSFU.UpdatePlayer(false);
+
 
                     GameRoot.instance.prevStage = 2;
                     GameRoot.instance.prevLevel = 2;
@@ -140,11 +147,12 @@ public class EnterExit : MonoBehaviour
                     GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
 
                     GameRoot.instance.puzzleCompleted[1] = true;
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle02>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
+
                     break;
 
-                case PuzzleComplete.Puzzle03Complete:
-                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle03>().RecordData();
-                    GameRoot.GSFU.UpdatePlayer(false);
+                case PuzzleComplete.Puzzle03_1Complete:
 
                     GameRoot.instance.prevStage = 3;
                     GameRoot.instance.prevLevel = 1;
@@ -155,6 +163,41 @@ public class EnterExit : MonoBehaviour
                     GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
 
                     GameRoot.instance.puzzleCompleted[2] = true;
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle03>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
+
+                    break;
+
+                case PuzzleComplete.Puzzle03_2Complete:
+
+                    GameRoot.instance.prevStage = 3;
+                    GameRoot.instance.prevLevel = 2;
+
+                    if (!GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel])
+                        GameRoot.instance.firstCompletion = true;
+
+                    GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
+
+                    GameRoot.instance.puzzleCompleted[2] = true;
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle03>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
+
+                    break;
+
+                case PuzzleComplete.Puzzle03_3Complete:
+
+                    GameRoot.instance.prevStage = 3;
+                    GameRoot.instance.prevLevel = 3;
+
+                    if (!GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel])
+                        GameRoot.instance.firstCompletion = true;
+
+                    GameRoot.instance.puzzlesDone[GameRoot.instance.prevStage][GameRoot.instance.prevLevel] = true;
+
+                    GameRoot.instance.puzzleCompleted[2] = true;
+                    GameObject.Find("GameController").GetComponent<GameControllerPuzzle03>().RecordData();
+                    GameRoot.GSFU.UpdatePlayer(false);
+
                     break;
 
                 case PuzzleComplete.Puzzle04_1Complete:

@@ -22,7 +22,8 @@ public class ObjectGlide : MonoBehaviour
     public float objectRotateSpeed = 0.07f;
     [Range(0.0f, 50.0f)]
     public float arcHeight = 0.0f;
-
+    private Vector3 arcTargetPos = Vector3.zero;
+    private float startDistanceXY = 0.0f;
 
 
     void Awake()
@@ -35,8 +36,12 @@ public class ObjectGlide : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        glideObject.transform.position = Vector3.MoveTowards(glideObject.transform.position, destinationPos.transform.position, objectMoveSpeed);
-  //      glideObject.transform.position += new Vector3(0, CalcArcHeight(), 0);
+        if(arcHeight != 0)
+            glideObject.transform.position = Vector3.MoveTowards(glideObject.transform.position, destinationPos.transform.position + CalcArcHeight(), objectMoveSpeed);
+        else
+            glideObject.transform.position = Vector3.MoveTowards(glideObject.transform.position, destinationPos.transform.position, objectMoveSpeed);
+
+        //      glideObject.transform.position += new Vector3(0, CalcArcHeight(), 0);
         glideObject.transform.rotation = Quaternion.Slerp(glideObject.transform.rotation, Quaternion.LookRotation((targetPos.transform.position - glideObject.transform.position).normalized), objectRotateSpeed);
 
         if ((glideObject.transform.position - destinationPos.transform.position).magnitude < 0.2f)
@@ -53,6 +58,8 @@ public class ObjectGlide : MonoBehaviour
         SetDestinationPos(newDestination);
         SetTargetPos(target);
         SetStartPos(newStartPos);
+        arcHeight = 0.0f;
+        startDistanceXY = (new Vector2(startPos.x, startPos.z) - new Vector2(destinationPos.transform.position.x, destinationPos.transform.position.z)).magnitude;
         halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
 
         reachedDestination = false;
@@ -64,7 +71,9 @@ public class ObjectGlide : MonoBehaviour
         SetDestinationPos(newDestionation);
         SetTargetPos(target);
         SetStartPos(newStartPos);
+        startDistanceXY = (new Vector2(startPos.x, startPos.z) - new Vector2(destinationPos.transform.position.x, destinationPos.transform.position.z)).magnitude;
         arcHeight = arc;
+        arcTargetPos = new Vector3(0, arcHeight, 0);
         halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
 
         reachedDestination = false;
@@ -78,7 +87,8 @@ public class ObjectGlide : MonoBehaviour
         SetDestinationPos(newDestination);
         SetTargetPos(target);
         SetStartPos(newStartPos);
-        
+        arcHeight = 0.0f;
+        startDistanceXY = (new Vector2(startPos.x, startPos.z) - new Vector2(destinationPos.transform.position.x, destinationPos.transform.position.z)).magnitude;
         halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
 
         reachedDestination = false;
@@ -92,7 +102,9 @@ public class ObjectGlide : MonoBehaviour
         SetDestinationPos(newDestionation);
         SetTargetPos(target);
         SetStartPos(newStartPos);
+        startDistanceXY = (new Vector2(startPos.x, startPos.z) - new Vector2(destinationPos.transform.position.x, destinationPos.transform.position.z)).magnitude;
         arcHeight = arc;
+        arcTargetPos = new Vector3(0, arcHeight, 0);
         halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
 
         reachedDestination = false;
@@ -105,6 +117,8 @@ public class ObjectGlide : MonoBehaviour
         SetDestinationPos(newDestination);
         SetTargetPos(target);
         SetStartPos(newStartPos);
+        arcHeight = 0.0f;
+        startDistanceXY = (new Vector2(startPos.x, startPos.z) - new Vector2(destinationPos.transform.position.x, destinationPos.transform.position.z)).magnitude;
         halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
 
         reachedDestination = false;
@@ -117,7 +131,9 @@ public class ObjectGlide : MonoBehaviour
         SetDestinationPos(newDestionation);
         SetTargetPos(target);
         SetStartPos(newStartPos);
+        startDistanceXY = (new Vector2(startPos.x, startPos.z) - new Vector2(destinationPos.transform.position.x, destinationPos.transform.position.z)).magnitude;
         arcHeight = arc;
+        arcTargetPos = new Vector3(0, arcHeight, 0);
         halfwayPoint = (new Vector3(destinationPos.transform.position.x, 0, destinationPos.transform.position.z) - new Vector3(startPos.x, 0, startPos.z)) / 2;
 
         reachedDestination = false;
@@ -185,25 +201,13 @@ public class ObjectGlide : MonoBehaviour
         return reachedDestination;
     }
 
-    private float CalcArcHeight()
+    private Vector3 CalcArcHeight()
     {
-        float prctHeight;
-        float disTravelMag = (glideObject.transform.position - startPos).magnitude;
-        float halfwayMag = halfwayPoint.magnitude;
-         
-        if(disTravelMag < halfwayMag)
-        {
-            prctHeight = disTravelMag / halfwayMag;
-        }
-        else
-        {
-            prctHeight = 1 - ((disTravelMag - halfwayMag) / halfwayMag);
-        }
+        float currDistanceXY = (new Vector2(glideObject.transform.position.x, glideObject.transform.position.z) - new Vector2(destinationPos.transform.position.x, destinationPos.transform.position.z)).magnitude;
+        float distTravelRemainPercent = (currDistanceXY / startDistanceXY);
+        arcTargetPos = new Vector3(0, arcHeight, 0) * distTravelRemainPercent;
 
-        if (prctHeight > 0.001)
-            return prctHeight * arcHeight;
-        else
-            return 0.0f;
+        return arcTargetPos;
     }
 
 }

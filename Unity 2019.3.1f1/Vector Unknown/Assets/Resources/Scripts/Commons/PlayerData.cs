@@ -11,7 +11,9 @@ public class PlayerData : MonoBehaviour
                     "p1-1", 
                     "p2-1", 
                     "p2-2", 
-                    "p3-1", 
+                    "p3-1",
+                    "p3-2",
+                    "p3-3",
                     "p4-1", 
                     "p4-2", 
                     "p4-3" };
@@ -77,16 +79,22 @@ public class PlayerData : MonoBehaviour
     public struct tbl_P3_1
     {
         public string username;
+        public GameControllerPuzzle03.obsData obs;
+        public string obs_movesList;
     }
     [System.Serializable]
     public struct tbl_P3_2
     {
         public string username;
+        public GameControllerPuzzle03.obsData obs;
+        public string obs_movesList;
     }
     [System.Serializable]
     public struct tbl_P3_3
     {
         public string username;
+        public GameControllerPuzzle03.obsData obs;
+        public string obs_movesList;
     }
     [System.Serializable]
     public struct tbl_P4_1
@@ -102,14 +110,23 @@ public class PlayerData : MonoBehaviour
         public float obs8_time;
         public float obs9_time;
         public Puzzle04Controller.obsData obs1;
+        public string obs1_attempts;
         public Puzzle04Controller.obsData obs2;
+        public string obs2_attempts;
         public Puzzle04Controller.obsData obs3;
+        public string obs3_attempts;
         public Puzzle04Controller.obsData obs4;
+        public string obs4_attempts;
         public Puzzle04Controller.obsData obs5;
+        public string obs5_attempts;
         public Puzzle04Controller.obsData obs6;
+        public string obs6_attempts;
         public Puzzle04Controller.obsData obs7;
+        public string obs7_attempts;
         public Puzzle04Controller.obsData obs8;
+        public string obs8_attempts;
         public Puzzle04Controller.obsData obs9;
+        public string obs9_attempts;
     }
     [System.Serializable]
     public struct tbl_P4_2
@@ -124,13 +141,21 @@ public class PlayerData : MonoBehaviour
         public float obs7_time;
         public float obs8_time;
         public Puzzle04Controller.obsData obs1;
+        public string obs1_attempts;
         public Puzzle04Controller.obsData obs2;
+        public string obs2_attempts;
         public Puzzle04Controller.obsData obs3;
+        public string obs3_attempts;
         public Puzzle04Controller.obsData obs4;
+        public string obs4_attempts;
         public Puzzle04Controller.obsData obs5;
+        public string obs5_attempts;
         public Puzzle04Controller.obsData obs6;
+        public string obs6_attempts;
         public Puzzle04Controller.obsData obs7;
+        public string obs7_attempts;
         public Puzzle04Controller.obsData obs8;
+        public string obs8_attempts;
     }
     [System.Serializable]
     public struct tbl_P4_3
@@ -142,13 +167,20 @@ public class PlayerData : MonoBehaviour
         public float obs4_time;
         public float obs5_time;
         public Puzzle04Controller.obsData obs1;
+        public string obs1_attempts;
         public Puzzle04Controller.obsData obs2;
+        public string obs2_attempts;
         public Puzzle04Controller.obsData obs3;
+        public string obs3_attempts;
         public Puzzle04Controller.obsData obs4;
+        public string obs4_attempts;
         public Puzzle04Controller.obsData obs5;
+        public string obs5_attempts;
 
     } 
 
+
+    //Player Data Items
     public tbl_Users users;
     public tbl_P1_1 p1_1;
     public tbl_P2_1 p2_1;
