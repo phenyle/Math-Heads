@@ -373,7 +373,7 @@ public class GameControllerPuzzle04 : GameControllerRoot
     /// the player completes the level, exits via pause->menu, or closes the game
     /// 
     /// This is good for making one consistent object but structs cannot be walked
-    /// through.  Unfortunately, GSFU can only parse Serializalble structs and arrays[],
+    /// through.  Unfortunately, GSFU can only parse Serializalble structs, so arrays[],
     /// Lists<>, etc aren't it
     /// </summary>
     /// <param name="puzzle"></param>
@@ -439,7 +439,7 @@ public class GameControllerPuzzle04 : GameControllerRoot
 
 
             case 2:
-                switch (index)
+                switch (puzzle.puzzleID)
                 {
                     case 1:
                         GameRoot.player.p4_2.obs1_time = puzzle.puzzleData.obsTime;
@@ -486,7 +486,7 @@ public class GameControllerPuzzle04 : GameControllerRoot
 
 
             case 3:
-                switch (index)
+                switch (puzzle.puzzleID)
                 {
                     case 1:
                         GameRoot.player.p4_3.obs1_time = puzzle.puzzleData.obsTime;
@@ -529,6 +529,10 @@ public class GameControllerPuzzle04 : GameControllerRoot
                 else if (tot_puzzleTime < GameRoot.player.users.p4_1clear_time)
                     GameRoot.player.users.p4_1clear_time = tot_puzzleTime;
 
+                GameRoot.player.users.p4_1attempts++;
+                GameRoot.player.p4_1.attemptNum = GameRoot.player.users.p4_1attempts;
+                GameRoot.player.p4_1.usernameAttempt = GameRoot.player.users.username + "." + GameRoot.player.users.p4_1attempts.ToString();
+
                 break;
 
             case 2:
@@ -537,6 +541,10 @@ public class GameControllerPuzzle04 : GameControllerRoot
                 else if (tot_puzzleTime < GameRoot.player.users.p4_2clear_time)
                     GameRoot.player.users.p4_2clear_time = tot_puzzleTime;
 
+                GameRoot.player.users.p4_2attempts++;
+                GameRoot.player.p4_2.attemptNum = GameRoot.player.users.p4_2attempts;
+                GameRoot.player.p4_2.usernameAttempt = GameRoot.player.users.username + "." + GameRoot.player.users.p4_2attempts.ToString();
+
                 break;
 
             case 3:
@@ -544,6 +552,10 @@ public class GameControllerPuzzle04 : GameControllerRoot
                     GameRoot.player.users.p4_3clear_time = tot_puzzleTime;
                 else if (tot_puzzleTime < GameRoot.player.users.p4_3clear_time)
                     GameRoot.player.users.p4_3clear_time = tot_puzzleTime;
+
+                GameRoot.player.users.p4_3attempts++;
+                GameRoot.player.p4_3.attemptNum = GameRoot.player.users.p4_3attempts;
+                GameRoot.player.p4_3.usernameAttempt = GameRoot.player.users.username + "." + GameRoot.player.users.p4_3attempts.ToString();
 
                 break;
         }

@@ -13993,7 +13993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: 0
-  puzzleComplete: 5
+  puzzleComplete: 8
 --- !u!65 &2918626235753252267
 BoxCollider:
   m_ObjectHideFlags: 0

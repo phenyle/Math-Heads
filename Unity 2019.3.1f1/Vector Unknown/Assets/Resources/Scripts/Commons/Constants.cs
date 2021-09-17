@@ -4,7 +4,7 @@ public class Constants
     //Game Settings
     public const int numOfStages = 4;
     public const int numLvlsStage1 = 1;
-    public const int numLvlsStage2 = 2;
+    public const int numLvlsStage2 = 3;
     public const int numLvlsStage3 = 3;
     public const int numLvlsStage4 = 3;
 

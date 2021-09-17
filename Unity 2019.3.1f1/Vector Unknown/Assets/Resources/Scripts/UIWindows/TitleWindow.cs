@@ -43,6 +43,9 @@ public class TitleWindow : WindowRoot
     public InputField na_pass1;
     public InputField na_pass2;
     public Dropdown na_education;
+    public Dropdown na_schools;
+    public InputField na_otherSchool;
+    private bool na_otherSel = false;
     public Transform panelNewUserName;
     public Text userNameText;
 
@@ -81,8 +84,10 @@ public class TitleWindow : WindowRoot
     private bool checkingConnection = false;
     private int query; //0: error, 1:loadingPlayer, 2:creatingAcct, 3:joiningSession
     private bool loadingPlayer = false;
+    private bool newAcctCheck = false;
     private bool creatingAcct = false;
     private bool joiningSession = false;
+    private List<string> schools;
     private int attemptNum = 0;
     private int connectionAttmpTimeout = 600;
 
@@ -103,7 +108,7 @@ public class TitleWindow : WindowRoot
         // show mouse
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
-
+        
 
         SetActive(panel_awaitServer, false);
 
@@ -112,6 +117,8 @@ public class TitleWindow : WindowRoot
         creatingAcct = false;
         joiningSession = false;
         attemptNum = 0;
+        SetActive(na_otherSchool.gameObject, false);
+        schools = new List<string>();
         tmp_player = new PlayerData();
 
         //admin stuff
@@ -168,22 +175,31 @@ public class TitleWindow : WindowRoot
                     case 1: //query type: Logging into Account
                         //call to database for "username" to find login name
                         panel_awaitServer.gameObject.GetComponent<AwaitingServerPopup>().SetStatus("Finding Player");
-                        GameRoot.GSFU.RetrievePlayerData("users", "username", lg_username.text);
+                        GameRoot.GSFU.RetrievePlayerData(PlayerData.sheets.users, "username", lg_username.text);
                         loadingPlayer = true;
                         break;
 
                     case 2: //query type: Creating a new Account
                             //call to database for "first.last" to check for duplicates
                         panel_awaitServer.gameObject.GetComponent<AwaitingServerPopup>().SetStatus("Creating Account");
-                        GameRoot.GSFU.RetrievePlayerData("users", "first_last", na_first.text + "." + na_last.text);
+                        GameRoot.GSFU.RetrievePlayerData(PlayerData.sheets.users, "first_last", na_first.text + "." + na_last.text);
                         creatingAcct = true;
                         break;
 
                     case 3: //query type: Joining Session
                         panel_awaitServer.gameObject.GetComponent<AwaitingServerPopup>().SetStatus("Finding Session");
 
-                        GameRoot.GSFU.RetrievePlayerData("users", "username", js_Name.text);
+                        GameRoot.GSFU.RetrievePlayerData(PlayerData.sheets.users, "username", js_Name.text);
                         joiningSession = true;
+                        break;
+                    case 4:
+                        SetActive(panel_awaitServer, false);
+
+                        NA_setSchools();
+                        LG_ClearLoginFields();
+
+                        SetActive(panelLogin, false);
+                        SetActive(panelNewAcct, true);
                         break;
                 }
             }
@@ -230,12 +246,16 @@ public class TitleWindow : WindowRoot
                     Debug.Log("LOGIN SUCCESFUL");
 
                     //load in other player settings
-                    for (int i = 1; i < GameRoot.player.sheetNames.Length; i++)
-                    {
-                        GameRoot.GSFU.RetrievePlayerData(GameRoot.player.sheetNames[i], "username", lg_username.text);
-                    }
 
-                    tmp_player.users.last_login = DateTime.Now.ToString();
+                    GameRoot.GSFU.RetrievePlayerData(PlayerData.sheets.users, "username", lg_username.text);
+    
+                    //for (int i = 1; i < GameRoot.player.sheetNames.Length; i++)
+                    //{
+                    //    GameRoot.GSFU.RetrievePlayerData(GameRoot.player.sheetNames[i], "username", lg_username.text);
+                    //}
+
+                    tmp_player.users.last_login = System.DateTime.Now.ToString();
+                    GameRoot.GSFU.UpdatePlayerTable(false, PlayerData.sheets.users, GameRoot.player.users.username);
                     LG_ClearLoginFields();
 
                     awaitServePop.SetStatus("");
@@ -320,10 +340,15 @@ public class TitleWindow : WindowRoot
 
                 userNameText.text = "<b>Your Username is:</b>\n" +
                                     "<size=28>" + tmp_player.users.username + "</size>";
+
+                if (na_otherSel)
+                    tmp_player.users.school = na_otherSchool.text;
+                else
+                    tmp_player.users.school = na_schools.captionText.text;
                 
                 SetActive(panelNewUserName, true);
 
-                tmp_player.users.last_login = DateTime.Now.ToString();
+                tmp_player.users.last_login = System.DateTime.Now.ToString();
 
                 GameRoot.player = tmp_player;
                 GameRoot.GSFU.SaveNewPlayer();
@@ -362,10 +387,15 @@ public class TitleWindow : WindowRoot
 
                     userNameText.text = "<b>Your Username is:</b>\n" +
                                         "<size=28>" + tmp_player.users.username + "</size>";
-                    
+
+                    if (na_otherSel)
+                        tmp_player.users.school = na_otherSchool.text;
+                    else
+                        tmp_player.users.school = na_schools.captionText.text;
+
                     SetActive(panelNewUserName, true);
 
-                    tmp_player.users.last_login = DateTime.Now.ToString();
+                    tmp_player.users.last_login = System.DateTime.Now.ToString();
 
                     GameRoot.player = tmp_player;
                     GameRoot.GSFU.SaveNewPlayer();
@@ -427,7 +457,7 @@ public class TitleWindow : WindowRoot
                     else
                         tmp_player.SetUserName(js_Name.text + hashID);
 
-                    tmp_player.users.last_login = DateTime.Now.ToString();
+                    tmp_player.users.last_login = System.DateTime.Now.ToString();
                     GameRoot.player = tmp_player;
                     GameRoot.GSFU.SaveNewPlayer();
 
@@ -469,9 +499,6 @@ public class TitleWindow : WindowRoot
 
     public void PlayGame()
     {
-
-
-
         //Reset puzzle complete status
         for (int i = 0; i < GameRoot.instance.puzzleCompleted.Length; i++)
         {
@@ -496,9 +523,11 @@ public class TitleWindow : WindowRoot
         //When the game is in the "Expo" state, clicking play automatically
         //enters the player in and just creates a new database entry according
         //to the expo name.
-        if(GameRoot.isExpo)
+        GameRoot.isTutortial = false;
+
+        if (GameRoot.isExpo)
         {
-            GameRoot.GSFU.RetrievePlayerData("users", "username", GameRoot.expoName);
+            GameRoot.GSFU.RetrievePlayerData(PlayerData.sheets.users, "username", GameRoot.expoName);
             joiningSession = true;
         }
         else
@@ -510,6 +539,7 @@ public class TitleWindow : WindowRoot
 
     public void ClickTutorialBtn()
     {
+        GameRoot.isTutortial = true;
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
         GameRoot.instance.puzzleSystem.EnterPuzzle(Constants.tutorialSceneName);
     }
@@ -595,10 +625,18 @@ public class TitleWindow : WindowRoot
     {
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
 
+    //    NA_setSchools();
         LG_ClearLoginFields();
 
         SetActive(panelLogin, false);
         SetActive(panelNewAcct, true);
+
+        //SetActive(panel_awaitServer, true);
+        //awaitServePop.SetStatus("Checking Connection");
+
+        //query = 4;
+        //checkingConnection = true;
+        //GameRoot.GSFU.VerifyDatabaseConnection();  
     }
 
     public void LG_ClickLoginBtn()
@@ -644,20 +682,32 @@ public class TitleWindow : WindowRoot
             }
             else
             {
-                if(na_pass1.text.Length < 8 || na_pass2.text.Length < 8)
+                if (na_pass1.text.Length < 8 || na_pass2.text.Length < 8)
                 {
                     errorText.text = "Password must be at least 8 characters long";
                     SetActive(panelError, true);
                 }
                 else
                 {
-                    SetActive(panel_awaitServer, true);
-                    awaitServePop.SetStatus("Checking Connection");
+                    if (na_schools.value == 0)
+                    {
+                        errorText.text = "You must select a school";
+                        SetActive(panelError, true);
+                    }
+                    else if (na_otherSel && na_otherSchool.text.CompareTo("") == 0)
+                    {
+                        errorText.text = "You must enter in your other school's name";
+                        SetActive(panelError, true);
+                    }
+                    else {
+                        SetActive(panel_awaitServer, true);
+                        awaitServePop.SetStatus("Checking Connection");
 
-                    na_login.enabled = false; //disable button so player can't spam click login and overload database with login requests
-                    query = 2;
-                    checkingConnection = true;
-                    GameRoot.GSFU.VerifyDatabaseConnection();
+                        na_login.enabled = false; //disable button so player can't spam click login and overload database with login requests
+                        query = 2;
+                        checkingConnection = true;
+                        GameRoot.GSFU.VerifyDatabaseConnection();
+                    }
                 }
             }
         }
@@ -668,6 +718,8 @@ public class TitleWindow : WindowRoot
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
 
         NA_ClearNewAcctFields();
+
+        newAcctCheck = true;
 
         SetActive(panelNewAcct, false);
         SetActive(panelLogin, true);
@@ -693,6 +745,22 @@ public class TitleWindow : WindowRoot
         na_pass1.text = "";
         na_pass2.text = "";
         na_education.value = 0;
+    }
+
+    public void NA_SchoolChanged()
+    {
+        //Option selected is "Other"
+        if(na_schools.captionText.text.CompareTo("Other") == 0)
+            na_otherSel = true;
+        else
+            na_otherSel = false;
+
+        SetActive(na_otherSchool.gameObject, na_otherSel);
+    }
+
+    private void NA_setSchools()
+    {
+
     }
 
     private string ComputeHash(byte[] bytesToHash, byte[] salt)

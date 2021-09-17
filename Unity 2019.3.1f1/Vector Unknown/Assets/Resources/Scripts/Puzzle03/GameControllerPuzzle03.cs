@@ -605,6 +605,10 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
                 GameRoot.player.p3_1.obs = puzzleData;
                 GameRoot.player.p3_1.obs_movesList = movesList;
+
+                GameRoot.player.users.p3_1attempts++;
+                GameRoot.player.p3_1.attemptNum = GameRoot.player.users.p3_1attempts;
+                GameRoot.player.p3_1.usernameAttempt = GameRoot.player.users.username + "." + GameRoot.player.users.p3_1attempts.ToString();
                 break;
 
             case 2:
@@ -615,6 +619,10 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
                 GameRoot.player.p3_2.obs = puzzleData;
                 GameRoot.player.p3_2.obs_movesList = movesList;
+
+                GameRoot.player.users.p3_2attempts++;
+                GameRoot.player.p3_2.attemptNum = GameRoot.player.users.p3_2attempts;
+                GameRoot.player.p3_2.usernameAttempt = GameRoot.player.users.username + "." + GameRoot.player.users.p3_2attempts.ToString();
                 break;
 
             case 3:
@@ -625,6 +633,10 @@ public class GameControllerPuzzle03 : GameControllerRoot
 
                 GameRoot.player.p3_3.obs = puzzleData;
                 GameRoot.player.p3_3.obs_movesList = movesList;
+
+                GameRoot.player.users.p3_3attempts++;
+                GameRoot.player.p3_3.attemptNum = GameRoot.player.users.p3_3attempts;
+                GameRoot.player.p3_3.usernameAttempt = GameRoot.player.users.username + "." + GameRoot.player.users.p3_3attempts.ToString();
                 break;
 
         }

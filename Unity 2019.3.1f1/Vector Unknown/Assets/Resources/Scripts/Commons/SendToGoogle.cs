@@ -11,10 +11,14 @@ namespace GoogleSheetsForUnity
 
         public bool retrieved { get; set; }
 
+        public static string cellval { get; set; }
+
+        public static List<List<string>> tableVals = new List<List<string>>();
+
         //SearchValues
-        private string searchTable;
-        private string searchColumn;
-        private string searchPlayer;
+        private static string searchTable;
+        private static string searchColumn;
+        private static string searchPlayer;
 
         private void Start()
         {
@@ -37,9 +41,13 @@ namespace GoogleSheetsForUnity
         public void SaveNewPlayer()
         {
             tmp_player = GameRoot.player;
+            string jsonPlayer = JsonUtility.ToJson(tmp_player.users);
 
-            string jsonPlayer = "";
+            Debug.Log("<color=yellow>Creating the following player table: " + PlayerData.sheets.users.ToString() + "\n</color>" + jsonPlayer);
+
+            Drive.CreateObject(jsonPlayer, PlayerData.sheets.users.ToString());
             // Get the json string of the object.
+            /**
             for (int i = 0; i < tmp_player.sheetNames.Length; i++)
             {
                 jsonPlayer = "";
@@ -80,17 +88,72 @@ namespace GoogleSheetsForUnity
 
                 Drive.CreateObject(jsonPlayer, tmp_player.sheetNames[i], true);
             }
+            **/
         }
 
-        public void UpdatePlayer(bool create)
+        public void UpdatePlayerTable(bool create, PlayerData.sheets sheetname, string searchName)
         {
             tmp_player = GameRoot.player;
 
             string jsonPlayer = "";
+            string columnName = "usernameAttempt";
+
+            switch (sheetname)
+            {
+                case PlayerData.sheets.users:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.users);
+                    columnName = "username";
+                    break;
+                case PlayerData.sheets.p1_1:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p1_1);
+                    break;
+                case PlayerData.sheets.p2_1:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p2_1);
+                    break;
+                case PlayerData.sheets.p2_2:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p2_2);
+                    break;
+                case PlayerData.sheets.p2_3:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p2_3);
+                    break;
+                case PlayerData.sheets.p3_1:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p3_1);
+                    break;
+                case PlayerData.sheets.p3_2:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p3_2);
+                    break;
+                case PlayerData.sheets.p3_3:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p3_3);
+                    break;
+                case PlayerData.sheets.p4_1:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p4_1);
+                    break;
+                case PlayerData.sheets.p4_2:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p4_2);
+                    break;
+                case PlayerData.sheets.p4_3:
+                    jsonPlayer = JsonUtility.ToJson(tmp_player.p4_3);
+                    break;
+            }
+            Debug.Log("<color=yellow>Sending following player table: " + sheetname.ToString() + "\n</color>" + jsonPlayer);
+
+            // Look in the 'PlayerInfo' table, for an object of name as specified, and overwrite with the current obj data.
+            Drive.UpdateObjects(sheetname.ToString(), columnName, searchName, jsonPlayer, create, true);
+        }
+
+        public void UpdatePlayerAll(bool create)
+        {
+            tmp_player = GameRoot.player;
+            PlayerData.sheets sheetName;
+            int length = System.Enum.GetNames(typeof(PlayerData.sheets)).Length;
+
+            string jsonPlayer = "";
             // Get the json string of the object.
-            for (int i = 0; i < tmp_player.sheetNames.Length; i++)
+            for (int i = 0; i < length; i++)
             {
                 jsonPlayer = "";
+                sheetName = (PlayerData.sheets)i;
+
                 switch (i)
                 {
                     case 0: //users
@@ -105,36 +168,55 @@ namespace GoogleSheetsForUnity
                     case 3: //p2-2
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p2_2);
                         break;
-                    case 4: //p3-1
+                    case 4: //p2-3
+                        jsonPlayer = JsonUtility.ToJson(tmp_player.p2_3);
+                        break;
+                    case 5: //p3-1
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p3_1);
                         break;
-                    case 5: //p3-2
+                    case 6: //p3-2
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p3_2);
                         break;
-                    case 6: //p3-3
+                    case 7: //p3-3
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p3_3);
                         break;
-                    case 7: //p4-1
+                    case 8: //p4-1
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p4_1);
                         break;
-                    case 8: //p4-2
+                    case 9: //p4-2
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p4_2);
                         break;
-                    case 9: //p4-3
+                    case 10: //p4-3
                         jsonPlayer = JsonUtility.ToJson(tmp_player.p4_3);
                         break;
                 }
                 Debug.Log("<color=yellow>Sending following player table: " + tmp_player.sheetNames[i] + "\n</color>" + jsonPlayer);
 
                 // Look in the 'PlayerInfo' table, for an object of name as specified, and overwrite with the current obj data.
-                Drive.UpdateObjects(tmp_player.sheetNames[i], "username", tmp_player.users.username, jsonPlayer, create, true);
+                Drive.UpdateObjects(sheetName.ToString(), "username", tmp_player.users.username, jsonPlayer, create, true);
             }
         }
 
-        public void RetrievePlayerData(string tableName, string columnName, string playerName)
+
+
+        public void RetrieveCellData(string tableName, string column, string row) 
+        {
+            retrieved = false;
+            Drive.GetCellValue(tableName, column, row, true);
+        }
+
+        public void GetTable(string tableName)
+        {
+            retrieved = false;
+            searchTable = tableName;
+            Drive.GetTable(tableName, true);
+        }
+
+
+        public void RetrievePlayerData(PlayerData.sheets tableName, string columnName, string playerName)
         {
             retrieved = false; //when first calling retrieve, reset trigger
-            searchTable = tableName;
+            searchTable = tableName.ToString();
             searchColumn = columnName;
             searchPlayer = playerName;
 
@@ -196,7 +278,7 @@ namespace GoogleSheetsForUnity
                         GameRoot.player.users = tmp_player.users;
                         break;
 
-                    case "p1-1":
+                    case "p1_1":
                         // Parse from json to the desired object type.
                         PlayerData.tbl_P1_1[] tmp_p1_1 = JsonHelper.ArrayFromJson<PlayerData.tbl_P1_1>(rawJSon);
 
@@ -209,7 +291,7 @@ namespace GoogleSheetsForUnity
                         GameRoot.player.p1_1 = tmp_player.p1_1;
                         break;
 
-                    case "p2-1":
+                    case "p2_1":
                         // Parse from json to the desired object type.
                         PlayerData.tbl_P2_1[] tmp_p2_1 = JsonHelper.ArrayFromJson<PlayerData.tbl_P2_1>(rawJSon);
 
@@ -222,7 +304,7 @@ namespace GoogleSheetsForUnity
                         GameRoot.player.p2_1 = tmp_player.p2_1;
                         break;
 
-                    case "p2-2":
+                    case "p2_2":
                         // Parse from json to the desired object type.
                         PlayerData.tbl_P2_2[] tmp_p2_2 = JsonHelper.ArrayFromJson<PlayerData.tbl_P2_2>(rawJSon);
 
@@ -235,7 +317,20 @@ namespace GoogleSheetsForUnity
                         GameRoot.player.p2_2 = tmp_player.p2_2;
                         break;
 
-                    case "p3-1":
+                    case "p2_3":
+                        // Parse from json to the desired object type.
+                        PlayerData.tbl_P2_3[] tmp_p2_3 = JsonHelper.ArrayFromJson<PlayerData.tbl_P2_3>(rawJSon);
+
+                        //Retrieve returns the LAST match in the column
+                        for (int i = 0; i < tmp_p2_3.Length; i++)
+                        {
+                            tmp_player.p2_3 = tmp_p2_3[i];
+                            Debug.Log("<color=yellow>Object retrieved from the cloud and parsed: \n</color>");
+                        }
+                        GameRoot.player.p2_3 = tmp_player.p2_3;
+                        break;
+
+                    case "p3_1":
                         // Parse from json to the desired object type.
                         PlayerData.tbl_P3_1[] tmp_p3_1 = JsonHelper.ArrayFromJson<PlayerData.tbl_P3_1>(rawJSon);
 
@@ -248,7 +343,7 @@ namespace GoogleSheetsForUnity
                         GameRoot.player.p3_1 = tmp_player.p3_1;
                         break;
 
-                    case "p3-2":
+                    case "p3_2":
                         // Parse from json to the desired object type.
                         PlayerData.tbl_P3_2[] tmp_p3_2 = JsonHelper.ArrayFromJson<PlayerData.tbl_P3_2>(rawJSon);
 
@@ -261,7 +356,7 @@ namespace GoogleSheetsForUnity
                         GameRoot.player.p3_2 = tmp_player.p3_2;
                         break;
 
-                    case "p3-3":
+                    case "p3_3":
                         // Parse from json to the desired object type.
                         PlayerData.tbl_P3_3[] tmp_p3_3 = JsonHelper.ArrayFromJson<PlayerData.tbl_P3_3>(rawJSon);
 
@@ -274,7 +369,7 @@ namespace GoogleSheetsForUnity
                         GameRoot.player.p3_3 = tmp_player.p3_3;
                         break;
 
-                    case "p4-1":
+                    case "p4_1":
                         // Parse from json to the desired object type.
                         PlayerData.tbl_P4_1[] tmp_p4_1 = JsonHelper.ArrayFromJson<PlayerData.tbl_P4_1>(rawJSon);
 
@@ -287,7 +382,7 @@ namespace GoogleSheetsForUnity
                         GameRoot.player.p4_1 = tmp_player.p4_1;
                         break;
 
-                    case "p4-2":
+                    case "p4_2":
                         // Parse from json to the desired object type.
                         PlayerData.tbl_P4_2[] tmp_p4_2 = JsonHelper.ArrayFromJson<PlayerData.tbl_P4_2>(rawJSon);
 
@@ -300,7 +395,7 @@ namespace GoogleSheetsForUnity
                         GameRoot.player.p4_2 = tmp_player.p4_2;
                         break;
 
-                    case "p4-3":
+                    case "p4_3":
                         // Parse from json to the desired object type.
                         PlayerData.tbl_P4_3[] tmp_p4_3 = JsonHelper.ArrayFromJson<PlayerData.tbl_P4_3>(rawJSon);
 
@@ -400,6 +495,12 @@ namespace GoogleSheetsForUnity
                 }
 **/
             }
+
+            if(dataContainer.QueryType == Drive.QueryType.getCellValue)
+            {
+                cellval = dataContainer.payload;
+            }
+
 /**
             // First check the type of answer.
             if (dataContainer.QueryType == Drive.QueryType.getTable)

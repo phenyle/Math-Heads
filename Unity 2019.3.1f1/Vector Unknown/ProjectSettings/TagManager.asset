@@ -24,6 +24,7 @@ TagManager:
   - finTrig
   - resTrig
   - PuzzleCamera
+  - targetShips
   layers:
   - Default
   - TransparentFX

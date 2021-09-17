@@ -300,6 +300,11 @@ public class GameControllerMain : GameControllerRoot
         else
             GameRoot.instance.puzzlesDone[2][2] = false;
 
+        if (GameRoot.player.users.p2_3clear_time != 0.0f)
+            GameRoot.instance.puzzlesDone[2][3] = true;
+        else
+            GameRoot.instance.puzzlesDone[2][3] = false;
+
 
         //Puzzle 3-----------
         //legacy puzzle checks:

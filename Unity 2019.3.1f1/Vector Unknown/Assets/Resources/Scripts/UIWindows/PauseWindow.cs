@@ -10,6 +10,7 @@ public class PauseWindow : WindowRoot
     public Transform popupHub;
     public Transform popBlackScreen;
     public Transform[] pauseButtons;
+    public GameObject btn_Hub;
     public bool popupActive;
     public Slider sliderVolume;
     public Slider sliderSoundFX;
@@ -80,7 +81,7 @@ public class PauseWindow : WindowRoot
         GameRoot.isPuzzleLock = false;
 
         GameRoot.player.users.last_login = System.DateTime.Now.ToString();
-        GameRoot.GSFU.UpdatePlayer(false);
+        GameRoot.GSFU.UpdatePlayerTable(false, PlayerData.sheets.users, GameRoot.player.users.username);
         GameRoot.player = new PlayerData();
 
         //Dialogue manager can unlock the lock;
@@ -111,7 +112,7 @@ public class PauseWindow : WindowRoot
         GameRoot.isPuzzleLock = false;
 
         GameRoot.player.users.last_login = System.DateTime.Now.ToString();
-        GameRoot.GSFU.UpdatePlayer(false);
+        GameRoot.GSFU.UpdatePlayerTable(false, PlayerData.sheets.users, GameRoot.player.users.username);
         GameRoot.player = new PlayerData();
 
         ResetPauseMenu();

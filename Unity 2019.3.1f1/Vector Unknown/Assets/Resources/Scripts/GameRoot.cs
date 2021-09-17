@@ -16,6 +16,7 @@ public class GameRoot : MonoBehaviour
     public static GameRoot instance = null;
     public static bool isPause = false;
     public static bool isPuzzleLock = false;
+    public static bool isTutortial = false;
     
     [Header("Common API")]
     public LoadingWindow loadingWindow;
@@ -102,14 +103,14 @@ public class GameRoot : MonoBehaviour
     public void OnDisable()
     {
         player.users.last_login = DateTime.Now.ToString();
-        GSFU.UpdatePlayer(false);
+        GSFU.UpdatePlayerTable(false, PlayerData.sheets.users, player.users.username);
     }
 
     //On game shut down, save player info
     public void OnApplicationQuit()
     {
         player.users.last_login = DateTime.Now.ToString();
-        GSFU.UpdatePlayer(false);
+        GSFU.UpdatePlayerTable(false, PlayerData.sheets.users, player.users.username);
     }
 
     public void Update()
@@ -194,6 +195,7 @@ public class GameRoot : MonoBehaviour
     {
         Debug.Log("Pause");
 
+        pauseWindow.btn_Hub.SetActive(!isTutortial);
 
         // check to change cameras in puzzle 2
         if(SceneManager.GetActiveScene().name == Constants.puzzle02_1SceneName)

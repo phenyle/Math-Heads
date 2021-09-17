@@ -1694,6 +1694,7 @@ MonoBehaviour:
   - p4-1
   - p4-2
   - p4-3
+  schools: []
   users:
     username: default
     hash: 
@@ -1701,17 +1702,9 @@ MonoBehaviour:
     first_last: 
     ID_num: -1
     education: 
+    school: 
     last_login: 6/5/2021 8:42:29 PM
     tot_time: 0
-    p1_1clear_time: 0
-    p2_1clear_time: 0
-    p2_2clear_time: 0
-    p3_1clear_time: 0
-    p3_2clear_time: 0
-    p3_3clear_time: 0
-    p4_1clear_time: 0
-    p4_2clear_time: 0
-    p4_3clear_time: 0
     admin: 0
     isClass: 0
     isExpo: 0
@@ -1719,14 +1712,46 @@ MonoBehaviour:
     mouseSense: 0
     soundVol: 0
     soundFX: 0
+    p1_1clear_time: 0
+    p1_1attempts: 0
+    p2_1clear_time: 0
+    p2_1attempts: 0
+    p2_2clear_time: 0
+    p2_2attempts: 0
+    p2_3clear_time: 0
+    p2_3attempts: 0
+    p3_1clear_time: 0
+    p3_1attempts: 0
+    p3_2clear_time: 0
+    p3_2attempts: 0
+    p3_3clear_time: 0
+    p3_3attempts: 0
+    p4_1clear_time: 0
+    p4_1attempts: 0
+    p4_2clear_time: 0
+    p4_2attempts: 0
+    p4_3clear_time: 0
+    p4_3attempts: 0
   p1_1:
     username: 
+    attemptNum: 0
+    usernameAttempt: 
   p2_1:
     username: 
+    attemptNum: 0
+    usernameAttempt: 
   p2_2:
     username: 
+    attemptNum: 0
+    usernameAttempt: 
+  p2_3:
+    username: 
+    attemptNum: 0
+    usernameAttempt: 
   p3_1:
     username: 
+    attemptNum: 0
+    usernameAttempt: 
     obs:
       obsID: 0
       obsTime: 0
@@ -1735,6 +1760,8 @@ MonoBehaviour:
     obs_movesList: 
   p3_2:
     username: 
+    attemptNum: 0
+    usernameAttempt: 
     obs:
       obsID: 0
       obsTime: 0
@@ -1743,6 +1770,8 @@ MonoBehaviour:
     obs_movesList: 
   p3_3:
     username: 
+    attemptNum: 0
+    usernameAttempt: 
     obs:
       obsID: 0
       obsTime: 0
@@ -1751,6 +1780,8 @@ MonoBehaviour:
     obs_movesList: 
   p4_1:
     username: 
+    attemptNum: 0
+    usernameAttempt: 
     obs1_time: 0
     obs2_time: 0
     obs3_time: 0
@@ -1888,6 +1919,8 @@ MonoBehaviour:
     obs9_attempts: 
   p4_2:
     username: 
+    attemptNum: 0
+    usernameAttempt: 
     obs1_time: 0
     obs2_time: 0
     obs3_time: 0
@@ -2010,6 +2043,8 @@ MonoBehaviour:
     obs8_attempts: 
   p4_3:
     username: 
+    attemptNum: 0
+    usernameAttempt: 
     obs1_time: 0
     obs2_time: 0
     obs3_time: 0
@@ -2369,7 +2404,7 @@ PrefabInstance:
     - target: {fileID: 294871590796011475, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_Text
-      value: Version 1.32a
+      value: Version 1.35a
       objectReference: {fileID: 0}
     - target: {fileID: 307285399555302148, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
