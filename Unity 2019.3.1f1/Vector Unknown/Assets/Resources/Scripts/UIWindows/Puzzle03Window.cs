@@ -36,7 +36,7 @@ public class Puzzle03Window : WindowRoot
 
 
     [Header("--------Misc--------")]
-
+    public Transform quitPanel;
     
     public bool bVal = true;
     private bool ansSelected = false;
@@ -191,6 +191,11 @@ public class Puzzle03Window : WindowRoot
 //        GCP03.SetTipsPointsValue(new Vector3(1, 0, 0), new Vector3(0, 1, 0));
     }
 
+    public void ClickExitQuestionBtn()
+    {
+        GCP03.player.GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = true;
+    }
+
     public void ClickClearChoice1Btn()
     {
   //      GCP03.ReactivateChoiceBtn(choiceID1);
@@ -216,6 +221,9 @@ public class Puzzle03Window : WindowRoot
     {
         if (bVal)
         {
+            GCP03.tipsGlow1.SetActive(false);
+            GCP03.tipsGlow2.SetActive(true);
+
             txtFBChoice1.text = "1\n0\n0";
             txtChoice1.text = "1\n0\n0";
             txtFBChoice2.text = "0\n1\n<color=red>b</color>";
@@ -223,6 +231,10 @@ public class Puzzle03Window : WindowRoot
         }
         else
         {
+
+            GCP03.tipsGlow1.SetActive(true);
+            GCP03.tipsGlow2.SetActive(false);
+
             txtFBChoice1.text = "0\n1\n0";
             txtChoice1.text = "0\n1\n0";
             txtFBChoice2.text = "1\n0\n<color=red>b</color>";
@@ -254,14 +266,15 @@ public class Puzzle03Window : WindowRoot
             SetActive(panelChoice, true);
             panelChoiceAni.Play("ChoiceShow");
             PanelAnswer.SetActive(true);
-            PanelInstruction.SetActive(true);
+            //PanelInstruction.SetActive(true);
             PanelFeedback.SetActive(true);
             PanelProgress.SetActive(true);
             
         }
         else
         {
-            panelChoiceAni.Play("ChoiceHide");
+            //   panelChoiceAni.Play("ChoiceHide");
+            panelChoice.gameObject.SetActive(false);
             PanelAnswer.SetActive(false);
             PanelInstruction.SetActive(false);
             PanelFeedback.SetActive(false);

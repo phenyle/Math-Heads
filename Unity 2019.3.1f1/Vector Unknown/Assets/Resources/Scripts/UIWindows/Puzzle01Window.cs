@@ -6,12 +6,16 @@ public class Puzzle01Window : WindowRoot
     public bool isInit;
     public Transform iptPanel;
     public Transform feedbackPanel;
+    public Transform questionPanel;
     public InputField iptScalar;
     public InputField iptX, iptY, iptZ;
     public Text txtInstruction;
     public Text txtFBFormula;
     public Text txtFBTF;
     public Text txtFBTips;
+    public Text vector1text;
+    public Text answerText;
+    public Text vectorSolution;
     public Image[] PlatformTips;
     public Image[] PlatformTipsChecked;
 
@@ -50,6 +54,7 @@ public class Puzzle01Window : WindowRoot
 
         SetActive(iptPanel, false);
         SetActive(feedbackPanel, false);
+        SetActive(questionPanel, false);
 
         foreach (Image image in PlatformTips)
         {
@@ -83,14 +88,15 @@ public class Puzzle01Window : WindowRoot
         {
             if(GCP01.CheckAnswer(scalarValue, xValue, yValue, zValue))
             {
-                SetActive(PlatformTips[questionNum - 1], false);
-                SetActive(PlatformTipsChecked[questionNum - 1], true);
+//                SetActive(PlatformTips[questionNum - 1], false);
+//                SetActive(PlatformTipsChecked[questionNum - 1], true);
             }
 
             Debug.Log("Your answer is Scalar: " + iptScalar.text + ", X: " + iptX.text + ", Y: " + iptY.text + ", Z: " + iptZ.text);
 
             ClearInputField();
             SetActive(iptPanel, false);
+            SetActive(questionPanel, false);
 
             GCP01.isTriggerQuestion = false;
 

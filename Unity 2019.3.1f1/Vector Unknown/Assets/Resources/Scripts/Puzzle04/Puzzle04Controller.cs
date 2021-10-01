@@ -464,7 +464,7 @@ public class Puzzle04Controller : MonoBehaviour
                     temp.x = UnityEngine.Random.Range(-3, 4);
                     temp.y = UnityEngine.Random.Range(-3, 4);
                     temp.z = 0.0f;
-                } while (temp == Vector3.zero && testUnique(temp));
+                } while (temp == Vector3.zero || !testUnique(temp));
                 break;
 
             case 3:
@@ -474,7 +474,7 @@ public class Puzzle04Controller : MonoBehaviour
                     temp.x = UnityEngine.Random.Range(-3, 4);
                     temp.y = UnityEngine.Random.Range(-3, 4);
                     temp.z = UnityEngine.Random.Range(-3, 4);
-                } while (temp == Vector3.zero && testUnique(temp));
+                } while (temp == Vector3.zero || !testUnique(temp));
 
                 break;
         }
@@ -530,6 +530,19 @@ public class Puzzle04Controller : MonoBehaviour
         answer2.x = Mathf.RoundToInt(answer2.x / scal2);
         answer2.y = Mathf.RoundToInt(answer2.y / scal2);
         answer2.z = Mathf.RoundToInt(answer2.z / scal2);
+
+        //One last check that this Pair vector isn't just the same vector as the first vector
+        //The edge case for this is if Vector1(answer1) is parallel to the answer, in that case
+        //Vector2 will also be parallel, and possibly the same values.  If that happens
+        //we throw out Vector1 and recalc Vector2.
+        if (!testUnique(answer2))
+        {
+            cardVectors.Remove(answer1);
+            do { answer1 = VectorGenerator(); } while (answer1 == Vector3.zero || (answer1 * scal1) == InitFinalVector);
+            cardVectors.Add(answer1);
+
+            VectorPairFinder(scal1, answer1);
+        }
 
         //Now that we have both answer1 and answer2 created in the set of V, we need to adjust the finalGoal to match these rounded vectors
         finalAnswerVector = SetFinalAnswer(scal1, answer1, scal2, answer2);
@@ -841,6 +854,8 @@ public class Puzzle04Controller : MonoBehaviour
 
     }
 
+
+
     //------------------------------------
     // TOOL ACTIONS
     //------------------------------------
@@ -850,8 +865,10 @@ public class Puzzle04Controller : MonoBehaviour
     public void OnPortalEnter()
     {
         inPortal = true;
-
+        GCP04.currPuzzle = this;
         GCP04.SetPuzzlePause(true);
+
+        disablePlayer();
 
         visVectCamera.GetComponent<Camera>().enabled = true;
         visVectCamera.GetComponent<Camera>().clearFlags = CameraClearFlags.Nothing;
@@ -881,6 +898,7 @@ public class Puzzle04Controller : MonoBehaviour
         player.GetComponent<Rigidbody>().velocity = Vector3.zero;
 
         GCP04.P04W.setPuzzleController(this);
+        
 
         //Dialog Trigger
         if (convoTriggerNumber != 0)
@@ -888,13 +906,12 @@ public class Puzzle04Controller : MonoBehaviour
             GCP04.conversation(convoTriggerNumber);
         }
 
-        GCP04.isInQues = true;
-
         GCP04.P04W.ShowInputPanel(true);
         GCP04.P04W.ShowFeedbackPanel(true);
         GCP04.P04W.ShowCardPanel(true);
         GCP04.P04W.ShowButtonPanel(true);
-
+        GCP04.P04W.exitPanel.gameObject.SetActive(true);
+        GCP04.inPuzzle = true;
 
         GCP04.P04W.resetButtons();
 
@@ -919,8 +936,7 @@ public class Puzzle04Controller : MonoBehaviour
         visVectCamera.GetComponent<Camera>().clearFlags = CameraClearFlags.Depth;
         visVectCamera.GetComponent<Camera>().enabled = false;
 
-        player.GetComponent<ThirdPersonUserControl>().enabled = true;
-
+        enablePlayer();
 
         if (getCorrect())
         {
@@ -937,14 +953,12 @@ public class Puzzle04Controller : MonoBehaviour
 
         GameRoot.camEvents.AddListener(activateCamPlayer);
 
-
-        GCP04.isInQues = false;
-
         GCP04.P04W.ShowInputPanel(false);
         GCP04.P04W.ShowFeedbackPanel(false);
         GCP04.P04W.ShowCardPanel(false);
         GCP04.P04W.ShowButtonPanel(false);
-
+        GCP04.P04W.exitPanel.gameObject.SetActive(false);
+        GCP04.inPuzzle = false;
 
         GCP04.P04W.resetButtons();
 
@@ -969,6 +983,16 @@ public class Puzzle04Controller : MonoBehaviour
         GCP04.P04W.setCardValues(getAnswerCards());
         GCP04.P04W.setCardDisplay(this);
         GCP04.P04W.setFeedbackDisplay(this);
+    }
+
+    private void disablePlayer()
+    {
+        player.GetComponent<ThirdPersonUserControl>().isLock = true;
+    }
+
+    private void enablePlayer()
+    {
+        player.GetComponent<ThirdPersonUserControl>().isLock = false;
     }
 
     #endregion

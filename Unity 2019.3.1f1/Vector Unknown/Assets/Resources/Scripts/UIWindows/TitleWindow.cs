@@ -644,6 +644,7 @@ public class TitleWindow : WindowRoot
         audioService.PlayUIAudio(Constants.audioUIClickBtn);
 
         SetActive(panel_awaitServer, true);
+        panel_awaitServer.GetComponent<AwaitingServerPopup>().enabled = true;
         awaitServePop.SetStatus("Checking Connection");
 
         lg_login.enabled = false; //disable button so player can't spam click login and overload database with login requests

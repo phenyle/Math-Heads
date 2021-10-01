@@ -64,6 +64,12 @@ public class Puzzle04Window : WindowRoot
     public Slider puzzleSlider;
     private int numComplete;
 
+
+    //UPPER LEFT PIN WINDOW------------
+    [Header("Lower Left Panel")]
+    public Transform exitPanel;
+    public GameObject exitButton;
+
     //Legacy
     [Header("Legacy")]
     public bool isInit;
@@ -91,6 +97,7 @@ public class Puzzle04Window : WindowRoot
 
     protected override void InitWindow()
     {
+//        pauseWindow = GameRoot.instance.pauseWindow;
         GCP04 = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameControllerPuzzle04>();
 
         string controlsText = "MOUSE CONTROLS:\n" +
@@ -112,7 +119,7 @@ public class Puzzle04Window : WindowRoot
                                 "4 - Increase Scalar 2";
 
         pauseWindow.setPuzzleControlsText(controlsText);
-        pauseWindow.resizePuzzleControls(600, 800);
+        //pauseWindow.resizePuzzleControls(600, 800);
 
 
         //LOWER RIGHT INIT--------------------------------------
@@ -190,6 +197,7 @@ public class Puzzle04Window : WindowRoot
         ShowFeedbackPanel(false);
         ShowCardPanel(false);
         ShowButtonPanel(false);
+        SetActive(exitPanel, false);
         gridButton.SetActive(true);
         anchorsButton.SetActive(false);
         if (GCP04.Difficulty < 3)
@@ -766,6 +774,14 @@ public class Puzzle04Window : WindowRoot
         puzzleSlider.value = numComplete;
 
         puzzleComplete.text = numComplete.ToString() + "/" + GCP04.puzzleDatas.Count.ToString();
+    }
+
+    public void ClickExitButton()
+    {
+        if(PC04 != null)
+        {
+            PC04.OnPortalExit();
+        }
     }
 
 

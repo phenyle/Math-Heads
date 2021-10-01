@@ -69,6 +69,11 @@ public class PuzzleSystem : SystemRoot
                     audioService.PlayBgMusic(Constants.audioBgPuzzle2, true);
                     break;
 
+                case Constants.puzzle02_3SceneName:
+                    puzzle02Window.SetWindowState(true);
+                    audioService.PlayBgMusic(Constants.audioBgPuzzle2, true);
+                    break;
+
                 case Constants.puzzle03_1SceneName:
                     puzzle03Window.SetWindowState(true);
                     puzzle03Window.SetPanelChoice(0);

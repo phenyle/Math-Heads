@@ -474,7 +474,32 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 120660296846830079, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -126.90039
+      objectReference: {fileID: 0}
+    - target: {fileID: 120660296846830079, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -142.2998
+      objectReference: {fileID: 0}
     - target: {fileID: 191982571015847163, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1248938535602249354, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -134.2002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2309537209522346758, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -134.2002
+      objectReference: {fileID: 0}
+    - target: {fileID: 2775849974355484975, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -609,6 +634,11 @@ PrefabInstance:
       propertyPath: isInit
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5847834936424195903, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 248.90039
+      objectReference: {fileID: 0}
     - target: {fileID: 6564368572593558196, guid: eee79c634ca777149b1a3a7cba30dd5e,
         type: 3}
       propertyPath: m_IsActive
@@ -678,6 +708,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684715534293100538, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 104.17383
+      objectReference: {fileID: 0}
+    - target: {fileID: 7684715534293100538, guid: eee79c634ca777149b1a3a7cba30dd5e,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -31.516602
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: eee79c634ca777149b1a3a7cba30dd5e, type: 3}
@@ -878,6 +918,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Environment_Puzzle01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4645391995829570967, guid: 15cd6ec97ac2382409239dd5e371b9ae,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6338455064482308358, guid: 15cd6ec97ac2382409239dd5e371b9ae,
+        type: 3}
+      propertyPath: m_Mesh
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15cd6ec97ac2382409239dd5e371b9ae, type: 3}

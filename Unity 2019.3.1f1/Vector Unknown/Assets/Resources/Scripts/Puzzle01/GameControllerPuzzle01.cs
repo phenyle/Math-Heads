@@ -163,7 +163,10 @@ public class GameControllerPuzzle01 : GameControllerRoot
                     isTriggerQuestion = true;
 
                     P01W.ShowInputPanel(true);
-                    P01W.ShowFeedbackPanel(true);
+ //                   P01W.ShowFeedbackPanel(true);
+                    P01W.questionPanel.gameObject.SetActive(true);
+                    P01W.answerText.color = Color.red;
+                    P01W.answerText.text = "s * ( x, y, z )";
 
                     GameRoot.instance.IsLock(true);
 
@@ -177,6 +180,8 @@ public class GameControllerPuzzle01 : GameControllerRoot
                     if (isFirstTimeTriggerQuestion)
                     {
                         P01W.SetFeedbackQuestionTips("Find the displacement\n" + DBP01.GetCurrentVector(questionNum) + " ->" + DBP01.GetCurrentVector(questionNum + 1));
+                        P01W.vector1text.text = DBP01.GetCurrentVector(questionNum);
+                        P01W.vectorSolution.text = DBP01.GetCurrentVector(questionNum + 1);
                         // isFirstTimeTriggerQuestion = false;
                     }
                 }
@@ -186,6 +191,9 @@ public class GameControllerPuzzle01 : GameControllerRoot
 
                     P01W.ShowInputPanel(false);
                     P01W.ShowFeedbackPanel(false);
+                    P01W.questionPanel.gameObject.SetActive(false);
+                    P01W.answerText.color = Color.red;
+                    P01W.answerText.text = "s * ( x, y, z )";
 
                     GameRoot.instance.IsLock(false);
 
@@ -269,12 +277,16 @@ public class GameControllerPuzzle01 : GameControllerRoot
     {
         bool check = DBP01.Calculation(questionNum, scalar, x, y, z);
 
-        string formula = DBP01.GetCurrentVector(questionNum) + " + " + scalar + " * (" + x + ", " + y + ", " + z + ") = " + DBP01.GetResultVector();
+//        P01W.feedbackPanel.gameObject.SetActive(true);
+
+        P01W.answerText.text = scalar + " * ( " + x + ", " + y + ", " + z + " )";
+        string formula = DBP01.GetResultVector();
         if(check)
         {
             isAnswerCorrect = true;
+            P01W.answerText.color = Color.green;
 
-            P01W.SetFeedback(formula, "Correct", Color.black);
+            P01W.SetFeedback(formula, "Correct!", Color.green);
 
             //Prepare next question to show the question tips in feedback panel
             isFirstTimeTriggerQuestion = true;   
@@ -289,6 +301,7 @@ public class GameControllerPuzzle01 : GameControllerRoot
         {
             isAnswerCorrect = false;
 
+            P01W.answerText.color = Color.red;
             P01W.SetFeedback(formula, "Not quite, please try again...", Color.red);
 
             //Wrong answer audio FX

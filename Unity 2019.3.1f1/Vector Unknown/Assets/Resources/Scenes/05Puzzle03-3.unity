@@ -64886,6 +64886,8 @@ MonoBehaviour:
   trigger: {fileID: 2031113261}
   puzzCamStart: {fileID: 1295461453}
   startingFloor: {fileID: 615118377}
+  tipsGlow1: {fileID: 3307338005406477257}
+  tipsGlow2: {fileID: 3307338005406477256}
   mainCamera: {fileID: 398383483}
   puzzleCamera: {fileID: 1920456138}
   CameraTools: {fileID: 1920456139}
@@ -64908,6 +64910,7 @@ MonoBehaviour:
   currentRotation: {x: 0, y: 0, z: 0}
   diffRotation: {x: 0, y: 0, z: 0}
   subPuzzleID: 1
+  player: {fileID: 0}
   puzzleOverall: {fileID: 455784076}
   endZone: {fileID: 0}
   currPuzzle: {fileID: 476936085}
@@ -64948,12 +64951,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   spanValues:
-  - {fileID: 11400000, guid: 9a9b3b3fdbb67614d903e9b8a90c44a7, type: 2}
-  - {fileID: 11400000, guid: 98fd78b526ee559489f98ba65a3149f0, type: 2}
-  - {fileID: 11400000, guid: ce1c7ff1339ef0e45af78670c661d3d5, type: 2}
-  - {fileID: 11400000, guid: 9952ebe72c9fa42469ff9d53826f4050, type: 2}
-  - {fileID: 11400000, guid: dff44adff1d462d4ea7fb2519f2156bf, type: 2}
-  - {fileID: 11400000, guid: 17d5bdf26086eea47a1b333affa13c4a, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   subLevelPlanes:
   - {fileID: 1787378847}
   - {fileID: 688439266}
@@ -92472,6 +92475,11 @@ PrefabInstance:
       propertyPath: m_Parameters.numCornerVertices
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 8584212890387644434, guid: f3635ffe47980454fa9133cbcb9946d8,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8610858071318991877, guid: f3635ffe47980454fa9133cbcb9946d8,
         type: 3}
       propertyPath: m_Enabled
@@ -92610,6 +92618,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 1743154843}
+--- !u!1 &3307338005406477256 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8584212890387644434, guid: f3635ffe47980454fa9133cbcb9946d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 3307338005406477248}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3307338005406477257 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6850215176554077411, guid: f3635ffe47980454fa9133cbcb9946d8,
+    type: 3}
+  m_PrefabInstance: {fileID: 3307338005406477248}
+  m_PrefabAsset: {fileID: 0}
 --- !u!198 &4367994433361666090
 ParticleSystem:
   m_ObjectHideFlags: 0

@@ -13,6 +13,8 @@ public class GameControllerPuzzle03 : GameControllerRoot
     public GameObject trigger;
     public GameObject puzzCamStart;
     public Transform startingFloor;
+    public GameObject tipsGlow1;
+    public GameObject tipsGlow2;
 
     private Vector3 startRandRotate;
 
@@ -59,7 +61,7 @@ public class GameControllerPuzzle03 : GameControllerRoot
     public int subPuzzleID = 1;
     private bool isShiftPlane = false;
 
-    private GameObject player;
+    public GameObject player;
     private Vector3 startPosition;
 
     public GameObject puzzleOverall;
@@ -158,7 +160,13 @@ public class GameControllerPuzzle03 : GameControllerRoot
                 P03W.SetTime(minutes.ToString() + " : " + seconds.ToString());
         }
 
-
+        if (isInQuestion)
+        {
+            if(Input.GetKeyDown(KeyCode.E))
+            {
+                player.GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = false;
+            }
+        }
 
         //if(subPuzzleID < 3)
         //    GameObject.FindGameObjectWithTag("Player").GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = true;

@@ -18,6 +18,8 @@ public class QuestionTrigger : MonoBehaviour
             GameRoot.ShowTips("Please press \"E\" to answer the question", true, false);
             GCP03.conversation(convoNumber);
 
+            GCP03.player.GetComponent<UnityStandardAssets.Characters.ThirdPerson.ThirdPersonUserControl>().isLock = true;
+
             GCP03.CamGlideToPuzzle();
             GCP03.isTriggerQuestion = true;
             GameRoot.instance.IsLock(true);

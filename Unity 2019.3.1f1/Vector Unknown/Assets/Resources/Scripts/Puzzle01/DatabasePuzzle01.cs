@@ -144,16 +144,16 @@ public class DatabasePuzzle01 : MonoBehaviour
 
     public string GetCurrentVector(int questionNum)
     {
-        return "(" + pointVectors[questionNum - 1].x + ", "
+        return "( " + pointVectors[questionNum - 1].x + ", "
             + pointVectors[questionNum - 1].y + ", "
-            + pointVectors[questionNum - 1].z + ")";
+            + pointVectors[questionNum - 1].z + " )";
     }
 
     public string GetResultVector()
     {
-        return "(" + targetPositionDisplay.x + ", "
+        return "( " + targetPositionDisplay.x + ", "
             + targetPositionDisplay.y + ", "
-            + targetPositionDisplay.z + ")";
+            + targetPositionDisplay.z + " )";
     }
 
     /*

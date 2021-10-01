@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityStandardAssets.Characters.ThirdPerson;
 
 
 /// <summary>
@@ -23,6 +24,7 @@ public class GameControllerPuzzle04 : GameControllerRoot
     public float tot_puzzleTime;
     private bool pausePuzzTime;
     public List<Puzzle04Controller> puzzleDatas;
+    public Puzzle04Controller currPuzzle;
 
 
     [Header("Environment Components")]
@@ -31,32 +33,21 @@ public class GameControllerPuzzle04 : GameControllerRoot
     public LPWAsset.LowPolyWaterScript ocean;
     public Material night;
 
-    [Header("Question Trigger Components")]
-    public int questionNum;
-    public bool isInQues = false;
-    public bool isTriggerQuestion = false;
-    public bool isAnswerCorrect = true;
 
-    [Header("Mast Trigger Components")]
- //   public bool isInMast = false;
-    public bool isTriggerMast = false;
-    public ParticleSystem congrats;
-    //   public Transform endportal;
-
+    [Header("Misc Components")]
     public GameObject puzzleWindow;
+    public bool inPuzzle = false;
 
     //MVC Components
     [HideInInspector]
     public Puzzle04Window P04W;
     [HideInInspector]
     public UnityEvent events;
-    //   public DatabasePuzzle01 DBP01;
 
     private AudioService audio04;
 
     private GameObject player;
     private Vector3 startPosition;
-    private bool isFirstTimeTriggerQuestion = true;
     private Vector3 previousPosition;
     public int timer = 0;
     public int numCorrect = 0;
@@ -129,6 +120,16 @@ public class GameControllerPuzzle04 : GameControllerRoot
             player.transform.position = startPosition;
             GameRoot.ShowTips("", true, false);
         }
+
+        //if(Input.GetKeyDown(KeyCode.E))
+        //{
+        //    player.GetComponent<ThirdPersonUserControl>().enabled = true;
+        //    player.GetComponent<ThirdPersonCharacter>().enabled = true;
+        //    if(currPuzzle != null && inPuzzle)
+        //    {
+        //        currPuzzle.OnPortalExit();
+        //    }
+        //}
 /**
         //Update the instruction text based on the player status
         if (isInQues == true)
@@ -162,101 +163,6 @@ public class GameControllerPuzzle04 : GameControllerRoot
                 else
                     P04W.SetTime(minutes.ToString() + " : " + seconds.ToString());
             }
-
-            // Z key to switch camera
-            //if (Input.GetKeyDown(KeyCode.Z))
-            //{
-            //    SwitchCamera();
-            //}
-
-            if (isInQues && questionNum != 0)
-            {
-                // E key for the question tigger and exit
-                if (!isTriggerQuestion && Input.GetKeyDown(KeyCode.E))
-                {
-                    //Show the dialogue when player trigger the question
-                    if (questionNum == 1 && DialogueManager.showP01_01)
-                    {
-                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_01"));
-                        DialogueManager.showP01_01 = false;
-                    }
-                    else if (questionNum == 2 && DialogueManager.showP01_03)
-                    {
-                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_03"));
-                        DialogueManager.showP01_03 = false;
-                    }
-                    else if (questionNum == 3 && DialogueManager.showP01_05)
-                    {
-                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_05"));
-                        DialogueManager.showP01_05 = false;
-                    }
-                    else if (questionNum == 4 && DialogueManager.showP01_07)
-                    {
-                        FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_07"));
-                        DialogueManager.showP01_07 = false;
-                    }
-                    //********************************************************
-
-                    isTriggerQuestion = true;
-
-                    P04W.ShowInputPanel(true);
-                    P04W.ShowFeedbackPanel(true);
-                    P04W.ShowCardPanel(true);
-
-                    GameRoot.instance.IsLock(true);
-
-                    //Resume cannot unlock the lock
-                    GameRoot.isPuzzleLock = true;
- 
-                    //Dialogue manager cannot unlock the lock;
-                    DialogueManager.isPuzzleLock = true;
-
-                    //Set current question tips in feedback panel
-                    if (isFirstTimeTriggerQuestion)
-                    {
-                    //    P01W.SetFeedbackQuestionTips("Find the displacement\n" + DBP01.GetCurrentVector(questionNum) + " ->" + DBP01.GetCurrentVector(questionNum + 1));
-                        isFirstTimeTriggerQuestion = false;
-                    }
-                }
-                else if (isTriggerQuestion && Input.GetKeyDown(KeyCode.E))
-                {
-                    isTriggerQuestion = false;
-
-                    P04W.ShowInputPanel(false);
-                    P04W.ShowFeedbackPanel(false);
-                    P04W.ShowCardPanel(false);
-
-
-                    GameRoot.instance.IsLock(false);
-
-                    //Resume can unlock the lock
-                    GameRoot.isPuzzleLock = false;
-
-                    //Dialogue manager can unlock the lock;
-                    DialogueManager.isPuzzleLock = false;
-                }
-            }
-
-            ////Trigger Mast prop to end the puzzle01
-            //if(isInMast && !isTriggerMast)
-            //{
-            //    if(Input.GetKeyDown(KeyCode.E))
-            //    {
-            //        isTriggerMast = true;
-
-            //        congrats.Play();
-            //    //    endportal.gameObject.SetActive(true);
-
-            //        //Congratulation FX
-            //        audioService.PlayFXAudio(Constants.audioP01Congratulation);
-
-            //        if (DialogueManager.showP01_09)
-            //        {
-            //            FindObjectOfType<DialogueManager>().StartDialogue(resourceService.LoadConversation("Puzzle01_09"));
-            //            DialogueManager.showP01_09 = false;
-            //        }
-            //    }
-            //}
         }
 
         previousPosition = player.transform.position;
@@ -343,10 +249,7 @@ public class GameControllerPuzzle04 : GameControllerRoot
             case -1:
                 Camera.main.depth = 1;
                 topCamPlayer.GetComponent<TopCameraPlayer>().isTopCamera = false;
-                if (!isTriggerQuestion)
-                {
-                    GameRoot.instance.IsLock(false);
-                }
+
                 break;
         }
     }
